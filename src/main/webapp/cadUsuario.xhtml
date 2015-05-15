@@ -37,16 +37,22 @@
                                     <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                 </p:calendar>
                             </h:panelGrid> 
-                            <h:panelGrid columns="6" cellpadding="5">   
-                                <p:outputLabel value="Subdepartamento" for="subdepartamento" class="left1"/>
+                            <h:panelGrid columns="6" cellpadding="5">  
+                                <p:outputLabel value="Depatamento" class="left1"/> 
+                                <p:outputLabel value="Subdepartamento" for="subdepartamento" class="filtrar6"/>
                                 <p:outputLabel value="Tipo de Acesso" for="tipoacesso" class="filtrar6"/>
                             </h:panelGrid>       
-                            <h:panelGrid columns="6" cellpadding="3">   
-                                <p:selectOneMenu id="subdepartamento" value="#{UsuarioMB.idSubdepartamento}" class="left1" style="width:160px">
+                            <h:panelGrid columns="6" cellpadding="3"> 
+                                <p:selectOneMenu id="departamento" value="#{UsuarioMB.idDepartamento}" class="left1" style="width:145px">
+                                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                                    <f:selectItems value="#{UsuarioMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
+                                    <p:ajax event="change" listener="#{UsuarioMB.gerarListaSubdepartamento()}" update="subdepartamento" />
+                                </p:selectOneMenu>
+                                <p:selectOneMenu id="subdepartamento" value="#{UsuarioMB.idSubdepartamento}" class="filtrar7" style="width:160px">
                                     <f:selectItem itemLabel="Selecione" itemValue="sn"   />
                                     <f:selectItems value="#{UsuarioMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
                                 </p:selectOneMenu>
-                                <p:selectOneMenu id="tipoacesso" value="#{UsuarioMB.idPerfil}" class="filtrar7" style="width:160px">
+                                <p:selectOneMenu id="tipoacesso" value="#{UsuarioMB.idPerfil}" class="filtrar7" style="width:175px">
                                     <f:selectItem itemLabel="Selecione" itemValue="sn"   />
                                     <f:selectItems value="#{UsuarioMB.listaPerfil}" var="perfilSelecionado" itemLabel="#{perfilSelecionado.tipoacesso}" itemValue="#{perfilSelecionado.idperfil}"/>
                                 </p:selectOneMenu>

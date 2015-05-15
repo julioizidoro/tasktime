@@ -11,10 +11,16 @@
                 <div id="centro2" >
                       <legend class="titulo">Cadastro de Rotina</legend>
                      <br></br> 
-                     <p:panelGrid columns="2" styleClass="semBorda" class="semBorda" >
+                     <p:panelGrid columns="3" styleClass="semBorda" class="semBorda" >
+                        <p:outputLabel value="Depatamento" class="fonte"/> 
                         <p:outputLabel value="Sub-Depatamento" class="fonte"/> 
                         <p:outputLabel value="Nome Rotina" class="fonte"/> 
                         
+                        <p:selectOneMenu id="departamento" value="#{RotinaMB.idDepartamento}" class="fonte" style="width:145px">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{RotinaMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
+                            <p:ajax event="change" listener="#{RotinaMB.gerarListaSubdepartamento()}" update="subdepartamento" />
+                        </p:selectOneMenu>
                         <p:selectOneMenu id="subdepartamento" value="#{RotinaMB.idSubdepartamento}" class="fonte" style="width:140px">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />
                             <f:selectItems value="#{RotinaMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>

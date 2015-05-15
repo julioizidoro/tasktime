@@ -67,16 +67,16 @@
                 <p:outputLabel value="Cliente" class="filtrar4"/> 
             <br></br>
             <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="filtrar" style="width:145px">
-                <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
                 <p:ajax event="change" listener="#{AtividadeMB.gerarListaSubdepartamento()}" update="subdepartamento" />
             </p:selectOneMenu>
              <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="add" style="width:150px">
-                <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
             </p:selectOneMenu>
             <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:155px" class="add">
-                <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
             </p:selectOneMenu>
              <br></br>

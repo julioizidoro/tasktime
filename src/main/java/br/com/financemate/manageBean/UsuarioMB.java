@@ -95,7 +95,10 @@ public class UsuarioMB implements Serializable{
         this.nomeUsuario = nomeUsuario;
     }
 
-    public List<Departamento> getListaDepartamento() {
+    public List<Departamento> getListaDepartamento() throws SQLException {
+        if(listaDepartamento==null){
+            gerarListaDepartamento();
+        }
         return listaDepartamento;
     }
 
@@ -104,9 +107,6 @@ public class UsuarioMB implements Serializable{
     }
 
     public List<Subdepartamento> getListaSubdepartamento() throws SQLException {
-        if(listaSubdepartamento==null){
-            gerarListaSubdepartamento();
-        }
         return listaSubdepartamento;
     }
 

@@ -9,6 +9,7 @@ import br.com.financemate.bean.Formatacao;
 import br.com.financemate.bean.RotinaBean;
 import br.com.financemate.facade.AtividadeFacade;
 import br.com.financemate.facade.ClienteFacade;
+import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.RotinaAtividadeFacade;
 import br.com.financemate.facade.RotinaFacade;
 import br.com.financemate.facade.RotinaclienteFacade;
@@ -16,12 +17,14 @@ import br.com.financemate.facade.SubdepartamentoFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Cliente;
+import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Rotina;
 import br.com.financemate.model.Rotinaatividade;
 import br.com.financemate.model.Rotinacliente;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +48,7 @@ public class RotinaMB  implements Serializable{
     private Rotina rotina;
     private String nomeRotina;
     private List<Subdepartamento> listaSubdepartamento;
+    private List<Departamento> listaDepartamento;
     private String idSubdepartamento;
     private List<Usuario> listaUsuario;
     private String idUsuario="0";
@@ -170,6 +174,18 @@ public class RotinaMB  implements Serializable{
     public void setListaRotina(List<Rotina> listaRotina) {
         this.listaRotina = listaRotina;
     }
+
+    public List<Departamento> getListaDepartamento() throws SQLException {
+       if(listaDepartamento==null){
+           gerarListaDepartamento();
+       }
+        return listaDepartamento;
+    }
+
+    public void setListaDepartamento(List<Departamento> listaDepartamento) {
+        this.listaDepartamento = listaDepartamento;
+    }
+    
 
     public String getIdRotina() {
         return idRotina;
@@ -506,5 +522,12 @@ public class RotinaMB  implements Serializable{
         atividades.setPrazo(rotinaBean.getRotinacliente().getData());
         atividades = atividadeFacade.salvar(atividades);
         salvarRotinaAtividade(atividades);
+    }
+    public void gerarListaDepartamento() throws SQLException{
+        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+        listaDepartamento = departamentoFacade.listar("");
+        if (listaDepartamento==null){
+            listaDepartamento = new ArrayList<Departamento>();
+        }
     }
 }
