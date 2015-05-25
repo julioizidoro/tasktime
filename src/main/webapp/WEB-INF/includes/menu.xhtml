@@ -1,0 +1,40 @@
+<h:form xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html">
+        
+    <div id="tudo">
+    <tr>
+        <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td><img src="resources/img/logotakstime.png" alt="" width="200" height="160" />
+                        <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
+                                <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
+                                <p:outputLabel value="#" /> 
+                                <p:outputLabel value="Unidade:"  class="fonteUsuarioLogado"/> 
+                                <p:outputLabel value="#"/> 
+                            </h:panelGrid><br></br><br></br></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <p:menubar class="menu">
+        <p:submenu label="Inserir Tarefas" class="submenu" icon=" ui-icon-plus ">
+            <p:menuitem class="submenu" value="Tarefa para Departamento" action="#" />
+            <p:menuitem class="submenu" value="Tarefa para Cliente" action="#" />
+            <p:menuitem class="submenu" value="Tarefa para Usuário" action="#" />
+        </p:submenu>
+    </p:menubar>
+    <p:menu toggleable="true"  class="menu2">
+        <p:submenu label="Prazos">
+            <p:menuitem value="Cliente" icon=" ui-icon-person "/>
+            <p:menuitem value="Departamento" icon=" ui-icon-star "/>
+        </p:submenu>
+        <p:submenu label="Tarefas">
+            <p:menuitem value="Hoje" icon="ui-icon-calendar"/>
+            <p:menuitem value="Semana" icon="ui-icon-calendar"/>
+        </p:submenu>
+    </p:menu>
+    <br>  </br>
+    <br>  </br>
+</div>
+</h:form>

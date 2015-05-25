@@ -1,0 +1,93 @@
+    body {
+        font-family: tahoma;
+        
+        background-color: #3195D2;
+    }
+
+    h1 {
+        margin: 10px 20px 10px 20px;
+    }
+    #tudo {
+        top:-9px;
+        position: relative;
+        background:#fff;
+        margin: 0px 0 20px -390px;
+        width:1155px;
+        left:6%;
+        border: 0px solid #aaa;
+        margin-left:-10px;
+    }
+    #centro {
+        background: #fff;
+        width: 1155px;
+        margin-left:72px;
+        margin-top:-94px;
+        //borda arredondada
+        -webkit-border-bottom-right-radius: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-radius-bottomright: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius:5px;
+        //////////
+        //borda sombreada
+        box-shadow: 5px 4px 10px #828282;
+        -moz-box-shadow: 5px 4px 10px #828282;
+        -webkit-box-shadow: 5px 4px 10px #828282;
+        -khtml-box-shadow: 5px 4px 10px #828282;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#ccc,direction=120,strength=4)"; /* IE8+ */
+        filter:progid:DXImageTransform.Microsoft.Shadow(color=#ccc,direction=120,strength=4); /* IE7 and lower */
+        ///////
+    }
+    .menu{
+        font-family: tahoma;
+        list-style:none; 
+        width:1147px;
+        float:left;
+        margin-top:-20px;
+        background: #3A5795;
+        font-size: 12px;
+    }
+    .menu2{
+        font-family: tahoma;
+        list-style:none; 
+        float:left;
+        font-size: 12px;
+        margin-top:0px;
+        height:200px;
+    }
+    .submenu{
+        font-family: tahoma;
+        float:left;
+        font-size: 14px;
+    }
+    .menu li a{
+        color:#fff; 
+        text-decoration:none; 
+        padding:5px 10px; 
+        display:block;
+        font-size: 12px;
+    }
+
+    .menu li a:hover{
+        background:#3A5795;
+        color:#333;
+        -moz-box-shadow:0 3px 10px 0 #CCC;
+        -webkit-box-shadow:0 3px 10px 0 #ccc;
+        text-shadow:0px 0px 5px #fff;
+    }
+    .logo{
+        margin-top:-5px;
+        background:#fff;
+        width:1150px;
+    }
+    .usuariologado{
+        margin-top:-85px;
+        margin-left:750px;
+        color:#3A5795;
+        font-size:11px;
+    }
+    .fonteUsuarioLogado{
+        font-size:12px;
+        color:#3A5795;
+     }
