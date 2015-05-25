@@ -10,31 +10,34 @@
                         <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
                                 <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
                                 <p:outputLabel value="#" /> 
-                                <p:outputLabel value="Unidade:"  class="fonteUsuarioLogado"/> 
-                                <p:outputLabel value="#"/> 
                             </h:panelGrid><br></br><br></br></td>
                 </tr>
             </table>
         </td>
     </tr>
     <p:menubar class="menu">
-        <p:submenu label="Inserir Tarefas" class="submenu" icon=" ui-icon-plus ">
-            <p:menuitem class="submenu" value="Tarefa para Departamento" action="#" />
+        <p:submenu label="Cadastros" class="submenu" icon=" ui-icon-plus ">
+            <p:menuitem class="submenu" value="Rotina" action="#" />
             <p:menuitem class="submenu" value="Tarefa para Cliente" action="#" />
             <p:menuitem class="submenu" value="Tarefa para Usuário" action="#" />
         </p:submenu>
     </p:menubar>
+    </div>
+    <div id="centro">
     <p:menu toggleable="true"  class="menu2">
+        <p:submenu label="To do List">
+            <p:menuitem value="Tarefas do Depatamento" icon=" ui-icon-search "/>
+        </p:submenu>
         <p:submenu label="Prazos">
-            <p:menuitem value="Cliente" icon=" ui-icon-person "/>
-            <p:menuitem value="Departamento" icon=" ui-icon-star "/>
+            <p:menuitem value="Situação" icon=" ui-icon-alert "/>
         </p:submenu>
         <p:submenu label="Tarefas">
             <p:menuitem value="Hoje" icon="ui-icon-calendar"/>
             <p:menuitem value="Semana" icon="ui-icon-calendar"/>
+            <p:menuitem value="Atrasadas" icon="ui-icon-calendar"/>
         </p:submenu>
     </p:menu>
+    </div>
     <br>  </br>
     <br>  </br>
-</div>
 </h:form>

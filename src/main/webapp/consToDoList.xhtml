@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form>
+                <div id="centro2" >
+                     <br></br>
+                     <br></br>
+                      <legend class="titulo">To do List!</legend>
+                     <br></br>
+                        <p:outputLabel value="Visualizar" class="filtrar" />  
+                        <p:outputLabel value="Depatamento" class="filtrar2"/>
+                        <p:outputLabel value="Cliente" class="filtrar2"/> 
+                        <p:outputLabel value="Usuário" class="filtrar3"/> 
+                    <br></br>
+                        <p:selectOneMenu id="visualizar" value="#" style="width:130px" class="filtrar">
+                            <f:selectItem itemLabel="Todas" itemValue="todas" noSelectionOption="true" class="filtrar"/> 
+                            <f:selectItem itemLabel="Hoje" itemValue="hoje" class="filtrar"/>  
+                            <f:selectItem itemLabel="Prox. 7 dias" itemValue="proximasdias" class="filtrar"/>  
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="departamento" value="#" style="width:154px" class="filtrar">
+                            <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="cliente" value="#" style="width:140px" class="filtrar">
+                            <f:selectItem itemLabel="Todos" itemValue="todos" noSelectionOption="true"/> 
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="usuario" value="#" style="width:130px" class="filtrar">
+                            <f:selectItem itemLabel="Todos" itemValue="todos" noSelectionOption="true"/> 
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Concluidas" class="filtrar"/>
+                        <p:selectBooleanCheckbox value="#" class="Selecionarconcluida"/>
+                        <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1"/>  
+                    
+                    <p:dataTable var="tarefasHoje" value="#" class="dataGrid">
+                        <p:column headerText="Atividade" style="width:150px;">
+                            <h:outputText value="#" />
+                        </p:column>
+
+                        <p:column headerText="Responsável" style="width:120px;">
+                            <h:outputText value="#" />
+                        </p:column>
+
+                        <p:column headerText="Sub-Departamento" style="width:120px;">
+                            <h:outputText value="#" />
+                        </p:column>
+
+                        <p:column headerText="Cliente" style="width:120px;">
+                            <h:outputText value="#" />
+                        </p:column>
+                        
+                        <p:column headerText="Prazo" style="width:90px;">
+                            <h:outputText value="#" />
+                        </p:column>
+                        
+                        <p:column headerText="Prioridade" style="width:50px;" styleClass="alinhaCentro">
+                            <h:outputText value="#" />
+                        </p:column>
+                        <p:column headerText="Comentário" style="width:55px;" styleClass="alinhaCentro">
+                            <p:commandButton  id="comentario" icon="ui-icon-comment" title="Adicionar Comentário" action="#" >
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Concluída" style="width:50px;" styleClass="alinhaCentro">
+                            <p:selectBooleanCheckbox value="#" />
+                        </p:column>
+                    </p:dataTable>
+                    <br></br>
+                </div>
+                
+            </h:form>     
+
+        </ui:define>
+    </ui:composition>
+</html>
+

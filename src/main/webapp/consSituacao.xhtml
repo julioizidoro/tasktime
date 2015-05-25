@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/WEB-INF/templates/default.xhtml">
+        <ui:define name="corpo">
+            <h:form>
+                <div id="centro2" >
+                     <br></br>
+                      <legend class="titulo">Situação!</legend>
+                     <br></br>
+                        <p:outputLabel value="Depatamento" class="filtrar"/>
+                        <p:outputLabel value="Sub-Depatamento" class="filtrar2"/> 
+                        <p:outputLabel value="Nome Rotina" class="filtrar4"/> 
+                    <br></br>
+                        <p:selectOneMenu id="departamento" value="#" style="width:154px" class="filtrar">
+                            <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="sub" value="#" style="width:140px" class="filtrar">
+                            <f:selectItem itemLabel="Todos" itemValue="todos" noSelectionOption="true"/> 
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="nomeRotina" value="#" style="width:130px" class="filtrar">
+                            <f:selectItem itemLabel="Todos" itemValue="todos" noSelectionOption="true"/> 
+                        </p:selectOneMenu>
+                        <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1"/>  
+                  
+                    <p:dataTable var="tarefasHoje" value="#" class="dataGrid">
+                        <p:column headerText="Cliente" style="width:150px;">
+                            <h:outputText value="#" />
+                        </p:column>
+
+                        <p:column headerText="Mês" style="width:50px;" styleClass="alinhaCentro">
+                            <h:outputText value="#" />
+                        </p:column>
+
+                        <p:column headerText="Mês" style="width:50px;" styleClass="alinhaCentro">
+                            <h:outputText value="#" />
+                        </p:column>
+
+                        <p:column headerText="Mês" style="width:50px;" styleClass="alinhaCentro">
+                            <h:outputText value="#" />
+                        </p:column>
+                        
+                        <p:column headerText="Mês" style="width:50px;" styleClass="alinhaCentro">
+                            <h:outputText value="#" />
+                        </p:column>
+                        
+                        <p:column headerText="Mês" style="width:50px;" styleClass="alinhaCentro">
+                            <h:outputText value="#" />
+                        </p:column>
+                        
+                        <p:column style="width:50px;" styleClass="alinhaCentro">
+                            <p:selectBooleanCheckbox value="#"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br></br>
+                </div>
+                
+            </h:form>     
+
+        </ui:define>
+    </ui:composition>
+</html>
+
