@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -115,6 +116,8 @@ public class Cliente implements Serializable {
     private List<Atividades> atividadesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Planodre> planodreList;
+    @Transient
+    private boolean selecionado;
 
     public Cliente() {
     }
@@ -195,6 +198,14 @@ public class Cliente implements Serializable {
         this.bairro = bairro;
     }
 
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+    
     public String getCidade() {
         return cidade;
     }

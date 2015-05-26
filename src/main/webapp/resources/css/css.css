@@ -1,7 +1,6 @@
     body {
         font-family: tahoma;
-        
-        background-color: #3195D2;
+        background-color:#E0EEEE;
     }
 
     h1 {
@@ -62,6 +61,39 @@
         filter:progid:DXImageTransform.Microsoft.Shadow(color=#ccc,direction=120,strength=4); /* IE7 and lower */
         ///////
     }
+    #centro3 {
+       background: -moz-linear-gradient(
+		top,
+		#fff 26%,
+		#ebebeb 45%,
+		#a1bbf0);
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#f2f9fa),
+		color-stop(0.45, #ebebeb),
+		to(#a1bbf0));
+        width: 1155px;
+        margin-left:72px;
+        margin-top:-50px;
+        height:300px; 
+        //borda arredondada
+        -webkit-border-bottom-right-radius: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-radius-bottomright: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius:5px;
+        //////////
+        //borda sombreada
+        box-shadow: 5px 4px 10px #828282;
+        -moz-box-shadow: 5px 4px 10px #828282;
+        -webkit-box-shadow: 5px 4px 10px #828282;
+        -khtml-box-shadow: 5px 4px 10px #828282;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#ccc,direction=120,strength=4)"; /* IE8+ */
+        filter:progid:DXImageTransform.Microsoft.Shadow(color=#ccc,direction=120,strength=4); /* IE7 and lower */
+        ///////
+        
+    }
     .menu{
         font-family: tahoma;
         list-style:none; 
@@ -84,6 +116,7 @@
         font-family: tahoma;
         float:left;
         font-size: 14px;
+        background: #3A5795;
     }
     .submenu2{
         color:#fff;
@@ -91,15 +124,22 @@
         float:left;
         font-size: 14px;
     }
-    .menu li a{
+    .submenu2 li a{
+        color:#333;
         text-decoration:none; 
         padding:5px 10px; 
         display:block;
         font-size: 12px;
     }
-
+     .menu li a{
+        color:#fff;
+        text-decoration:none; 
+        padding:5px 10px; 
+        display:block;
+        font-size: 12px;
+    }
     .menu li a:hover{
-        background:#3A5795;
+        background:#a1bbf0;
         color:#333;
         -moz-box-shadow:0 3px 10px 0 #CCC;
         -webkit-box-shadow:0 3px 10px 0 #ccc;
@@ -124,7 +164,7 @@
          font-size:11px;
          width: 950px;
          margin-top:10px;
-         margin-left:180px;
+         margin-left:200px;
      }
      .dataGridcadastro{
          font-size:11px;
@@ -141,6 +181,8 @@
         word-spacing: 1.6pt;
      }
      .subtitulo{
+        background:#ccc;
+        width:676px;
         font-family: Tahoma, Geneva, sans-serif;
         font-size: 14px;
         font-weight: bold;
@@ -151,11 +193,13 @@
      }
      .concluida{
          font-size:12px;
-         margin-left:850px;
+         margin-left:800px;
      }
      .Selecionarconcluida{
          margin-left:5px;
+         font-size:12px;
      }
+     
      button.botao1 {
          top:-10px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -210,6 +254,10 @@
          margin-top:-30px;
          font-size:12px;
          margin-left:20px;
+   }
+   .filtrar6{
+         font-size:12px;
+         margin-left:83px;
    }
    .alinhaCentro{
        text-align:center;
@@ -329,12 +377,13 @@
 		0px 1px 0px rgba(255,255,255,1);
    }
    button.gestao {
+       width:135px; 
         top:-10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #3A5795;
 	padding: 5px 0px;
-        margin-left:120px;
+        margin-left:38px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -356,9 +405,10 @@
         top:-10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
+        width:135px; 
 	color: #3A5795;
 	padding: 5px 0px;
-        margin-left:320px;
+        margin-left:329px;
 	-moz-border-radius: 1px;
 	-webkit-border-radius: 1px;
 	border-radius: 1px;
@@ -387,7 +437,7 @@
    }
     .left3{
          font-size:12px;
-         margin-left:314px;
+         margin-left:325px;
    }
    .left4{
          font-size:12px;
@@ -405,7 +455,7 @@
    .rightleft3{
          text-align: right;
          font-size:12px;
-         margin-left:314px;
+         margin-left:322px;
    }
    .ui-datatable .ui-datatable-data .even-row td{  
         background-color:#E8E8E8;  
@@ -416,3 +466,47 @@
         background-color:#fff;  
         border:0px;
     }  
+    .dialog{
+        font-size: 12px;
+    }
+    .botaoDialog{
+        font-size: 12px;
+        margin-left:20px;
+    }
+    .botaoDialog2{
+        font-size: 12px;
+        margin-left:320px;
+    }
+    .botaoDialog3{
+        font-size: 12px;
+        margin-left:8px;
+    }
+    .botaologin{
+        color:#3A5795;
+    }
+    .botaologin2{
+        color:#3A5795;
+    }
+    .login{
+        width:280px;
+        font-size:12px;
+        margin-top:50px;
+        margin-left:470px;
+        -moz-box-shadow:
+		0px 1px 6px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 6px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	box-shadow:
+		0px 1px 6px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 4px rgba(000,000,000,0.2),
+		0px 1px 0px rgba(255,255,255,1);
+         background: #3A5795;
+         color:#fff;
+    }
+    .senha{
+        margin-left:-40px;
+    }

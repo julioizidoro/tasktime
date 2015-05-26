@@ -10,23 +10,26 @@
             <h:form>
                 <div id="centro2" >
                     <br></br>
-                      <legend class="titulo">Consulta de Cliente</legend>
+                      <legend class="titulo">Consulta de Rotina</legend>
                      <br></br>
-                     <p:dataTable var="consCliente" value="#" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                    <p:dataTable var="consRotina" value="#" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
-                        <p:column headerText="Nome Fantasia" style="width:150px;" styleClass="border">
+                        <p:column headerText="Nome" style="width:150px;" styleClass="border">
                             <h:outputText value="#" />
                         </p:column>
 
-                        <p:column headerText="Pessoa para Contato" style="width:120px;" styleClass="border">
+                        <p:column headerText="Cliente" style="width:120px;" styleClass="border">
                             <h:outputText value="#" />
                         </p:column>
 
-                        <p:column headerText="E-mail" style="width:120px;" styleClass="border">
+                        <p:column headerText="Periodicidade" style="width:120px;" styleClass="border">
                             <h:outputText value="#" />
                         </p:column>
 
-                        <p:column headerText="Telefone" style="width:80px;" styleClass="border">
+                        <p:column headerText="Data" style="width:80px;" styleClass="border">
+                            <h:outputText value="#" />
+                        </p:column>
+                        <p:column headerText="Responsável" style="width:120px;" styleClass="border">
                             <h:outputText value="#" />
                         </p:column>
                         <p:column  style="width:50px;" styleClass="alinhaCentro">
@@ -34,8 +37,8 @@
                         </p:column>
                     </p:dataTable>
                     <br></br><br></br>
-                    <p:commandButton icon=" ui-icon-check" value="Novo" class="cadastro2" action="#{ClienteMB.novo()}"/>  
-                    <p:commandButton icon=" ui-icon-close " value="Editar" class="cancelar" action="#{ClienteMB.editar()}"/> 
+                    <p:commandButton icon=" ui-icon-check" value="Novo" class="cadastro2" action="#{MenuMB.cadrotina()}"/>  
+                    <p:commandButton icon=" ui-icon-close " value="Editar" class="cancelar"/> 
                 </div>
                 
             </h:form>     

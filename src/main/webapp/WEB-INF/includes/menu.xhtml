@@ -1,5 +1,6 @@
 <h:form xmlns="http://www.w3.org/1999/xhtml"
         xmlns:p="http://primefaces.org/ui"
+         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html">
         
     <div id="tudo">
@@ -9,7 +10,7 @@
                     <td><img src="resources/img/logotakstime.png" alt="" width="140" height="100" />
                         <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
                                 <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
-                                <p:outputLabel value="#" /> 
+                                <p:outputLabel value="#{UsuarioLogadoBean.usuario.nome}" /> 
                             </h:panelGrid><br></br><br></br></td>
                 </tr>
             </table>
@@ -18,28 +19,71 @@
         <br></br>
     <p:menubar class="menu">
         <p:submenu label="Cadastros" class="submenu2" icon=" ui-icon-plus ">
-            <p:menuitem class="submenu" value="Cliente" action="#" />
-            <p:menuitem class="submenu" value="Departamento" action="#" />
-            <p:menuitem class="submenu" value="Sub-Departamento" action="#" />
-            <p:menuitem class="submenu" value="Rotina" action="#" />
-            <p:menuitem class="submenu" value="Atividade" action="#" />
+            <p:menuitem class="submenu" value="Cliente" action="#{MenuMB.cliente()}" />
+            <p:menuitem class="submenu" value="Departamento" action="#{MenuMB.departamento()}" />
+            <p:menuitem class="submenu" value="Sub-Departamento" action="#{MenuMB.subdepartamento()}" />
+            <p:menuitem class="submenu" value="Rotina" action="#{MenuMB.rotina()}" />
         </p:submenu>
+        <p:menuitem value="Adicionar Tarefas" class="submenu2" icon=" ui-icon-plus " oncomplete="PF('add').show()"></p:menuitem>
     </p:menubar>
     </div>
     <div id="centro">
     <p:menu toggleable="true"  class="menu2">
-        <p:submenu label="To do List">
-            <p:menuitem value="Atividades do Depatamento" icon=" ui-icon-search "/>
+        <p:submenu label="Minhas Tarefas">
+            <p:menuitem value="Hoje" icon="ui-icon-calendar" action="#{MenuMB.hoje()}"/>
+            <p:menuitem value="Semana" icon="ui-icon-calendar" action="#{MenuMB.semana()}"/>
+            <p:menuitem value="Atrasadas" icon="ui-icon-calendar" action="#{MenuMB.atrasada()}"/>
         </p:submenu>
-        <p:submenu label="Prazos">
-            <p:menuitem value="Situação" icon=" ui-icon-alert "/>
+        <p:submenu label="Tarefas da Equipe">
+            <p:menuitem value="Atividades do Depatamento" icon=" ui-icon-search " action="#{MenuMB.equipe()}"/>
         </p:submenu>
-        <p:submenu label="Tarefas">
-            <p:menuitem value="Hoje" icon="ui-icon-calendar"/>
-            <p:menuitem value="Semana" icon="ui-icon-calendar"/>
-            <p:menuitem value="Atrasadas" icon="ui-icon-calendar"/>
+        <p:submenu label="Rotina">
+            <p:menuitem value="Situação" icon=" ui-icon-alert " action="#{MenuMB.situacao()}"/>
         </p:submenu>
+        
     </p:menu>
+        <p:dialog header="Adicionar Tarafas" modal="true" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
+                 <p:inputText value="Título" size="47" class="filtrar"/>
+                 <p:inputText value="Data" class="filtrar6"/>
+            <br></br><br></br>
+                <p:outputLabel value="Depatamento" class="filtrar"/>
+                <p:outputLabel value="Sub-Depatamento" class="filtrar2"/> 
+                <p:outputLabel value="Cliente" class="filtrar4"/> 
+            <br></br>
+                <p:selectOneMenu id="departamento" value="#" style="width:154px" class="filtrar">
+                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                </p:selectOneMenu>
+                <p:selectOneMenu id="sub" value="#" style="width:140px" class="filtrar">
+                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                </p:selectOneMenu>
+                 <p:selectOneMenu id="cliente" value="#" style="width:140px" class="filtrar">
+                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                </p:selectOneMenu>
+             <br></br><br></br>   
+            <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#" onclick="add.hide();" />
+            <p:commandButton icon="ui-icon-person" class="botaoDialog2" title="Usuário" oncomplete="PF('usuario').show()"/>
+            <p:commandButton icon="ui-icon-flag" class="botaoDialog3" title="Prioridade" oncomplete="PF('prioridade').show()"/>
+        </p:dialog>
+        
+        <p:dialog header="Selecionar Usuário" modal="true" showEffect="bounce" widgetVar="usuario" resizable="false"  class="dialog" width="15%" height="20%">           
+                <p:outputLabel value="Nome" class="filtrar"/>
+            <br></br>
+                <p:selectOneMenu id="usuario" value="#" style="width:154px" class="filtrar">
+                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                </p:selectOneMenu>
+             <br></br><br></br>   
+            <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#" onclick="usuario.hide();" />
+        </p:dialog>
+        
+        <p:dialog header="Selecionar Prioridade" modal="true" showEffect="bounce" widgetVar="prioridade" resizable="false"  class="dialog" width="15%" height="20%">           
+                <p:outputLabel value="Prioridade" class="filtrar"/>
+            <br></br>
+                <p:selectOneMenu id="prioridade" value="#" style="width:154px" class="filtrar">
+                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                </p:selectOneMenu>
+             <br></br><br></br>   
+            <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#" onclick="prioridade.hide();" />
+        </p:dialog>
     </div>
     <br>  </br>
     <br>  </br>
