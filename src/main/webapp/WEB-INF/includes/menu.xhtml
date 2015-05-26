@@ -6,7 +6,7 @@
     <tr>
         <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td><img src="resources/img/logotakstime.png" alt="" width="200" height="160" />
+                    <td><img src="resources/img/logotakstime.png" alt="" width="140" height="100" />
                         <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
                                 <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
                                 <p:outputLabel value="#" /> 
@@ -15,18 +15,21 @@
             </table>
         </td>
     </tr>
+        <br></br>
     <p:menubar class="menu">
-        <p:submenu label="Cadastros" class="submenu" icon=" ui-icon-plus ">
+        <p:submenu label="Cadastros" class="submenu2" icon=" ui-icon-plus ">
+            <p:menuitem class="submenu" value="Cliente" action="#" />
+            <p:menuitem class="submenu" value="Departamento" action="#" />
+            <p:menuitem class="submenu" value="Sub-Departamento" action="#" />
             <p:menuitem class="submenu" value="Rotina" action="#" />
-            <p:menuitem class="submenu" value="Tarefa para Cliente" action="#" />
-            <p:menuitem class="submenu" value="Tarefa para Usuário" action="#" />
+            <p:menuitem class="submenu" value="Atividade" action="#" />
         </p:submenu>
     </p:menubar>
     </div>
     <div id="centro">
     <p:menu toggleable="true"  class="menu2">
         <p:submenu label="To do List">
-            <p:menuitem value="Tarefas do Depatamento" icon=" ui-icon-search "/>
+            <p:menuitem value="Atividades do Depatamento" icon=" ui-icon-search "/>
         </p:submenu>
         <p:submenu label="Prazos">
             <p:menuitem value="Situação" icon=" ui-icon-alert "/>

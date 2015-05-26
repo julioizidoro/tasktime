@@ -27,8 +27,9 @@
                         </p:selectOneMenu>
                         <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1"/>  
                   
-                    <p:dataTable var="tarefasHoje" value="#" class="dataGrid">
-                        <p:column headerText="Cliente" style="width:150px;">
+                    <p:dataTable var="tarefasHoje" value="#" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     rowIndexVar="rowIx">
+                        <p:column headerText="Cliente" style="width:150px;" styleClass="border">
                             <h:outputText value="#" />
                         </p:column>
 

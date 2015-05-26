@@ -12,7 +12,7 @@
         position: relative;
         background:#fff;
         margin: 0px 0 20px -390px;
-        width:1155px;
+        width:1156px;
         left:6%;
         border: 0px solid #aaa;
         margin-left:-10px;
@@ -22,7 +22,7 @@
         width: 1155px;
         margin-left:72px;
         margin-top:-50px;
-        height:270px; 
+        height:300px; 
         //borda arredondada
         -webkit-border-bottom-right-radius: 5px;
         -webkit-border-bottom-left-radius: 5px;
@@ -67,7 +67,7 @@
         list-style:none; 
         width:1147px;
         float:left;
-        margin-top:-20px;
+        margin-top:0px;
         background: #3A5795;
         font-size: 12px;
     }
@@ -76,17 +76,22 @@
         list-style:none; 
         float:left;
         font-size: 12px;
-        margin-top:-5px;
-        height:213px;
-        width:170px;
+        margin-top:-9px;
+        height:227px;
+        width:185px;
     }
     .submenu{
         font-family: tahoma;
         float:left;
         font-size: 14px;
     }
+    .submenu2{
+        color:#fff;
+        font-family: tahoma;
+        float:left;
+        font-size: 14px;
+    }
     .menu li a{
-        color:#fff; 
         text-decoration:none; 
         padding:5px 10px; 
         display:block;
@@ -106,7 +111,7 @@
         width:1150px;
     }
     .usuariologado{
-        margin-top:-85px;
+        margin-top:-95px;
         margin-left:750px;
         color:#3A5795;
         font-size:11px;
@@ -123,17 +128,16 @@
      }
      .dataGridcadastro{
          font-size:11px;
-         width: 870px;
+         width: 760px;
          margin-top:10px;
-         margin-left:230px;
+         margin-left:235px;
      }
      .titulo{
         font-family: Tahoma, Geneva, sans-serif;
         font-size: 20px;
         font-weight: bold;
-        font-variant: small-caps;
         text-align: center;
-        letter-spacing: 1.6pt;
+        letter-spacing: 0.6pt;
         word-spacing: 1.6pt;
      }
      .subtitulo{
@@ -202,11 +206,21 @@
          font-size:12px;
          margin-left:60px;
    }
+   .filtrar5{
+         margin-top:-30px;
+         font-size:12px;
+         margin-left:20px;
+   }
    .alinhaCentro{
        text-align:center;
+        border:#fff;
    }
    .alinhaRigth{
        text-align:right;
+        border:#fff;
+   }
+   .border{
+        border:#fff;
    }
    .left{
          font-size:12px;
@@ -393,3 +407,12 @@
          font-size:12px;
          margin-left:314px;
    }
+   .ui-datatable .ui-datatable-data .even-row td{  
+        background-color:#E8E8E8;  
+        border:0px;
+    }  
+
+    .ui-datatable .ui-datatable-data .odd-row td{  
+        background-color:#fff;  
+        border:0px;
+    }  
