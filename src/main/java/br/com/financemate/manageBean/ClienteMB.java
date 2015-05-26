@@ -24,6 +24,9 @@ public class ClienteMB implements Serializable{
     private String nomeCliente;
     private List<Cliente> listaClientes;
 
+    public ClienteMB() {
+        cliente = new Cliente();
+    }
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
     }
@@ -61,12 +64,20 @@ public class ClienteMB implements Serializable{
     
     
     public void gerarListaClientes() {
+        if (nomeCliente == null) {
+            nomeCliente = "";
+        }
         ClienteController clienteController = new ClienteController();
         listaClientes = clienteController.listar(nomeCliente);
         if (listaClientes == null) {
             listaClientes = new ArrayList<Cliente>();
         }
     }
+    public String pesquisarNome(){
+        gerarListaClientes();
+        return "consCliente";
+    
+    } 
     public String novo(){
             cliente = new Cliente();
             return "cadCliente";
@@ -75,7 +86,6 @@ public class ClienteMB implements Serializable{
         ClienteController clienteController = new ClienteController();
         clienteController.salvar(cliente);
         cliente = new Cliente();
-        gerarListaClientes();
         return "consCliente";
     }
     public String editar() throws SQLException{
