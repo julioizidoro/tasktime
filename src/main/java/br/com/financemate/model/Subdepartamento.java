@@ -27,6 +27,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "subdepartamento")
 public class Subdepartamento implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdepartamento")
+    private List<Usuario> usuarioList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -114,6 +116,14 @@ public class Subdepartamento implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Subdepartamento[ idsubdepartamento=" + idsubdepartamento + " ]";
+    }
+
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
     
 }

@@ -61,15 +61,14 @@ public class Usuario implements Serializable {
     @Size(max = 7)
     @Column(name = "situacao")
     private String situacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Rotinacliente> rotinaclienteList;
+    @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
+    @ManyToOne(optional = false)
+    private Subdepartamento subdepartamento;
     @JoinColumn(name = "perfil_idperfil", referencedColumnName = "idperfil")
     @ManyToOne(optional = false)
     private Perfil perfil;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Departamento> departamentoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Atividades> atividadesList;
 
     public Usuario() {
     }
@@ -150,12 +149,12 @@ public class Usuario implements Serializable {
         this.situacao = situacao;
     }
 
-    public List<Rotinacliente> getRotinaclienteList() {
-        return rotinaclienteList;
+    public Subdepartamento getSubdepartamento() {
+        return subdepartamento;
     }
 
-    public void setRotinaclienteList(List<Rotinacliente> rotinaclienteList) {
-        this.rotinaclienteList = rotinaclienteList;
+    public void setSubdepartamento(Subdepartamento subdepartamento) {
+        this.subdepartamento = subdepartamento;
     }
 
     public Perfil getPerfil() {
@@ -172,14 +171,6 @@ public class Usuario implements Serializable {
 
     public void setDepartamentoList(List<Departamento> departamentoList) {
         this.departamentoList = departamentoList;
-    }
-
-    public List<Atividades> getAtividadesList() {
-        return atividadesList;
-    }
-
-    public void setAtividadesList(List<Atividades> atividadesList) {
-        this.atividadesList = atividadesList;
     }
 
     @Override

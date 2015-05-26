@@ -7,16 +7,13 @@ package br.com.financemate.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -89,33 +86,23 @@ public class Cliente implements Serializable {
     @Column(name = "datarenovacao")
     @Temporal(TemporalType.DATE)
     private Date datarenovacao;
-    @Size(max = 3)
     @Column(name = "getaofinanceira")
-    private String getaofinanceira;
+    private Boolean getaofinanceira;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valorgestaofinanceira")
     private Float valorgestaofinanceira;
-    @Size(max = 3)
     @Column(name = "contabilidade")
-    private String contabilidade;
+    private Boolean contabilidade;
     @Column(name = "valorcontabilidade")
     private Float valorcontabilidade;
-    @Size(max = 3)
     @Column(name = "tercerizacao")
-    private String tercerizacao;
+    private Boolean tercerizacao;
     @Column(name = "valortercerizacao")
     private Float valortercerizacao;
-    @Size(max = 3)
     @Column(name = "outros")
-    private String outros;
+    private Boolean outros;
     @Column(name = "valoroutros")
     private Float valoroutros;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Rotinacliente> rotinaclienteList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Atividades> atividadesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Planodre> planodreList;
     @Transient
     private boolean selecionado;
 
@@ -198,14 +185,6 @@ public class Cliente implements Serializable {
         this.bairro = bairro;
     }
 
-    public boolean isSelecionado() {
-        return selecionado;
-    }
-
-    public void setSelecionado(boolean selecionado) {
-        this.selecionado = selecionado;
-    }
-    
     public String getCidade() {
         return cidade;
     }
@@ -278,11 +257,11 @@ public class Cliente implements Serializable {
         this.datarenovacao = datarenovacao;
     }
 
-    public String getGetaofinanceira() {
+    public Boolean getGetaofinanceira() {
         return getaofinanceira;
     }
 
-    public void setGetaofinanceira(String getaofinanceira) {
+    public void setGetaofinanceira(Boolean getaofinanceira) {
         this.getaofinanceira = getaofinanceira;
     }
 
@@ -294,11 +273,11 @@ public class Cliente implements Serializable {
         this.valorgestaofinanceira = valorgestaofinanceira;
     }
 
-    public String getContabilidade() {
+    public Boolean getContabilidade() {
         return contabilidade;
     }
 
-    public void setContabilidade(String contabilidade) {
+    public void setContabilidade(Boolean contabilidade) {
         this.contabilidade = contabilidade;
     }
 
@@ -310,11 +289,11 @@ public class Cliente implements Serializable {
         this.valorcontabilidade = valorcontabilidade;
     }
 
-    public String getTercerizacao() {
+    public Boolean getTercerizacao() {
         return tercerizacao;
     }
 
-    public void setTercerizacao(String tercerizacao) {
+    public void setTercerizacao(Boolean tercerizacao) {
         this.tercerizacao = tercerizacao;
     }
 
@@ -326,11 +305,11 @@ public class Cliente implements Serializable {
         this.valortercerizacao = valortercerizacao;
     }
 
-    public String getOutros() {
+    public Boolean getOutros() {
         return outros;
     }
 
-    public void setOutros(String outros) {
+    public void setOutros(Boolean outros) {
         this.outros = outros;
     }
 
@@ -342,28 +321,12 @@ public class Cliente implements Serializable {
         this.valoroutros = valoroutros;
     }
 
-    public List<Rotinacliente> getRotinaclienteList() {
-        return rotinaclienteList;
+    public boolean isSelecionado() {
+        return selecionado;
     }
 
-    public void setRotinaclienteList(List<Rotinacliente> rotinaclienteList) {
-        this.rotinaclienteList = rotinaclienteList;
-    }
-
-    public List<Atividades> getAtividadesList() {
-        return atividadesList;
-    }
-
-    public void setAtividadesList(List<Atividades> atividadesList) {
-        this.atividadesList = atividadesList;
-    }
-
-    public List<Planodre> getPlanodreList() {
-        return planodreList;
-    }
-
-    public void setPlanodreList(List<Planodre> planodreList) {
-        this.planodreList = planodreList;
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
     }
 
     @Override
