@@ -1,7 +1,11 @@
 package br.com.financemate.manageBean;
 
 import br.com.financemante.controller.DepartamentoController;
+import br.com.financemante.controller.UsuarioController;
+import br.com.financemate.facade.DepartamentoFacade;
+import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Departamento;
+import br.com.financemate.model.Usuario;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,7 +24,9 @@ public class DepartamentoMB implements Serializable{
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
     private Departamento departamento;
+    private Usuario usuario;
     private List<Departamento> listaDepartamento;
+    private String idUsuario="0";
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -40,7 +46,7 @@ public class DepartamentoMB implements Serializable{
 
     public List<Departamento> getListaDepartamento() {
         if (listaDepartamento==null){
-            gerarListaRotina();
+            gerarListaRotina("");
         }
         return listaDepartamento;
     }
@@ -48,10 +54,27 @@ public class DepartamentoMB implements Serializable{
     public void setListaDepartamento(List<Departamento> listaDepartamento) {
         this.listaDepartamento = listaDepartamento;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
     
-    public void gerarListaRotina() {
+    
+    public void gerarListaRotina(String nome) {
         DepartamentoController departamentoController = new DepartamentoController();
-        listaDepartamento = departamentoController.listar();
+        listaDepartamento = departamentoController.listar(nome);
         if (listaDepartamento == null) {
             listaDepartamento = new ArrayList<Departamento>();
         }
@@ -59,12 +82,16 @@ public class DepartamentoMB implements Serializable{
     
     public String novo(){
             departamento = new Departamento();
+            usuario = new Usuario();
             return "cadDepartamento";
     }
     
     public String salvar() throws SQLException{
-        DepartamentoController departamentoController = new DepartamentoController();
-        departamentoController.salvar(departamento);
+        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+        departamento.setUsuario(usuario);
+        departamentoFacade.salvar(departamento);
         departamento = new Departamento();
         return "consDepartamento";
     }

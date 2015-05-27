@@ -22,8 +22,8 @@ public class DepartamentoFacade {
         return departamentoDao.consultar(idDepartamento);
     }
     
-    public List<Departamento> listar() throws SQLException{
+    public List<Departamento> listar(String nome) throws SQLException{
         departamentoDao = new DepartamentoDao();
-        return departamentoDao.listar();
+        return departamentoDao.listar(nome);
     }
 }

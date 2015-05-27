@@ -38,10 +38,10 @@ public class DepartamentoController {
         }
     }
     
-    public List<Departamento> listar() {
+    public List<Departamento> listar(String nome) {
         departamentoFacade = new DepartamentoFacade();
         try {
-            return departamentoFacade.listar();
+            return departamentoFacade.listar(nome);
        } catch (SQLException ex) {
             Logger.getLogger(DepartamentoController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro Listar Departamento "+ ex);

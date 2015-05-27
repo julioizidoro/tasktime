@@ -36,10 +36,10 @@ public class DepartamentoDao {
         manager.getTransaction().commit();
         return departamento;
     }
-     public List<Departamento> listar() throws SQLException{
+     public List<Departamento> listar(String nome) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select d from Departamento order by d.nome");
+        Query q = manager.createQuery("select d from Departamento d where d.nome like '%" + nome + "%' order by d.nome");
         List<Departamento> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;

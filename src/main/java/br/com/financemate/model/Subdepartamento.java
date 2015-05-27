@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -45,6 +46,8 @@ public class Subdepartamento implements Serializable {
     private List<Atividades> atividadesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdepartamento")
     private List<Rotina> rotinaList;
+    @Transient
+    private boolean selecionado;
 
     public Subdepartamento() {
     }
@@ -60,6 +63,15 @@ public class Subdepartamento implements Serializable {
     public void setIdsubdepartamento(Integer idsubdepartamento) {
         this.idsubdepartamento = idsubdepartamento;
     }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+    
 
     public String getNome() {
         return nome;
