@@ -15,7 +15,8 @@
                      <p:outputLabel value="Nome Fantasia" class="filtrar" /> 
                      <br></br>
                      <p:inputText id="nome"   size="43" maxlength="100" class="filtrar"  value="#{ClienteMB.nomeCliente}" />
-                     <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1"/> 
+                     <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1" action="#{ClienteMB.pesquisarNome()}"/> 
+                     <br></br>
                      <p:dataTable var="consCliente" value="#{ClienteMB.listaClientes}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column headerText="Nome Fantasia" style="width:150px;" styleClass="border">

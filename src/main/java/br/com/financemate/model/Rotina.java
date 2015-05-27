@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -41,6 +42,8 @@ public class Rotina implements Serializable {
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)
     private Subdepartamento subdepartamento;
+    @Transient
+    private boolean selecionado;
 
     public Rotina() {
     }
@@ -80,6 +83,15 @@ public class Rotina implements Serializable {
     public void setSubdepartamento(Subdepartamento subdepartamento) {
         this.subdepartamento = subdepartamento;
     }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+    
 
     @Override
     public int hashCode() {

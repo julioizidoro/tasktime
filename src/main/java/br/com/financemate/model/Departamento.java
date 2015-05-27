@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -41,6 +42,8 @@ public class Departamento implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
+    @Transient
+    private boolean selecionado;
 
     public Departamento() {
     }
@@ -56,6 +59,15 @@ public class Departamento implements Serializable {
     public void setIddepartamento(Integer iddepartamento) {
         this.iddepartamento = iddepartamento;
     }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+    
 
     public String getNome() {
         return nome;
