@@ -56,4 +56,7 @@ public class MenuMB implements Serializable{
     public String tercerizacao(){
       return"tercerizacao";  
     }
+    public String usuario(){
+        return"consUsuario";
+    }
 }

@@ -36,10 +36,10 @@ public class SubdepartamentoController {
         }
     }
     
-    public List<Subdepartamento> listar(String nome) {
+    public List<Subdepartamento> listar(String nomeDepartamento) {
         subdepartamentoFacade = new SubdepartamentoFacade();
         try {
-            return subdepartamentoFacade.listar(nome);
+            return subdepartamentoFacade.listar(nomeDepartamento);
        } catch (SQLException ex) {
             Logger.getLogger(SubdepartamentoController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro Listar Subdepartamento "+ ex);

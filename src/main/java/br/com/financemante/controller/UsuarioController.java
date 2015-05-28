@@ -36,10 +36,10 @@ public class UsuarioController {
         }
     }
     
-    public List<Usuario> listar(String nome) {
+    public List<Usuario> listar(String nomeUsuario) {
         usuarioFacade = new UsuarioFacade();
         try {
-            return usuarioFacade.listar(nome);
+            return usuarioFacade.listar(nomeUsuario);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro Listar Usuário " + ex);

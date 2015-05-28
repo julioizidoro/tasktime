@@ -20,9 +20,9 @@ public class UsuarioFacade {
         return usuarioDao.consultar(login, senha);
     }
     
-    public List<Usuario> listar(String nome) throws SQLException{
+    public List<Usuario> listar(String nomeUsuario) throws SQLException{
         usuarioDao = new UsuarioDao();
-        return usuarioDao.listar(nome);
+        return usuarioDao.listar(nomeUsuario);
     }
     
     public Usuario consultar(int idUsuario) throws SQLException{

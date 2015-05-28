@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -69,6 +70,8 @@ public class Usuario implements Serializable {
     private Perfil perfil;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Departamento> departamentoList;
+    @Transient
+    private boolean selecionado;
 
     public Usuario() {
     }
@@ -156,6 +159,15 @@ public class Usuario implements Serializable {
     public void setSubdepartamento(Subdepartamento subdepartamento) {
         this.subdepartamento = subdepartamento;
     }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+    
 
     public Perfil getPerfil() {
         return perfil;

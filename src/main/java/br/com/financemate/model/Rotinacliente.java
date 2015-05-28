@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -48,6 +49,8 @@ public class Rotinacliente implements Serializable {
     @JoinColumn(name = "rotina_idrotina", referencedColumnName = "idrotina")
     @ManyToOne(optional = false)
     private Rotina rotina;
+    @Transient
+    private boolean selecionado;
 
     public Rotinacliente() {
     }
@@ -103,6 +106,15 @@ public class Rotinacliente implements Serializable {
     public void setRotina(Rotina rotina) {
         this.rotina = rotina;
     }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+    
 
     @Override
     public int hashCode() {

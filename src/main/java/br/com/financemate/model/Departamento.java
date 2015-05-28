@@ -115,7 +115,7 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.financemate.model.Departamento[ iddepartamento=" + iddepartamento + " ]";
+        return getNome();
     }
     
 }

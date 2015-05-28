@@ -38,10 +38,10 @@ public class UsuarioDao {
         return usuario;
     }
     
-    public List<Usuario> listar(String nome) throws SQLException{
+    public List<Usuario> listar(String nomeUsuario) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select u from Usuario u where u.nome like'" + nome + "%'  order by u.nome");
+        Query q = manager.createQuery("select u from Usuario u where u.nome like '%" + nomeUsuario + "%' order by u.nome");
         List<Usuario> lista = q.getResultList();
         manager.getTransaction().commit();
         return  lista;

@@ -17,8 +17,11 @@
                                 <p:outputLabel value="Departamento" for="departamento" class="left1"/>
                                 <p:outputLabel value="Nome Sub-Departamento" for="nome" class="left3"/>
                             </h:panelGrid>       
-                            <h:panelGrid columns="6" cellpadding="5">   
-                                <p:inputText id="departamento"  size="53" class="left1" value="#{SubdepartamentoMB.subdepartamento.departamento}"/>
+                            <h:panelGrid columns="6" cellpadding="5"> 
+                                <p:selectOneMenu id="departamento" value="#{SubdepartamentoMB.idDepartamento}" class="left1" style="width:250px">
+                                    <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                                    <f:selectItems value="#{SubdepartamentoMB.listaDepartamento}" var="departamentoSelecionado" itemLabel="#{departamentoSelecionado.nome}" itemValue="#{departamentoSelecionado.iddepartamento}"/>
+                                </p:selectOneMenu>
                                 <p:inputText id="nome" value="#{SubdepartamentoMB.subdepartamento.nome}"  size="42" class="filtrar2"/>
                             </h:panelGrid> 
                     <br></br>

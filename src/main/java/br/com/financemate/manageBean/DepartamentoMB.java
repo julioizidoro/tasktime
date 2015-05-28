@@ -24,7 +24,7 @@ public class DepartamentoMB implements Serializable{
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
     private Departamento departamento;
-    private Usuario usuario;
+     private List<Usuario> listaUsuario;
     private List<Departamento> listaDepartamento;
     private String idUsuario="0";
 
@@ -55,14 +55,6 @@ public class DepartamentoMB implements Serializable{
         this.listaDepartamento = listaDepartamento;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public String getIdUsuario() {
         return idUsuario;
     }
@@ -70,7 +62,14 @@ public class DepartamentoMB implements Serializable{
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
+
+    public List<Usuario> getListaUsuario() {
+        return listaUsuario;
+    }
+
+    public void setListaUsuario(List<Usuario> listaUsuario) {
+        this.listaUsuario = listaUsuario;
+    }
     
     public void gerarListaRotina(String nome) {
         DepartamentoController departamentoController = new DepartamentoController();
@@ -80,9 +79,9 @@ public class DepartamentoMB implements Serializable{
         }
     }
     
-    public String novo(){
+    public String novo() throws SQLException{
             departamento = new Departamento();
-            usuario = new Usuario();
+            gerarListaUsuario();
             return "cadDepartamento";
     }
     
@@ -108,5 +107,13 @@ public class DepartamentoMB implements Serializable{
             }
         }
         return  "";
+    }
+    
+    public void gerarListaUsuario() throws SQLException{
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        listaUsuario = usuarioFacade.listar("");
+        if (listaUsuario==null){
+            listaUsuario = new ArrayList<Usuario>();
+        }
     }
 }

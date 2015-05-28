@@ -18,8 +18,11 @@
                                 <p:outputLabel value="Usuário Responsável" for="responsavel" class="left3"/>
                             </h:panelGrid>       
                             <h:panelGrid columns="6" cellpadding="5">   
-                                <p:inputText id="nome"  size="43" class="left1" value="#{DepartamentoMB.departamento.nome}"/>
-                                <p:inputText id="responsavel" value="#{DepartamentoMB.departamento.usuario.nome}"  size="42" class="filtrar2"/>
+                                <p:inputText id="nome"  size="44" class="left1" value="#{DepartamentoMB.departamento.nome}"/>
+                                <p:selectOneMenu id="responsavel" value="#{DepartamentoMB.idUsuario}" class="filtrar2" style="width:190px">
+                                    <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                                    <f:selectItems value="#{DepartamentoMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
+                                </p:selectOneMenu>
                             </h:panelGrid> 
                     <br></br>
                      <br></br>

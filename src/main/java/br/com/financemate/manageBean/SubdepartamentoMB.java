@@ -1,7 +1,9 @@
 package br.com.financemate.manageBean;
 
 import br.com.financemante.controller.SubdepartamentoController;
+import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
+import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Subdepartamento;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -23,6 +25,9 @@ public class SubdepartamentoMB implements Serializable{
     private UsuarioLogadoBean usuarioLogadoBean;
     private Subdepartamento subdepartamento;
     private List<Subdepartamento> listaSubdepartamento;
+    private String nomeDepartamento;
+    private String idDepartamento="0";
+    private List<Departamento> listaDepartamento;
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -42,7 +47,7 @@ public class SubdepartamentoMB implements Serializable{
 
     public List<Subdepartamento> getListaSubdepartamento() {
         if (listaSubdepartamento==null){
-            gerarListaSubdepartamento("");
+            gerarListaSubdepartamento();
         }
         return listaSubdepartamento;
     }
@@ -50,21 +55,56 @@ public class SubdepartamentoMB implements Serializable{
     public void setListaSubdepartamento(List<Subdepartamento> listaSubdepartamento) {
         this.listaSubdepartamento = listaSubdepartamento;
     }
-    public void gerarListaSubdepartamento(String nome) {
+
+    public String getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(String idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public List<Departamento> getListaDepartamento() {
+        return listaDepartamento;
+    }
+
+    public void setListaDepartamento(List<Departamento> listaDepartamento) {
+        this.listaDepartamento = listaDepartamento;
+    }
+    
+
+    public String getNomeDepartamento() {
+        return nomeDepartamento;
+    }
+
+    public void setNomeDepartamento(String nomeDepartamento) {
+        this.nomeDepartamento = nomeDepartamento;
+    }
+    
+    
+    
+    public void gerarListaSubdepartamento() {
+        if(nomeDepartamento == null){
+            nomeDepartamento = "";
+        }
         SubdepartamentoController subdepartamentoController = new SubdepartamentoController();
-        listaSubdepartamento = subdepartamentoController.listar(nome);
+        listaSubdepartamento = subdepartamentoController.listar(nomeDepartamento);
         if (listaSubdepartamento == null) {
             listaSubdepartamento = new ArrayList<Subdepartamento>();
         }
     }
     
-    public String novo(){
+    public String novo() throws SQLException{
             subdepartamento = new Subdepartamento();
+            gerarListaDepartamento();
             return "cadSubdepartamento";
     }
     
     public String salvar() throws SQLException{
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+        Departamento departamento = departamentoFacade.consultar(Integer.parseInt(idDepartamento));
+        subdepartamento.setDepartamento(departamento);
         subdepartamentoFacade.salvar(subdepartamento);
         subdepartamento = new Subdepartamento();
         return "consSubdepartamento";
@@ -82,5 +122,13 @@ public class SubdepartamentoMB implements Serializable{
             }
         }
         return  "";
+    }
+    
+    public void gerarListaDepartamento() throws SQLException{
+        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+        listaDepartamento = departamentoFacade.listar("");
+        if (listaDepartamento==null){
+            listaDepartamento = new ArrayList<Departamento>();
+        }
     }
 }

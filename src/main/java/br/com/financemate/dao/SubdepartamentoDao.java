@@ -21,10 +21,10 @@ public class SubdepartamentoDao {
         return subdepartamento;
     }
     
-    public List<Subdepartamento> listar(String nome) throws SQLException{
+    public List<Subdepartamento> listar(String nomeDepartamento) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select a from subdepartamento a where a.nome like '%" + nome + "%' order by a.nome");
+        Query q = manager.createQuery("select a from Subdepartamento a where a.departamento.nome like '%" + nomeDepartamento + "%' order by a.nome");
         List<Subdepartamento> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;
