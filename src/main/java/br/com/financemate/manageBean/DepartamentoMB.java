@@ -46,7 +46,7 @@ public class DepartamentoMB implements Serializable{
 
     public List<Departamento> getListaDepartamento() {
         if (listaDepartamento==null){
-            gerarListaRotina("");
+            gerarListaDepartamento("");
         }
         return listaDepartamento;
     }
@@ -63,7 +63,10 @@ public class DepartamentoMB implements Serializable{
         this.idUsuario = idUsuario;
     }
 
-    public List<Usuario> getListaUsuario() {
+    public List<Usuario> getListaUsuario() throws SQLException {
+        if(listaUsuario==null){
+            gerarListaUsuario();
+        }
         return listaUsuario;
     }
 
@@ -71,7 +74,7 @@ public class DepartamentoMB implements Serializable{
         this.listaUsuario = listaUsuario;
     }
     
-    public void gerarListaRotina(String nome) {
+    public void gerarListaDepartamento(String nome) {
         DepartamentoController departamentoController = new DepartamentoController();
         listaDepartamento = departamentoController.listar(nome);
         if (listaDepartamento == null) {
