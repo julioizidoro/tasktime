@@ -7,13 +7,13 @@ package br.com.financemate.manageBean;
 
 import br.com.financemante.controller.RotinaController;
 import br.com.financemante.controller.RotinaclienteController;
+import br.com.financemate.bean.RotinaBean;
 import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Departamento;
-import br.com.financemate.model.Perfil;
 import br.com.financemate.model.Rotina;
 import br.com.financemate.model.Rotinacliente;
 import br.com.financemate.model.Subdepartamento;
@@ -48,6 +48,7 @@ public class RotinaMB  implements Serializable{
     private String idSubdepartamento;
     private List<Usuario> listaUsuario;
      private String idUsuario="0";
+     private List<RotinaBean> listaRotinabean;
     
     public RotinaMB() throws SQLException {
         rotina = new Rotina();
@@ -84,6 +85,15 @@ public class RotinaMB  implements Serializable{
     public void setListaUsuario(List<Usuario> listaUsuario) {
         this.listaUsuario = listaUsuario;
     }
+
+    public List<RotinaBean> getListaRotinabean() {
+        return listaRotinabean;
+    }
+
+    public void setListaRotinabean(List<RotinaBean> listaRotinabean) {
+        this.listaRotinabean = listaRotinabean;
+    }
+    
 
     public String getIdUsuario() {
         return idUsuario;
@@ -124,7 +134,7 @@ public class RotinaMB  implements Serializable{
 
     public List<Rotinacliente> getListaRotinacliente() {
         if(listaRotinacliente==null){
-            gerarListaRotinacliente();
+            gerarListaRotinacliente("");
             
         }
         return listaRotinacliente;
@@ -180,10 +190,7 @@ public class RotinaMB  implements Serializable{
         this.idSubdepartamento = idSubdepartamento;
     }
     
-    public void gerarListaRotinacliente() {
-        if (nomeCliente == null) {
-            nomeCliente = "";
-        }
+    public void gerarListaRotinacliente(String nomeCliente) {
         RotinaclienteController rotinaclienteController = new RotinaclienteController();
         listaRotinacliente = rotinaclienteController.listar(nomeCliente);
         if (listaRotinacliente == null) {
@@ -191,25 +198,43 @@ public class RotinaMB  implements Serializable{
         }
     }
     
+    public void gerarListaRotinaBean() throws SQLException{
+        gerarListaCliente();
+        listaRotinabean = new ArrayList<RotinaBean>();
+        if(listaCliente!=null){
+          for(int i=0;i<listaCliente.size();i++){
+              RotinaBean rb = new RotinaBean();
+              rb.setCliente(listaCliente.get(i));
+              rb.setRotinacliente(new Rotinacliente());
+              listaRotinabean.add(rb);
+          }
+        }
+    }
+    
     public String pesquisarNome(){
-        gerarListaRotinacliente();
+        gerarListaRotinacliente("");
         return "consRotina";
     }
     
     public String novo() throws SQLException{
         rotina = new Rotina();
-        gerarListaDepartamento();
-        gerarListaCliente();
-        gerarListaDepartamento();
-        gerarListaUsuario();
         gerarListaSubdepartamento();
+        gerarListaRotinaBean();
+        gerarListaUsuario();
         return "cadRotina";
     }
     
     public String salvar() throws SQLException{
         RotinaController rotinaController = new RotinaController();
+        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+        Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+        rotina.setSubdepartamento(subddepartamento);
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+        rotinacliente.setUsuario(usuario);
         rotinaController.salvar(rotina);
         rotina = new Rotina();
+        gerarListaRotinacliente("");
         return "consRotina";
     }
     
@@ -220,6 +245,10 @@ public class RotinaMB  implements Serializable{
                     rotinacliente = listaRotinacliente.get(i);
                     listaRotinacliente.get(i).setSelecionado(false);
                     i=100000;
+                    gerarListaDepartamento();
+                    gerarListaCliente();
+                    gerarListaSubdepartamento();
+                    gerarListaUsuario();
                     return "cadRotina";
                 }
             }
@@ -236,13 +265,11 @@ public class RotinaMB  implements Serializable{
     }
     
     public void gerarListaSubdepartamento() throws SQLException {
-        if (idDepartamento != null) {
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            listaSubdepartamento = subdepartamentoFacade.listar(idDepartamento);
+            listaSubdepartamento = subdepartamentoFacade.listar("");
             if (listaSubdepartamento == null) {
                 listaSubdepartamento = new ArrayList<Subdepartamento>();
             }
-        }
     }
     
     public void gerarListaCliente() throws SQLException{
@@ -259,5 +286,11 @@ public class RotinaMB  implements Serializable{
         if (listaUsuario==null){
             listaUsuario = new ArrayList<Usuario>();
         }
+    }
+    
+    public void gravarusuario() throws SQLException{
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+        
     }
 }

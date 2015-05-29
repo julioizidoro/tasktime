@@ -15,10 +15,10 @@
                      <br></br> 
                             <h:panelGrid columns="6" cellpadding="5">   
                                 <p:outputLabel value="Departamento" for="departamento" class="left1"/>
-                                <p:outputLabel value="Nome Sub-Departamento" for="nome" class="left3"/>
+                                <p:outputLabel value="Nome Sub-Departamento" for="nome" class="left4"/>
                             </h:panelGrid>       
                             <h:panelGrid columns="6" cellpadding="5"> 
-                                <p:selectOneMenu id="departamento" value="#{SubdepartamentoMB.idDepartamento}" class="left1" style="width:250px">
+                                <p:selectOneMenu id="departamento" value="#{SubdepartamentoMB.idDepartamento}" class="left1" style="width:223px">
                                     <f:selectItem itemLabel="Selecione" itemValue="sn"   />
                                     <f:selectItems value="#{SubdepartamentoMB.listaDepartamento}" var="departamentoSelecionado" itemLabel="#{departamentoSelecionado.nome}" itemValue="#{departamentoSelecionado.iddepartamento}"/>
                                 </p:selectOneMenu>

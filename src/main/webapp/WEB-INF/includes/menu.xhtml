@@ -4,6 +4,7 @@
         xmlns:h="http://java.sun.com/jsf/html">
         
     <div id="tudo">
+        <p:growl id="growl" showDetail="true" sticky="true" />
     <tr>
         <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
                 <tr>
@@ -44,43 +45,45 @@
         
     </p:menu>
         <p:dialog header="Adicionar Tarafas" modal="true" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
-                 <p:inputText value="Título" size="47" class="filtrar"/>
-                 <p:inputText value="Data" class="filtrar6"/>
+            <p:inputText value="#{AtividadeMB.atividades.nome}" size="47" class="filtrar"/>
+            <p:inputText value="#{AtividadeMB.atividades.prazo}" class="filtrar6"/>
             <br></br><br></br>
-                <p:outputLabel value="Depatamento" class="filtrar"/>
-                <p:outputLabel value="Sub-Depatamento" class="filtrar2"/> 
+                <p:outputLabel value="Sub-Depatamento" class="filtrar"/> 
                 <p:outputLabel value="Cliente" class="filtrar4"/> 
             <br></br>
-                <p:selectOneMenu id="departamento" value="#" style="width:154px" class="filtrar">
-                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
-                </p:selectOneMenu>
-                <p:selectOneMenu id="sub" value="#" style="width:140px" class="filtrar">
-                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
-                </p:selectOneMenu>
-                 <p:selectOneMenu id="cliente" value="#" style="width:140px" class="filtrar">
-                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
-                </p:selectOneMenu>
-             <br></br><br></br>   
-            <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#" onclick="add.hide();" />
+             <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="filtrar" style="width:140px">
+                <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
+            </p:selectOneMenu>
+            <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:140px" class="filtrar">
+                <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
+            </p:selectOneMenu>
             <p:commandButton icon="ui-icon-person" class="botaoDialog2" title="Usuário" oncomplete="PF('usuario').show()"/>
             <p:commandButton icon="ui-icon-flag" class="botaoDialog3" title="Prioridade" oncomplete="PF('prioridade').show()"/>
+             <br></br><br></br>   
+             <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" onclick="add.hide();" update="growl"/>
+           
         </p:dialog>
         
         <p:dialog header="Selecionar Usuário" modal="true" showEffect="bounce" widgetVar="usuario" resizable="false"  class="dialog" width="15%" height="20%">           
                 <p:outputLabel value="Nome" class="filtrar"/>
             <br></br>
-                <p:selectOneMenu id="usuario" value="#" style="width:154px" class="filtrar">
-                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" style="width:154px" class="filtrar">
+                    <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                    <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
                 </p:selectOneMenu>
              <br></br><br></br>   
-            <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#" onclick="usuario.hide();" />
+             <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.confirmarUsuario()}" onclick="usuario.hide();" />
         </p:dialog>
         
         <p:dialog header="Selecionar Prioridade" modal="true" showEffect="bounce" widgetVar="prioridade" resizable="false"  class="dialog" width="15%" height="20%">           
                 <p:outputLabel value="Prioridade" class="filtrar"/>
             <br></br>
-                <p:selectOneMenu id="prioridade" value="#" style="width:154px" class="filtrar">
-                    <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+            <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" style="width:154px" class="filtrar">
+                    <f:selectItem itemLabel="Alta" itemValue="alta" />
+                    <f:selectItem itemLabel="Média" itemValue="media" />
+                    <f:selectItem itemLabel="Baixa" itemValue="baixa" />
                 </p:selectOneMenu>
              <br></br><br></br>   
             <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#" onclick="prioridade.hide();" />

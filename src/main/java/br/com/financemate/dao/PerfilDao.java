@@ -16,7 +16,7 @@ public class PerfilDao {
     public Perfil consultar(int idPerfil) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select o from Perfil p where p.idperfil=" + idPerfil);
+        Query q = manager.createQuery("select p from Perfil p where p.idperfil=" + idPerfil);
         Perfil perfil = null;
         if (q.getResultList().size()>0){
             perfil = (Perfil) q.getResultList().get(0);

@@ -95,6 +95,7 @@ public class DepartamentoMB implements Serializable{
         departamento.setUsuario(usuario);
         departamentoFacade.salvar(departamento);
         departamento = new Departamento();
+        gerarListaDepartamento("");
         return "consDepartamento";
     }
     
@@ -105,6 +106,7 @@ public class DepartamentoMB implements Serializable{
                     departamento = listaDepartamento.get(i);
                     listaDepartamento.get(i).setSelecionado(false);
                     i=100000;
+                    gerarListaUsuario();
                     return "cadDepartamento";
                 }
             }

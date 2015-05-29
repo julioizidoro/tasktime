@@ -33,7 +33,7 @@ public class SubdepartamentoDao {
     public Subdepartamento consultar(int idSubdepartamento) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select s from subdepartamento s where s.idsubdepartamento=" + idSubdepartamento);
+        Query q = manager.createQuery("select s from Subdepartamento s where s.idsubdepartamento=" + idSubdepartamento);
         Subdepartamento atividades = null;
         if (q.getResultList().size()>0){
             atividades = (Subdepartamento) q.getResultList().get(0);

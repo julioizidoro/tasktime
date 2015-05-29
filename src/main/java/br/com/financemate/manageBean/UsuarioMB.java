@@ -37,16 +37,9 @@ public class UsuarioMB implements Serializable{
     private List<Departamento> listaDepartamento;
     private List<Perfil> listaPerfil;
     private List<Subdepartamento> listaSubdepartamento;
-    private String idDepartamento;
     private String idSubdepartamento;
     private String idPerfil;
 
-    public UsuarioMB(Usuario usuario) throws SQLException {
-        usuario = new Usuario();
-        gerarListaDepartamento();
-        gerarListaPerfil();
-    }
-    
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
     }
@@ -74,7 +67,7 @@ public class UsuarioMB implements Serializable{
 
     public List<Usuario> getListaUsuario() {
         if (listaUsuario==null){
-            gerarListaUsuarios();
+            gerarListaUsuarios("");
         }
         return listaUsuario;
     }
@@ -119,14 +112,6 @@ public class UsuarioMB implements Serializable{
     }
     
 
-    public String getIdDepartamento() {
-        return idDepartamento;
-    }
-
-    public void setIdDepartamento(String idDepartamento) {
-        this.idDepartamento = idDepartamento;
-    }
-
     public String getIdSubdepartamento() {
         return idSubdepartamento;
     }
@@ -136,12 +121,9 @@ public class UsuarioMB implements Serializable{
     }
     
     
-    public void gerarListaUsuarios() {
-        if (nomeUsuario == null) {
-            nomeUsuario = "";
-        }
+    public void gerarListaUsuarios(String nome) {
         UsuarioController usuarioController = new UsuarioController();
-        listaUsuario = usuarioController.listar(nomeUsuario);
+        listaUsuario = usuarioController.listar(nome);
         if (listaUsuario == null) {
             listaUsuario = new ArrayList<Usuario>();
         }
@@ -149,14 +131,22 @@ public class UsuarioMB implements Serializable{
     
     public String novo() throws SQLException{
             usuario = new Usuario();
-            gerarListaDepartamento();
+            gerarListaSubdepartamento();
+            gerarListaPerfil("");
             return "cadUsuario";
     }
     
     public String salvar() throws SQLException{
         UsuarioController usuarioController = new UsuarioController();
+        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+        Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+        usuario.setSubdepartamento(subddepartamento);
+        PerfilFacade perfilFacade = new PerfilFacade();
+        Perfil perfil = perfilFacade.consultar(Integer.parseInt(idPerfil));
+        usuario.setPerfil(perfil);
         usuarioController.salvar(usuario);
         usuario = new Usuario();
+        gerarListaUsuarios("");
         return "consUsuario";
     }
     
@@ -167,6 +157,8 @@ public class UsuarioMB implements Serializable{
                     usuario = listaUsuario.get(i);
                     listaUsuario.get(i).setSelecionado(false);
                     i=100000;
+                    gerarListaSubdepartamento();
+                    gerarListaPerfil("");
                     return "cadUsuario";
                 }
             }
@@ -183,18 +175,16 @@ public class UsuarioMB implements Serializable{
     }
     
     public void gerarListaSubdepartamento() throws SQLException {
-        if (idDepartamento != null) {
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            listaSubdepartamento = subdepartamentoFacade.listar(idDepartamento);
+            listaSubdepartamento = subdepartamentoFacade.listar("");
             if (listaSubdepartamento == null) {
                 listaSubdepartamento = new ArrayList<Subdepartamento>();
             }
-        }
     }
     
-    public void gerarListaPerfil() throws SQLException{
+    public void gerarListaPerfil(String nomeTipoacesso) throws SQLException{
         PerfilFacade perfilFacade = new PerfilFacade();
-        listaPerfil = perfilFacade.listar("");
+        listaPerfil = perfilFacade.listar(nomeTipoacesso);
         if (listaPerfil==null){
             listaPerfil = new ArrayList<Perfil>();
         }

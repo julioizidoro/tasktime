@@ -259,6 +259,10 @@
          font-size:12px;
          margin-left:83px;
    }
+    .filtrar7{
+         font-size:11px;
+         margin-left:20px;
+   }
    .alinhaCentro{
        text-align:center;
         border:#fff;
@@ -475,7 +479,7 @@
     }
     .botaoDialog2{
         font-size: 12px;
-        margin-left:320px;
+        margin-left:105px;
     }
     .botaoDialog3{
         font-size: 12px;

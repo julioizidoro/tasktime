@@ -2,9 +2,22 @@ package br.com.financemate.manageBean;
 
 import br.com.financemante.controller.AtividadesController;
 import br.com.financemate.facade.AtividadeFacade;
+import br.com.financemate.facade.ClienteFacade;
+import br.com.financemate.facade.DepartamentoFacade;
+import br.com.financemate.facade.SubdepartamentoFacade;
+import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Atividades;
+import br.com.financemate.model.Cliente;
+import br.com.financemate.model.Departamento;
+import br.com.financemate.model.Subdepartamento;
+import br.com.financemate.model.Usuario;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,7 +32,20 @@ public class AtividadeMB implements Serializable{
      @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
     private Atividades atividades;
+    private List<Departamento> listaDepartamento;
+    private List<Subdepartamento> listaSubdepartamento;
+    private List<Cliente> listaCliente;
+    private String idDepartamento;
+    private String idCliente;
+    private String idSubdepartamento;
+    private List<Usuario> listaUsuario;
+     private String idUsuario="0";
 
+    public AtividadeMB() {
+        atividades = new Atividades();
+    }
+
+     
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
     }
@@ -35,16 +61,144 @@ public class AtividadeMB implements Serializable{
     public void setAtividades(Atividades departamento) {
         this.atividades = departamento;
     }
+
+    public List<Departamento> getListaDepartamento() throws SQLException {
+        if(listaDepartamento==null){
+            gerarListaDepartamento();
+        }
+        return listaDepartamento;
+    }
+
+    public void setListaDepartamento(List<Departamento> listaDepartamento) {
+        this.listaDepartamento = listaDepartamento;
+    }
+
+    public List<Subdepartamento> getListaSubdepartamento() throws SQLException {
+        if(listaSubdepartamento==null){
+            gerarListaSubdepartamento();
+        }
+        return listaSubdepartamento;
+    }
+
+    public void setListaSubdepartamento(List<Subdepartamento> listaSubdepartamento) {
+        this.listaSubdepartamento = listaSubdepartamento;
+    }
+
+    public List<Cliente> getListaCliente() throws SQLException {
+          if(listaCliente==null){
+            gerarListaCliente();
+          }
+        return listaCliente;
+    }
+
+    public void setListaCliente(List<Cliente> listaCliente) {
+        this.listaCliente = listaCliente;
+    }
+
+    public String getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(String idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getIdSubdepartamento() {
+        return idSubdepartamento;
+    }
+
+    public void setIdSubdepartamento(String idSubdepartamento) {
+        this.idSubdepartamento = idSubdepartamento;
+    }
+
+    public List<Usuario> getListaUsuario() throws SQLException {
+        if(listaUsuario==null){
+            gerarListaUsuario();
+        }
+        return listaUsuario;
+    }
+
+    public void setListaUsuario(List<Usuario> listaUsuario) {
+        this.listaUsuario = listaUsuario;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
+    
+    
     
     public String novo(){
         atividades = new Atividades();
         return "";
     }
     
-    public String salvar(){
+    public String salvar() throws SQLException{
         AtividadesController atividadesController = new AtividadesController();
+        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+        Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+        atividades.setSubdepartamento(subddepartamento);
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+        atividades.setUsuario(usuario);
         atividadesController.salvar(atividades);
         atividades = new Atividades();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+        return "";
+    }
+    
+    public void gerarListaCliente() throws SQLException{
+        ClienteFacade clienteFacade = new ClienteFacade();
+        listaCliente = clienteFacade.listar("");
+        if (listaCliente==null){
+            listaCliente = new ArrayList<Cliente>();
+        }
+    }
+    
+    public void gerarListaDepartamento() throws SQLException{
+        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+        listaDepartamento = departamentoFacade.listar("");
+        if (listaDepartamento==null){
+            listaDepartamento = new ArrayList<Departamento>();
+        }
+    }
+    
+    public void gerarListaSubdepartamento() throws SQLException {
+        if (idDepartamento != null) {
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            listaSubdepartamento = subdepartamentoFacade.listar("");
+            if (listaSubdepartamento == null) {
+                listaSubdepartamento = new ArrayList<Subdepartamento>();
+            }
+        }
+    }
+    
+    public void gerarListaUsuario() throws SQLException{
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        listaUsuario = usuarioFacade.listar("");
+        if (listaUsuario==null){
+            listaUsuario = new ArrayList<Usuario>();
+        }
+    }
+    
+    public String confirmarUsuario() throws SQLException{
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+        atividades.setUsuario(usuario);
         return "";
     }
 }

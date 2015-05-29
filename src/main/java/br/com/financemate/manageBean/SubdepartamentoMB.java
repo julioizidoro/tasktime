@@ -110,6 +110,7 @@ public class SubdepartamentoMB implements Serializable{
         subdepartamento.setDepartamento(departamento);
         subdepartamentoFacade.salvar(subdepartamento);
         subdepartamento = new Subdepartamento();
+        gerarListaSubdepartamento();
         return "consSubdepartamento";
     }
     
@@ -120,6 +121,7 @@ public class SubdepartamentoMB implements Serializable{
                     subdepartamento = listaSubdepartamento.get(i);
                     listaSubdepartamento.get(i).setSelecionado(false);
                     i=100000;
+                    gerarListaDepartamento();
                     return "cadSubdepartamento";
                 }
             }
