@@ -28,6 +28,8 @@ public class DepartamentoMB implements Serializable{
     private List<Departamento> listaDepartamento;
     private String idUsuario="0";
 
+
+    
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
     }

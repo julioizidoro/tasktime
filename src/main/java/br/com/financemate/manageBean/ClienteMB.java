@@ -26,6 +26,7 @@ public class ClienteMB implements Serializable{
 
     public ClienteMB() {
         cliente = new Cliente();
+        gerarListaClientes();
     }
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -86,6 +87,7 @@ public class ClienteMB implements Serializable{
         ClienteController clienteController = new ClienteController();
         clienteController.salvar(cliente);
         cliente = new Cliente();
+        gerarListaClientes();
         return "consCliente";
     }
     public String editar() throws SQLException{
