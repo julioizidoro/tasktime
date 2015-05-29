@@ -28,6 +28,8 @@ public class DepartamentoMB implements Serializable{
     private List<Departamento> listaDepartamento;
     private String idUsuario="0";
 
+
+    
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
     }
@@ -46,7 +48,7 @@ public class DepartamentoMB implements Serializable{
 
     public List<Departamento> getListaDepartamento() {
         if (listaDepartamento==null){
-            gerarListaRotina("");
+            gerarListaDepartamento("");
         }
         return listaDepartamento;
     }
@@ -71,7 +73,7 @@ public class DepartamentoMB implements Serializable{
         this.listaUsuario = listaUsuario;
     }
     
-    public void gerarListaRotina(String nome) {
+    public void gerarListaDepartamento(String nome) {
         DepartamentoController departamentoController = new DepartamentoController();
         listaDepartamento = departamentoController.listar(nome);
         if (listaDepartamento == null) {
@@ -92,6 +94,7 @@ public class DepartamentoMB implements Serializable{
         departamento.setUsuario(usuario);
         departamentoFacade.salvar(departamento);
         departamento = new Departamento();
+        gerarListaDepartamento("");
         return "consDepartamento";
     }
     
