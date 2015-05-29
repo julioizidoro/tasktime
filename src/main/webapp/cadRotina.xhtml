@@ -76,7 +76,7 @@
                                    <p:selectOneMenu  value="#{RotinaMB.idUsuario}" style="width:100%">
                                     <f:selectItem itemLabel="Selecione" itemValue="sn"   />
                                     <f:selectItems value="#{RotinaMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
-                                    <p:ajax event="change" listener="#{RotinaMB.gravarusuario()}" update="linhausuario"/>  
+                                    <p:ajax event="change" listener="#{RotinaMB.gravarusuario(rowIx)}" update="linhausuario"/>  
                                 </p:selectOneMenu>
                                 </f:facet>
                             </p:cellEditor>

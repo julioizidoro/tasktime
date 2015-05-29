@@ -1,7 +1,6 @@
 package br.com.financemate.manageBean;
 
 import br.com.financemante.controller.AtividadesController;
-import br.com.financemate.facade.AtividadeFacade;
 import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;

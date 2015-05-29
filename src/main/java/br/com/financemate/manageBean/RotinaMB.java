@@ -288,9 +288,10 @@ public class RotinaMB  implements Serializable{
         }
     }
     
-    public void gravarusuario() throws SQLException{
+    public void gravarusuario(String linha) throws SQLException{
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+        listaRotinabean.get(Integer.parseInt(linha)).getRotinacliente().setUsuario(usuario);
         
     }
 }
