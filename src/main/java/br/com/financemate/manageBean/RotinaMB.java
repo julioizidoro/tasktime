@@ -40,22 +40,14 @@ public class RotinaMB  implements Serializable{
     private String nomeCliente;
     private List<Rotinacliente> listaRotinacliente;
     private Rotinacliente rotinacliente;
-    private List<Departamento> listaDepartamento;
     private List<Subdepartamento> listaSubdepartamento;
-    private List<Cliente> listaCliente;
-    private String idDepartamento;
-    private String idCliente;
-    private String idSubdepartamento;
+     private String idSubdepartamento;
     private List<Usuario> listaUsuario;
-     private String idUsuario="0";
-     private List<RotinaBean> listaRotinabean;
+    private String idUsuario="0";
+    private List<RotinaBean> listaRotinabean;
     
     public RotinaMB() throws SQLException {
         rotina = new Rotina();
-        gerarListaDepartamento();
-        gerarListaCliente();
-        gerarListaDepartamento();
-        gerarListaUsuario();
         gerarListaSubdepartamento();
     }
 
@@ -86,7 +78,10 @@ public class RotinaMB  implements Serializable{
         this.listaUsuario = listaUsuario;
     }
 
-    public List<RotinaBean> getListaRotinabean() {
+    public List<RotinaBean> getListaRotinabean() throws SQLException {
+        if(listaRotinabean==null){
+            gerarListaRotinaBean();
+        }
         return listaRotinabean;
     }
 
@@ -103,13 +98,6 @@ public class RotinaMB  implements Serializable{
         this.idUsuario = idUsuario;
     }
     
-    public String getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
-    }
     
     public String getNomeCliente() {
         return nomeCliente;
@@ -117,17 +105,6 @@ public class RotinaMB  implements Serializable{
 
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
-    }
-
-    public List<Cliente> getListaCliente() throws SQLException {
-          if(listaCliente==null){
-            gerarListaCliente();
-          }
-        return listaCliente;
-    }
-
-    public void setListaCliente(List<Cliente> listaCliente) {
-        this.listaCliente = listaCliente;
     }
 
     
@@ -152,16 +129,6 @@ public class RotinaMB  implements Serializable{
         this.rotinacliente = rotinacliente;
     }
 
-    public List<Departamento> getListaDepartamento() throws SQLException {
-        if(listaDepartamento==null){
-            gerarListaDepartamento();
-        }
-        return listaDepartamento;
-    }
-
-    public void setListaDepartamento(List<Departamento> listaDepartamento) {
-        this.listaDepartamento = listaDepartamento;
-    }
 
     public List<Subdepartamento> getListaSubdepartamento() throws SQLException {
         if(listaSubdepartamento==null){
@@ -174,14 +141,7 @@ public class RotinaMB  implements Serializable{
         this.listaSubdepartamento = listaSubdepartamento;
     }
 
-    public String getIdDepartamento() {
-        return idDepartamento;
-    }
-
-    public void setIdDepartamento(String idDepartamento) {
-        this.idDepartamento = idDepartamento;
-    }
-
+  
     public String getIdSubdepartamento() {
         return idSubdepartamento;
     }
@@ -199,8 +159,8 @@ public class RotinaMB  implements Serializable{
     }
     
     public void gerarListaRotinaBean() throws SQLException{
-        gerarListaCliente();
         listaRotinabean = new ArrayList<RotinaBean>();
+        List<Cliente> listaCliente = gerarListaCliente();
         if(listaCliente!=null){
           for(int i=0;i<listaCliente.size();i++){
               RotinaBean rb = new RotinaBean();
@@ -226,13 +186,20 @@ public class RotinaMB  implements Serializable{
     
     public String salvar() throws SQLException{
         RotinaController rotinaController = new RotinaController();
+        RotinaclienteController rotinaclienteController = new RotinaclienteController();
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         rotina.setSubdepartamento(subddepartamento);
-        UsuarioFacade usuarioFacade = new UsuarioFacade();
-        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
-        rotinacliente.setUsuario(usuario);
-        rotinaController.salvar(rotina);
+        rotina = rotinaController.salvar(rotina);
+        for (int i=0;i<listaRotinabean.size();i++){
+            if (listaRotinabean.get(i).isSelecionado()){
+                Rotinacliente rc = new Rotinacliente();
+                rc = listaRotinabean.get(i).getRotinacliente();
+                rc.setCliente(listaRotinabean.get(i).getCliente());
+                rc.setRotina(rotina);
+                rotinaclienteController.salvar(rotinacliente);
+            }
+        }
         rotina = new Rotina();
         gerarListaRotinacliente("");
         return "consRotina";
@@ -245,23 +212,14 @@ public class RotinaMB  implements Serializable{
                     rotinacliente = listaRotinacliente.get(i);
                     listaRotinacliente.get(i).setSelecionado(false);
                     i=100000;
-                    gerarListaDepartamento();
-                    gerarListaCliente();
                     gerarListaSubdepartamento();
+                    gerarListaRotinaBean();
                     gerarListaUsuario();
                     return "cadRotina";
                 }
             }
         }
         return  "";
-    }
-    
-     public void gerarListaDepartamento() throws SQLException{
-        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-        listaDepartamento = departamentoFacade.listar("");
-        if (listaDepartamento==null){
-            listaDepartamento = new ArrayList<Departamento>();
-        }
     }
     
     public void gerarListaSubdepartamento() throws SQLException {
@@ -272,12 +230,13 @@ public class RotinaMB  implements Serializable{
             }
     }
     
-    public void gerarListaCliente() throws SQLException{
+    public List<Cliente> gerarListaCliente() throws SQLException{
         ClienteFacade clienteFacade = new ClienteFacade();
-        listaCliente = clienteFacade.listar("");
+        List<Cliente> listaCliente = clienteFacade.listar("");
         if (listaCliente==null){
             listaCliente = new ArrayList<Cliente>();
         }
+        return listaCliente;
     }
     
     public void gerarListaUsuario() throws SQLException{

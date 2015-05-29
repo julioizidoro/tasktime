@@ -25,16 +25,11 @@
                     
                     <p:dataTable var="cadRotina" value="#{RotinaMB.listaRotinabean}" class="dataGridcadastro" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
-                        <p:column headerText="Cliente" style="width:150px;" styleClass="border">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{cadRotina.cliente.nomefantasia}" /></f:facet>
-                                <f:facet name="input">
-                                    <p:selectOneMenu value="#{RotinaMB.idCliente}" style="width:100%">
-                                        <f:selectItem itemLabel="Selecione" itemValue="sn"   />
-                                        <f:selectItems value="#{RotinaMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
-                                    </p:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>
+                        <p:column  style="width:30px;" styleClass="alinhaCentro">
+                            <p:selectBooleanCheckbox value="#{cadRotina.selecionado}"/>
+                        </p:column>
+                        <p:column headerText="Cliente" style="width:170px;" styleClass="border">
+                            <h:outputText value="#{cadRotina.cliente.nomefantasia}" />
                         </p:column>
 
                         <p:column headerText="Periodicidade" style="width:80px;" styleClass="border">

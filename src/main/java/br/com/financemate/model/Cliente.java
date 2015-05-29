@@ -76,6 +76,12 @@ public class Cliente implements Serializable {
     @Size(max = 100)
     @Column(name = "email")
     private String email;
+    @Size(max = 30)
+    @Column(name = "inscricaoestadual")
+    private String inscricaoestadual;
+    @Size(max = 30)
+    @Column(name = "inscricaomunicipal")
+    private String inscricaomunicipal;
     @Lob
     @Size(max = 65535)
     @Column(name = "observacao")
@@ -175,6 +181,22 @@ public class Cliente implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public String getInscricaoestadual() {
+        return inscricaoestadual;
+    }
+
+    public void setInscricaoestadual(String inscricaoestadual) {
+        this.inscricaoestadual = inscricaoestadual;
+    }
+
+    public String getInscricaomunicipal() {
+        return inscricaomunicipal;
+    }
+
+    public void setInscricaomunicipal(String inscricaomunicipal) {
+        this.inscricaomunicipal = inscricaomunicipal;
     }
 
     public String getBairro() {

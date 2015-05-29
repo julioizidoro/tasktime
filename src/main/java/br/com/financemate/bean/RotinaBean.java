@@ -11,6 +11,7 @@ public class RotinaBean {
     
     private Cliente cliente;
     private Rotinacliente rotinacliente;
+    private boolean selecionado;
 
     public Cliente getCliente() {
         return cliente;
@@ -26,6 +27,14 @@ public class RotinaBean {
 
     public void setRotinacliente(Rotinacliente rotinacliente) {
         this.rotinacliente = rotinacliente;
+    }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
     }
     
     
