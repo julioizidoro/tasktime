@@ -64,7 +64,10 @@ public class SubdepartamentoMB implements Serializable{
         this.idDepartamento = idDepartamento;
     }
 
-    public List<Departamento> getListaDepartamento() {
+    public List<Departamento> getListaDepartamento() throws SQLException {
+        if(listaDepartamento==null){
+            gerarListaDepartamento();
+        }
         return listaDepartamento;
     }
 

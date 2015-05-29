@@ -65,7 +65,10 @@ public class DepartamentoMB implements Serializable{
         this.idUsuario = idUsuario;
     }
 
-    public List<Usuario> getListaUsuario() {
+    public List<Usuario> getListaUsuario() throws SQLException {
+        if(listaUsuario==null){
+            gerarListaUsuario();
+        }
         return listaUsuario;
     }
 
