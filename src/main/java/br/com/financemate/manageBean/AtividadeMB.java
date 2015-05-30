@@ -47,17 +47,21 @@ public class AtividadeMB implements Serializable{
     private List<Atividades> listaAtividadeAtrasada;
     private List<Atividades> listaAtividadesDepartamento;
     private List<Atividades> listaAtividadesGeral;
+    private String atividadeMenu="dia";
+    private String ndia;
+    private String nsemana;
+    private String natrasada;
+    private String ndepartamento;
 
     public AtividadeMB() throws SQLException {
         atividades = new Atividades();
-        listarAtividadesDia();
-        listarAtividadesSemana();
-        listarAtividadesAtrasadas();
-        listarAtividadesDepartamento();
-        listaAtividadesGeral = listaAtividadedia;
     }
 
-    public List<Atividades> getListaAtividadesGeral() {
+    public List<Atividades> getListaAtividadesGeral() throws SQLException {
+        if (listaAtividadesGeral==null){
+            listarAtividadesDia();
+            listaAtividadesGeral= listaAtividadedia;
+        }
         return listaAtividadesGeral;
     }
 
@@ -65,7 +69,10 @@ public class AtividadeMB implements Serializable{
         this.listaAtividadesGeral = listaAtividadesGeral;
     }
 
-    public List<Atividades> getListaAtividadedia() {
+    public List<Atividades> getListaAtividadedia() throws SQLException {
+        if (listaAtividadedia==null){
+            listarAtividadesDia();
+        }
         return listaAtividadedia;
     }
 
@@ -73,7 +80,10 @@ public class AtividadeMB implements Serializable{
         this.listaAtividadedia = listaAtividadedia;
     }
 
-    public List<Atividades> getListaAtividadeSemana() {
+    public List<Atividades> getListaAtividadeSemana() throws SQLException {
+        if (listaAtividadeSemana==null){
+            listarAtividadesSemana();
+        }
         return listaAtividadeSemana;
     }
 
@@ -81,7 +91,10 @@ public class AtividadeMB implements Serializable{
         this.listaAtividadeSemana = listaAtividadeSemana;
     }
 
-    public List<Atividades> getListaAtividadeAtrasada() {
+    public List<Atividades> getListaAtividadeAtrasada() throws SQLException {
+        if (listaAtividadeAtrasada==null){
+            listarAtividadesAtrasadas();
+        }
         return listaAtividadeAtrasada;
     }
 
@@ -89,12 +102,55 @@ public class AtividadeMB implements Serializable{
         this.listaAtividadeAtrasada = listaAtividadeAtrasada;
     }
 
-    public List<Atividades> getListaAtividadesDepartamento() {
+    public List<Atividades> getListaAtividadesDepartamento() throws SQLException {
+        if (listaAtividadesDepartamento==null){
+            listarAtividadesDepartamento(0);
+        }
         return listaAtividadesDepartamento;
     }
 
     public void setListaAtividadesDepartamento(List<Atividades> listaAtividadesDepartamento) {
         this.listaAtividadesDepartamento = listaAtividadesDepartamento;
+    }
+
+    public String getAtividadeMenu() {
+        return atividadeMenu;
+    }
+
+    public void setAtividadeMenu(String atividadeMenu) {
+        this.atividadeMenu = atividadeMenu;
+    }
+
+    public String getNdia() {
+        return ndia;
+    }
+
+    public void setNdia(String ndia) {
+        this.ndia = ndia;
+    }
+
+    public String getNsemana() {
+        return nsemana;
+    }
+
+    public void setNsemana(String nsemana) {
+        this.nsemana = nsemana;
+    }
+
+    public String getNatrasada() {
+        return natrasada;
+    }
+
+    public void setNatrasada(String natrasada) {
+        this.natrasada = natrasada;
+    }
+
+    public String getNdepartamento() {
+        return ndepartamento;
+    }
+
+    public void setNdepartamento(String ndepartamento) {
+        this.ndepartamento = ndepartamento;
     }
 
      
@@ -206,11 +262,26 @@ public class AtividadeMB implements Serializable{
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
         atividades.setUsuario(usuario);
-        atividadesController.salvar(atividades);
+        atividades = atividadesController.salvar(atividades);
+        if (atividades.getPrazo().equals(new Date())){
+            listarAtividadesDia();
+        }else {
+            if (atividades.getPrazo().before(new Date())) {
+                listarAtividadesAtrasadas();
+            }else {
+                if (atividades.getPrazo().after(new Date())){
+                    listarAtividadesSemana();
+                }
+            }
+        }
+        if (atividades.getUsuario().getSubdepartamento().getDepartamento().equals(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento())){
+            listarAtividadesDepartamento(0);
+        }
+        carregarListaGeral();
         atividades = new Atividades();
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
-        return "";
+        return "inicial";
     }
     
     public void gerarListaCliente() throws SQLException{
@@ -257,51 +328,96 @@ public class AtividadeMB implements Serializable{
     public  void listarAtividadesDia() throws SQLException {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo=" + Formatacao.ConvercaoDataSql(new Date()) + 
-                " and a.concluida=false order by a.prioridade, a.nome";
+                " and a.concluida=FALSE order by a.prioridade, a.nome";
         listaAtividadedia = atividadesFacade.listar(sql);
+        if (listaAtividadedia==null){
+            listaAtividadedia = new ArrayList<Atividades>();
+        }
+        if (listaAtividadedia.size()<10){
+            ndia = "Hoje (0" + String.valueOf(listaAtividadedia.size()) + ")";
+        }else ndia = String.valueOf(listaAtividadedia.size());
+        
     }
     
     public  void listarAtividadesSemana() throws SQLException {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         Date data = Formatacao.SomarDiasData(new Date(), 7);
         String sql = "Select a from Atividades a where a.prazo>" + Formatacao.ConvercaoDataSql(new Date()) + 
-                " and a.prazo<=" + Formatacao.ConvercaoDataSql(data) + "  and a.concluida=false order by a.prioridade, a.nome";
+                " and a.prazo<=" + Formatacao.ConvercaoDataSql(data) + "  and a.concluida=FALSE order by a.prioridade, a.nome";
         listaAtividadeSemana = atividadesFacade.listar(sql);
+        if (listaAtividadeSemana==null){
+            listaAtividadeSemana = new ArrayList<Atividades>();
+        }
+        if (listaAtividadeSemana.size()<10){
+            nsemana= "Semana (0" + String.valueOf(listaAtividadeSemana.size()) + ")";
+        }else nsemana = "Semana (" + String.valueOf(listaAtividadeSemana.size()) + ")";
     }
     
     public  void listarAtividadesAtrasadas() throws SQLException {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo<" + Formatacao.ConvercaoDataSql(new Date()) + 
-                 " and a.concluida=false order by a.prioridade, a.nome";
+                 " and a.concluida=FALSE order by a.prioridade, a.nome";
         listaAtividadeAtrasada = atividadesFacade.listar(sql);
+        if (listaAtividadeAtrasada==null){
+            listaAtividadeAtrasada = new ArrayList<Atividades>();
+        }
+        if (listaAtividadeAtrasada.size()<10){
+            natrasada = "Atrasadas (0" + String.valueOf(listaAtividadeAtrasada.size())+")";
+        }else natrasada = "Atrasadas (" + String.valueOf(listaAtividadeAtrasada.size())+")";
     }
     
-    public  void listarAtividadesDepartamento() throws SQLException {
+    public void listarAtividadesDepartamento(int iddepartamento) throws SQLException {
+        if (usuarioLogadoBean != null) {
+            iddepartamento = usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento();
+        }
         AtividadeFacade atividadesFacade = new AtividadeFacade();
-        String sql = "Select a from Atividades a where a.subdepartamento.departamento.iddepartamento=" + 
-                usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento() +
-                "  and a.concluida=false order by a.prioridade, a.nome";
+        String sql = "Select a from Atividades a where a.subdepartamento.departamento.iddepartamento="
+                + usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento()
+                + "  and a.concluida=FALSE order by a.prioridade, a.nome";
         listaAtividadeSemana = atividadesFacade.listar(sql);
+        if (listaAtividadesDepartamento==null){
+            listaAtividadesDepartamento = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesDepartamento.size() < 10) {
+            ndepartamento = "Atividades Departamento (0" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
+        } else {
+            ndepartamento = "Atividades do Departamento (" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
+        }
+
     }
     
     public String mostarAtividadesDia(){
         listaAtividadesGeral = listaAtividadedia;
+        atividadeMenu="dia";
         return "inicial";
     }
     
     public String mostarAtividadesSemana(){
         listaAtividadesGeral = listaAtividadeSemana;
+        atividadeMenu="semana";
         return "inicial";
     }
     
     public String mostarAtividadesAtrasadas(){
         listaAtividadesGeral = listaAtividadeAtrasada;
+        atividadeMenu="atrasada";
         return "inicial";
     }
     
     public String mostarAtividadesDepartamento(){
         listaAtividadesGeral = listaAtividadesDepartamento;
+        atividadeMenu="departamento";
         return "inicial";
+    }
+    
+    public void carregarListaGeral(){
+        if (atividadeMenu.equalsIgnoreCase("dia")){
+            listaAtividadesGeral = listaAtividadedia;
+        }else if (atividadeMenu.equalsIgnoreCase("semana")){
+            listaAtividadesGeral = listaAtividadeSemana;
+        }else if (atividadeMenu.equalsIgnoreCase("atrasada")){
+            listaAtividadesGeral = listaAtividadeAtrasada;
+        }else listaAtividadesGeral = listaAtividadesDepartamento;
     }
     
 }

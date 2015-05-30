@@ -32,12 +32,12 @@
     <div id="centro">
     <p:menu toggleable="true"  class="menu2">
         <p:submenu label="Minhas Tarefas">
-            <p:menuitem value="Hoje" icon="ui-icon-calendar" action="#{MenuMB.hoje()}"/>
-            <p:menuitem value="Semana" icon="ui-icon-calendar" action="#{MenuMB.semana()}"/>
-            <p:menuitem value="Atrasadas" icon="ui-icon-calendar" action="#{MenuMB.atrasada()}"/>
+            <p:menuitem value="#{AtividadeMB.ndia}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesDia()}"/>
+            <p:menuitem value="#{AtividadeMB.nsemana}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesSemana()}"/>
+            <p:menuitem value="#{AtividadeMB.natrasada}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesAtrasadas()}"/>
         </p:submenu>
         <p:submenu label="Tarefas da Equipe">
-            <p:menuitem value="Atividades do Depatamento" icon=" ui-icon-search " action="#{MenuMB.equipe()}"/>
+            <p:menuitem value="#{AtividadeMB.ndepartamento}" icon=" ui-icon-search " action="#{AtividadeMB.mostarAtividadesDepartamento()}"/>
         </p:submenu>
         <p:submenu label="Rotina">
             <p:menuitem value="Situação" icon=" ui-icon-alert " action="#{MenuMB.situacao()}"/>

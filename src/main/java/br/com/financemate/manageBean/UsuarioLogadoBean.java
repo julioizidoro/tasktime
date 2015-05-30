@@ -5,9 +5,11 @@ import br.com.financemante.controller.UsuarioController;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 /**
  *
@@ -16,6 +18,8 @@ import javax.inject.Named;
 @Named("UsuarioLogadoBean")
 @SessionScoped
 public class UsuarioLogadoBean implements Serializable{
+    
+    @Inject AtividadeMB atividadeMB;
     private Usuario usuario;
     private Cliente cliente;
     private String novaSenha;
@@ -67,7 +71,7 @@ public class UsuarioLogadoBean implements Serializable{
     public void setConfirmaNovaSenha(String confirmaNovaSenha) {
         this.confirmaNovaSenha = confirmaNovaSenha;
     }
-    public String validarUsuario(){
+    public String validarUsuario() throws SQLException{
         if ((usuario.getLogin()!=null) && (usuario.getSenha()==null)){
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Login Invalido."));
         }else{
@@ -76,6 +80,10 @@ public class UsuarioLogadoBean implements Serializable{
             if (usuario==null){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Acesso Negado."));
             }else {
+                atividadeMB.listarAtividadesDia();
+                atividadeMB.listarAtividadesAtrasadas();
+                atividadeMB.listarAtividadesDepartamento(usuario.getSubdepartamento().getDepartamento().getIddepartamento());
+                atividadeMB.listarAtividadesSemana();
                 return "inicial";
             }
         }

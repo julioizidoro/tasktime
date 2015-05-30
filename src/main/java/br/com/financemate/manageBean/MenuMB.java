@@ -32,19 +32,8 @@ public class MenuMB implements Serializable{
       public String cadrotina(){
         return"cadRotina";
     }
-    public String hoje(){
-        return"inicial";
-    }
-    public String semana(){
-        return"consTarefaSemana";
-    }
-    public String atrasada(){
-        return"consTarefaAtrasada";
-    }
-    public String equipe(){
-        return"consTarefaEquipe";
-    }
-    public String situacao(){
+    
+      public String situacao(){
         return"consSituacao";
     }
     public String financeiro(){
