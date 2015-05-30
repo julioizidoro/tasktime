@@ -14,7 +14,7 @@
                      <p:outputLabel value="Nome Fantasia" class="filtrar" /> 
                      <br></br>
                      <p:inputText id="nome"   size="43" maxlength="100" class="filtrar"  value="#{ClienteMB.nomeCliente}" />
-                     <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1" action="#{ClienteMB.pesquisarNome()}"/> 
+                     <p:commandButton icon="ui-icon-search" class="botao1" action="#{ClienteMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
                      <br></br>
                      <p:dataTable var="consCliente" value="#{ClienteMB.listaClientes}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">

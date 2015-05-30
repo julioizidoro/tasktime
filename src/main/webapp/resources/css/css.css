@@ -109,8 +109,8 @@
         float:left;
         font-size: 12px;
         margin-top:-9px;
-        height:227px;
-        width:185px;
+        height:234px;
+        width:196px;
     }
     .submenu{
         font-family: tahoma;
@@ -168,6 +168,12 @@
          width: 950px;
          margin-top:10px;
          margin-left:200px;
+     }
+     .dataGrid2{
+         font-size:11px;
+         width: 650px;
+         margin-top:10px;
+         margin-left:340px;
      }
      .dataGridcadastro{
          font-size:11px;
@@ -263,6 +269,11 @@
          margin-left:83px;
    }
     .filtrar7{
+         font-size:11px;
+         margin-left:20px;
+   }
+    .filtrar8{
+        margin-top:-10px;
          font-size:11px;
          margin-left:20px;
    }
@@ -519,4 +530,5 @@
     }
     .fonte{
         font-size: 12px;
+        border-color:#fff;
     }

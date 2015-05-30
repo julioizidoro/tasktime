@@ -379,9 +379,9 @@ public class AtividadeMB implements Serializable{
             listaAtividadesDepartamento = new ArrayList<Atividades>();
         }
         if (listaAtividadesDepartamento.size() < 10) {
-            ndepartamento = "Atividades Departamento (0" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
+            ndepartamento = "Atividades (0" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
         } else {
-            ndepartamento = "Atividades do Departamento (" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
+            ndepartamento = "Atividades (" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
         }
 
     }

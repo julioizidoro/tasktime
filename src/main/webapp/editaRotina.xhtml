@@ -12,14 +12,12 @@
                       <legend class="titulo">Cadastro de Rotina</legend>
                      <br></br> 
                         <p:outputLabel value="Sub-Depatamento" class="filtrar4"/> 
-                        <p:outputLabel value="Nome Rotina" class="filtrar4"/> 
                         <br></br><br></br>
                             <p:selectOneMenu id="subdepartamento" value="#{RotinaMB.idSubdepartamento}" class="filtrar4" style="width:140px">
                                 <f:selectItem itemLabel="Selecione" itemValue="sn"   />
                                 <f:selectItems value="#{RotinaMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
                             </p:selectOneMenu>
-                            <p:inputText id="nomerotina" size="30"  class="filtrar8"  value="#{RotinaMB.rotina.nome}" />
-                    <p:dataTable var="cadRotina" value="#{RotinaMB.listaRotinabean}" class="dataGridcadastro" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                        <p:dataTable var="cadRotina" value="#{RotinaMB.listaRotinacliente}" class="dataGridcadastro" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column  style="width:30px;" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{cadRotina.selecionado}"/>
@@ -30,9 +28,9 @@
 
                         <p:column headerText="Periodicidade" style="width:80px;" styleClass="border">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{cadRotina.rotinacliente.periodicidade}" /></f:facet>
+                                <f:facet name="output"><h:outputText value="#{cadRotina.periodicidade}" /></f:facet>
                                 <f:facet name="input">
-                                    <h:selectOneMenu value="#{cadRotina.rotinacliente.periodicidade}" style="width:100%">
+                                    <h:selectOneMenu value="#{cadRotina.periodicidade}" style="width:100%">
                                         <f:selectItem itemLabel="Diária" itemValue="diaria" />
                                         <f:selectItem itemLabel="Semanal" itemValue="semanal" />
                                         <f:selectItem itemLabel="Mensal" itemValue="mensal" />
@@ -47,12 +45,12 @@
                         <p:column headerText="Data" style="width:60px;" styleClass="border">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <h:outputText value="#{cadRotina.rotinacliente.data}" >
+                                    <h:outputText value="#{cadRotina.data}" >
                                         <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </f:facet>
                                 <f:facet name="input">
-                                    <p:calendar pattern="dd/MM/yyyy" mask="true" size="12" maxlength="14" value="#{cadRotina.rotinacliente.data}" >
+                                    <p:calendar pattern="dd/MM/yyyy" mask="true" size="12" maxlength="14" value="#{cadRotina.data}" >
                                         <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                     </p:calendar>
                                 </f:facet>
@@ -61,7 +59,7 @@
 
                         <p:column headerText="Responsável" style="width:70px;" styleClass="border">
                             <p:cellEditor id="linhausuario">
-                                <f:facet name="output"><h:outputText value="#{cadRotina.rotinacliente.usuario.nome}" /></f:facet>
+                                <f:facet name="output"><h:outputText value="#{cadRotina.usuario.nome}" /></f:facet>
                                 <f:facet name="input">
                                    <p:selectOneMenu  value="#{RotinaMB.idUsuario}" style="width:100%">
                                     <f:selectItem itemLabel="Selecione" itemValue="sn"   />

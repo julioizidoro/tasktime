@@ -13,28 +13,16 @@
                      <br></br>
                      <p:outputLabel value="Nome Cliente" class="filtrar" /> 
                      <br></br>
-                     <p:inputText id="nome"   size="43" maxlength="100" class="filtrar"  value="#{RotinaMB.nomeCliente}" />
-                     <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1" action="#{RotinaMB.pesquisarNome()}"/> 
+                     <p:inputText id="nome"   size="43" maxlength="100" class="filtrar"  value="#{RotinaMB.nomeRotina}" />
+                     <p:commandButton icon="ui-icon-search"  class="botao1" action="#{RotinaMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
                      <br></br>
-                     <p:dataTable var="consRotina" value="#{RotinaMB.listaRotinacliente}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                     <p:dataTable var="consRotina" value="#{RotinaMB.listaRotina}" class="dataGrid2" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
-                        <p:column headerText="Nome" style="width:150px;" styleClass="border">
-                            <h:outputText value="#{consRotina.rotina.nome}" />
+                        <p:column headerText="Nome" styleClass="border">
+                            <h:outputText value="#{consRotina.nome}" />
                         </p:column>
-
-                        <p:column headerText="Cliente" style="width:120px;" styleClass="border">
-                            <h:outputText value="#{consRotina.cliente.nomefantasia}" />
-                        </p:column>
-
-                        <p:column headerText="Periodicidade" style="width:120px;" styleClass="border">
-                            <h:outputText value="#{consRotina.periodicidade}" />
-                        </p:column>
-
-                        <p:column headerText="Data" style="width:80px;" styleClass="border">
-                            <h:outputText value="#{consRotina.data}" />
-                        </p:column>
-                        <p:column headerText="Responsável" style="width:120px;" styleClass="border">
-                            <h:outputText value="#{consRotina.usuario.nome}" />
+                        <p:column headerText="Sub-Departamento" styleClass="border">
+                            <h:outputText value="#{consRotina.subdepartamento.nome}" />
                         </p:column>
                         <p:column  style="width:50px;" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{consRotina.selecionado}"/>

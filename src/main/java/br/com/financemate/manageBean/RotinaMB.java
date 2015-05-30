@@ -36,15 +36,16 @@ public class RotinaMB  implements Serializable{
     
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
+    private RotinaBean rotinabean;
     private Rotina rotina;
-    private String nomeCliente;
-    private List<Rotinacliente> listaRotinacliente;
-    private Rotinacliente rotinacliente;
+    private String nomeRotina;
     private List<Subdepartamento> listaSubdepartamento;
-     private String idSubdepartamento;
+    private String idSubdepartamento;
     private List<Usuario> listaUsuario;
     private String idUsuario="0";
     private List<RotinaBean> listaRotinabean;
+    private List<Rotina> listaRotina;
+    private String idRotina;
     
     public RotinaMB() throws SQLException {
         rotina = new Rotina();
@@ -97,38 +98,24 @@ public class RotinaMB  implements Serializable{
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+    public RotinaBean getRotinabean() {
+        return rotinabean;
+    }
+
+    public void setRotinabean(RotinaBean rotinabean) {
+        this.rotinabean = rotinabean;
+    }
     
     
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
-
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
     
-
-    public List<Rotinacliente> getListaRotinacliente() {
-        if(listaRotinacliente==null){
-            gerarListaRotinacliente("");
-            
-        }
-        return listaRotinacliente;
+    public String getNomeRotina() {
+        return nomeRotina;
     }
 
-    public void setListaRotinacliente(List<Rotinacliente> listaRotinacliente) {
-        this.listaRotinacliente = listaRotinacliente;
+    public void setNomeRotina(String nomeRotina) {
+        this.nomeRotina = nomeRotina;
     }
-
-    public Rotinacliente getRotinacliente() {
-        return rotinacliente;
-    }
-
-    public void setRotinacliente(Rotinacliente rotinacliente) {
-        this.rotinacliente = rotinacliente;
-    }
-
 
     public List<Subdepartamento> getListaSubdepartamento() throws SQLException {
         if(listaSubdepartamento==null){
@@ -149,14 +136,37 @@ public class RotinaMB  implements Serializable{
     public void setIdSubdepartamento(String idSubdepartamento) {
         this.idSubdepartamento = idSubdepartamento;
     }
+
+    public List<Rotina> getListaRotina() {
+        if(listaRotina==null){
+            gerarListaRotina();
+        }
+        return listaRotina;
+    }
+
+    public void setListaRotina(List<Rotina> listaRotina) {
+        this.listaRotina = listaRotina;
+    }
+
+    public String getIdRotina() {
+        return idRotina;
+    }
+
+    public void setIdRotina(String idRotina) {
+        this.idRotina = idRotina;
+    }
     
-    public void gerarListaRotinacliente(String nomeCliente) {
-        RotinaclienteController rotinaclienteController = new RotinaclienteController();
-        listaRotinacliente = rotinaclienteController.listar(nomeCliente);
-        if (listaRotinacliente == null) {
-            listaRotinacliente = new ArrayList<Rotinacliente>();
+    public void gerarListaRotina() {
+        if (nomeRotina == null) {
+            nomeRotina = "";
+        }
+        RotinaController rotinaController = new RotinaController();
+        listaRotina = rotinaController.listar(nomeRotina);
+        if (listaRotina == null) {
+            listaRotina = new ArrayList<Rotina>();
         }
     }
+    
     
     public void gerarListaRotinaBean() throws SQLException{
         listaRotinabean = new ArrayList<RotinaBean>();
@@ -172,7 +182,7 @@ public class RotinaMB  implements Serializable{
     }
     
     public String pesquisarNome(){
-        gerarListaRotinacliente("");
+        gerarListaRotina();
         return "consRotina";
     }
     
@@ -201,16 +211,16 @@ public class RotinaMB  implements Serializable{
             }
         }
         rotina = new Rotina();
-        gerarListaRotinacliente("");
+        gerarListaRotina();
         return "consRotina";
     }
     
     public String editar() throws SQLException{
-            if (listaRotinacliente!=null){
-            for(int i=0;i<listaRotinacliente.size();i++){
-                if (listaRotinacliente.get(i).isSelecionado()){
-                    rotinacliente = listaRotinacliente.get(i);
-                    listaRotinacliente.get(i).setSelecionado(false);
+            if (listaRotinabean!=null){
+            for(int i=0;i<listaRotinabean.size();i++){
+                if (listaRotinabean.get(i).isSelecionado()){
+                    rotinabean = listaRotinabean.get(i);
+                    listaRotinabean.get(i).setSelecionado(false);
                     i=100000;
                     gerarListaSubdepartamento();
                     gerarListaRotinaBean();

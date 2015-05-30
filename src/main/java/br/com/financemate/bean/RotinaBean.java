@@ -2,6 +2,7 @@ package br.com.financemate.bean;
 
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Rotinacliente;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 
 /**
  *
