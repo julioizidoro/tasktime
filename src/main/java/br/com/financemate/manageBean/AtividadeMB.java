@@ -31,7 +31,7 @@ import javax.inject.Named;
 @SessionScoped
 public class AtividadeMB implements Serializable{
     
-     @Inject
+    @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
     private Atividades atividades;
     private List<Departamento> listaDepartamento;
@@ -48,8 +48,21 @@ public class AtividadeMB implements Serializable{
     private List<Atividades> listaAtividadesDepartamento;
     private List<Atividades> listaAtividadesGeral;
 
-    public AtividadeMB() {
+    public AtividadeMB() throws SQLException {
         atividades = new Atividades();
+        listarAtividadesDia();
+        listarAtividadesSemana();
+        listarAtividadesAtrasadas();
+        listarAtividadesDepartamento();
+        listaAtividadesGeral = listaAtividadedia;
+    }
+
+    public List<Atividades> getListaAtividadesGeral() {
+        return listaAtividadesGeral;
+    }
+
+    public void setListaAtividadesGeral(List<Atividades> listaAtividadesGeral) {
+        this.listaAtividadesGeral = listaAtividadesGeral;
     }
 
     public List<Atividades> getListaAtividadedia() {
@@ -244,7 +257,7 @@ public class AtividadeMB implements Serializable{
     public  void listarAtividadesDia() throws SQLException {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo=" + Formatacao.ConvercaoDataSql(new Date()) + 
-                " and a.concluida='Não' order by a.prioridade, a.nome";
+                " and a.concluida=false order by a.prioridade, a.nome";
         listaAtividadedia = atividadesFacade.listar(sql);
     }
     
@@ -252,14 +265,14 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         Date data = Formatacao.SomarDiasData(new Date(), 7);
         String sql = "Select a from Atividades a where a.prazo>" + Formatacao.ConvercaoDataSql(new Date()) + 
-                " and a.prazo<=" + Formatacao.ConvercaoDataSql(data) + "  and a.concluida='Não' order by a.prioridade, a.nome";
+                " and a.prazo<=" + Formatacao.ConvercaoDataSql(data) + "  and a.concluida=false order by a.prioridade, a.nome";
         listaAtividadeSemana = atividadesFacade.listar(sql);
     }
     
     public  void listarAtividadesAtrasadas() throws SQLException {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo<" + Formatacao.ConvercaoDataSql(new Date()) + 
-                 " and a.concluida='Não' order by a.prioridade, a.nome";
+                 " and a.concluida=false order by a.prioridade, a.nome";
         listaAtividadeAtrasada = atividadesFacade.listar(sql);
     }
     
@@ -267,8 +280,28 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.subdepartamento.departamento.iddepartamento=" + 
                 usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento() +
-                "  and a.concluida='Não' order by a.prioridade, a.nome";
+                "  and a.concluida=false order by a.prioridade, a.nome";
         listaAtividadeSemana = atividadesFacade.listar(sql);
+    }
+    
+    public String mostarAtividadesDia(){
+        listaAtividadesGeral = listaAtividadedia;
+        return "inicial";
+    }
+    
+    public String mostarAtividadesSemana(){
+        listaAtividadesGeral = listaAtividadeSemana;
+        return "inicial";
+    }
+    
+    public String mostarAtividadesAtrasadas(){
+        listaAtividadesGeral = listaAtividadeAtrasada;
+        return "inicial";
+    }
+    
+    public String mostarAtividadesDepartamento(){
+        listaAtividadesGeral = listaAtividadesDepartamento;
+        return "inicial";
     }
     
 }

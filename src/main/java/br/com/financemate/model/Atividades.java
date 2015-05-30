@@ -47,9 +47,8 @@ public class Atividades implements Serializable {
     @Size(max = 30)
     @Column(name = "prioridade")
     private String prioridade;
-    @Size(max = 3)
     @Column(name = "concluidade")
-    private String concluidade;
+    private Boolean concluidade;
     @Column(name = "idrotina")
     private Integer idrotina;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
@@ -109,13 +108,14 @@ public class Atividades implements Serializable {
         this.prioridade = prioridade;
     }
 
-    public String getConcluidade() {
+    public Boolean getConcluidade() {
         return concluidade;
     }
 
-    public void setConcluidade(String concluidade) {
+    public void setConcluidade(Boolean concluidade) {
         this.concluidade = concluidade;
     }
+
 
     public Integer getIdrotina() {
         return idrotina;

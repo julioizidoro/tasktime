@@ -15,34 +15,34 @@
                     <p:selectBooleanCheckbox value="#" class="Selecionarconcluida"/>
                     <p:commandButton icon=" ui-icon-search " class="botao1"/>  
                     
-                    <p:dataTable var="tarefasHoje" value="#" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                    <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column headerText="Atividade" style="width:150px;" styleClass="border">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{tarefas.nome}" />
                         </p:column>
 
                         <p:column headerText="Responsável" style="width:120px;" styleClass="alinhaCentro">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{tarefas.usuario.nome}" />
                         </p:column>
 
                         <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{tarefas.subdepartamento.departamento.nome}" />
                         </p:column>
 
                         <p:column headerText="Cliente" style="width:120px;" styleClass="alinhaCentro">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{tarefas.cliente.nomefantasia}" />
                         </p:column>
                         
                         <p:column headerText="Prazo" style="width:90px;" styleClass="alinhaCentro">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{tarefas.prazo}" />
                         </p:column>
                         
                         <p:column headerText="Prioridade" style="width:50px;" styleClass="alinhaCentro">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{tarefas.prioridade}" />
                         </p:column>
                         
                         <p:column headerText="Concluída" style="width:50px;" styleClass="alinhaCentro">
-                            <p:selectBooleanCheckbox value="#"/>
+                            <p:selectBooleanCheckbox value="#{tarefas.concluidade}"/>
                         </p:column>
                     </p:dataTable>
                     <br></br>
