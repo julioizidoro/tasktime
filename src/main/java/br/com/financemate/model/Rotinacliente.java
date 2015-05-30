@@ -37,9 +37,6 @@ public class Rotinacliente implements Serializable {
     @Size(max = 50)
     @Column(name = "periodicidade")
     private String periodicidade;
-    @Column(name = "data")
-    @Temporal(TemporalType.DATE)
-    private Date data;
     @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
     @ManyToOne(optional = false)
     private Cliente cliente;
@@ -73,14 +70,6 @@ public class Rotinacliente implements Serializable {
 
     public void setPeriodicidade(String periodicidade) {
         this.periodicidade = periodicidade;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
     }
 
     public Cliente getCliente() {

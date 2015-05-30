@@ -9,20 +9,17 @@
         <ui:define name="corpo">
             <h:form>
                 <div id="centro2" >
-                     <br></br>
-                     <br></br>
                       <legend class="titulo">Cadastro de Rotina</legend>
                      <br></br> 
                         <p:outputLabel value="Sub-Depatamento" class="filtrar4"/> 
                         <p:outputLabel value="Nome Rotina" class="filtrar4"/> 
-                        
-                    <br></br>
-                    <p:selectOneMenu id="subdepartamento" value="#{RotinaMB.idSubdepartamento}" class="filtrar4" style="width:140px">
-                        <f:selectItem itemLabel="Selecione" itemValue="sn"   />
-                        <f:selectItems value="#{RotinaMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
-                    </p:selectOneMenu>
-                    <p:inputText id="nomerotina" size="30"  class="filtrar7"  value="#{RotinaMB.rotina.nome}" />
-                    
+                        <p:panelGrid columns="2">       
+                            <p:selectOneMenu id="subdepartamento" value="#{RotinaMB.idSubdepartamento}" class="filtrar4" style="width:140px">
+                                <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                                <f:selectItems value="#{RotinaMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
+                            </p:selectOneMenu>
+                            <p:inputText id="nomerotina" size="30"  class="filtrar7"  value="#{RotinaMB.rotina.nome}" />
+                        </p:panelGrid>
                     <p:dataTable var="cadRotina" value="#{RotinaMB.listaRotinabean}" class="dataGridcadastro" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column  style="width:30px;" styleClass="alinhaCentro">
@@ -53,7 +50,7 @@
                                 <f:facet name="output"><h:outputText value="#{cadRotina.rotinacliente.data}" /></f:facet>
                                 <f:facet name="input">
                                     <h:selectOneMenu value="#{cadRotina.rotinacliente.data}" style="width:100%">
-                                        <f:selectItem itemLabel="Diária" itemValue="diaria" />
+                                        <f:selectItem itemLabel="Diária" itemValue="Diária" />
                                         <f:selectItem itemLabel="Quarta-Feira" itemValue="quartafeira" />
                                         <f:selectItem itemLabel="Todo dia 05" itemValue="cinco" />
                                         <f:selectItem itemLabel="Trimestral" itemValue="trimestral" />

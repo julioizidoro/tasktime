@@ -197,7 +197,7 @@ public class RotinaMB  implements Serializable{
                 rc = listaRotinabean.get(i).getRotinacliente();
                 rc.setCliente(listaRotinabean.get(i).getCliente());
                 rc.setRotina(rotina);
-                rotinaclienteController.salvar(rotinacliente);
+                rotinaclienteController.salvar(rc);
             }
         }
         rotina = new Rotina();
