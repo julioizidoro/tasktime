@@ -13,7 +13,7 @@
                      <br></br> 
                         <p:outputLabel value="Sub-Depatamento" class="filtrar4"/> 
                         <p:outputLabel value="Nome Rotina" class="filtrar4"/> 
-                        <p:panelGrid columns="2">       
+                        <p:panelGrid columns="2" style="border:#fff;" styleClass="fonte">       
                             <p:selectOneMenu id="subdepartamento" value="#{RotinaMB.idSubdepartamento}" class="filtrar4" style="width:140px">
                                 <f:selectItem itemLabel="Selecione" itemValue="sn"   />
                                 <f:selectItems value="#{RotinaMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
@@ -49,14 +49,9 @@
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{cadRotina.rotinacliente.data}" /></f:facet>
                                 <f:facet name="input">
-                                    <h:selectOneMenu value="#{cadRotina.rotinacliente.data}" style="width:100%">
-                                        <f:selectItem itemLabel="Diária" itemValue="Diária" />
-                                        <f:selectItem itemLabel="Quarta-Feira" itemValue="quartafeira" />
-                                        <f:selectItem itemLabel="Todo dia 05" itemValue="cinco" />
-                                        <f:selectItem itemLabel="Trimestral" itemValue="trimestral" />
-                                        <f:selectItem itemLabel="30/10" itemValue="30-10" />
-                                        <f:selectItem itemLabel="N/D" itemValue="nd" />
-                                    </h:selectOneMenu>
+                                    <p:calendar pattern="dd/MM/yyyy" mask="true" size="12" maxlength="14" value="#{cadRotina.rotinacliente.data}" >
+                                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                    </p:calendar>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>

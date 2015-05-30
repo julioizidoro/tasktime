@@ -46,7 +46,9 @@
     </p:menu>
         <p:dialog header="Adicionar Tarafas" modal="true" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
             <p:inputText value="#{AtividadeMB.atividades.nome}" size="47" class="filtrar"/>
-            <p:inputText value="#{AtividadeMB.atividades.prazo}" class="filtrar6"/>
+            <p:calendar id="prazo"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="filtrar6" value="#{AtividadeMB.atividades.prazo}" >
+                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+            </p:calendar>
             <br></br><br></br>
                 <p:outputLabel value="Sub-Depatamento" class="filtrar"/> 
                 <p:outputLabel value="Cliente" class="filtrar4"/> 
