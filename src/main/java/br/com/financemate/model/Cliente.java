@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -76,12 +78,6 @@ public class Cliente implements Serializable {
     @Size(max = 100)
     @Column(name = "email")
     private String email;
-    @Size(max = 30)
-    @Column(name = "inscricaoestadual")
-    private String inscricaoestadual;
-    @Size(max = 30)
-    @Column(name = "inscricaomunicipal")
-    private String inscricaomunicipal;
     @Lob
     @Size(max = 65535)
     @Column(name = "observacao")
@@ -109,6 +105,12 @@ public class Cliente implements Serializable {
     private Boolean outros;
     @Column(name = "valoroutros")
     private Float valoroutros;
+    @Size(max = 20)
+    @Column(name = "inscricaoestadual")
+    private String inscricaoestadual;
+    @Size(max = 20)
+    @Column(name = "inscricaomunicipal")
+    private String inscricaomunicipal;
     @Transient
     private boolean selecionado;
 
@@ -181,22 +183,6 @@ public class Cliente implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public String getInscricaoestadual() {
-        return inscricaoestadual;
-    }
-
-    public void setInscricaoestadual(String inscricaoestadual) {
-        this.inscricaoestadual = inscricaoestadual;
-    }
-
-    public String getInscricaomunicipal() {
-        return inscricaomunicipal;
-    }
-
-    public void setInscricaomunicipal(String inscricaomunicipal) {
-        this.inscricaomunicipal = inscricaomunicipal;
     }
 
     public String getBairro() {
@@ -341,6 +327,22 @@ public class Cliente implements Serializable {
 
     public void setValoroutros(Float valoroutros) {
         this.valoroutros = valoroutros;
+    }
+
+    public String getInscricaoestadual() {
+        return inscricaoestadual;
+    }
+
+    public void setInscricaoestadual(String inscricaoestadual) {
+        this.inscricaoestadual = inscricaoestadual;
+    }
+
+    public String getInscricaomunicipal() {
+        return inscricaomunicipal;
+    }
+
+    public void setInscricaomunicipal(String inscricaomunicipal) {
+        this.inscricaomunicipal = inscricaomunicipal;
     }
 
     public boolean isSelecionado() {

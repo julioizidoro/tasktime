@@ -6,7 +6,6 @@
 package br.com.financemate.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
@@ -37,15 +36,18 @@ public class Rotinacliente implements Serializable {
     @Size(max = 50)
     @Column(name = "periodicidade")
     private String periodicidade;
-    @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
+    @JoinColumn(name = "datarotina_iddatarotina", referencedColumnName = "iddatarotina")
     @ManyToOne(optional = false)
-    private Cliente cliente;
+    private Datarotina datarotina;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
     @JoinColumn(name = "rotina_idrotina", referencedColumnName = "idrotina")
     @ManyToOne(optional = false)
     private Rotina rotina;
+    @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
+    @ManyToOne(optional = false)
+    private Cliente cliente;
     @Transient
     private boolean selecionado;
 
@@ -72,12 +74,12 @@ public class Rotinacliente implements Serializable {
         this.periodicidade = periodicidade;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Datarotina getDatarotina() {
+        return datarotina;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setDatarotina(Datarotina datarotina) {
+        this.datarotina = datarotina;
     }
 
     public Usuario getUsuario() {
@@ -96,6 +98,14 @@ public class Rotinacliente implements Serializable {
         this.rotina = rotina;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public boolean isSelecionado() {
         return selecionado;
     }
@@ -103,7 +113,6 @@ public class Rotinacliente implements Serializable {
     public void setSelecionado(boolean selecionado) {
         this.selecionado = selecionado;
     }
-    
 
     @Override
     public int hashCode() {

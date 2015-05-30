@@ -70,6 +70,8 @@ public class Usuario implements Serializable {
     private Perfil perfil;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Departamento> departamentoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Rotinacliente> rotinaclienteList;
     @Transient
     private boolean selecionado;
 
@@ -208,6 +210,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Usuario[ idusuario=" + idusuario + " ]";
+    }
+
+    public List<Rotinacliente> getRotinaclienteList() {
+        return rotinaclienteList;
+    }
+
+    public void setRotinaclienteList(List<Rotinacliente> rotinaclienteList) {
+        this.rotinaclienteList = rotinaclienteList;
     }
     
 }
