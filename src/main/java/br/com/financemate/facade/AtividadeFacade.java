@@ -15,6 +15,7 @@ import java.util.List;
  * @author Kamila
  */
 public class AtividadeFacade {
+    
     AtividadesDao atividadesDao;
     
     public Atividades salvar(Atividades atividades) throws SQLException{
@@ -27,9 +28,9 @@ public class AtividadeFacade {
         return atividadesDao.consultar(idAtividades);
     }
     
-    public List<Atividades> listar(String nome) throws SQLException{
+    public List<Atividades> listar(String sql) throws SQLException{
         atividadesDao = new AtividadesDao();
-        return atividadesDao.listar(nome);
+        return atividadesDao.listar(sql);
     }
     
 }

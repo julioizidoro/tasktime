@@ -1,6 +1,8 @@
 package br.com.financemate.manageBean;
 
 import br.com.financemante.controller.AtividadesController;
+import br.com.financemate.bean.Formatacao;
+import br.com.financemate.facade.AtividadeFacade;
 import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
@@ -13,6 +15,7 @@ import br.com.financemate.model.Usuario;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -38,10 +41,47 @@ public class AtividadeMB implements Serializable{
     private String idCliente;
     private String idSubdepartamento;
     private List<Usuario> listaUsuario;
-     private String idUsuario="0";
+    private String idUsuario="0";
+    private List<Atividades> listaAtividadedia;
+    private List<Atividades> listaAtividadeSemana;
+    private List<Atividades> listaAtividadeAtrasada;
+    private List<Atividades> listaAtividadesDepartamento;
+    private List<Atividades> listaAtividadesGeral;
 
     public AtividadeMB() {
         atividades = new Atividades();
+    }
+
+    public List<Atividades> getListaAtividadedia() {
+        return listaAtividadedia;
+    }
+
+    public void setListaAtividadedia(List<Atividades> listaAtividadedia) {
+        this.listaAtividadedia = listaAtividadedia;
+    }
+
+    public List<Atividades> getListaAtividadeSemana() {
+        return listaAtividadeSemana;
+    }
+
+    public void setListaAtividadeSemana(List<Atividades> listaAtividadeSemana) {
+        this.listaAtividadeSemana = listaAtividadeSemana;
+    }
+
+    public List<Atividades> getListaAtividadeAtrasada() {
+        return listaAtividadeAtrasada;
+    }
+
+    public void setListaAtividadeAtrasada(List<Atividades> listaAtividadeAtrasada) {
+        this.listaAtividadeAtrasada = listaAtividadeAtrasada;
+    }
+
+    public List<Atividades> getListaAtividadesDepartamento() {
+        return listaAtividadesDepartamento;
+    }
+
+    public void setListaAtividadesDepartamento(List<Atividades> listaAtividadesDepartamento) {
+        this.listaAtividadesDepartamento = listaAtividadesDepartamento;
     }
 
      
@@ -200,4 +240,35 @@ public class AtividadeMB implements Serializable{
         atividades.setUsuario(usuario);
         return "";
     }
+    
+    public  void listarAtividadesDia() throws SQLException {
+        AtividadeFacade atividadesFacade = new AtividadeFacade();
+        String sql = "Select a from Atividades a where a.prazo=" + Formatacao.ConvercaoDataSql(new Date()) + 
+                " and a.concluida='Não' order by a.prioridade, a.nome";
+        listaAtividadedia = atividadesFacade.listar(sql);
+    }
+    
+    public  void listarAtividadesSemana() throws SQLException {
+        AtividadeFacade atividadesFacade = new AtividadeFacade();
+        Date data = Formatacao.SomarDiasData(new Date(), 7);
+        String sql = "Select a from Atividades a where a.prazo>" + Formatacao.ConvercaoDataSql(new Date()) + 
+                " and a.prazo<=" + Formatacao.ConvercaoDataSql(data) + "  and a.concluida='Não' order by a.prioridade, a.nome";
+        listaAtividadeSemana = atividadesFacade.listar(sql);
+    }
+    
+    public  void listarAtividadesAtrasadas() throws SQLException {
+        AtividadeFacade atividadesFacade = new AtividadeFacade();
+        String sql = "Select a from Atividades a where a.prazo<" + Formatacao.ConvercaoDataSql(new Date()) + 
+                 " and a.concluida='Não' order by a.prioridade, a.nome";
+        listaAtividadeAtrasada = atividadesFacade.listar(sql);
+    }
+    
+    public  void listarAtividadesDepartamento() throws SQLException {
+        AtividadeFacade atividadesFacade = new AtividadeFacade();
+        String sql = "Select a from Atividades a where a.subdepartamento.departamento.iddepartamento=" + 
+                usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento() +
+                "  and a.concluida='Não' order by a.prioridade, a.nome";
+        listaAtividadeSemana = atividadesFacade.listar(sql);
+    }
+    
 }

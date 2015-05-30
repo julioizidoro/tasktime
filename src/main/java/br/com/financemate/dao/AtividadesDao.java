@@ -34,10 +34,10 @@ public class AtividadesDao {
     }
     
     
-   public List<Atividades> listar(String nome) throws SQLException{
+   public List<Atividades> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select a from Atividades a where a.nome like '%" + nome + "%' order by a.prazo");
+        Query q = manager.createQuery(sql);
         List<Atividades> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;

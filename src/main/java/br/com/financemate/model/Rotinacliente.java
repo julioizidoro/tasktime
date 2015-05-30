@@ -6,6 +6,7 @@
 package br.com.financemate.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
@@ -36,9 +39,9 @@ public class Rotinacliente implements Serializable {
     @Size(max = 50)
     @Column(name = "periodicidade")
     private String periodicidade;
-    @JoinColumn(name = "datarotina_iddatarotina", referencedColumnName = "iddatarotina")
-    @ManyToOne(optional = false)
-    private Datarotina datarotina;
+    @Column(name = "data")
+    @Temporal(TemporalType.DATE)
+    private Date data;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -74,12 +77,12 @@ public class Rotinacliente implements Serializable {
         this.periodicidade = periodicidade;
     }
 
-    public Datarotina getDatarotina() {
-        return datarotina;
+    public Date getData() {
+        return data;
     }
 
-    public void setDatarotina(Datarotina datarotina) {
-        this.datarotina = datarotina;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public Usuario getUsuario() {
