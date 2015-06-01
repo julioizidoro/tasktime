@@ -25,13 +25,13 @@
                             <h:outputText value="#{consRotina.subdepartamento.nome}" />
                         </p:column>
                         <p:column style="width:26px" styleClass="border">
-                       <p:commandButton  id="edtiar" icon="ui-icon-pencil" title="Editar" action="#" >
-                           <f:param name="id_rotina" value="#"/>
+                            <p:commandButton  id="edtiar" icon="ui-icon-pencil" title="Editar" action="#{RotinaMB.editar()}" >
+                           <f:param name="id_rotina" value="#{consRotina.idrotina}"/>
                        </p:commandButton>
                         </p:column>     
                       <p:column style="width:26px" styleClass="border">
-                        <p:commandButton  id="excluir" icon="ui-icon-trash" title="Excluir" action="#" >
-                            <f:param name="id_rotina" value="#"/>
+                          <p:commandButton  id="excluir" icon="ui-icon-trash" title="Excluir" action="#" >
+                            <f:param name="id_rotina" value="#{consRotina.idrotina}"/>
                         </p:commandButton>
                      </p:column>
                     </p:dataTable>

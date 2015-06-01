@@ -16,8 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -39,6 +37,9 @@ public class Rotina implements Serializable {
     @Size(max = 200)
     @Column(name = "nome")
     private String nome;
+    @Size(max = 30)
+    @Column(name = "prioridade")
+    private String prioridade;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
     private List<Rotinacliente> rotinaclienteList;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
@@ -68,6 +69,14 @@ public class Rotina implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(String prioridade) {
+        this.prioridade = prioridade;
     }
 
     public List<Rotinacliente> getRotinaclienteList() {

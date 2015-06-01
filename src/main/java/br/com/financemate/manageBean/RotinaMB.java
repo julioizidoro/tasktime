@@ -24,7 +24,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -196,11 +198,12 @@ public class RotinaMB  implements Serializable{
               if (rc!=null){
                   rb.setRotinacliente(rc);
                   rb.setRotinafixa(rc);
+                  rb.setSelecionado(true);
               }else {
                   rb.setRotinacliente(new Rotinacliente());
                   rb.setRotinafixa(new Rotinacliente());
+                  rb.setSelecionado(false);
               }
-              rb.setRotinacliente(new Rotinacliente());
               listaRotinabean.add(rb);
           }
         }
@@ -289,11 +292,11 @@ public class RotinaMB  implements Serializable{
                     rc.setCliente(listaRotinabean.get(i).getCliente());
                     rc.setRotina(rotina);
                     if (rc.getPeriodicidade().equalsIgnoreCase("diaria")) {
-                        rc.setData(criarAtividadesDiaria(rotinabean));
+                        rc.setData(criarAtividadesDiaria(listaRotinabean.get(i)));
                     } else if (rc.getPeriodicidade().equalsIgnoreCase("semanal")) {
-                        rc.setData(criarAtividadesSemanal(rotinabean));
+                        rc.setData(criarAtividadesSemanal(listaRotinabean.get(i)));
                     } else  {
-                        criarAtividadeMensalTrimestralAnual(rotinabean);
+                        criarAtividadeMensalTrimestralAnual(listaRotinabean.get(i));
                     } 
                     rotinaclienteFacade.salvar(rc);
                 }
@@ -326,11 +329,21 @@ public class RotinaMB  implements Serializable{
         }
     }
     
-    public String editar()  {
-        gerarListaSubdepartamento();
-        gerarListaRotinaBean();
-        gerarListaUsuario();
-        return "cadRotina";
+    public String editar() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        int idRotina = Integer.parseInt(params.get("id_rotina"));
+        RotinaFacade rotinaFacade = new RotinaFacade();
+        rotina = rotinaFacade.consultar(idRotina);
+        if (rotina != null) {
+            idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
+            gerarListaSubdepartamento();
+            gerarListaRotinaBeanEditar();
+            gerarListaUsuario();
+            return "cadRotina";
+        } else {
+            return "";
+        }
     }
     
     public void gerarListaSubdepartamento()  {
