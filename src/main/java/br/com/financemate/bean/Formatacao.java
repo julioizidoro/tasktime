@@ -176,7 +176,7 @@ public class Formatacao {
   }
     
     public static String ConvercaoDataSql(Date data){
-      DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
       String dataFormatada = df.format(data);
       return dataFormatada;
   }

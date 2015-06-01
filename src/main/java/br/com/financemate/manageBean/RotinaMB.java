@@ -315,11 +315,11 @@ public class RotinaMB  implements Serializable{
                 rc.setCliente(listaRotinabean.get(i).getCliente());
                 rc.setRotina(rotina);
                 if (rc.getPeriodicidade().equalsIgnoreCase("diaria")) {
-                    rc.setData(criarAtividadesDiaria(rotinabean));
+                    rc.setData(criarAtividadesDiaria(listaRotinabean.get(i)));
                 } else if (rc.getPeriodicidade().equalsIgnoreCase("semanal")) {
-                    rc.setData(criarAtividadesSemanal(rotinabean));
+                    rc.setData(criarAtividadesSemanal(listaRotinabean.get(i)));
                 } else {
-                    criarAtividadeMensalTrimestralAnual(rotinabean);
+                    criarAtividadeMensalTrimestralAnual(listaRotinabean.get(i));
                 } 
                 rotinaclienteFacade.salvar(rc);
             }

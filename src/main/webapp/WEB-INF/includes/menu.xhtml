@@ -32,9 +32,9 @@
     <div id="centro">
     <p:menu toggleable="true"  class="menu2">
         <p:submenu label="Minhas Tarefas">
-            <p:menuitem value="#{AtividadeMB.ndia}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesDia()}"/>
-            <p:menuitem value="#{AtividadeMB.nsemana}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesSemana()}"/>
-            <p:menuitem value="#{AtividadeMB.natrasada}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesAtrasadas()}"/>
+            <p:menuitem value="#{AtividadeMB.ndia}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesDia()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#{AtividadeMB.nsemana}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesSemana()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#{AtividadeMB.natrasada}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesAtrasadas()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
         </p:submenu>
         <p:submenu label="Tarefas da Equipe">
             <p:menuitem value="#{AtividadeMB.ndepartamento}" icon=" ui-icon-search " action="#{AtividadeMB.mostarAtividadesDepartamento()}"/>

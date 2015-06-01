@@ -11,9 +11,9 @@
                 <div id="centro2" >
                       <legend class="titulo">Consulta de Rotina</legend>
                      <br></br>
-                     <p:outputLabel value="Nome Cliente" class="filtrar" /> 
+                     <p:outputLabel value="Nome Rotina" class="left1" /> 
                      <br></br>
-                     <p:inputText id="nome"   size="43" maxlength="100" class="filtrar"  value="#{RotinaMB.nomeRotina}" />
+                     <p:inputText id="nome"   size="43" maxlength="100" class="left1"  value="#{RotinaMB.nomeRotina}" />
                      <p:commandButton icon="ui-icon-search"  class="botao1" action="#{RotinaMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
                      <br></br>
                      <p:dataTable var="consRotina" value="#{RotinaMB.listaRotina}" class="dataGrid2" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
@@ -24,13 +24,19 @@
                         <p:column headerText="Sub-Departamento" styleClass="border">
                             <h:outputText value="#{consRotina.subdepartamento.nome}" />
                         </p:column>
-                        <p:column  style="width:50px;" styleClass="alinhaCentro">
-                            <p:selectBooleanCheckbox value="#{consRotina.selecionado}"/>
-                        </p:column>
+                        <p:column style="width:26px" styleClass="border">
+                       <p:commandButton  id="edtiar" icon="ui-icon-pencil" title="Editar" action="#" >
+                           <f:param name="id_rotina" value="#"/>
+                       </p:commandButton>
+                        </p:column>     
+                      <p:column style="width:26px" styleClass="border">
+                        <p:commandButton  id="excluir" icon="ui-icon-trash" title="Excluir" action="#" >
+                            <f:param name="id_rotina" value="#"/>
+                        </p:commandButton>
+                     </p:column>
                     </p:dataTable>
                     <br></br><br></br>
-                    <p:commandButton icon=" ui-icon-check" value="Novo" class="cadastro2" action="#{RotinaMB.novo()}"/>  
-                    <p:commandButton icon=" ui-icon-close " value="Editar" class="cancelar" action="#{RotinaMB.editar()}"/> 
+                    <p:commandButton icon=" ui-icon-check" value="Novo" class="cadastro2" action="#{RotinaMB.novo()}"/>   
                 </div>
                 
             </h:form>     

@@ -34,16 +34,20 @@
                         </p:column>
                         
                         <p:column headerText="Prazo" style="width:90px;" styleClass="alinhaCentro">
-                            <h:outputText value="#{tarefas.prazo}" />
+                            <h:outputText value="#{tarefas.prazo}" >
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>    
                         </p:column>
                         
                         <p:column headerText="Prioridade" style="width:50px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.prioridade}" />
                         </p:column>
                         
-                        <p:column headerText="Concluída" style="width:50px;" styleClass="alinhaCentro">
-                            <p:selectBooleanCheckbox value="#{tarefas.concluida}"/>
-                        </p:column>
+                        <p:column style="width:26px" styleClass="border">
+                            <p:commandButton  id="concluir" icon=" ui-icon-check" title="Concluir" action="#" class="botao4">
+                                <f:param name="id_atividades" value="#"/>
+                            </p:commandButton>
+                         </p:column>
                     </p:dataTable>
                     <br></br>
                 </div>
