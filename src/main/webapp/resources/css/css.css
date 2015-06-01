@@ -211,22 +211,8 @@
       button.botao4{
         height:20px; 
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	padding: 5px 0px;
-        margin-left:10px;
-	border: 2px solid #3b5695;
-	-moz-box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 3px rgba(255,255,255,1);
-	-webkit-box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 3px rgba(350,255,255,1);
-	box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 3px rgba(350,255,255,1);
-	text-shadow:
-		0px -1px 0px rgba(000,000,000,0.2),
-		0px 1px 0px rgba(350,255,255,1);
+	font-size: 15px;
+        color: #3A5795;
    }
      button.botao1 {
          top:-10px;
@@ -551,3 +537,4 @@
         font-size: 12px;
         border-color:#fff;
     }
+    .concluido{ background-image: url(../img/concluido.jpg) !important; } 
