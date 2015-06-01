@@ -209,7 +209,7 @@
          font-size:12px;
      }
       button.botao4{
-        height:20px; 
+        height:23px; 
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
         color: #3A5795;
@@ -537,4 +537,4 @@
         font-size: 12px;
         border-color:#fff;
     }
-    .concluido{ background-image: url(../img/concluido.jpg) !important; } 
+    .concluido{ background-image: url(../img/confirmar.png) !important; } 

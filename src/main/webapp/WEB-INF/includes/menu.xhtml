@@ -37,7 +37,7 @@
             <p:menuitem value="#{AtividadeMB.natrasada}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesAtrasadas()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
         </p:submenu>
         <p:submenu label="Tarefas da Equipe">
-            <p:menuitem value="#{AtividadeMB.ndepartamento}" icon=" ui-icon-search " action="#{AtividadeMB.mostarAtividadesDepartamento()}"/>
+            <p:menuitem value="#{AtividadeMB.ndepartamento}" icon=" ui-icon-search " action="#{AtividadeMB.mostarAtividadesDepartamento()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
         </p:submenu>
         <p:submenu label="Rotina">
             <p:menuitem value="Situação" icon=" ui-icon-alert " action="#{MenuMB.situacao()}"/>

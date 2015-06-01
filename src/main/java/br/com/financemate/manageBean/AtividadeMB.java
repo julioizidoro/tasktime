@@ -52,6 +52,7 @@ public class AtividadeMB implements Serializable{
     private String nsemana;
     private String natrasada;
     private String ndepartamento;
+    private String titulo="Tarefas de Hoje";
 
     public AtividadeMB()  {
         atividades = new Atividades();
@@ -245,6 +246,14 @@ public class AtividadeMB implements Serializable{
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
     
     
     
@@ -389,24 +398,28 @@ public class AtividadeMB implements Serializable{
     public String mostarAtividadesDia(){
         listaAtividadesGeral = listaAtividadedia;
         atividadeMenu="dia";
+        titulo="Taferas de Hoje";
         return "inicial";
     }
     
     public String mostarAtividadesSemana(){
         listaAtividadesGeral = listaAtividadeSemana;
         atividadeMenu="semana";
+        titulo="Taferas da Semana";
         return "inicial";
     }
     
     public String mostarAtividadesAtrasadas(){
         listaAtividadesGeral = listaAtividadeAtrasada;
         atividadeMenu="atrasada";
+         titulo="Taferas Atrasadas";
         return "inicial";
     }
     
     public String mostarAtividadesDepartamento(){
         listaAtividadesGeral = listaAtividadesDepartamento;
         atividadeMenu="departamento";
+        titulo="Taferas do Departamento";
         return "inicial";
     }
     
@@ -420,4 +433,13 @@ public class AtividadeMB implements Serializable{
         }else listaAtividadesGeral = listaAtividadesDepartamento;
     }
     
+    public String imagem(Atividades atividade) {
+        if (atividade.getPrioridade().equalsIgnoreCase("alta")) {
+            return "resources/img/bolaVermelha.png";
+        } else if (atividade.getPrioridade().equalsIgnoreCase("media")) {
+            return "resources/img/bolaAmarela.png";
+        } else {
+            return "resources/img/bolaVerde.png";
+        }
+    }
 }

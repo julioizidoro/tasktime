@@ -9,7 +9,7 @@
         <ui:define name="corpo">
             <h:form>
                 <div id="centro2" >
-                      <legend class="titulo">Tarefas de hoje!</legend>
+                    <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                      <br></br>
                     <h:outputText value="Concluídas" class="concluida"/>  
                     <p:selectBooleanCheckbox value="#" class="Selecionarconcluida"/>
@@ -43,8 +43,10 @@
                             <h:outputText value="#{tarefas.prioridade}" />
                         </p:column>
                         
-                        <p:column style="width:26px" styleClass="border">
-                            <p:graphicImage value="resources/img/concluido.jpg" onclick=""/>  
+                        <p:column style="width:26px" styleClass="alinhaCentro">
+                            <p:commandButton  id="concluir" icon="concluido" title="Concluir" action="#" class="botao4">
+                                <f:param name="id_atividades" value="#"/>
+                            </p:commandButton>
                          </p:column>
                     </p:dataTable>
                     <br></br>
