@@ -4,6 +4,8 @@ import br.com.financemate.dao.PerfilDao;
 import br.com.financemate.model.Perfil;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,18 +15,33 @@ public class PerfilFacade {
     
     PerfilDao perfilDao;
     
-    public Perfil salvar(Perfil perfil) throws SQLException{
+    public Perfil salvar(Perfil perfil) {
         perfilDao = new PerfilDao();
-        return perfilDao.salvar(perfil);
+        try {
+            return perfilDao.salvar(perfil);
+        } catch (SQLException ex) {
+            Logger.getLogger(PerfilFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
-    public Perfil consultar(int idPerfil) throws SQLException{
+    public Perfil consultar(int idPerfil){
         perfilDao = new PerfilDao();
-        return perfilDao.consultar(idPerfil);
+        try {
+            return perfilDao.consultar(idPerfil);
+        } catch (SQLException ex) {
+            Logger.getLogger(PerfilFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
-    public List<Perfil> listar(String nomeTipoacesso) throws SQLException{
+    public List<Perfil> listar(String nomeTipoacesso){
         perfilDao = new PerfilDao();
-        return perfilDao.listar(nomeTipoacesso);
+        try {
+            return perfilDao.listar(nomeTipoacesso);
+        } catch (SQLException ex) {
+            Logger.getLogger(PerfilFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }

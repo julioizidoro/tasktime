@@ -747,4 +747,11 @@ public class Formatacao {
       }
       return novoValor;
   }
+  
+    public static int diaSemana(Date data) {
+        Calendar cal = Calendar.getInstance();    // hoje  
+        cal.setTime(data);    // uma Date  
+        int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
+        return diaSemana;
+    }
 }

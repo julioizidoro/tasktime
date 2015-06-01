@@ -2,7 +2,6 @@ package br.com.financemate.bean;
 
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Rotinacliente;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 
 /**
  *
@@ -12,6 +11,7 @@ public class RotinaBean {
     
     private Cliente cliente;
     private Rotinacliente rotinacliente;
+    private Rotinacliente rotinafixa;
     private boolean selecionado;
 
     public Cliente getCliente() {
@@ -36,6 +36,14 @@ public class RotinaBean {
 
     public void setSelecionado(boolean selecionado) {
         this.selecionado = selecionado;
+    }
+
+    public Rotinacliente getRotinafixa() {
+        return rotinafixa;
+    }
+
+    public void setRotinafixa(Rotinacliente rotinafixa) {
+        this.rotinafixa = rotinafixa;
     }
     
     

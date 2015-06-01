@@ -1,6 +1,5 @@
 package br.com.financemate.manageBean;
 
-import br.com.financemante.controller.SubdepartamentoController;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
 import br.com.financemate.model.Departamento;
@@ -90,8 +89,8 @@ public class SubdepartamentoMB implements Serializable{
         if(nomeDepartamento == null){
             nomeDepartamento = "";
         }
-        SubdepartamentoController subdepartamentoController = new SubdepartamentoController();
-        listaSubdepartamento = subdepartamentoController.listar(nomeDepartamento);
+        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+        listaSubdepartamento = subdepartamentoFacade.listar(nomeDepartamento);
         if (listaSubdepartamento == null) {
             listaSubdepartamento = new ArrayList<Subdepartamento>();
         }

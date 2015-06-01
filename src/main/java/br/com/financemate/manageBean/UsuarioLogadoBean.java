@@ -1,7 +1,6 @@
 package br.com.financemate.manageBean;
 
-import br.com.financemante.controller.ClienteController;
-import br.com.financemante.controller.UsuarioController;
+import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
@@ -75,8 +74,8 @@ public class UsuarioLogadoBean implements Serializable{
         if ((usuario.getLogin()!=null) && (usuario.getSenha()==null)){
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Login Invalido."));
         }else{
-                UsuarioController  usuarioController = new UsuarioController();
-            usuario = usuarioController.consultar(usuario.getLogin(), usuario.getSenha());
+                UsuarioFacade  usuarioFacade = new UsuarioFacade();
+            usuario = usuarioFacade.consultar(usuario.getLogin(), usuario.getSenha());
             if (usuario==null){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Acesso Negado."));
             }else {
@@ -99,8 +98,8 @@ public class UsuarioLogadoBean implements Serializable{
         if ((usuario.getLogin()!=null) && (usuario.getSenha()==null)){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Login Invalido."));
         }else{
-            UsuarioController  usuarioController = new UsuarioController();
-            usuario = usuarioController.consultar(usuario.getLogin(), usuario.getSenha());
+            UsuarioFacade  usuarioFacade = new UsuarioFacade();
+            usuario = usuarioFacade.consultar(usuario.getLogin(), usuario.getSenha());
             if (usuario==null){
                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Acesso Negado."));
             }
@@ -110,9 +109,9 @@ public class UsuarioLogadoBean implements Serializable{
     public String confirmaNovaSenha() {
         if ((novaSenha.length() > 0) && (confirmaNovaSenha.length() > 0)) {
             if (novaSenha.equalsIgnoreCase(confirmaNovaSenha)) {
-                UsuarioController usuarioController = new UsuarioController();
+                UsuarioFacade usuarioFacade = new UsuarioFacade();
                 usuario.setSenha(novaSenha);
-                usuario = usuarioController.salvar(usuario);
+                usuario = usuarioFacade.salvar(usuario);
                 novaSenha = "";
                 confirmaNovaSenha = "";
                 return "inicial";

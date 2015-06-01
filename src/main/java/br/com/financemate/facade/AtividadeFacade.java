@@ -9,6 +9,8 @@ import br.com.financemate.dao.AtividadesDao;
 import br.com.financemate.model.Atividades;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,19 +20,43 @@ public class AtividadeFacade {
     
     AtividadesDao atividadesDao;
     
-    public Atividades salvar(Atividades atividades) throws SQLException{
+    public Atividades salvar(Atividades atividades) {
         atividadesDao = new AtividadesDao();
-        return atividadesDao.salvar(atividades);
+        try {
+            return atividadesDao.salvar(atividades);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtividadeFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
-    public Atividades consultar(int idAtividades) throws SQLException{
+    public Atividades consultar(int idAtividades) {
         atividadesDao = new AtividadesDao();
-        return atividadesDao.consultar(idAtividades);
+        try {
+            return atividadesDao.consultar(idAtividades);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtividadeFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
-    public List<Atividades> listar(String sql) throws SQLException{
+    public List<Atividades> listar(String sql) {
         atividadesDao = new AtividadesDao();
-        return atividadesDao.listar(sql);
+        try {
+            return atividadesDao.listar(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtividadeFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public void Excluir(int idAtivdade) {
+        atividadesDao = new AtividadesDao();
+        try {
+            atividadesDao.Excluir(idAtivdade);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtividadeFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

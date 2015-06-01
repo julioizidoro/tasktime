@@ -1,6 +1,7 @@
 package br.com.financemate.manageBean;
 
-import br.com.financemante.controller.ClienteController;
+
+import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.model.Cliente;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -68,8 +69,8 @@ public class ClienteMB implements Serializable{
         if (nomeCliente == null) {
             nomeCliente = "";
         }
-        ClienteController clienteController = new ClienteController();
-        listaClientes = clienteController.listar(nomeCliente);
+        ClienteFacade clienteFacade = new ClienteFacade();
+        listaClientes = clienteFacade.listar(nomeCliente);
         if (listaClientes == null) {
             listaClientes = new ArrayList<Cliente>();
         }
@@ -84,8 +85,8 @@ public class ClienteMB implements Serializable{
             return "cadCliente";
     }
     public String salvar() throws SQLException{
-        ClienteController clienteController = new ClienteController();
-        clienteController.salvar(cliente);
+        ClienteFacade clienteFacade = new ClienteFacade();
+        clienteFacade.salvar(cliente);
         cliente = new Cliente();
         gerarListaClientes();
         return "consCliente";

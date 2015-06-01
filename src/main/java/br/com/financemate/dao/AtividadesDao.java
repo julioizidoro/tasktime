@@ -42,4 +42,12 @@ public class AtividadesDao {
         manager.getTransaction().commit();
         return lista;
     }
+   
+   public void Excluir(int idAtivdade) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Atividades atividades = manager.find(Atividades.class, idAtivdade);
+        manager.remove(atividades);
+        manager.getTransaction().commit();
+    }
 }

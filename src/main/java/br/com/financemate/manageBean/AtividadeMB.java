@@ -1,6 +1,6 @@
 package br.com.financemate.manageBean;
 
-import br.com.financemante.controller.AtividadesController;
+
 import br.com.financemate.bean.Formatacao;
 import br.com.financemate.facade.AtividadeFacade;
 import br.com.financemate.facade.ClienteFacade;
@@ -255,14 +255,14 @@ public class AtividadeMB implements Serializable{
     }
     
     public String salvar() throws SQLException{
-        AtividadesController atividadesController = new AtividadesController();
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         atividades.setSubdepartamento(subddepartamento);
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
         atividades.setUsuario(usuario);
-        atividades = atividadesController.salvar(atividades);
+        atividades = atividadeFacade.salvar(atividades);
         if (atividades.getPrazo().equals(new Date())){
             listarAtividadesDia();
         }else {

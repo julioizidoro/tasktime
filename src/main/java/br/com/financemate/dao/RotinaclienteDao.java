@@ -33,12 +33,24 @@ public class RotinaclienteDao {
         return rotinacliente;
     }
      
-     public List<Rotinacliente> listar(String nomeCliente) throws SQLException{
+    public List<Rotinacliente> listar(String nomeCliente) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Query q = manager.createQuery("select r from Rotinacliente r where r.cliente.nomefantasia like '%" + nomeCliente+ "%' order by r.data");
         List<Rotinacliente> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;
+    }
+    
+    public Rotinacliente getRotinaCliente(int idCliente, int idRotina) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("select r from Rotinacliente r where r.cliente.idcliente=" + idCliente + " and r.rotina.idrotina=" + idRotina);
+        List<Rotinacliente> lista = q.getResultList();
+        manager.getTransaction().commit();
+        if (lista.size()>0){
+            return (Rotinacliente) q.getResultList().get(0);
+        }
+        return null;
     }
 }

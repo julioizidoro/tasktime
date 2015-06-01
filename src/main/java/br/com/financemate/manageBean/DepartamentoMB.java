@@ -1,7 +1,5 @@
 package br.com.financemate.manageBean;
 
-import br.com.financemante.controller.DepartamentoController;
-import br.com.financemante.controller.UsuarioController;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Departamento;
@@ -77,8 +75,8 @@ public class DepartamentoMB implements Serializable{
     }
     
     public void gerarListaDepartamento(String nome) {
-        DepartamentoController departamentoController = new DepartamentoController();
-        listaDepartamento = departamentoController.listar(nome);
+        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+        listaDepartamento = departamentoFacade.listar(nome);
         if (listaDepartamento == null) {
             listaDepartamento = new ArrayList<Departamento>();
         }

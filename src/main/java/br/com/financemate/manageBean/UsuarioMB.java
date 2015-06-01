@@ -5,10 +5,10 @@
  */
 package br.com.financemate.manageBean;
 
-import br.com.financemante.controller.UsuarioController;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.PerfilFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
+import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Perfil;
 import br.com.financemate.model.Subdepartamento;
@@ -122,8 +122,8 @@ public class UsuarioMB implements Serializable{
     
     
     public void gerarListaUsuarios(String nome) {
-        UsuarioController usuarioController = new UsuarioController();
-        listaUsuario = usuarioController.listar(nome);
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        listaUsuario = usuarioFacade.listar(nome);
         if (listaUsuario == null) {
             listaUsuario = new ArrayList<Usuario>();
         }
@@ -137,14 +137,14 @@ public class UsuarioMB implements Serializable{
     }
     
     public String salvar() throws SQLException{
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         usuario.setSubdepartamento(subddepartamento);
         PerfilFacade perfilFacade = new PerfilFacade();
         Perfil perfil = perfilFacade.consultar(Integer.parseInt(idPerfil));
         usuario.setPerfil(perfil);
-        usuarioController.salvar(usuario);
+        usuarioFacade.salvar(usuario);
         usuario = new Usuario();
         gerarListaUsuarios("");
         return "consUsuario";
