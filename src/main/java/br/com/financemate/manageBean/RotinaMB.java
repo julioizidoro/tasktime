@@ -197,7 +197,15 @@ public class RotinaMB  implements Serializable{
               Rotinacliente rc = rotinaclienteFacade.getRotinaCliente(listaCliente.get(i).getIdcliente(), rotina.getIdrotina());
               if (rc!=null){
                   rb.setRotinacliente(rc);
-                  rb.setRotinafixa(rc);
+                  Rotinacliente fixa = new Rotinacliente();
+                  fixa.setCliente(rc.getCliente());
+                  fixa.setData(rc.getData());
+                  fixa.setIdrotinacliente(rc.getIdrotinacliente());
+                  fixa.setPeriodicidade(rc.getPeriodicidade());
+                  fixa.setRotina(rc.getRotina());
+                  fixa.setSelecionado(true);
+                  fixa.setUsuario(rc.getUsuario());
+                  rb.setRotinafixa(fixa);
                   rb.setSelecionado(true);
               }else {
                   rb.setRotinacliente(new Rotinacliente());
@@ -243,7 +251,7 @@ public class RotinaMB  implements Serializable{
             boolean alterado = false;
             Rotinacliente rc = new Rotinacliente();
             Rotinacliente fixa = listaRotinabean.get(i).getRotinafixa();
-            if (rc.getIdrotinacliente() != null) {
+            if (listaRotinabean.get(i).getRotinacliente().getIdrotinacliente() != null) {
                 if (listaRotinabean.get(i).isSelecionado()) {
                     rc = listaRotinabean.get(i).getRotinacliente();
                     if (!rc.getData().equals(fixa.getData())) {
@@ -254,21 +262,21 @@ public class RotinaMB  implements Serializable{
                     }
                     if (alterado) {
                         AtividadeFacade atividadesFacade = new AtividadeFacade();
-                        String sql = "Select a from Atividades a where a.prazo>" + Formatacao.ConvercaoDataSql(new Date())
+                        String sql = "Select a from Atividades a where a.prazo>=" + Formatacao.ConvercaoDataSql(new Date())
                                 + "  and a.concluida=FALSE and a.idrotina=" + rotina.getIdrotina() + " and a.cliente.idcliente=" + rc.getCliente().getIdcliente()
                                 + " order by a.prioridade, a.nome";
                         List<Atividades> listaAtividade = atividadesFacade.listar(sql);
                         if (listaAtividade != null) {
-                            for (int n = 0; n < listaAtividade.size(); i++) {
+                            for (int n = 0; n < listaAtividade.size(); n++) {
                                 atividadesFacade.Excluir(listaAtividade.get(n).getIdatividades());
                             }
                         }
                         if (rc.getPeriodicidade().equalsIgnoreCase("diaria")) {
-                            rc.setData(criarAtividadesDiaria(rotinabean));
+                            rc.setData(criarAtividadesDiaria(listaRotinabean.get(i)));
                         } else if (rc.getPeriodicidade().equalsIgnoreCase("semanal")) {
-                            rc.setData(criarAtividadesSemanal(rotinabean));
+                            rc.setData(criarAtividadesSemanal(listaRotinabean.get(i)));
                         } else {
-                            criarAtividadeMensalTrimestralAnual(rotinabean);
+                            criarAtividadeMensalTrimestralAnual(listaRotinabean.get(i));
                         }
                     }
                     rc.setCliente(listaRotinabean.get(i).getCliente());
@@ -276,7 +284,7 @@ public class RotinaMB  implements Serializable{
                     rotinaclienteFacade.salvar(rc);
                 } else {
                     AtividadeFacade atividadesFacade = new AtividadeFacade();
-                    String sql = "Select a from Atividades a where a.prazo>" + Formatacao.ConvercaoDataSql(new Date())
+                    String sql = "Select a from Atividades a where a.prazo>=" + Formatacao.ConvercaoDataSql(new Date())
                             + "  and a.concluida=FALSE and a.idrotina=" + rotina.getIdrotina() + " and a.cliente.idcliente=" + rc.getCliente().getIdcliente()
                             + " order by a.prioridade, a.nome";
                     List<Atividades> listaAtividade = atividadesFacade.listar(sql);
@@ -387,7 +395,7 @@ public class RotinaMB  implements Serializable{
             atividades.setConcluida(false);
             atividades.setIdrotina(rotina.getIdrotina());
             atividades.setNome(rotina.getNome());
-            atividades.setPrioridade("Normal");
+            atividades.setPrioridade(rotina.getPrioridade());
             atividades.setSubdepartamento(rotina.getSubdepartamento());
             atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
@@ -413,7 +421,7 @@ public class RotinaMB  implements Serializable{
             atividades.setConcluida(false);
             atividades.setIdrotina(rotina.getIdrotina());
             atividades.setNome(rotina.getNome());
-            atividades.setPrioridade("Normal");
+            atividades.setPrioridade(rotina.getPrioridade());
             atividades.setSubdepartamento(rotina.getSubdepartamento());
             atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
@@ -436,7 +444,7 @@ public class RotinaMB  implements Serializable{
         atividades.setConcluida(false);
         atividades.setIdrotina(rotina.getIdrotina());
         atividades.setNome(rotina.getNome());
-        atividades.setPrioridade("Normal");
+        atividades.setPrioridade(rotina.getPrioridade());
         atividades.setSubdepartamento(rotina.getSubdepartamento());
         atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
         atividades.setPrazo(rotinaBean.getRotinacliente().getData());
