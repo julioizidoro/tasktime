@@ -436,7 +436,6 @@ public class RotinaMB  implements Serializable{
     }
     
     
-    
     public void criarAtividadeMensalTrimestralAnual(RotinaBean rotinaBean) {
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Atividades atividades = new Atividades();
