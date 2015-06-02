@@ -2,12 +2,15 @@ package br.com.financemate.manageBean;
 
 
 import br.com.financemate.facade.ClienteFacade;
+import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.model.Cliente;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -92,16 +95,16 @@ public class ClienteMB implements Serializable{
         return "consCliente";
     }
     public String editar() throws SQLException{
-            if (listaClientes!=null){
-            for(int i=0;i<listaClientes.size();i++){
-                if (listaClientes.get(i).isSelecionado()){
-                    cliente = listaClientes.get(i);
-                    listaClientes.get(i).setSelecionado(false);
-                    i=100000;
-                    return "cadCliente";
-                }
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        int idCliente =  Integer.parseInt(params.get("id_cliente"));
+        if (idCliente>0){
+            ClienteFacade clienteFacade = new ClienteFacade();
+            cliente = clienteFacade.consultar(idCliente);
+             if (cliente!=null){
+                return "cadCliente";
             }
         }
-        return  "";
+        return null;
     }
 }

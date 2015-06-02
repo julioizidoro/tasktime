@@ -2,13 +2,16 @@ package br.com.financemate.manageBean;
 
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
+import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Subdepartamento;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -114,18 +117,18 @@ public class SubdepartamentoMB implements Serializable{
     }
     
     public String editar() throws SQLException{
-            if (listaSubdepartamento!=null){
-            for(int i=0;i<listaSubdepartamento.size();i++){
-                if (listaSubdepartamento.get(i).isSelecionado()){
-                    subdepartamento = listaSubdepartamento.get(i);
-                    listaSubdepartamento.get(i).setSelecionado(false);
-                    i=100000;
-                    gerarListaDepartamento();
-                    return "cadSubdepartamento";
-                }
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        int idSub =  Integer.parseInt(params.get("id_subdepartamento"));
+        if (idSub>0){
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            subdepartamento = subdepartamentoFacade.consultar(idSub);
+             if (subdepartamento!=null){
+                 gerarListaDepartamento();
+                return "cadSubdepartamento";
             }
         }
-        return  "";
+        return null;
     }
     
     public void gerarListaDepartamento() throws SQLException{

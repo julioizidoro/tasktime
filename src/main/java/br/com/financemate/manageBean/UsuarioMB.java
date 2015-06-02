@@ -17,7 +17,9 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -151,19 +153,18 @@ public class UsuarioMB implements Serializable{
     }
     
     public String editar() throws SQLException{
-            if (listaUsuario!=null){
-            for(int i=0;i<listaUsuario.size();i++){
-                if (listaUsuario.get(i).isSelecionado()){
-                    usuario = listaUsuario.get(i);
-                    listaUsuario.get(i).setSelecionado(false);
-                    i=100000;
-                    gerarListaSubdepartamento();
-                    gerarListaPerfil("");
-                    return "cadUsuario";
-                }
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        int idUsuario =  Integer.parseInt(params.get("id_usuario"));
+        if (idUsuario>0){
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            usuario = usuarioFacade.consultar(idUsuario);
+             if (usuario!=null){
+                 gerarListaPerfil("");
+                return "cadUsuario";
             }
         }
-        return  "";
+        return null;
     }
     
     public void gerarListaDepartamento() throws SQLException{

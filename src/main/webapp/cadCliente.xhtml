@@ -46,14 +46,14 @@
                             <f:selectItem itemLabel="BR" itemValue="BR" />       
                         </p:selectOneMenu>
                         <p:inputText id="logra"   size="53"  class="filtrar" value="#{ClienteMB.cliente.logradouro}"/>
-                        <p:inputMask id="numero"   size="15"  class="filtrar" value="#{ClienteMB.cliente.numero}" mask="?999999999"/>
+                        <p:inputMask id="numero"   size="17"  class="filtrar" value="#{ClienteMB.cliente.numero}" mask="?999999999"/>
                     </h:panelGrid>
                     <h:panelGrid columns="6" cellpadding="5">   
                         <p:outputLabel value="Complemento" for="comple" class="left3"/>
                         <p:outputLabel value="Bairro" for="bairro" class="left3"/>
                     </h:panelGrid>       
                     <h:panelGrid columns="6" cellpadding="5">   
-                        <p:inputText id="comple"  size="53" class="left3" value="#{ClienteMB.cliente.complemento}"/>
+                        <p:inputText id="comple"  size="55" class="left3" value="#{ClienteMB.cliente.complemento}"/>
                         <p:inputText id="bairro" value="#{ClienteMB.cliente.bairro}"  size="42" class="filtrar2"/>
                     </h:panelGrid> 
                     <h:panelGrid columns="3" cellpadding="5">
