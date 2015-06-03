@@ -83,6 +83,13 @@ public class UsuarioLogadoBean implements Serializable{
                 atividadeMB.listarAtividadesAtrasadas();
                 atividadeMB.listarAtividadesDepartamento(usuario.getSubdepartamento().getDepartamento().getIddepartamento());
                 atividadeMB.listarAtividadesSemana();
+                atividadeMB.listarAtividadesAmanha();
+                atividadeMB.listarAtividadesDois();
+                atividadeMB.listarAtividadesTres();
+                atividadeMB.listarAtividadesQuatro();
+                atividadeMB.listarAtividadesCinco();
+                atividadeMB.listarAtividadesSeis();
+                atividadeMB.listarAtividadesSete();
                 return "inicial";
             }
         }

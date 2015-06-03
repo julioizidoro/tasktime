@@ -47,11 +47,25 @@ public class AtividadeMB implements Serializable{
     private List<Atividades> listaAtividadeAtrasada;
     private List<Atividades> listaAtividadesDepartamento;
     private List<Atividades> listaAtividadesGeral;
+    private List<Atividades> listaAtividadesAmanha;
+    private List<Atividades> listaAtividadesDois;
+    private List<Atividades> listaAtividadesTres;
+    private List<Atividades> listaAtividadesQuatro;
+    private List<Atividades> listaAtividadesCinco;
+    private List<Atividades> listaAtividadesSeis;
+    private List<Atividades> listaAtividadesSete;
     private String atividadeMenu="dia";
     private String ndia;
     private String nsemana;
     private String natrasada;
     private String ndepartamento;
+    private String namanha;
+    private String dois;
+    private String tres;
+    private String quatro;
+    private String cinco;
+    private String seis;
+    private String sete;
     private String titulo="Tarefas de Hoje";
     private String linha;
     private boolean checkConcluidas=false;
@@ -85,11 +99,146 @@ public class AtividadeMB implements Serializable{
 
     public List<Atividades> getListaAtividadeSemana()  {
         if (listaAtividadeSemana==null){
-            listarAtividadesSemana();
+            listarAtividadesAmanha();
         }
         return listaAtividadeSemana;
     }
 
+    public List<Atividades> getListaAtividadesAmanha() {
+        if(listaAtividadesAmanha==null){
+            listarAtividadesAmanha();
+        }
+        return listaAtividadesAmanha;
+    }
+
+    public void setListaAtividadesAmanha(List<Atividades> listaAtividadesAmanha) {
+        this.listaAtividadesAmanha = listaAtividadesAmanha;
+    }
+
+    public List<Atividades> getListaAtividadesDois() {
+        if(listaAtividadesDois==null){
+            listarAtividadesDois();
+        }
+        return listaAtividadesDois;
+    }
+
+    public void setListaAtividadesDois(List<Atividades> listaAtividadesDois) {
+        this.listaAtividadesDois = listaAtividadesDois;
+    }
+
+    public List<Atividades> getListaAtividadesTres() {
+        if(listaAtividadesTres==null){
+            listarAtividadesTres();
+        }
+        return listaAtividadesTres;
+    }
+
+    public void setListaAtividadesTres(List<Atividades> listaAtividadesTres) {
+        this.listaAtividadesTres = listaAtividadesTres;
+    }
+
+    public List<Atividades> getListaAtividadesQuatro() {
+        if(listaAtividadesQuatro==null){
+            listarAtividadesQuatro();
+        }
+        return listaAtividadesQuatro;
+    }
+
+    public void setListaAtividadesQuatro(List<Atividades> listaAtividadesQuatro) {
+        this.listaAtividadesQuatro = listaAtividadesQuatro;
+    }
+
+    public List<Atividades> getListaAtividadesCinco() {
+        if(listaAtividadesCinco==null){
+            listarAtividadesCinco();
+        }
+        return listaAtividadesCinco;
+    }
+
+    public void setListaAtividadesCinco(List<Atividades> listaAtividadesCinco) {
+        this.listaAtividadesCinco = listaAtividadesCinco;
+    }
+
+    public List<Atividades> getListaAtividadesSeis() {
+        if(listaAtividadesSeis==null){
+            listarAtividadesSeis();
+        }
+        return listaAtividadesSeis;
+    }
+
+    public void setListaAtividadesSeis(List<Atividades> listaAtividadesSeis) {
+        this.listaAtividadesSeis = listaAtividadesSeis;
+    }
+
+    public List<Atividades> getListaAtividadesSete() {
+        if(listaAtividadesSete==null){
+            listarAtividadesSete();
+        }
+        return listaAtividadesSete;
+    }
+
+    public void setListaAtividadesSete(List<Atividades> listaAtividadesSete) {
+        this.listaAtividadesSete = listaAtividadesSete;
+    }
+
+    public String getNamanha() {
+        return namanha;
+    }
+
+    public void setNamanha(String namanha) {
+        this.namanha = namanha;
+    }
+
+    public String getDois() {
+        return dois;
+    }
+
+    public void setDois(String dois) {
+        this.dois = dois;
+    }
+
+    public String getTres() {
+        return tres;
+    }
+
+    public void setTres(String tres) {
+        this.tres = tres;
+    }
+
+    public String getQuatro() {
+        return quatro;
+    }
+
+    public void setQuatro(String quatro) {
+        this.quatro = quatro;
+    }
+
+    public String getCinco() {
+        return cinco;
+    }
+
+    public void setCinco(String cinco) {
+        this.cinco = cinco;
+    }
+
+    public String getSeis() {
+        return seis;
+    }
+
+    public void setSeis(String seis) {
+        this.seis = seis;
+    }
+
+    public String getSete() {
+        return sete;
+    }
+
+    public void setSete(String sete) {
+        this.sete = sete;
+    }
+
+    
+    
     public boolean isCheckConcluidas() {
         return checkConcluidas;
     }
@@ -372,6 +521,7 @@ public class AtividadeMB implements Serializable{
         }else nsemana = "Semana (" + String.valueOf(listaAtividadeSemana.size()) + ")";
     }
     
+    
     public  void listarAtividadesAtrasadas()  {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo<'" + Formatacao.ConvercaoDataSql(new Date()) + 
@@ -444,23 +594,20 @@ public class AtividadeMB implements Serializable{
     }
     
     public String imagem(Atividades atividade) {
-        if (atividade.getPrioridade().equalsIgnoreCase("alta")) {
-            return "resources/img/bolaVermelha.png";
-        } else if (atividade.getPrioridade().equalsIgnoreCase("media")) {
-            return "resources/img/bolaAmarela.png";
+        if (atividade.getPrioridade().equalsIgnoreCase("Alta")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (atividade.getPrioridade().equalsIgnoreCase("Media")) {
+            return "/resources/img/bolaAmarela.png";
         } else {
-            return "resources/img/bolaVerde.png";
+            return "/resources/img/bolaVerde.png";
         }
     }
     
-    public void pegarLinha(String linha){
-        this.linha = linha;
-    }
+   
     
-    public String salvarAtividadeConcluida(){
+    public void salvarAtividadeConcluida(String linha){
         int iLinha = Integer.parseInt(linha);
         atividades = listaAtividadesGeral.get(iLinha);
-        atividades.setConcluida(TRUE);
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         atividadeFacade.salvar(atividades);
          if (atividadeMenu.equalsIgnoreCase("dia")){
@@ -471,13 +618,171 @@ public class AtividadeMB implements Serializable{
             listarAtividadesAtrasadas();
         }else listarAtividadesDepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
         carregarListaGeral();
-        return "inicial";
     }
     
     public String filtarConcluidas(){
         listarAtividadesDia();
         listarAtividadesSemana();
         carregarListaGeral();
+        return "inicial";
+    }
+    
+    public void listarAtividadesAmanha(){
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 1);
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE order by a.prioridade, a.nome";
+        listaAtividadesAmanha = atividadeFacade.listar(sql);
+        if(listaAtividadesAmanha==null){
+            listaAtividadesAmanha = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesAmanha.size()<10){
+            namanha= Formatacao.diaSemanaEscrito(data) + " (0" + String.valueOf(listaAtividadesAmanha.size()) + ")";
+        }else namanha = Formatacao.diaSemanaEscrito(data) + " (" + String.valueOf(listaAtividadesAmanha.size()) + ")";
+    }
+    
+    public String mostarAtividadesAmanha(){
+        listaAtividadesGeral = listaAtividadesAmanha;
+        atividadeMenu="Amanhã";
+        titulo="Tarefas de Amanhã";
+        return "inicial";
+    }
+    
+    public void listarAtividadesDois(){
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 2);
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE order by a.prioridade, a.nome";
+        listaAtividadesDois = atividadeFacade.listar(sql);
+        if(listaAtividadesDois==null){
+            listaAtividadesDois = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesDois.size()<10){
+            dois= Formatacao.diaSemanaEscrito(data) + "  (0" + String.valueOf(listaAtividadesDois.size()) + ")";
+        }else dois = Formatacao.diaSemanaEscrito(data) + " (" + String.valueOf(listaAtividadesDois.size()) + ")";
+    }
+    
+    public String mostarAtividadesDois(){
+        listaAtividadesGeral = listaAtividadesDois;
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 2);
+        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
+        return "inicial";
+    }
+    
+    public void listarAtividadesTres(){
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 3);
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE order by a.prioridade, a.nome";
+        listaAtividadesTres = atividadeFacade.listar(sql);
+        if(listaAtividadesTres==null){
+            listaAtividadesTres = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesTres.size()<10){
+            tres= Formatacao.diaSemanaEscrito(data) + "  (0" + String.valueOf(listaAtividadesTres.size()) + ")";
+        }else tres = Formatacao.diaSemanaEscrito(data) + " (" + String.valueOf(listaAtividadesTres.size()) + ")";
+    }
+    
+    public String mostarAtividadesTres(){
+        listaAtividadesGeral = listaAtividadesTres;
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 3);
+        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
+        return "inicial";
+    }
+    
+    public void listarAtividadesQuatro(){
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 4);
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE order by a.prioridade, a.nome";
+        listaAtividadesQuatro = atividadeFacade.listar(sql);
+        if(listaAtividadesQuatro==null){
+            listaAtividadesQuatro = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesQuatro.size()<10){
+            quatro= Formatacao.diaSemanaEscrito(data) + "  (0" + String.valueOf(listaAtividadesQuatro.size()) + ")";
+        }else quatro = Formatacao.diaSemanaEscrito(data) + " (" + String.valueOf(listaAtividadesQuatro.size()) + ")";
+    }
+    
+    public String mostarAtividadesQuatro(){
+        listaAtividadesGeral = listaAtividadesQuatro;
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 4);
+        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
+        return "inicial";
+    }
+    
+    public void listarAtividadesCinco(){
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 5);
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE order by a.prioridade, a.nome";
+        listaAtividadesCinco = atividadeFacade.listar(sql);
+        if(listaAtividadesCinco==null){
+            listaAtividadesCinco = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesCinco.size()<10){
+            cinco= Formatacao.diaSemanaEscrito(data) + "  (0" + String.valueOf(listaAtividadesCinco.size()) + ")";
+        }else cinco = Formatacao.diaSemanaEscrito(data) + " (" + String.valueOf(listaAtividadesCinco.size()) + ")";
+    }
+    
+    public String mostarAtividadesCinco(){
+        listaAtividadesGeral = listaAtividadesCinco;
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 5);
+        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
+        return "inicial";
+    }
+    
+    public void listarAtividadesSeis(){
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 6);
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE order by a.prioridade, a.nome";
+        listaAtividadesSeis = atividadeFacade.listar(sql);
+        if(listaAtividadesSeis==null){
+            listaAtividadesSeis = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesSeis.size()<10){
+            seis= Formatacao.diaSemanaEscrito(data) + "  (0" + String.valueOf(listaAtividadesSeis.size()) + ")";
+        }else seis = Formatacao.diaSemanaEscrito(data) + " (" + String.valueOf(listaAtividadesSeis.size()) + ")";
+    }
+    
+    public String mostarAtividadesSeis(){
+        listaAtividadesGeral = listaAtividadesSeis;
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 6);
+        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
+        return "inicial";
+    }
+    
+     public void listarAtividadesSete(){
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 7);
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE order by a.prioridade, a.nome";
+        listaAtividadesSete = atividadeFacade.listar(sql);
+        if(listaAtividadesSete==null){
+            listaAtividadesSete = new ArrayList<Atividades>();
+        }
+        if (listaAtividadesSete.size()<10){
+            sete= Formatacao.diaSemanaEscrito(data) + "  (0" + String.valueOf(listaAtividadesSete.size()) + ")";
+        }else sete = Formatacao.diaSemanaEscrito(data) + " (" + String.valueOf(listaAtividadesSete.size()) + ")";
+    }
+    
+    public String mostarAtividadesSete(){
+        listaAtividadesGeral = listaAtividadesSete;
+        Date data = new Date();
+        data = Formatacao.SomarDiasData(data, 7);
+        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
     }
 }

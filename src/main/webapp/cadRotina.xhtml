@@ -79,9 +79,10 @@
                                 <f:facet name="output"><h:outputText value="#{RotinaMB.rotina.prioridade}" /></f:facet>
                                 <f:facet name="input">
                                     <p:selectOneMenu id="prioridade" value="#{RotinaMB.rotina.prioridade}" style="width:100%">
-                                        <f:selectItem itemLabel="Alta" itemValue="alta" />
-                                        <f:selectItem itemLabel="Média" itemValue="media" />
-                                        <f:selectItem itemLabel="Baixa" itemValue="baixa" />
+                                        <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                                        <f:selectItem itemLabel="Alta" itemValue="Alta" />
+                                        <f:selectItem itemLabel="Média" itemValue="Media" />
+                                        <f:selectItem itemLabel="Baixa" itemValue="Baixa" />
                                     </p:selectOneMenu>
                                 </f:facet>
                             </p:cellEditor>

@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -63,7 +64,8 @@ public class Atividades implements Serializable {
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
     private List<Rotinaatividade> rotinaatividadeList;
-    
+    @Transient
+    private boolean selecionado;
 
     public Atividades() {
     }
@@ -143,6 +145,15 @@ public class Atividades implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+    
 
     @Override
     public int hashCode() {
