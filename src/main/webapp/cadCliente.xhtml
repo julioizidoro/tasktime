@@ -37,7 +37,7 @@
                         <p:outputLabel value="Número" for="numero"  class="left4"/>
                     </h:panelGrid>
                     <h:panelGrid columns="3" cellpadding="3">
-                        <p:selectOneMenu id="tipologra" value="#{ClienteMB.cliente.tipogradouro}" style="width:190px" class="left3">
+                        <p:selectOneMenu id="tipologra" value="#{ClienteMB.cliente.tipogradouro}" style="width:190px" class="left1">
                             <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
                             <f:selectItem itemLabel="Rua" itemValue="Rua" />  
                             <f:selectItem itemLabel="Rodivia" itemValue="Rodivia" />  
@@ -49,20 +49,20 @@
                         <p:inputMask id="numero"   size="17"  class="filtrar" value="#{ClienteMB.cliente.numero}" mask="?999999999"/>
                     </h:panelGrid>
                     <h:panelGrid columns="6" cellpadding="5">   
-                        <p:outputLabel value="Complemento" for="comple" class="left3"/>
+                        <p:outputLabel value="Complemento" for="comple" class="left1"/>
                         <p:outputLabel value="Bairro" for="bairro" class="left3"/>
                     </h:panelGrid>       
                     <h:panelGrid columns="6" cellpadding="5">   
-                        <p:inputText id="comple"  size="55" class="left3" value="#{ClienteMB.cliente.complemento}"/>
+                        <p:inputText id="comple"  size="55" class="left1" value="#{ClienteMB.cliente.complemento}"/>
                         <p:inputText id="bairro" value="#{ClienteMB.cliente.bairro}"  size="42" class="filtrar2"/>
                     </h:panelGrid> 
                     <h:panelGrid columns="3" cellpadding="5">
-                        <p:outputLabel value="Cidade" for="cidade" class="left3"/>
+                        <p:outputLabel value="Cidade" for="cidade" class="left1"/>
                         <p:outputLabel value="Estado" class="left4"/>
                         <p:outputLabel value="CEP" for="cep" class="left"/>
                     </h:panelGrid>
                      <h:panelGrid columns="3" cellpadding="5">
-                         <p:inputText id="cidade" value="#{ClienteMB.cliente.cidade}"  size="47" class="left3"/>
+                         <p:inputText id="cidade" value="#{ClienteMB.cliente.cidade}"  size="47" class="left1"/>
                          <p:selectOneMenu id="estado" value="#{ClienteMB.cliente.estado}" class="filtrar" style="width:144px">
                             <f:selectItem itemLabel="Selecione o Estado" itemValue="sn" noSelectionOption="true"/> 
                             <f:selectItem itemLabel="Acre" itemValue="AC" /> 
@@ -131,6 +131,8 @@
                     <br></br>
                     <p:commandButton icon=" ui-icon-check" value="Cadastrar" class="cadastro" action="#{ClienteMB.salvar()}"/>  
                     <p:commandButton icon=" ui-icon-close " value="Cancelar" class="cancelar" action="#{MenuMB.cliente()}"/> 
+                    <br></br>
+                    <br></br>
                 </div>
 
             </h:form>     

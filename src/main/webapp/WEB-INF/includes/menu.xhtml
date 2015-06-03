@@ -2,22 +2,21 @@
         xmlns:p="http://primefaces.org/ui"
          xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html">
-        
     <div id="tudo">
         <p:growl id="growl" showDetail="true" sticky="true" />
-    <tr>
-        <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td><img src="resources/img/logotakstime.png" alt="" width="140" height="100" />
-                             <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
-                                <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
-                                <p:outputLabel value="#{UsuarioLogadoBean.usuario.nome}" /> 
-                            </h:panelGrid><br></br><br></br></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-        <br></br>
+        <tr>
+            <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><img src="resources/img/logotakstime.png" alt="" width="140" height="100" />
+                                 <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
+                                    <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
+                                    <p:outputLabel value="#{UsuarioLogadoBean.usuario.nome}" /> 
+                                </h:panelGrid><br></br><br></br></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <br></br>
     <p:menubar class="menu">
         <p:submenu label="Cadastros" class="submenu2" icon=" ui-icon-plus ">
             <p:menuitem class="submenu" value="Cliente" action="#{MenuMB.cliente()}" />
@@ -30,11 +29,21 @@
     </p:menubar>
     </div>
     <div id="centro">
+        
     <p:menu toggleable="true"  class="menu2">
         <p:submenu label="Minhas Tarefas">
             <p:menuitem value="#{AtividadeMB.ndia}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesDia()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
             <p:menuitem value="#{AtividadeMB.nsemana}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesSemana()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
             <p:menuitem value="#{AtividadeMB.natrasada}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesAtrasadas()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+        </p:submenu>
+        <p:submenu label="Próximas 7 dias">
+            <p:menuitem value="#" icon="ui-icon-calendar" action="#" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#" icon="ui-icon-calendar" action="#" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#" icon="ui-icon-calendar" action="#" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#" icon="ui-icon-calendar" action="#" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#" icon="ui-icon-calendar" action="#" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#" icon="ui-icon-calendar" action="#" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+            <p:menuitem value="#" icon="ui-icon-calendar" action="#" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
         </p:submenu>
         <p:submenu label="Tarefas da Equipe">
             <p:menuitem value="#{AtividadeMB.ndepartamento}" icon=" ui-icon-search " action="#{AtividadeMB.mostarAtividadesDepartamento()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
@@ -42,8 +51,8 @@
         <p:submenu label="Rotina">
             <p:menuitem value="Situação" icon=" ui-icon-alert " action="#{MenuMB.situacao()}"/>
         </p:submenu>
-        
     </p:menu>
+        
         <p:dialog header="Adicionar Tarafas" modal="true" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
             <p:inputText value="#{AtividadeMB.atividades.nome}" size="47" class="filtrar"/>
             <p:calendar id="prazo"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="filtrar6" value="#{AtividadeMB.atividades.prazo}" >
@@ -65,7 +74,6 @@
             <p:commandButton icon="ui-icon-flag" class="botaoDialog3" title="Prioridade" oncomplete="PF('prioridade').show()"/>
              <br></br><br></br>   
              <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" onclick="add.hide();" update="growl"/>
-           
         </p:dialog>
         
         <p:dialog header="Selecionar Usuário" modal="true" showEffect="bounce" widgetVar="usuario" resizable="false"  class="dialog" width="15%" height="20%">           
@@ -78,7 +86,6 @@
              <br></br><br></br>   
              <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.confirmarUsuario()}" onclick="usuario.hide();" />
         </p:dialog>
-        
         <p:dialog header="Selecionar Prioridade" modal="true" showEffect="bounce" widgetVar="prioridade" resizable="false"  class="dialog" width="15%" height="20%">           
                 <p:outputLabel value="Prioridade" class="filtrar"/>
             <br></br>
