@@ -13,7 +13,7 @@ import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
-import java.sql.SQLException;
+import static java.lang.Boolean.TRUE;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +53,8 @@ public class AtividadeMB implements Serializable{
     private String natrasada;
     private String ndepartamento;
     private String titulo="Tarefas de Hoje";
+    private String linha;
+    private boolean checkConcluidas=false;
 
     public AtividadeMB()  {
         atividades = new Atividades();
@@ -86,6 +88,14 @@ public class AtividadeMB implements Serializable{
             listarAtividadesSemana();
         }
         return listaAtividadeSemana;
+    }
+
+    public boolean isCheckConcluidas() {
+        return checkConcluidas;
+    }
+
+    public void setCheckConcluidas(boolean checkConcluidas) {
+        this.checkConcluidas = checkConcluidas;
     }
 
     public void setListaAtividadeSemana(List<Atividades> listaAtividadeSemana) {
@@ -337,7 +347,7 @@ public class AtividadeMB implements Serializable{
     public  void listarAtividadesDia()  {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(new Date()) + 
-                "' and a.concluida=FALSE order by a.prioridade, a.nome";
+                "' and a.concluida=" + isCheckConcluidas() + " order by a.prioridade, a.nome";
         listaAtividadedia = atividadesFacade.listar(sql);
         if (listaAtividadedia==null){
             listaAtividadedia = new ArrayList<Atividades>();
@@ -352,7 +362,7 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         Date data = Formatacao.SomarDiasData(new Date(), 7);
         String sql = "Select a from Atividades a where a.prazo>'" + Formatacao.ConvercaoDataSql(new Date()) + 
-                "' and a.prazo<='" + Formatacao.ConvercaoDataSql(data) + "'  and a.concluida=FALSE order by a.prioridade, a.nome";
+                "' and a.prazo<='" + Formatacao.ConvercaoDataSql(data) + "'  and a.concluida=" + isCheckConcluidas() + " order by a.prioridade, a.nome";
         listaAtividadeSemana = atividadesFacade.listar(sql);
         if (listaAtividadeSemana==null){
             listaAtividadeSemana = new ArrayList<Atividades>();
@@ -365,7 +375,7 @@ public class AtividadeMB implements Serializable{
     public  void listarAtividadesAtrasadas()  {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo<'" + Formatacao.ConvercaoDataSql(new Date()) + 
-                 "' and a.concluida=FALSE order by a.prioridade, a.nome";
+                 "' and a.concluida=FALSE  order by a.prioridade, a.nome";
         listaAtividadeAtrasada = atividadesFacade.listar(sql);
         if (listaAtividadeAtrasada==null){
             listaAtividadeAtrasada = new ArrayList<Atividades>();
@@ -441,5 +451,33 @@ public class AtividadeMB implements Serializable{
         } else {
             return "resources/img/bolaVerde.png";
         }
+    }
+    
+    public void pegarLinha(String linha){
+        this.linha = linha;
+    }
+    
+    public String salvarAtividadeConcluida(){
+        int iLinha = Integer.parseInt(linha);
+        atividades = listaAtividadesGeral.get(iLinha);
+        atividades.setConcluida(TRUE);
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        atividadeFacade.salvar(atividades);
+         if (atividadeMenu.equalsIgnoreCase("dia")){
+            listarAtividadesDia();
+        }else if (atividadeMenu.equalsIgnoreCase("semana")){
+            listarAtividadesSemana();
+        }else if (atividadeMenu.equalsIgnoreCase("atrasada")){
+            listarAtividadesAtrasadas();
+        }else listarAtividadesDepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+        carregarListaGeral();
+        return "inicial";
+    }
+    
+    public String filtarConcluidas(){
+        listarAtividadesDia();
+        listarAtividadesSemana();
+        carregarListaGeral();
+        return "inicial";
     }
 }

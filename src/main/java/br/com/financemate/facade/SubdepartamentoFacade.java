@@ -43,4 +43,14 @@ public class SubdepartamentoFacade {
             return null;
         }
     }
+    
+    public List<Subdepartamento> listar(int idDepartamento) {
+        subdepartamentoDao = new SubdepartamentoDao();
+        try {
+            return subdepartamentoDao.listar(idDepartamento);
+        } catch (SQLException ex) {
+            Logger.getLogger(SubdepartamentoFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

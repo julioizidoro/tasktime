@@ -41,4 +41,13 @@ public class SubdepartamentoDao {
         manager.getTransaction().commit();
         return atividades;
     }
+    
+    public List<Subdepartamento> listar(int idDepartamento) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("select a from Subdepartamento a where a.departamento.iddepartamento=" + idDepartamento + " order by a.nome");
+        List<Subdepartamento> lista = q.getResultList();
+        manager.getTransaction().commit();
+        return lista;
+    }
 }

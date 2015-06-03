@@ -15,8 +15,11 @@
                         <p:outputLabel value="Sub-Depatamento" class="filtrar2"/> 
                         <p:outputLabel value="Nome Rotina" class="filtrar4"/> 
                     <br></br>
-                        <p:selectOneMenu id="departamento" value="#" style="width:154px" class="filtrar">
-                            <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                    <p:selectOneMenu id="departamento" value="#{SituacaoMB.listaDepartamento}" style="width:154px" class="filtrar" var="varDepartamento">
+                            <f:selectItem itemLabel="Selecione" itemValue="0" noSelectionOption="true" value="#{SituacaoMB.idDepartamento}"/> 
+                            <f:selectItems itemLabel="#{varDepartamento.nome}" itemValue="#{varDepartamento.iddepartamento}" >
+                            
+                            </f:selectItems>
                         </p:selectOneMenu>
                         <p:selectOneMenu id="sub" value="#" style="width:140px" class="filtrar">
                             <f:selectItem itemLabel="Todos" itemValue="todos" noSelectionOption="true"/> 
