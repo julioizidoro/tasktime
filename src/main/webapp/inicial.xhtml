@@ -12,7 +12,9 @@
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                      <br></br>
                     <h:outputText value="Concluídas" class="concluida"/>  
-                    <p:selectBooleanCheckbox value="#{AtividadeMB.checkConcluidas}" class="Selecionarconcluida"/>
+                    <p:selectBooleanCheckbox value="#{AtividadeMB.checkConcluidas}" class="Selecionarconcluida">
+                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.filtarConcluidas()}" />
+                    </p:selectBooleanCheckbox>
                     <p:commandButton icon=" ui-icon-search " class="botao1" action="#{AtividadeMB.filtarConcluidas()}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>  
                     
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"

@@ -39,6 +39,15 @@ public class RotinaDao {
         return lista;
     }
     
+    public List<Rotina> listarSql(String sql) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery(sql);
+        List<Rotina> lista = q.getResultList();
+        manager.getTransaction().commit();
+        return lista;
+    }
+    
     public List<Rotina> listar(int idSubDepartamento) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();

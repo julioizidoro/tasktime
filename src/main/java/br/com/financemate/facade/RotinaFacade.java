@@ -44,6 +44,16 @@ public class RotinaFacade {
         }
     }
     
+    public List<Rotina> listarSql(String sql) {
+        rotinaDao = new RotinaDao();
+        try {
+            return rotinaDao.listarSql(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(RotinaFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     public List<Rotina> listar(int idSubDepartamento) {
         rotinaDao = new RotinaDao();
         try {
