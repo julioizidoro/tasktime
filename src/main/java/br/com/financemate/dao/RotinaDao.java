@@ -21,6 +21,7 @@ public class RotinaDao {
         manager.getTransaction().commit();
         return rotina;
     }
+    
     public Rotina salvar(Rotina rotina) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
@@ -28,6 +29,7 @@ public class RotinaDao {
         manager.getTransaction().commit();
         return rotina;
     }
+    
     public List<Rotina> listar(String nome) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();

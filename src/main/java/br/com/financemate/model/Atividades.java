@@ -7,7 +7,9 @@ package br.com.financemate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,8 +52,6 @@ public class Atividades implements Serializable {
     private String prioridade;
     @Column(name = "concluida")
     private Boolean concluida;
-    @Column(name = "idrotina")
-    private Integer idrotina;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)
     private Subdepartamento subdepartamento;
@@ -60,6 +61,9 @@ public class Atividades implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Rotinaatividade> rotinaatividadeList;
+    
 
     public Atividades() {
     }
@@ -115,18 +119,7 @@ public class Atividades implements Serializable {
     public void setConcluida(Boolean concluida) {
         this.concluida = concluida;
     }
-
-   
-
-
-    public Integer getIdrotina() {
-        return idrotina;
-    }
-
-    public void setIdrotina(Integer idrotina) {
-        this.idrotina = idrotina;
-    }
-
+    
     public Subdepartamento getSubdepartamento() {
         return subdepartamento;
     }
@@ -174,6 +167,14 @@ public class Atividades implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Atividades[ idatividades=" + idatividades + " ]";
+    }
+
+    public List<Rotinaatividade> getRotinaatividadeList() {
+        return rotinaatividadeList;
+    }
+
+    public void setRotinaatividadeList(List<Rotinaatividade> rotinaatividadeList) {
+        this.rotinaatividadeList = rotinaatividadeList;
     }
     
 }

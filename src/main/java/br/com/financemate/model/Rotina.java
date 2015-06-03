@@ -28,6 +28,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "rotina")
 public class Rotina implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
+    private List<Rotinaatividade> rotinaatividadeList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -126,6 +128,14 @@ public class Rotina implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Rotina[ idrotina=" + idrotina + " ]";
+    }
+
+    public List<Rotinaatividade> getRotinaatividadeList() {
+        return rotinaatividadeList;
+    }
+
+    public void setRotinaatividadeList(List<Rotinaatividade> rotinaatividadeList) {
+        this.rotinaatividadeList = rotinaatividadeList;
     }
     
 }
