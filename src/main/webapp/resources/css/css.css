@@ -21,7 +21,7 @@
         width: 1155px;
         margin-left:72px;
         margin-top:-50px;
-        height:300px; 
+        height:470px; 
         //borda arredondada
         -webkit-border-bottom-right-radius: 5px;
         -webkit-border-bottom-left-radius: 5px;
@@ -43,7 +43,7 @@
         background: #fff;
         width: 1155px;
         margin-left:72px;
-        margin-top:-330px;
+        margin-top:-520px;
         //borda arredondada
         -webkit-border-bottom-right-radius: 5px;
         -webkit-border-bottom-left-radius: 5px;
@@ -107,10 +107,10 @@
         font-family: tahoma;
         list-style:none; 
         float:left;
+        margin-top:-20px;
         font-size: 12px;
-        margin-top:-9px;
-        height:234px;
         width:185px;
+        height: 430px;
     }
     .submenu{
         font-family: tahoma;
@@ -179,7 +179,7 @@
          font-size:11px;
          width: 760px;
          margin-top:10px;
-         margin-left:235px;
+         margin-left:210px;
      }
      .titulo{
         font-family: Tahoma, Geneva, sans-serif;
@@ -215,7 +215,7 @@
         color: #3A5795;
    }
      button.botao1 {
-         top:-10px;
+         height:25px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #3A5795;
@@ -297,13 +297,85 @@
          font-size:12px;
          margin-left:200px;
    }
-    button.cadastro2 {
-        top:-10px;
+   button.cadastro4 {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #3A5795;
 	padding: 5px 0px;
-        margin-left:520px;
+        margin-left:500px;
+	background: -moz-linear-gradient(
+		top,
+		#f2f9fa 0%,
+		#ebebeb 45%,
+		#a1bbf0);
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#f2f9fa),
+		color-stop(0.45, #ebebeb),
+		to(#a1bbf0));
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 0px solid #3b5695;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.2),
+		0px 1px 0px rgba(255,255,255,1);
+   }
+    button.cadastro2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #3A5795;
+	padding: 5px 0px;
+        margin-left:480px;
+	background: -moz-linear-gradient(
+		top,
+		#f2f9fa 0%,
+		#ebebeb 45%,
+		#a1bbf0);
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#f2f9fa),
+		color-stop(0.45, #ebebeb),
+		to(#a1bbf0));
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 0px solid #3b5695;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 3px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.2),
+		0px 1px 0px rgba(255,255,255,1);
+   }
+  
+   .cadastro5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #3A5795;
+	padding: 5px 0px;
+    }
+   button.cadastro3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #3A5795;
+	padding: 5px 0px;
+        margin-left:730px;
 	background: -moz-linear-gradient(
 		top,
 		#f2f9fa 0%,
@@ -332,7 +404,6 @@
 		0px 1px 0px rgba(255,255,255,1);
    }
    button.cadastro {
-        top:-10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #3A5795;
@@ -366,7 +437,6 @@
 		0px 1px 0px rgba(255,255,255,1);
    }
     button.cancelar {
-        top:-10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #3A5795;
@@ -466,6 +536,18 @@
          font-size:12px;
          margin-left:245px;
    }
+   .add{
+         font-size:12px;
+         margin-left:10px;
+   }
+   .add2{
+         font-size:12px;
+         
+   }
+   .add3{
+         font-size:12px;
+         margin-left:130px;
+   }
    .left5{
          font-size:12px;
          margin-left:45px;
@@ -537,4 +619,13 @@
         font-size: 12px;
         border-color:#fff;
     }
-    .concluido{ background-image: url(../img/confirmar.png) !important; } 
+    .concluido{ background-image: url(../img/confirmar.png) !important; 
+    }
+    
+    .semBorda tr, .semBorda td {  
+        border: none !important;  
+        font-size: 12px;
+        margin-left:325px;
+    }  
+    
+    
