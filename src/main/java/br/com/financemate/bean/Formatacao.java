@@ -754,4 +754,26 @@ public class Formatacao {
         int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
         return diaSemana;
     }
+    
+    public static String diaSemanaEscrito(Date data){
+        Calendar cal = Calendar.getInstance();    // hoje  
+        cal.setTime(data);    // uma Date  
+        int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
+        if (diaSemana==0){
+            return "Domingo";
+        }else if (diaSemana==1){
+            return "Segunda";
+        }else if (diaSemana==2){
+            return "Terça";
+        }else if (diaSemana==3){
+            return "Quarta";
+        }else if (diaSemana==4){
+            return "Quinta";
+        }else if (diaSemana==5){
+            return "Sexta";
+        }else if (diaSemana==6){
+            return "Sabado";
+        }
+        return "Erro";
+    }
 }
