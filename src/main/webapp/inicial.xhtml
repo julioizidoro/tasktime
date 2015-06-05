@@ -30,7 +30,7 @@
                         </p:column>
                         
                         <p:column headerText="Comentário" style="width:70px;" styleClass="alinhaCentro">
-                            <p:commandButton icon="ui-icon-comment" oncomplete="PF('add').show()"/>
+                            <p:commandButton icon="ui-icon-comment" oncomplete="PF('vercomentario').show()"/>
                         </p:column>
 
                         <p:column headerText="Cliente" style="width:120px;" styleClass="alinhaCentro">
@@ -54,7 +54,24 @@
                          </p:column>
                     </p:dataTable>
                     <br></br>
-                    <p:dialog header="Comentários" modal="true" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
+                     <p:dialog header="Comentários" modal="true" showEffect="bounce" widgetVar="addcomentario" resizable="false"  class="dialog" width="40%" height="60%">
+                         <p:carousel value="#" headerText="Basic" var="comentarios" itemStyleClass="carItem"  class="dataGrid2">
+                            <h:panelGrid columns="2" style="width:100%" cellpadding="5" columnClasses="label,value">
+                                <h:outputText value="Data:" />
+                                <h:outputText value="#" />
+
+                                <h:outputText value="Usuário:" />
+                                <h:outputText value="#" />
+
+                                <h:outputText value="Comentário:" />
+                                <h:outputText value="#"/>
+                            </h:panelGrid>
+                        </p:carousel>
+                          <img src="resources/img/ADD.jpg" width="20" height="20" class="add"/> 
+                         <p:commandLink  value="Adicionar Comentário" styleClass="cadastro5" action="#" oncomplete="PF('addcomentario').show()"/>
+                    </p:dialog>
+                    
+                    <p:dialog header="Adiconar Comentários" modal="true" showEffect="bounce" widgetVar="addcomentario" resizable="false"  class="dialog" width="40%" height="60%">
                         <p:inputTextarea value="#{AtividadeMB.atividades.comentario}" rows="5" cols="85" class="filtrar"/>
                          <br></br><br></br>
                         <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" update="out2"/>

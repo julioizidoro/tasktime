@@ -49,6 +49,9 @@ public class Comentarios implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
+    @Size(max = 5)
+    @Column(name = "hora")
+    private String hora;
 
     public Comentarios() {
     }
@@ -96,6 +99,15 @@ public class Comentarios implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
 
     @Override
     public int hashCode() {
