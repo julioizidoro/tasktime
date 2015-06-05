@@ -4,18 +4,22 @@ package br.com.financemate.manageBean;
 import br.com.financemate.bean.Formatacao;
 import br.com.financemate.facade.AtividadeFacade;
 import br.com.financemate.facade.ClienteFacade;
+import br.com.financemate.facade.ComentariosFacade;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Cliente;
+import br.com.financemate.model.Comentarios;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -68,9 +72,11 @@ public class AtividadeMB implements Serializable{
     private String titulo="Tarefas de Hoje";
     private String linha;
     private boolean checkConcluidas=false;
+    private Comentarios comentarios;
 
     public AtividadeMB()  {
         atividades = new Atividades();
+        comentarios = new Comentarios();
     }
 
     public List<Atividades> getListaAtividadesGeral()  {
@@ -157,6 +163,16 @@ public class AtividadeMB implements Serializable{
     public void setListaAtividadesCinco(List<Atividades> listaAtividadesCinco) {
         this.listaAtividadesCinco = listaAtividadesCinco;
     }
+
+    public Comentarios getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(Comentarios comentarios) {
+        this.comentarios = comentarios;
+    }
+    
+    
 
     public List<Atividades> getListaAtividadesSeis() {
         if(listaAtividadesSeis==null){
@@ -595,11 +611,11 @@ public class AtividadeMB implements Serializable{
     
     public String imagem(Atividades atividade) {
         if (atividade.getPrioridade().equalsIgnoreCase("Alta")) {
-            return "/resources/img/bolaVermelha.png";
+            return "/resources/img/bandeira-vermelho.png";
         } else if (atividade.getPrioridade().equalsIgnoreCase("Media")) {
-            return "/resources/img/bolaAmarela.png";
+            return "/resources/img/bandeira_amarela.png";
         } else {
-            return "/resources/img/bolaVerde.png";
+            return "/resources/img/bandeira_verde.png";
         }
     }
     
@@ -784,5 +800,39 @@ public class AtividadeMB implements Serializable{
         atividadeMenu=Formatacao.diaSemanaEscrito(data);
         titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
+    }
+    
+    public String verComentarios(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        int idAtividade =  Integer.parseInt(params.get("id_atividades"));
+        if (idAtividade>0){
+            for (int i=0;i<listaAtividadesGeral.size();i++){
+                if (idAtividade==listaAtividadesGeral.get(i).getIdatividades()){
+                    atividades = listaAtividadesGeral.get(i);
+                    return null;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public String salvarComentario() throws SQLException{
+        ComentariosFacade comentariosFacade = new ComentariosFacade();
+        comentarios.setUsuario(getUsuarioLogadoBean().getUsuario());
+        comentarios.setAtividades(atividades);
+        comentarios.setData(new Date());
+        comentarios.setHora(Formatacao.foramtarHoraString());
+        comentariosFacade.salvar(comentarios);
+        comentarios = new Comentarios();
+         if (atividadeMenu.equalsIgnoreCase("dia")){
+            listarAtividadesDia();
+        }else if (atividadeMenu.equalsIgnoreCase("semana")){
+            listarAtividadesSemana();
+        }else if (atividadeMenu.equalsIgnoreCase("atrasada")){
+            listarAtividadesAtrasadas();
+        }else listarAtividadesDepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+        carregarListaGeral();
+        return null;
     }
 }

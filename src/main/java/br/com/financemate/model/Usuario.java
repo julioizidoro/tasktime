@@ -213,7 +213,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.financemate.model.Usuario[ idusuario=" + idusuario + " ]";
+        return getNome();
     }
 
     public List<Rotinacliente> getRotinaclienteList() {

@@ -268,7 +268,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getJan().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemFev(SituacaoBean situacaoBean) {
@@ -278,7 +278,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
        } else if (situacaoBean.getFev().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemMar(SituacaoBean situacaoBean) {
@@ -288,7 +288,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getMar().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemAbr(SituacaoBean situacaoBean) {
@@ -298,7 +298,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getAbr().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemMai(SituacaoBean situacaoBean) {
@@ -308,7 +308,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getMai().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemJun(SituacaoBean situacaoBean) {
@@ -318,7 +318,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getJun().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemJul(SituacaoBean situacaoBean) {
@@ -328,7 +328,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getJul().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemAgo(SituacaoBean situacaoBean) {
@@ -338,7 +338,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getAgo().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemSet(SituacaoBean situacaoBean) {
@@ -348,7 +348,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getSet().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemOut(SituacaoBean situacaoBean) {
@@ -358,7 +358,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getOut().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemNov(SituacaoBean situacaoBean) {
@@ -368,7 +368,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getNov().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
     public String imagemDez(SituacaoBean situacaoBean) {
@@ -378,7 +378,7 @@ public class SituacaoMB implements Serializable{
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getDez().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
-        }else return "X";    
+        }else return "/resources/img/x.png";    
     }
 
 }

@@ -175,6 +175,11 @@
          margin-top:10px;
          margin-left:330px;
      }
+     .carousel{
+         font-size:12px;
+         width: 400px;
+         height:137px;
+     }
      .dataGridcadastro{
          font-size:11px;
          width: 760px;
@@ -628,4 +633,8 @@
         margin-left:325px;
     }  
     
-    
+    .ui-carousel {
+        position: fixed;
+        display: inline-block;
+        padding: 1px;
+      }
