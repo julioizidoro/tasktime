@@ -5,6 +5,7 @@
  */
 package br.com.financemate.model;
 
+import static br.com.financemate.model.Comentarios_.comentario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,8 +32,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "atividades")
 public class Atividades implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
-    private List<Comentarios> comentariosList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +41,6 @@ public class Atividades implements Serializable {
     @Size(max = 100)
     @Column(name = "nome")
     private String nome;
-    @Lob
-    @Size(max = 16777215)
-    @Column(name = "comentario")
-    private String comentario;
     @Column(name = "prazo")
     @Temporal(TemporalType.DATE)
     private Date prazo;
@@ -71,6 +65,9 @@ public class Atividades implements Serializable {
     private List<Rotinaatividade> rotinaatividadeList;
     @Transient
     private boolean selecionado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Comentarios> comentariosList;
+    
 
     public Atividades() {
     }
@@ -93,14 +90,6 @@ public class Atividades implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
     }
 
     public Date getPrazo() {
@@ -208,5 +197,6 @@ public class Atividades implements Serializable {
     public void setComentariosList(List<Comentarios> comentariosList) {
         this.comentariosList = comentariosList;
     }
+    
     
 }
