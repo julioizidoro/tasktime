@@ -27,12 +27,12 @@
                         <p:selectOneMenu id="nomeRotina" value="#" style="width:130px" class="filtrar">
                             <f:selectItem itemLabel="Todos" itemValue="todos" noSelectionOption="true"/> 
                         </p:selectOneMenu>
-                        <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1"/>  
+                    <p:commandButton icon="ui-icon-search" value="Pesquisar" class="botao1" action="#{SituacaoMB.gerarListaSituacao()}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>  
                   
-                    <p:dataTable var="tarefasHoje" value="#" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                    <p:dataTable var="tarefasHoje" value="#{SituacaoMB.listaSituacao}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column headerText="Cliente" style="width:150px;" styleClass="border">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{tarefasHoje.cliente.nomefantasia}" />
                         </p:column>
 
                         <p:column headerText="Jan" style="width:35px;" styleClass="alinhaCentro">

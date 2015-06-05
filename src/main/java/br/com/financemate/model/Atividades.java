@@ -32,6 +32,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "atividades")
 public class Atividades implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Comentarios> comentariosList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +53,9 @@ public class Atividades implements Serializable {
     @Size(max = 30)
     @Column(name = "prioridade")
     private String prioridade;
+     @Size(max = 1)
+    @Column(name = "tipo")
+    private String tipo;
     @Column(name = "concluida")
     private Boolean concluida;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
@@ -112,6 +117,14 @@ public class Atividades implements Serializable {
 
     public void setPrioridade(String prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Boolean getConcluida() {
@@ -186,6 +199,14 @@ public class Atividades implements Serializable {
 
     public void setRotinaatividadeList(List<Rotinaatividade> rotinaatividadeList) {
         this.rotinaatividadeList = rotinaatividadeList;
+    }
+
+    public List<Comentarios> getComentariosList() {
+        return comentariosList;
+    }
+
+    public void setComentariosList(List<Comentarios> comentariosList) {
+        this.comentariosList = comentariosList;
     }
     
 }

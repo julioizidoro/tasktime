@@ -1,6 +1,7 @@
 package br.com.financemate.facade;
 
 import br.com.financemate.dao.RotinaclienteDao;
+import br.com.financemate.model.Rotinaatividade;
 import br.com.financemate.model.Rotinacliente;
 import java.sql.SQLException;
 import java.util.List;

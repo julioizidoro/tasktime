@@ -49,4 +49,14 @@ public class RotinaAtividadeFacade {
         }
     }
     
+    public Rotinaatividade consultar(int idRotina, int idCliente, String dataInicial, String dataFinal) {
+        rotinaAtividadeDao = new RotinaAtividadeDao();
+        try {
+            return rotinaAtividadeDao.consultar(idRotina, idCliente, dataInicial, dataFinal);
+        } catch (SQLException ex) {
+            Logger.getLogger(RotinaAtividadeFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 }

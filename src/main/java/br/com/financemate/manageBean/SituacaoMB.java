@@ -5,15 +5,21 @@
  */
 package br.com.financemate.manageBean;
 
+import br.com.financemate.bean.Formatacao;
 import br.com.financemate.bean.SituacaoBean;
+import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.DepartamentoFacade;
+import br.com.financemate.facade.RotinaAtividadeFacade;
 import br.com.financemate.facade.RotinaFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
+import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Rotina;
+import br.com.financemate.model.Rotinaatividade;
 import br.com.financemate.model.Subdepartamento;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -47,6 +53,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public List<Departamento> getListaDepartamento() {
+        if (listaDepartamento==null){
+            gerarListaDepartamento();
+        }
         return listaDepartamento;
     }
 
@@ -145,8 +154,234 @@ public class SituacaoMB implements Serializable{
         }
     }
     
+    public String gerarListaSituacao(){
+        
+        
+        int nDep = Integer.parseInt(idDepartamento);
+        int nSub = Integer.parseInt(idSubdepartamento);
+        int nRotina = Integer.parseInt(idRotina);
+        RotinaFacade rotinaFacade = new RotinaFacade();
+        
+        
+        ClienteFacade clienteFacade = new ClienteFacade();
+        List<Cliente> listaCliente = clienteFacade.listar("");
+        if (listaCliente==null){
+            listaCliente = new ArrayList<Cliente>();
+        }
+        listaSituacao = new ArrayList<SituacaoBean>();
+        for(int i=0;i<listaCliente.size();i++){
+            SituacaoBean situacaoBean = new SituacaoBean();
+            situacaoBean.setCliente(listaCliente.get(i));
+            situacaoBean.setJan("X");
+            situacaoBean.setFev("X");
+            situacaoBean.setMar("X");
+            situacaoBean.setAbr("X");
+            situacaoBean.setMai("X");
+            situacaoBean.setJun("X");
+            situacaoBean.setJul("X");
+            situacaoBean.setAgo("X");
+            situacaoBean.setSet("X");
+            situacaoBean.setOut("X");
+            situacaoBean.setNov("X");
+            situacaoBean.setDez("X");
+        }
+        String sql = "Select r From Rotina r ";
+        if (nDep>0){
+            sql = sql + " where r.subdepartamento.departamento.iddepartamento=" + nDep;
+        }
+        if (nSub>0){
+            sql = sql + " and r.subdepartamento.idsubdepartamento=" + nSub;
+        }
+        if (nRotina>0){
+            sql = sql + " and r.idrotina=" + nRotina;
+        }
+        String data = Formatacao.ConvercaoDataPadrao(new Date());
+        String ano = data.substring(6, 10);
+        for (int i=0;i<12;i++){
+        
+        }
+        List<Rotina> listaRotina = rotinaFacade.listarSql(sql);
+        for (int i=0;i<listaRotina.size();i++){
+            verificarRotinas(listaRotina, (i+1), ano);
+        }
+        
+        return "consSituacao";
+    }
     
+    public void  verificarRotinas(List<Rotina> listaRotina, int mes, String ano){
+        for(int i=0;i<listaRotina.size();i++){
+            verificarClientes(listaRotina.get(i), mes, ano);
+        }
+    }
     
+    public void verificarClientes(Rotina rotina, int mes, String ano){
+        RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
+        for (int i=0;i<listaSituacao.size();i++){
+            String dataInical = ano + Formatacao.retornaDataInicia(mes);
+            String dataFinal = ano + Formatacao.retornaDataFinal(mes);
+            Rotinaatividade rotinaatividade = rotinaAtividadeFacade.consultar(rotina.getIdrotina(), listaSituacao.get(i).getCliente().getIdcliente(),
+                    dataInical, dataFinal);
+            String resultado = verificarSituacao(rotinaatividade);
+            if (mes==1){
+                listaSituacao.get(i).setJan(resultado);
+            }else if (mes==2){
+                listaSituacao.get(i).setFev(resultado);
+            }else if (mes==3){
+                listaSituacao.get(i).setMar(resultado);
+            }else if (mes==4){
+                listaSituacao.get(i).setAbr(resultado);
+            }else if (mes==5){
+                listaSituacao.get(i).setMai(resultado);
+            }else if (mes==6){
+                listaSituacao.get(i).setJun(resultado);
+            }else if (mes==7){
+                listaSituacao.get(i).setJul(resultado);
+            }else if (mes==8){
+                listaSituacao.get(i).setAgo(resultado);
+            }else if (mes==9){
+                listaSituacao.get(i).setSet(resultado);
+            }else if (mes==10){
+                listaSituacao.get(i).setOut(resultado);
+            }else if (mes==11){
+                listaSituacao.get(i).setNov(resultado);
+            }else listaSituacao.get(i).setDez(resultado);
+        }
+    }
     
+    public String verificarSituacao(Rotinaatividade rotinaatividade) {
+        if (rotinaatividade == null) {
+            return "X";
+        } else {
+            if (rotinaatividade.getAtividades().getPrazo().after(new Date())) {
+                return "AM";
+            } else {
+                if (rotinaatividade.getAtividades().getConcluida()) {
+                    return "VD";
+                } else {
+                    return "VR";
+                }
+            }
+        }
+    }
     
+    public String imagemJan(SituacaoBean situacaoBean) {
+        if (situacaoBean.getJan().equalsIgnoreCase("VR")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getJan().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getJan().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemFev(SituacaoBean situacaoBean) {
+        if (situacaoBean.getFev().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getFev().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+       } else if (situacaoBean.getFev().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemMar(SituacaoBean situacaoBean) {
+        if (situacaoBean.getMar().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getMar().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getMar().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemAbr(SituacaoBean situacaoBean) {
+        if (situacaoBean.getAbr().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getAbr().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getAbr().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemMai(SituacaoBean situacaoBean) {
+        if (situacaoBean.getMai().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getMai().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getMai().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemJun(SituacaoBean situacaoBean) {
+        if (situacaoBean.getJun().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getJun().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getJun().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemJul(SituacaoBean situacaoBean) {
+        if (situacaoBean.getJul().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getJul().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getJul().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemAgo(SituacaoBean situacaoBean) {
+        if (situacaoBean.getAgo().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getAgo().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getAgo().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemSet(SituacaoBean situacaoBean) {
+        if (situacaoBean.getSet().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getSet().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getSet().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemOut(SituacaoBean situacaoBean) {
+        if (situacaoBean.getOut().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getOut().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getOut().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemNov(SituacaoBean situacaoBean) {
+        if (situacaoBean.getNov().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getNov().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getNov().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
+    public String imagemDez(SituacaoBean situacaoBean) {
+        if (situacaoBean.getDez().equalsIgnoreCase("V")) {
+            return "/resources/img/bolaVermelha.png";
+        } else if (situacaoBean.getDez().equalsIgnoreCase("A")) {
+            return "/resources/img/bolaAmarela.png";
+        } else if (situacaoBean.getDez().equalsIgnoreCase("VD")){
+            return "/resources/img/bolaVerde.png";
+        }else return "X";    
+    }
+
 }

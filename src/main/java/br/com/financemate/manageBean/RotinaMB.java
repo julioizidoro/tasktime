@@ -423,6 +423,7 @@ public class RotinaMB  implements Serializable{
             atividades.setConcluida(false);
             atividades.setNome(rotina.getNome());
             atividades.setPrioridade(rotina.getPrioridade());
+            atividades.setTipo("R");
             atividades.setSubdepartamento(rotina.getSubdepartamento());
             atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
@@ -457,6 +458,7 @@ public class RotinaMB  implements Serializable{
             atividades.setConcluida(false);
             atividades.setNome(rotina.getNome());
             atividades.setPrioridade(rotina.getPrioridade());
+            atividades.setTipo("R");
             atividades.setSubdepartamento(rotina.getSubdepartamento());
             atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
@@ -479,6 +481,7 @@ public class RotinaMB  implements Serializable{
         atividades.setConcluida(false);
         atividades.setNome(rotina.getNome());
         atividades.setPrioridade(rotina.getPrioridade());
+        atividades.setTipo("R");
         atividades.setSubdepartamento(rotina.getSubdepartamento());
         atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
         atividades.setPrazo(rotinaBean.getRotinacliente().getData());

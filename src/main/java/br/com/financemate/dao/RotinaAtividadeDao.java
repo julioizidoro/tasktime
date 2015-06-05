@@ -45,4 +45,19 @@ public class RotinaAtividadeDao {
         manager.getTransaction().commit();
     }
     
+    public Rotinaatividade consultar(int idRotina, int idCliente, String dataInicial, String dataFinal) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("Select r From Rotinaatividade r where r.rotina.idrotina=" + idRotina +
+                " and r.rotina.cliente.idcliente=" + idCliente + " and r.atividades.prazo>='" + dataInicial +
+                "' and r.atividades.prazo<='" + dataFinal + "'");
+        List<Rotinaatividade> lista = q.getResultList();
+        manager.getTransaction().commit();
+        if (lista.size()>0){
+            return lista.get(0);
+                    
+        }
+        return null;
+    }
+    
 }

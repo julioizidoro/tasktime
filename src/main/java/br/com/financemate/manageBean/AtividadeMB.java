@@ -13,7 +13,6 @@ import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
-import static java.lang.Boolean.TRUE;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -427,6 +426,7 @@ public class AtividadeMB implements Serializable{
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         atividades.setSubdepartamento(subddepartamento);
+        atividades.setTipo("A");
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
         atividades.setUsuario(usuario);

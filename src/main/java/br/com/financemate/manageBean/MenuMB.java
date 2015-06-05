@@ -36,6 +36,7 @@ public class MenuMB implements Serializable{
       public String situacao(){
         return"consSituacao";
     }
+      
     public String financeiro(){
       return"gestaoFinanceira";  
     }
