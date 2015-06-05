@@ -184,6 +184,7 @@ public class SituacaoMB implements Serializable{
             situacaoBean.setOut("X");
             situacaoBean.setNov("X");
             situacaoBean.setDez("X");
+            listaSituacao.add(situacaoBean);
         }
         String sql = "Select r From Rotina r ";
         if (nDep>0){
@@ -197,14 +198,10 @@ public class SituacaoMB implements Serializable{
         }
         String data = Formatacao.ConvercaoDataPadrao(new Date());
         String ano = data.substring(6, 10);
-        for (int i=0;i<12;i++){
-        
-        }
         List<Rotina> listaRotina = rotinaFacade.listarSql(sql);
-        for (int i=0;i<listaRotina.size();i++){
-            verificarRotinas(listaRotina, (i+1), ano);
+        for (int i = 0; i < 12; i++) {
+          verificarRotinas(listaRotina, (i + 1), ano);
         }
-        
         return "consSituacao";
     }
     
@@ -217,8 +214,8 @@ public class SituacaoMB implements Serializable{
     public void verificarClientes(Rotina rotina, int mes, String ano){
         RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
         for (int i=0;i<listaSituacao.size();i++){
-            String dataInical = ano + Formatacao.retornaDataInicia(mes);
-            String dataFinal = ano + Formatacao.retornaDataFinal(mes);
+            String dataInical = ano + "-" + Formatacao.retornaDataInicia(mes);
+            String dataFinal = ano + "-" + Formatacao.retornaDataFinal(mes);
             Rotinaatividade rotinaatividade = rotinaAtividadeFacade.consultar(rotina.getIdrotina(), listaSituacao.get(i).getCliente().getIdcliente(),
                     dataInical, dataFinal);
             String resultado = verificarSituacao(rotinaatividade);
@@ -267,7 +264,7 @@ public class SituacaoMB implements Serializable{
     public String imagemJan(SituacaoBean situacaoBean) {
         if (situacaoBean.getJan().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getJan().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getJan().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getJan().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -275,9 +272,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemFev(SituacaoBean situacaoBean) {
-        if (situacaoBean.getFev().equalsIgnoreCase("V")) {
+        if (situacaoBean.getFev().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getFev().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getFev().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
        } else if (situacaoBean.getFev().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -285,9 +282,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemMar(SituacaoBean situacaoBean) {
-        if (situacaoBean.getMar().equalsIgnoreCase("V")) {
+        if (situacaoBean.getMar().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getMar().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getMar().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getMar().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -295,9 +292,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemAbr(SituacaoBean situacaoBean) {
-        if (situacaoBean.getAbr().equalsIgnoreCase("V")) {
+        if (situacaoBean.getAbr().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getAbr().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getAbr().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getAbr().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -305,9 +302,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemMai(SituacaoBean situacaoBean) {
-        if (situacaoBean.getMai().equalsIgnoreCase("V")) {
+        if (situacaoBean.getMai().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getMai().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getMai().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getMai().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -315,9 +312,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemJun(SituacaoBean situacaoBean) {
-        if (situacaoBean.getJun().equalsIgnoreCase("V")) {
+        if (situacaoBean.getJun().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getJun().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getJun().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getJun().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -325,9 +322,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemJul(SituacaoBean situacaoBean) {
-        if (situacaoBean.getJul().equalsIgnoreCase("V")) {
+        if (situacaoBean.getJul().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getJul().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getJul().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getJul().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -335,9 +332,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemAgo(SituacaoBean situacaoBean) {
-        if (situacaoBean.getAgo().equalsIgnoreCase("V")) {
+        if (situacaoBean.getAgo().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getAgo().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getAgo().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getAgo().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -345,9 +342,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemSet(SituacaoBean situacaoBean) {
-        if (situacaoBean.getSet().equalsIgnoreCase("V")) {
+        if (situacaoBean.getSet().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getSet().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getSet().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getSet().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -355,9 +352,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemOut(SituacaoBean situacaoBean) {
-        if (situacaoBean.getOut().equalsIgnoreCase("V")) {
+        if (situacaoBean.getOut().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getOut().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getOut().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getOut().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -365,9 +362,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemNov(SituacaoBean situacaoBean) {
-        if (situacaoBean.getNov().equalsIgnoreCase("V")) {
+        if (situacaoBean.getNov().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getNov().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getNov().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getNov().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";
@@ -375,9 +372,9 @@ public class SituacaoMB implements Serializable{
     }
 
     public String imagemDez(SituacaoBean situacaoBean) {
-        if (situacaoBean.getDez().equalsIgnoreCase("V")) {
+        if (situacaoBean.getDez().equalsIgnoreCase("VR")) {
             return "/resources/img/bolaVermelha.png";
-        } else if (situacaoBean.getDez().equalsIgnoreCase("A")) {
+        } else if (situacaoBean.getDez().equalsIgnoreCase("AM")) {
             return "/resources/img/bolaAmarela.png";
         } else if (situacaoBean.getDez().equalsIgnoreCase("VD")){
             return "/resources/img/bolaVerde.png";

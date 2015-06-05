@@ -5,7 +5,6 @@
  */
 package br.com.financemate.model;
 
-import static br.com.financemate.model.Comentarios_.comentario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
