@@ -34,10 +34,10 @@ public class SubdepartamentoFacade {
         }
     }
     
-    public List<Subdepartamento> listar(String nomeDepartamento) {
+    public List<Subdepartamento> listar(String nomeDepartamento, int idDepartamento) {
         subdepartamentoDao = new SubdepartamentoDao();
         try {
-            return subdepartamentoDao.listar(nomeDepartamento);
+            return subdepartamentoDao.listar(nomeDepartamento, idDepartamento);
         } catch (SQLException ex) {
             Logger.getLogger(SubdepartamentoFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;

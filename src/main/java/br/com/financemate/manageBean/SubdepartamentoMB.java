@@ -27,7 +27,6 @@ public class SubdepartamentoMB implements Serializable{
     private UsuarioLogadoBean usuarioLogadoBean;
     private Subdepartamento subdepartamento;
     private List<Subdepartamento> listaSubdepartamento;
-    private String nomeDepartamento;
     private String idDepartamento="0";
     private List<Departamento> listaDepartamento;
 
@@ -77,25 +76,14 @@ public class SubdepartamentoMB implements Serializable{
         this.listaDepartamento = listaDepartamento;
     }
     
-
-    public String getNomeDepartamento() {
-        return nomeDepartamento;
-    }
-
-    public void setNomeDepartamento(String nomeDepartamento) {
-        this.nomeDepartamento = nomeDepartamento;
-    }
-    
-    
-    
     public void gerarListaSubdepartamento() {
-        if(nomeDepartamento == null){
-            nomeDepartamento = "";
-        }
-        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-        listaSubdepartamento = subdepartamentoFacade.listar(nomeDepartamento);
-        if (listaSubdepartamento == null) {
-            listaSubdepartamento = new ArrayList<Subdepartamento>();
+        if (idDepartamento != null) {
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            listaSubdepartamento = subdepartamentoFacade.listar("", Integer.parseInt(idDepartamento));
+            if (listaSubdepartamento == null) {
+                listaSubdepartamento = new ArrayList<Subdepartamento>();
+            }
+
         }
     }
     

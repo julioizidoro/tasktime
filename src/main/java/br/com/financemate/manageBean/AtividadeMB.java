@@ -490,7 +490,7 @@ public class AtividadeMB implements Serializable{
     public void gerarListaSubdepartamento()  {
         if (idDepartamento != null) {
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            listaSubdepartamento = subdepartamentoFacade.listar("");
+            listaSubdepartamento = subdepartamentoFacade.listar("", Integer.parseInt(idDepartamento));
             if (listaSubdepartamento == null) {
                 listaSubdepartamento = new ArrayList<Subdepartamento>();
             }

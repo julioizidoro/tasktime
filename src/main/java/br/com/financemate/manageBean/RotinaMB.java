@@ -52,6 +52,7 @@ public class RotinaMB  implements Serializable{
     private List<Rotina> listaRotina;
     private String idRotina;
     private String prioridade;
+    private String idDepartamento;
     
     public RotinaMB()  {
         rotina = new Rotina();
@@ -79,6 +80,22 @@ public class RotinaMB  implements Serializable{
             gerarListaUsuario();
         }
         return listaUsuario;
+    }
+
+    public String getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(String prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public String getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(String idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
     public void setListaUsuario(List<Usuario> listaUsuario) {
@@ -382,12 +399,14 @@ public class RotinaMB  implements Serializable{
         }
     }
     
-    public void gerarListaSubdepartamento()  {
+    public void gerarListaSubdepartamento() {
+        if (idDepartamento != null) {
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            listaSubdepartamento = subdepartamentoFacade.listar("");
+            listaSubdepartamento = subdepartamentoFacade.listar("", Integer.parseInt(idDepartamento));
             if (listaSubdepartamento == null) {
                 listaSubdepartamento = new ArrayList<Subdepartamento>();
             }
+        }
     }
     
     public List<Cliente> gerarListaCliente() {
