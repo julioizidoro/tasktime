@@ -11,6 +11,8 @@
                 <div id="centro2" >
                       <legend class="titulo">Consulta de Departamento</legend>
                      <br></br>
+                     <img src="resources/img/ADD.jpg" width="20" height="20" class="add"/>
+                    <p:commandLink  value="Adicionar Departamento" styleClass="cadastro5" action="#{DepartamentoMB.novo()}"/>  
                      <p:dataTable var="consDepartamento" value="#{DepartamentoMB.listaDepartamento}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column headerText="Nome"  styleClass="border">
@@ -28,8 +30,7 @@
                         </p:column>  
                     </p:dataTable>
                     <br></br>
-                    <img src="resources/img/ADD.jpg" width="20" height="20" class="add"/>
-                    <p:commandLink  value="Adicionar Departamento" styleClass="cadastro5" action="#{DepartamentoMB.novo()}"/>  
+                    
                     <br></br>
                 </div>
             </h:form>  

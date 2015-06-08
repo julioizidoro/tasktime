@@ -16,6 +16,8 @@
                      <p:inputText id="nome"   size="43" maxlength="100" class="filtrar"  value="#{ClienteMB.nomeCliente}" />
                      <p:commandButton icon="ui-icon-search" class="botao1" action="#{ClienteMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
                      
+                    <img src="resources/img/ADD.jpg" width="20" height="20" class="add2"/> 
+                    <p:commandLink  value="Adicionar Cliente" styleClass="cadastro5" action="#{ClienteMB.novo()}"/> 
                      <br></br>
                      <p:dataTable var="consCliente" value="#{ClienteMB.listaClientes}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
@@ -41,8 +43,7 @@
                         </p:column>   
                     </p:dataTable>
                      <br></br>
-                    <img src="resources/img/ADD.jpg" width="20" height="20" class="add2"/> 
-                    <p:commandLink  value="Adicionar Cliente" styleClass="cadastro5" action="#{ClienteMB.novo()}"/>   
+                     
                     <br></br>
                     
                 </div>

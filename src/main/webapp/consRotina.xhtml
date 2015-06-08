@@ -15,7 +15,9 @@
                      <br></br>
                      <p:inputText id="nome"   size="43" maxlength="100" class="left1"  value="#{RotinaMB.nomeRotina}" />
                      <p:commandButton icon="ui-icon-search"  class="botao1" action="#{RotinaMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
-                     <br></br>
+                     
+                     <img src="resources/img/ADD.jpg" width="20" height="20" class="add4"/> 
+                     <p:commandLink  value="Adicionar Rotina" styleClass="cadastro5" action="#{RotinaMB.novo()}"/>
                      <p:dataTable var="consRotina" value="#{RotinaMB.listaRotina}" class="dataGrid2" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10"  rowIndexVar="rowIx">
@@ -37,8 +39,7 @@
                      </p:column>
                     </p:dataTable>
                     <br></br>
-                    <img src="resources/img/ADD.jpg" width="20" height="20" class="add4"/> 
-                    <p:commandLink  value="Adicionar Rotina" styleClass="cadastro5" action="#{RotinaMB.novo()}"/>
+                    
                     <br></br>
                 </div>
             </h:form>     
