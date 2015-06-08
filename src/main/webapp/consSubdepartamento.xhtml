@@ -13,7 +13,8 @@
                      <br></br>
                       
                      <p:dataTable var="consSubdepartamento" value="#{SubdepartamentoMB.listaSubdepartamento}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                     rowIndexVar="rowIx">
+                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="10"         rowIndexVar="rowIx">
                         <p:column headerText="Departamento"  styleClass="border">
                             <h:outputText value="#{consSubdepartamento.departamento.nome}" />
                         </p:column>
@@ -29,7 +30,7 @@
                         </p:column>
                     </p:dataTable>
                     <br></br>
-                    <img src="resources/img/ADD.jpg" width="20" height="20" class="left3"/> 
+                    <img src="resources/img/ADD.jpg" width="20" height="20" class="add4"/> 
                     <p:commandLink  value="Adicionar Sub-Departamento" styleClass="cadastro5" action="#{SubdepartamentoMB.novo()}"/>  
                     <br></br><br></br>
                    
