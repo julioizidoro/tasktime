@@ -169,6 +169,10 @@ public class UsuarioMB implements Serializable{
         if (idUsuario>0){
             UsuarioFacade usuarioFacade = new UsuarioFacade();
             usuario = usuarioFacade.consultar(idUsuario);
+            idDepartamento = String.valueOf(usuario.getSubdepartamento().getDepartamento().getIddepartamento());
+            gerarListaSubdepartamento();
+            idSubdepartamento = String.valueOf(usuario.getSubdepartamento().getIdsubdepartamento());
+            idPerfil = String.valueOf(usuario.getPerfil().getIdperfil());
              if (usuario!=null){
                  gerarListaPerfil("");
                 return "cadUsuario";
