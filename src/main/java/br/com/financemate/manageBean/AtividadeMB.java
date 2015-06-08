@@ -15,6 +15,7 @@ import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
+import static java.lang.Boolean.FALSE;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,9 +41,9 @@ public class AtividadeMB implements Serializable{
     private List<Departamento> listaDepartamento;
     private List<Subdepartamento> listaSubdepartamento;
     private List<Cliente> listaCliente;
-    private String idDepartamento;
+    private String idDepartamento="0";
     private String idCliente;
-    private String idSubdepartamento;
+    private String idSubdepartamento="0";
     private List<Usuario> listaUsuario;
     private String idUsuario="0";
     private List<Atividades> listaAtividadedia;
@@ -442,6 +443,7 @@ public class AtividadeMB implements Serializable{
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         atividades.setSubdepartamento(subddepartamento);
+        atividades.setConcluida(FALSE);
         ClienteFacade clienteFacade = new ClienteFacade();
         Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
         atividades.setCliente(cliente);
@@ -450,15 +452,13 @@ public class AtividadeMB implements Serializable{
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
         atividades.setUsuario(usuario);
         atividades = atividadeFacade.salvar(atividades);
-        if (atividades.getPrazo().equals(new Date())){
-            listarAtividadesDia();
+        if (atividades.getPrazo().before(new Date())){
+            listarAtividadesAtrasadas();
         }else {
-            if (atividades.getPrazo().before(new Date())) {
-                listarAtividadesAtrasadas();
+            if (atividades.getPrazo().after(new Date())) {
+                listarAtividadesSemana();
             }else {
-                if (atividades.getPrazo().after(new Date())){
-                    listarAtividadesSemana();
-                }
+                listarAtividadesDia();
             }
         }
         if (atividades.getUsuario().getSubdepartamento().getDepartamento().equals(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento())){
@@ -466,6 +466,10 @@ public class AtividadeMB implements Serializable{
         }
         carregarListaGeral();
         atividades = new Atividades();
+        idCliente="0";
+        idUsuario="0";
+        idDepartamento="0";
+        idSubdepartamento="0";
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
         return "inicial";
@@ -488,7 +492,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public void gerarListaSubdepartamento()  {
-        if (idDepartamento != null) {
+        if (!idDepartamento.equalsIgnoreCase("0")) {
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
             listaSubdepartamento = subdepartamentoFacade.listar("", Integer.parseInt(idDepartamento));
             if (listaSubdepartamento == null) {
@@ -514,7 +518,8 @@ public class AtividadeMB implements Serializable{
     public  void listarAtividadesDia()  {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(new Date()) + 
-                "' and a.concluida=" + isCheckConcluidas() + " order by a.prioridade, a.nome";
+                "' and a.concluida=" + isCheckConcluidas() + " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+                " order by a.prioridade, a.nome";
         listaAtividadedia = atividadesFacade.listar(sql);
         if (listaAtividadedia==null){
             listaAtividadedia = new ArrayList<Atividades>();
@@ -529,7 +534,9 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         Date data = Formatacao.SomarDiasData(new Date(), 7);
         String sql = "Select a from Atividades a where a.prazo>'" + Formatacao.ConvercaoDataSql(new Date()) + 
-                "' and a.prazo<='" + Formatacao.ConvercaoDataSql(data) + "'  and a.concluida=" + isCheckConcluidas() + " order by a.prioridade, a.nome";
+                "' and a.prazo<='" + Formatacao.ConvercaoDataSql(data) + "'  and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario()  +
+                " order by a.prioridade, a.nome";
         listaAtividadeSemana = atividadesFacade.listar(sql);
         if (listaAtividadeSemana==null){
             listaAtividadeSemana = new ArrayList<Atividades>();
@@ -543,7 +550,8 @@ public class AtividadeMB implements Serializable{
     public  void listarAtividadesAtrasadas()  {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.prazo<'" + Formatacao.ConvercaoDataSql(new Date()) + 
-                 "' and a.concluida=FALSE  order by a.prioridade, a.nome";
+                 "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+                " order by a.prioridade, a.nome";
         listaAtividadeAtrasada = atividadesFacade.listar(sql);
         if (listaAtividadeAtrasada==null){
             listaAtividadeAtrasada = new ArrayList<Atividades>();
@@ -561,7 +569,7 @@ public class AtividadeMB implements Serializable{
         String sql = "Select a from Atividades a where a.subdepartamento.departamento.iddepartamento="
                 + usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento()
                 + "  and a.concluida=FALSE order by a.prioridade, a.nome";
-        listaAtividadeSemana = atividadesFacade.listar(sql);
+        listaAtividadesDepartamento = atividadesFacade.listar(sql);
         if (listaAtividadesDepartamento==null){
             listaAtividadesDepartamento = new ArrayList<Atividades>();
         }
@@ -602,6 +610,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public void carregarListaGeral(){
+        listaAtividadesGeral = new ArrayList<Atividades>();
         if (atividadeMenu.equalsIgnoreCase("dia")){
             listaAtividadesGeral = listaAtividadedia;
         }else if (atividadeMenu.equalsIgnoreCase("semana")){
@@ -840,6 +849,7 @@ public class AtividadeMB implements Serializable{
             listaAtividadesDepartamento.get(nLinha).setComentariosList(lista);
         }
          linha="0";
+         atividades = new Atividades();
         carregarListaGeral();
         return null;
     }

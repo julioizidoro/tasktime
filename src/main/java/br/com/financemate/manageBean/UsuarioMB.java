@@ -39,9 +39,9 @@ public class UsuarioMB implements Serializable{
     private List<Departamento> listaDepartamento;
     private List<Perfil> listaPerfil;
     private List<Subdepartamento> listaSubdepartamento;
-    private String idSubdepartamento;
+    private String idSubdepartamento="0";
     private String idPerfil;
-    private String idDepartamento;
+    private String idDepartamento="0";
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -152,6 +152,7 @@ public class UsuarioMB implements Serializable{
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         usuario.setSubdepartamento(subddepartamento);
+        usuario.setSenha("1");
         PerfilFacade perfilFacade = new PerfilFacade();
         Perfil perfil = perfilFacade.consultar(Integer.parseInt(idPerfil));
         usuario.setPerfil(perfil);
@@ -185,7 +186,7 @@ public class UsuarioMB implements Serializable{
     }
     
     public void gerarListaSubdepartamento() throws SQLException {
-        if (idDepartamento != null) {
+        if (!idDepartamento.equalsIgnoreCase("0")) {
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
             listaSubdepartamento = subdepartamentoFacade.listar("", Integer.parseInt(idDepartamento));
             if (listaSubdepartamento == null) {

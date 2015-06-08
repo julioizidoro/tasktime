@@ -49,14 +49,14 @@ public class RotinaMB  implements Serializable{
     private String nomeRotina;
     private List<Subdepartamento> listaSubdepartamento;
     private List<Departamento> listaDepartamento;
-    private String idSubdepartamento;
+    private String idSubdepartamento="0";
     private List<Usuario> listaUsuario;
     private String idUsuario="0";
     private List<RotinaBean> listaRotinabean;
     private List<Rotina> listaRotina;
     private String idRotina;
     private String prioridade;
-    private String idDepartamento;
+    private String idDepartamento="0";
     
     public RotinaMB()  {
         rotina = new Rotina();
@@ -416,7 +416,7 @@ public class RotinaMB  implements Serializable{
     }
     
     public void gerarListaSubdepartamento() {
-        if (idDepartamento != null) {
+        if (!idDepartamento.equalsIgnoreCase("0")) {
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
             listaSubdepartamento = subdepartamentoFacade.listar("", Integer.parseInt(idDepartamento));
             if (listaSubdepartamento == null) {
