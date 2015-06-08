@@ -15,7 +15,7 @@
                      <p:dataTable var="consSubdepartamento" value="#{SubdepartamentoMB.listaSubdepartamento}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column headerText="Departamento"  styleClass="border">
-                            <h:outputText value="#{consSubdepartamento.departamento}" />
+                            <h:outputText value="#{consSubdepartamento.departamento.nome}" />
                         </p:column>
 
                         <p:column headerText="Sub-Departamento" styleClass="border">

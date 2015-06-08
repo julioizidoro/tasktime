@@ -77,13 +77,10 @@ public class SubdepartamentoMB implements Serializable{
     }
     
     public void gerarListaSubdepartamento() {
-        if (!idDepartamento.equalsIgnoreCase("0")) {
-            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            listaSubdepartamento = subdepartamentoFacade.listar("", Integer.parseInt(idDepartamento));
-            if (listaSubdepartamento == null) {
-                listaSubdepartamento = new ArrayList<Subdepartamento>();
-            }
-
+        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+        listaSubdepartamento = subdepartamentoFacade.listar();
+        if (listaSubdepartamento == null) {
+            listaSubdepartamento = new ArrayList<Subdepartamento>();
         }
     }
     

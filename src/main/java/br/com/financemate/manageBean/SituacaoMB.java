@@ -131,7 +131,7 @@ public class SituacaoMB implements Serializable{
         int numDep = Integer.parseInt(idDepartamento);
         if (numDep>0){
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            listaSubdepartamento = subdepartamentoFacade.listar(numDep);
+            listaSubdepartamento = subdepartamentoFacade.listar("", numDep);
             if (listaSubdepartamento == null) {
                 listaSubdepartamento = new ArrayList<Subdepartamento>();
            }
