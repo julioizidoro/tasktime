@@ -25,10 +25,10 @@ public class ComentariosFacade {
         }
     }
     
-    public Comentarios consultar(int idComentarios) {
+    public Comentarios consultar(int idAtividades) {
         comentariosDao = new ComentariosDao();
         try {
-            return comentariosDao.consultar(idComentarios);
+            return comentariosDao.consultar(idAtividades);
         } catch (SQLException ex) {
             Logger.getLogger(SubdepartamentoFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;

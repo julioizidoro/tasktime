@@ -25,10 +25,10 @@ public class ComentariosDao {
         return comentarios;
     }
     
-    public List<Comentarios> listar(int idComentarios) throws SQLException{
+    public List<Comentarios> listar(int idAtividade) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select c from Comentarios c where c.atividades.idatividades=" + idComentarios + " order by c.comentario");
+        Query q = manager.createQuery("select c from Comentarios c where c.atividades.idatividades=" + idAtividade + " order by c.comentario");
         List<Comentarios> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;

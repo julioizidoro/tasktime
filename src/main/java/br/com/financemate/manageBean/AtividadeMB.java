@@ -442,6 +442,9 @@ public class AtividadeMB implements Serializable{
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         atividades.setSubdepartamento(subddepartamento);
+        ClienteFacade clienteFacade = new ClienteFacade();
+        Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
+        atividades.setCliente(cliente);
         atividades.setTipo("A");
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
@@ -502,11 +505,10 @@ public class AtividadeMB implements Serializable{
         }
     }
     
-    public String confirmarUsuario() {
+    public void confirmarUsuario() {
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
         atividades.setUsuario(usuario);
-        return "";
     }
     
     public  void listarAtividadesDia()  {
@@ -809,6 +811,7 @@ public class AtividadeMB implements Serializable{
         if (idAtividade>0){
             for (int i=0;i<listaAtividadesGeral.size();i++){
                 if (idAtividade==listaAtividadesGeral.get(i).getIdatividades()){
+                    linha = String.valueOf(i);
                     atividades = listaAtividadesGeral.get(i);
                     return null;
                 }
@@ -825,13 +828,18 @@ public class AtividadeMB implements Serializable{
         comentarios.setHora(Formatacao.foramtarHoraString());
         comentariosFacade.salvar(comentarios);
         comentarios = new Comentarios();
+        int nLinha = Integer.parseInt(linha);
+        List<Comentarios> lista = comentariosFacade.listar(atividades.getIdatividades());
          if (atividadeMenu.equalsIgnoreCase("dia")){
-            listarAtividadesDia();
+            listaAtividadedia.get(nLinha).setComentariosList(lista);
         }else if (atividadeMenu.equalsIgnoreCase("semana")){
-            listarAtividadesSemana();
+            listaAtividadeSemana.get(nLinha).setComentariosList(lista);
         }else if (atividadeMenu.equalsIgnoreCase("atrasada")){
-            listarAtividadesAtrasadas();
-        }else listarAtividadesDepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+            listaAtividadeAtrasada.get(nLinha).setComentariosList(lista);
+        }else {
+            listaAtividadesDepartamento.get(nLinha).setComentariosList(lista);
+        }
+         linha="0";
         carregarListaGeral();
         return null;
     }
