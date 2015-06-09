@@ -56,7 +56,7 @@
         <p:dialog header="Adicionar Tarafas" modal="true" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
             <p:outputLabel value="Título" class="filtrar"/>
             <p:outputLabel value="Data" class="left3"/>
-            <br></br><br></br>
+            <br></br>
             <p:inputText value="#{AtividadeMB.atividades.nome}" size="49" class="filtrar"/>
             <p:calendar id="prazo" size="18"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="filtrar6" value="#{AtividadeMB.atividades.prazo}" >
                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>

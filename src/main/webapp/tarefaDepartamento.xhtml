@@ -10,7 +10,39 @@
             <h:form>
                 <div id="centro2" >
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
-                     <br></br>
+                    <br></br>
+                    <p:panelGrid columns="5" styleClass="semBorda" class="semBorda" >
+                        <p:outputLabel value="Vizualizar" class="fonte"/> 
+                        <p:outputLabel value="Depatamento" class="fonte"/> 
+                        <p:outputLabel value="Sub-Depatamento" class="fonte"/> 
+                        <p:outputLabel value="Cliente" class="fonte"/> 
+                        <p:outputLabel value="Usuário" class="fonte"/> 
+                        
+                        <h:selectOneMenu  id="vizualizadas" class="fonte" style="width:145px">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItem itemLabel="Próximos 7 dias" itemValue="proxsete" />
+                            <f:selectItem itemLabel="Hoje" itemValue="hoje" />
+                            <f:selectItem itemLabel="Atrasadas" itemValue="atrasadas" />
+                        </h:selectOneMenu>
+                        <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="fonte" style="width:145px">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
+                            <p:ajax event="change" listener="#{AtividadeMB.gerarListaSubdepartamento()}" update="subdepartamento" />
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="fonte" style="width:120px">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:155px" class="fonte">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" style="width:190px" class="fonte">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
+                        </p:selectOneMenu>
+                        
+                     </p:panelGrid>
                     <h:outputText value="Concluídas" class="concluida"/>  
                     <p:selectBooleanCheckbox value="#{AtividadeMB.checkConcluidas}" class="Selecionarconcluida">
                         <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.filtarConcluidas()}" />
@@ -25,7 +57,7 @@
                             <h:outputText value="#{tarefas.usuario.nome}" />
                         </p:column>
 
-                        <p:column headerText="Sub-Departamento" style="width:110px;" styleClass="alinhaCentro">
+                        <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.subdepartamento.departamento.nome}" />
                         </p:column>
                         
@@ -35,17 +67,17 @@
                             </p:commandButton>
                         </p:column>
 
-                        <p:column headerText="Cliente" style="width:117px;" styleClass="alinhaCentro">
+                        <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.cliente.nomefantasia}" />
                         </p:column>
                         
-                        <p:column headerText="Prazo" style="width:78px;" styleClass="alinhaCentro">
+                        <p:column headerText="Prazo" style="width:90px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.prazo}" >
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </h:outputText>    
                         </p:column>
                         
-                        <p:column headerText="Prioridade" style="width:47px;" styleClass="alinhaCentro">
+                        <p:column headerText="Prioridade" style="width:50px;" styleClass="alinhaCentro">
                             <p:graphicImage value="#{AtividadeMB.imagem(tarefas)}" />
                         </p:column>
                         

@@ -608,7 +608,7 @@ public class AtividadeMB implements Serializable{
         listaAtividadesGeral = listaAtividadesDepartamento;
         atividadeMenu="departamento";
         titulo="Taferas do Departamento";
-        return "inicial";
+        return "tarefaDepartamento";
     }
     
     public void carregarListaGeral(){
