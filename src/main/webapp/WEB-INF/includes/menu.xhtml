@@ -66,16 +66,16 @@
                 <p:outputLabel value="Sub-Depatamento" class="filtrar6"/> 
                 <p:outputLabel value="Cliente" class="filtrar4"/> 
             <br></br>
-            <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="filtrar" style="width:145px">
+            <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="filtrar" style="width:135px">
                 <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
                 <p:ajax event="change" listener="#{AtividadeMB.gerarListaSubdepartamento()}" update="subdepartamento" />
             </p:selectOneMenu>
-             <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="add" style="width:150px">
+             <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="filtrar7" style="width:140px">
                 <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
             </p:selectOneMenu>
-            <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:155px" class="add">
+            <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:155px" class="filtrar7">
                 <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
             </p:selectOneMenu>
@@ -85,12 +85,12 @@
              <p:outputLabel value="Prioridade" class="left6"/>
              <br></br>
              
-            <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" style="width:180px" class="filtrar">
+            <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" style="width:190px" class="filtrar">
                 <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
             </p:selectOneMenu>
              
-            <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" style="width:170px" class="filtrar3">
+            <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" style="width:160px" class="filtrar3">
                     <f:selectItem itemLabel="Alta" itemValue="alta" />
                     <f:selectItem itemLabel="Média" itemValue="media" />
                     <f:selectItem itemLabel="Baixa" itemValue="baixa" />
