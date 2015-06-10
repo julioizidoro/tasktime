@@ -37,4 +37,13 @@ public class ClienteDao {
         return lista;
     }
     
+    public List<Cliente> listar(String nome, String situacao) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("select c from Cliente c where c.nomefantasia like '%" +nome+ "%' and c.situacao='" + situacao + "' order by c.nomefantasia");
+        List<Cliente> lista = q.getResultList();
+        manager.getTransaction().commit();
+        return lista;
+    }
+    
 }

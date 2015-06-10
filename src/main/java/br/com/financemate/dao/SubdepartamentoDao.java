@@ -25,7 +25,7 @@ public class SubdepartamentoDao {
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Query q = manager.createQuery("select a from Subdepartamento a where a.departamento.nome like '%" + nomeDepartamento + "%' " +
-                " and a.departamento.iddepartamento=" + idDepartamento + " order by a.nome");
+                " and a.departamento.iddepartamento=" + idDepartamento + " and a.situacao='Ativo' order by a.nome");
         List<Subdepartamento> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;
@@ -46,7 +46,7 @@ public class SubdepartamentoDao {
     public List<Subdepartamento> listar() throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select a from Subdepartamento a order by a.nome");
+        Query q = manager.createQuery("select a from Subdepartamento a order by a.departamento.nome, a.nome");
         List<Subdepartamento> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;

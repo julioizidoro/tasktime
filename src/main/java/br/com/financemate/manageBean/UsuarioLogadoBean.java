@@ -44,6 +44,14 @@ public class UsuarioLogadoBean implements Serializable{
         return cliente;
     }
 
+    public AtividadeMB getAtividadeMB() {
+        return atividadeMB;
+    }
+
+    public void setAtividadeMB(AtividadeMB atividadeMB) {
+        this.atividadeMB = atividadeMB;
+    }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }

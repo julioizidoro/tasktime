@@ -42,6 +42,7 @@ public class UsuarioMB implements Serializable{
     private String idSubdepartamento="0";
     private String idPerfil;
     private String idDepartamento="0";
+    private String linha;
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -73,6 +74,14 @@ public class UsuarioMB implements Serializable{
 
     public void setIdDepartamento(String idDepartamento) {
         this.idDepartamento = idDepartamento;
+    }
+
+    public String getLinha() {
+        return linha;
+    }
+
+    public void setLinha(String linha) {
+        this.linha = linha;
     }
     
 
@@ -142,6 +151,8 @@ public class UsuarioMB implements Serializable{
     
     public String novo() throws SQLException{
             usuario = new Usuario();
+            usuario.setSenha("1");
+            usuario.setSituacao("Ativo");
             gerarListaSubdepartamento();
             gerarListaPerfil("");
             return "cadUsuario";
@@ -152,7 +163,6 @@ public class UsuarioMB implements Serializable{
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
         usuario.setSubdepartamento(subddepartamento);
-        usuario.setSenha("1");
         PerfilFacade perfilFacade = new PerfilFacade();
         Perfil perfil = perfilFacade.consultar(Integer.parseInt(idPerfil));
         usuario.setPerfil(perfil);
@@ -205,6 +215,25 @@ public class UsuarioMB implements Serializable{
         if (listaPerfil==null){
             listaPerfil = new ArrayList<Perfil>();
         }
+    }
+    
+    public void pegarLinhaTabela(String linha){
+        this.linha = linha;
+    }
+    
+    public String habilitarDesabilitar(){
+        if (linha!=null){
+            int nlinha = Integer.parseInt(linha);
+           if (nlinha>=0){
+               if (listaUsuario.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
+                   listaUsuario.get(nlinha).setSituacao("Inativo");
+               }else listaUsuario.get(nlinha).setSituacao("Ativo");
+               UsuarioFacade usuarioFacade = new UsuarioFacade();
+               usuarioFacade.salvar(listaUsuario.get(nlinha));
+               return "consUsuario";
+           } 
+        }
+        return "";
     }
 
 }

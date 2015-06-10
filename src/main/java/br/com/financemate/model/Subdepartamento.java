@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+
 /**
  *
  * @author Wolverine
@@ -39,6 +40,8 @@ public class Subdepartamento implements Serializable {
     @Size(max = 50)
     @Column(name = "nome")
     private String nome;
+    @Column(name = "situacao")
+    private String situacao;
     @JoinColumn(name = "departamento_iddepartamento", referencedColumnName = "iddepartamento")
     @ManyToOne(optional = false)
     private Departamento departamento;
@@ -79,6 +82,14 @@ public class Subdepartamento implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
     public Departamento getDepartamento() {

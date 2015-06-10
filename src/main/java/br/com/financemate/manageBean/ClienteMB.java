@@ -1,8 +1,8 @@
 package br.com.financemate.manageBean;
 
 
+import br.com.financemate.bean.Formatacao;
 import br.com.financemate.facade.ClienteFacade;
-import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.model.Cliente;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -27,6 +27,18 @@ public class ClienteMB implements Serializable{
     private Cliente cliente;
     private String nomeCliente;
     private List<Cliente> listaClientes;
+    private String valorgestaofinanceira;
+    private String valorcontabilidade;
+    private String valortercerizacao;
+    private String valoroutros;
+    private String linha;
+    private boolean contabilidade;
+    private boolean gestaofinanceira;
+    private boolean tercerizacao;
+    private boolean outros;
+    
+    
+    
 
     public ClienteMB() {
         cliente = new Cliente();
@@ -66,6 +78,79 @@ public class ClienteMB implements Serializable{
     public void setListaClientes(List<Cliente> listaClientes) {
         this.listaClientes = listaClientes;
     }
+
+    public String getValorgestaofinanceira() {
+        return valorgestaofinanceira;
+    }
+
+    public void setValorgestaofinanceira(String valorgestaofinanceira) {
+        this.valorgestaofinanceira = valorgestaofinanceira;
+    }
+
+    public String getValorcontabilidade() {
+        return valorcontabilidade;
+    }
+
+    public void setValorcontabilidade(String valorcontabilidade) {
+        this.valorcontabilidade = valorcontabilidade;
+    }
+
+    public String getValortercerizacao() {
+        return valortercerizacao;
+    }
+
+    public void setValortercerizacao(String valortercerizacao) {
+        this.valortercerizacao = valortercerizacao;
+    }
+
+    public String getValoroutros() {
+        return valoroutros;
+    }
+
+    public void setValoroutros(String valoroutros) {
+        this.valoroutros = valoroutros;
+    }
+
+    public String getLinha() {
+        return linha;
+    }
+
+    public void setLinha(String linha) {
+        this.linha = linha;
+    }
+
+    public boolean isContabilidade() {
+        return contabilidade;
+    }
+
+    public void setContabilidade(boolean contabilidade) {
+        this.contabilidade = contabilidade;
+    }
+
+    public boolean isGestaofinanceira() {
+        return gestaofinanceira;
+    }
+
+    public void setGestaofinanceira(boolean gestaofinanceira) {
+        this.gestaofinanceira = gestaofinanceira;
+    }
+
+    public boolean isTercerizacao() {
+        return tercerizacao;
+    }
+
+    public void setTercerizacao(boolean tercerizacao) {
+        this.tercerizacao = tercerizacao;
+    }
+
+    public boolean isOutros() {
+        return outros;
+    }
+
+    public void setOutros(boolean outros) {
+        this.outros = outros;
+    }
+
     
     
     public void gerarListaClientes() {
@@ -85,10 +170,31 @@ public class ClienteMB implements Serializable{
     } 
     public String novo(){
             cliente = new Cliente();
+            cliente.setSituacao("Ativo");
+            cliente.setContabilidade(false);
+            cliente.setGetaofinanceira(false);
+            cliente.setTercerizacao(false);
+            cliente.setOutros(false);
+            contabilidade=true;
+            tercerizacao=true;
+            gestaofinanceira=true;
+            outros=true;
             return "cadCliente";
     }
     public String salvar() throws SQLException{
         ClienteFacade clienteFacade = new ClienteFacade();
+        if (valorcontabilidade.length()>0){
+            cliente.setValorcontabilidade(Formatacao.formatarStringfloat(valorcontabilidade));
+        }else cliente.setValorcontabilidade(0.0f);
+        if (valorgestaofinanceira.length()>0){
+            cliente.setValorgestaofinanceira(Formatacao.ConvercaoMonetariaFloat(valorgestaofinanceira));
+        }else cliente.setValorgestaofinanceira(0.0f);
+        if (valoroutros.length()>0){
+            cliente.setValoroutros(Formatacao.ConvercaoMonetariaFloat(valoroutros));
+        }else cliente.setValoroutros(0.0f);
+        if (valortercerizacao.length()>0){
+            cliente.setValortercerizacao(Formatacao.ConvercaoMonetariaFloat(valortercerizacao));
+        }else cliente.setValortercerizacao(0.0f);
         clienteFacade.salvar(cliente);
         cliente = new Cliente();
         gerarListaClientes();
@@ -107,4 +213,39 @@ public class ClienteMB implements Serializable{
         }
         return null;
     }
+    
+    public void pegarLinhaTabela(String linha){
+        this.linha = linha;
+    }
+    
+    public String habilitarDesabilitar(){
+        if (linha!=null){
+            int nlinha = Integer.parseInt(linha);
+           if (nlinha>=0){
+               if (listaClientes.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
+                   listaClientes.get(nlinha).setSituacao("Inativo");
+               }else listaClientes.get(nlinha).setSituacao("Ativo");
+               ClienteFacade clienteFacade = new ClienteFacade();
+               clienteFacade.salvar(listaClientes.get(nlinha));
+               return "consCliente";
+           } 
+        }
+        return "";
+    }
+    
+    public void alterarComboBox(){
+        if (cliente.getContabilidade()){
+            contabilidade = false;
+        }else contabilidade=true;
+        if (cliente.getGetaofinanceira()){
+            gestaofinanceira=false;
+        }else gestaofinanceira=true;
+        if (cliente.getTercerizacao()){
+            tercerizacao=false;
+        }else tercerizacao=true;
+        if (cliente.getOutros()){
+            outros=false;
+        }else outros=true;
+    }
+
 }

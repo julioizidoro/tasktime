@@ -2,7 +2,6 @@ package br.com.financemate.manageBean;
 
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
-import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Subdepartamento;
 import java.io.Serializable;

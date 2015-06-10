@@ -55,9 +55,7 @@
                             </p:selectBooleanCheckbox>
                          </p:column>
                         <p:column style="width:26px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#" >
-                                <f:param name="id_atividade" value="#{tarefas.idatividades}"/>
-                            </p:commandButton>
+                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#{AtividadeMB.editar()}" actionListener="#{AtividadeMB.pegarLinha(rowIx)}" oncomplete="PF('add').show()" />
                         </p:column>   
                     </p:dataTable>
                     <br></br>

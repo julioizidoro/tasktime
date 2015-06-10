@@ -22,8 +22,8 @@
                         <p:column headerText="Cargo" styleClass="border">
                             <h:outputText value="#{consUsuario.cargo}" />
                         </p:column>
-                          <p:column headerText="Login" styleClass="border">
-                              <h:outputText value="#{consUsuario.login}" />
+                          <p:column headerText="E-mail" styleClass="border">
+                              <h:outputText value="#{consUsuario.email}" />
                         </p:column>
 
                         <p:column style="width:26px" styleClass="alinhaCentro">
@@ -32,9 +32,8 @@
                             </p:commandButton>
                         </p:column>
                          <p:column style="width:80px" styleClass="alinhaCentro">
-                            <p:commandButton  id="desabilitar" value="abil/desab" title="Editar" action="#" >
-                                <f:param name="id_subdepartamento" value="#{consSubdepartamento.idsubdepartamento}"/>
-                            </p:commandButton>
+                             <p:commandButton  id="desabilitar" value="#{consUsuario.situacao}" title="Editar" actionListener="#{UsuarioMB.pegarLinhaTabela(rowIx)}" 
+                                               action="#{UsuarioMB.habilitarDesabilitar()}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                         </p:column>
                     </p:dataTable>
                     <br></br>

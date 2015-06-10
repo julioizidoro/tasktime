@@ -41,6 +41,10 @@
                                 <f:param name="id_cliente" value="#{consCliente.idcliente}"/>
                             </p:commandButton>
                         </p:column>   
+                         <p:column style="width:80px" styleClass="alinhaCentro">
+                             <p:commandButton  id="desabilitar" value="#{consCliente.situacao}" title="Editar" actionListener="#{ClienteMB.pegarLinhaTabela(rowIx)}" 
+                                               action="#{ClienteMB.habilitarDesabilitar()}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+                        </p:column>
                     </p:dataTable>
                      <br></br>
                      

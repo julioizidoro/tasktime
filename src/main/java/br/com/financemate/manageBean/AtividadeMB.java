@@ -77,6 +77,7 @@ public class AtividadeMB implements Serializable{
 
     public AtividadeMB()  {
         atividades = new Atividades();
+        atividades.setNome("TEste");
         comentarios = new Comentarios();
     }
 
@@ -435,6 +436,12 @@ public class AtividadeMB implements Serializable{
     
     public String novo(){
         atividades = new Atividades();
+        idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
+        idCliente = "4";
+        idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+        idSubdepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getIdsubdepartamento());
+        atividades.setPrazo(new Date());
+        atividades.setPrioridade("normal");
         return "";
     }
     
@@ -477,7 +484,7 @@ public class AtividadeMB implements Serializable{
     
     public void gerarListaCliente() {
         ClienteFacade clienteFacade = new ClienteFacade();
-        listaCliente = clienteFacade.listar("");
+        listaCliente = clienteFacade.listar("", "Ativo");
         if (listaCliente==null){
             listaCliente = new ArrayList<Cliente>();
         }
@@ -517,7 +524,7 @@ public class AtividadeMB implements Serializable{
     
     public  void listarAtividadesDia()  {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(new Date()) + 
+        String sql = "Select a from Atividades a where a.prazo<='" + Formatacao.ConvercaoDataSql(new Date()) + 
                 "' and a.concluida=" + isCheckConcluidas() + " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadedia = atividadesFacade.listar(sql);
@@ -569,8 +576,7 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.subdepartamento.departamento.iddepartamento=" +
                 usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento()
-                + "  and a.concluida=FALSE and a.prazo>='" + Formatacao.ConvercaoDataSql(new Date()) + 
-                "' and a.prazo<='" + Formatacao.ConvercaoDataSql(data) + "' order by a.prazo, a.prioridade, a.nome";
+                + "  and a.concluida=FALSE  order by a.prazo, a.prioridade, a.nome";
         listaAtividadesDepartamento = atividadesFacade.listar(sql);
         if (listaAtividadesDepartamento==null){
             listaAtividadesDepartamento = new ArrayList<Atividades>();
@@ -623,9 +629,9 @@ public class AtividadeMB implements Serializable{
     }
     
     public String imagem(Atividades atividade) {
-        if (atividade.getPrioridade().equalsIgnoreCase("Alta")) {
+        if (atividade.getPrioridade().equalsIgnoreCase("urgente")) {
             return "/resources/img/bandeira-vermelho.png";
-        } else if (atividade.getPrioridade().equalsIgnoreCase("Media")) {
+        } else if (atividade.getPrioridade().equalsIgnoreCase("alta")) {
             return "/resources/img/bandeira_amarela.png";
         } else {
             return "/resources/img/bandeira_verde.png";
@@ -871,5 +877,19 @@ public class AtividadeMB implements Serializable{
          atividades = new Atividades();
         carregarListaGeral();
         return null;
+    }
+    
+    public void pegarLinha(String linha){
+        this.linha = linha;
+    }
+    
+    public String editar(){
+        int nLinha= Integer.parseInt(linha);
+        atividades = listaAtividadesGeral.get(nLinha);
+        idCliente = String.valueOf(atividades.getCliente().getIdcliente());
+        idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+        idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getIdsubdepartamento());
+        idUsuario = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getIdusuario());
+        return "";
     }
 }

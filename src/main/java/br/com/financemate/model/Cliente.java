@@ -116,6 +116,8 @@ public class Cliente implements Serializable {
     @Size(max = 20)
     @Column(name = "inscricaomunicipal")
     private String inscricaomunicipal;
+    @Column(name = "situacao")
+    private String situacao;
     @Transient
     private boolean selecionado;
 
@@ -348,6 +350,14 @@ public class Cliente implements Serializable {
 
     public void setInscricaomunicipal(String inscricaomunicipal) {
         this.inscricaomunicipal = inscricaomunicipal;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
     public boolean isSelecionado() {

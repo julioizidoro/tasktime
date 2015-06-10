@@ -427,7 +427,7 @@ public class RotinaMB  implements Serializable{
     
     public List<Cliente> gerarListaCliente() {
         ClienteFacade clienteFacade = new ClienteFacade();
-        List<Cliente> listaCliente = clienteFacade.listar("");
+        List<Cliente> listaCliente = clienteFacade.listar("", "Ativo");
         if (listaCliente==null){
             listaCliente = new ArrayList<Cliente>();
         }

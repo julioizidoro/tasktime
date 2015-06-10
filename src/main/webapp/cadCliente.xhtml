@@ -109,23 +109,31 @@
                             <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                         </p:calendar>
                     </h:panelGrid> 
-                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.contabilidade}" class="left3"/>
+                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.contabilidade}"  class="filtrar6">
+                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                    </p:selectBooleanCheckbox>
                     <p:outputLabel value="Contabilidade" class="Selecionarconcluida"/>
 
-                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.getaofinanceira}" class="filtrar6"/>
+                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.getaofinanceira}"  class="filtrar6">
+                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                    </p:selectBooleanCheckbox>
                     <p:outputLabel value="Financeiro" class="Selecionarconcluida"/>
                     
-                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.tercerizacao}" class="filtrar6"/>
+                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.tercerizacao}"  class="filtrar6">
+                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                    </p:selectBooleanCheckbox>
                     <p:outputLabel value="Tercerização" class="Selecionarconcluida"/>
                     
-                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.outros}" class="filtrar6"/>
+                    <p:selectBooleanCheckbox value="#{ClienteMB.cliente.outros}"  class="filtrar6">
+                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                    </p:selectBooleanCheckbox>
                     <p:outputLabel value="Outros" class="Selecionarconcluida"/>
                     
-                    <h:panelGrid columns="6" cellpadding="5">   
-                        <p:inputText id="contabilidadeH"  size="22" class="rightleft3" value="#{ClienteMB.cliente.valorcontabilidade}"/>
-                        <p:inputText id="financeiraH" value="#{ClienteMB.cliente.valorgestaofinanceira}"  size="22" class="rightFiltrar"/>
-                        <p:inputText id="tercerizacaoH" value="#{ClienteMB.cliente.valortercerizacao}"  size="22" class="rightFiltrar"/>
-                        <p:inputText id="outrosH" value="#{ClienteMB.cliente.valoroutros}"  size="22" class="rightFiltrar"/>
+                    <h:panelGrid id="painelCombo" columns="6" cellpadding="5">   
+                        <p:inputText id="contabilidadeH"  size="22" class="rightleft3" value="#{ClienteMB.valorcontabilidade}"  readonly="#{ClienteMB.contabilidade}" immediate="true" />
+                        <p:inputText id="financeiraH" value="#{ClienteMB.valorgestaofinanceira}"  size="22" class="rightFiltrar" readonly="#{ClienteMB.gestaofinanceira}" immediate="true"/>
+                        <p:inputText id="tercerizacaoH" value="#{ClienteMB.valortercerizacao}"  size="22" class="rightFiltrar" readonly="#{ClienteMB.tercerizacao}" immediate="true" />
+                        <p:inputText id="outrosH" value="#{ClienteMB.valoroutros}"  size="22" class="rightFiltrar" readonly="#{ClienteMB.outros}" immediate="true" />
                     </h:panelGrid> 
                     <br></br>
                     <br></br>
