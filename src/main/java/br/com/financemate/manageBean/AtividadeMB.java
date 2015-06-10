@@ -80,7 +80,7 @@ public class AtividadeMB implements Serializable{
     
 
     public AtividadeMB()  {
-         
+         atividadeMenu="dia";
         atividades = new Atividades();
         comentarios = new Comentarios();
     }
@@ -514,6 +514,7 @@ public class AtividadeMB implements Serializable{
         idSubdepartamento="0";
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+        atividadeMenu="dia";
         return "inicial";
     }
     

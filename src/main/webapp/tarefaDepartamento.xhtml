@@ -49,7 +49,7 @@
                     </p:selectBooleanCheckbox> 
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
-                        <p:column headerText="Atividade" style="width:150px;" styleClass="border">
+                        <p:column headerText="Atividade" style="width:150px;" sortBy="true" styleClass="border">
                             <h:outputText value="#{tarefas.nome}" />
                         </p:column>
 
