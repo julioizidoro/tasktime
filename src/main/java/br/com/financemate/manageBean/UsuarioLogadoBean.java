@@ -1,6 +1,7 @@
 package br.com.financemate.manageBean;
 
 import br.com.financemate.facade.UsuarioFacade;
+import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author Kamila
@@ -150,6 +152,15 @@ public class UsuarioLogadoBean implements Serializable{
     }
     public String deslogar(){
         usuario.setIdusuario(null);
+        FacesContext fc = FacesContext.getCurrentInstance();  
+        HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);  
+        session.invalidate(); 
         return "index";
+    }
+    
+    public void teste(){
+        Atividades atividades = atividadeMB.getAtividades();
+        System.out.println(atividadeMB.getAtividades().getNome());
+        
     }
 }

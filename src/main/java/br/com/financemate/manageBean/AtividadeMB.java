@@ -983,11 +983,14 @@ public class AtividadeMB implements Serializable{
     
     public String editar(){
         int nLinha= Integer.parseInt(linha);
-        atividades = listaAtividadesGeral.get(nLinha);
+        
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        atividades = atividadeFacade.consultar(listaAtividadesGeral.get(nLinha).getIdatividades());
         idCliente = String.valueOf(atividades.getCliente().getIdcliente());
         idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
         idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getIdsubdepartamento());
         idUsuario = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getIdusuario());
+        usuarioLogadoBean.teste();
         return "";
     }
     
