@@ -148,5 +148,8 @@ public class UsuarioLogadoBean implements Serializable{
         confirmaNovaSenha="";
         return "index";
     }
-    
+    public String deslogar(){
+        usuario.setIdusuario(null);
+        return "index";
+    }
 }

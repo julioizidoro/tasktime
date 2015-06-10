@@ -18,12 +18,12 @@
                         <p:outputLabel value="Cliente" class="fonte"/> 
                         <p:outputLabel value="Usuário" class="fonte"/> 
                         
-                        <h:selectOneMenu  id="vizualizadas" class="fonte" style="width:145px">
-                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                            <f:selectItem itemLabel="Próximos 7 dias" itemValue="proxsete" />
-                            <f:selectItem itemLabel="Hoje" itemValue="hoje" />
-                            <f:selectItem itemLabel="Atrasadas" itemValue="atrasadas" />
-                        </h:selectOneMenu>
+                        <p:selectOneMenu id="visualizar" value="#" style="width:145px" class="fonte">
+                            <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                            <f:selectItem itemLabel="Próximos 7 dias" itemValue="proxsete" />  
+                            <f:selectItem itemLabel="Hoje" itemValue="hoje" />  
+                            <f:selectItem itemLabel="Atrasadas" itemValue="atrasadas" />     
+                        </p:selectOneMenu>
                         <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="fonte" style="width:145px">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />
                             <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
@@ -87,9 +87,7 @@
                             </p:selectBooleanCheckbox>
                          </p:column>
                         <p:column style="width:26px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#" >
-                                <f:param name="id_atividade" value="#{tarefas.idatividades}"/>
-                            </p:commandButton>
+                             <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#{AtividadeMB.editar()}" actionListener="#{AtividadeMB.pegarLinha(rowIx)}" oncomplete="PF('add').show()" />
                         </p:column>   
                     </p:dataTable>
                     <br></br>
