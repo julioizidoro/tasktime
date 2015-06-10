@@ -83,6 +83,7 @@ public class Subdepartamento implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
 
     public String getSituacao() {
         return situacao;

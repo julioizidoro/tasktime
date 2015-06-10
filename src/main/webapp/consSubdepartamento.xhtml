@@ -15,7 +15,7 @@
                     <p:commandLink  value="Adicionar Sub-Departamento" styleClass="cadastro5" action="#{SubdepartamentoMB.novo()}"/>  
                      <p:dataTable var="consSubdepartamento" value="#{SubdepartamentoMB.listaSubdepartamento}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="10"         rowIndexVar="rowIx">
+                             paginator="true" rows="10"    rowIndexVar="rowIx">
                         <p:column headerText="Departamento"  styleClass="border">
                             <h:outputText value="#{consSubdepartamento.departamento.nome}" />
                         </p:column>
@@ -30,9 +30,8 @@
                             </p:commandButton>
                         </p:column>
                          <p:column style="width:80px" styleClass="alinhaCentro">
-                            <p:commandButton  id="desabilitar" value="abil/desab" title="Editar" action="#" >
-                                <f:param name="id_subdepartamento" value="#{consSubdepartamento.idsubdepartamento}"/>
-                            </p:commandButton>
+                             <p:commandButton  id="desabilitar" value="#{consSubdepartamento.situacao}" actionListener="#{SubdepartamentoMB.pegarLinhaTabela(rowIx)}" 
+                                    action="#{SubdepartamentoMB.habilitarDesabilitar()}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                         </p:column>
                     </p:dataTable>
                     <br></br>

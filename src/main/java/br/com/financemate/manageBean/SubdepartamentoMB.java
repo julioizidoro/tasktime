@@ -28,6 +28,7 @@ public class SubdepartamentoMB implements Serializable{
     private List<Subdepartamento> listaSubdepartamento;
     private String idDepartamento="0";
     private List<Departamento> listaDepartamento;
+    private String linha;
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -56,6 +57,16 @@ public class SubdepartamentoMB implements Serializable{
         this.listaSubdepartamento = listaSubdepartamento;
     }
 
+    public String getLinha() {
+        return linha;
+    }
+
+    public void setLinha(String linha) {
+        this.linha = linha;
+    }
+
+    
+    
     public String getIdDepartamento() {
         return idDepartamento;
     }
@@ -75,6 +86,7 @@ public class SubdepartamentoMB implements Serializable{
         this.listaDepartamento = listaDepartamento;
     }
     
+    
     public void gerarListaSubdepartamento() {
         SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
         listaSubdepartamento = subdepartamentoFacade.listar();
@@ -84,6 +96,7 @@ public class SubdepartamentoMB implements Serializable{
     }
     
     public String novo() throws SQLException{
+            subdepartamento.setSituacao("Ativo");
             subdepartamento = new Subdepartamento();
             gerarListaDepartamento();
             return "cadSubdepartamento";
@@ -121,5 +134,23 @@ public class SubdepartamentoMB implements Serializable{
         if (listaDepartamento==null){
             listaDepartamento = new ArrayList<Departamento>();
         }
+    }
+    public void pegarLinhaTabela(String linha){
+        this.linha = linha;
+    }
+    
+    public String habilitarDesabilitar(){
+        if (linha!=null){
+            int nlinha = Integer.parseInt(linha);
+           if (nlinha>=0){
+               if (listaSubdepartamento.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
+                   listaSubdepartamento.get(nlinha).setSituacao("Inativo");
+               }else listaSubdepartamento.get(nlinha).setSituacao("Ativo");
+               SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+               subdepartamentoFacade.salvar(listaSubdepartamento.get(nlinha));
+               return "consSubdepartamento";
+           } 
+        }
+        return "";
     }
 }

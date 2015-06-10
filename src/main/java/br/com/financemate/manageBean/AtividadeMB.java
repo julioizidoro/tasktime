@@ -49,6 +49,7 @@ public class AtividadeMB implements Serializable{
     private List<Atividades> listaAtividadedia;
     private List<Atividades> listaAtividadeSemana;
     private List<Atividades> listaAtividadeAtrasada;
+    private List<Atividades> listaTodasAtividade;
     private List<Atividades> listaAtividadesDepartamento;
     private List<Atividades> listaAtividadesGeral;
     private List<Atividades> listaAtividadesAmanha;
@@ -72,8 +73,11 @@ public class AtividadeMB implements Serializable{
     private String sete;
     private String titulo="Tarefas de Hoje";
     private String linha;
+    private String todas;
     private boolean checkConcluidas=false;
     private Comentarios comentarios;
+     private String nomeAtividades;
+    
 
     public AtividadeMB()  {
         atividades = new Atividades();
@@ -109,6 +113,17 @@ public class AtividadeMB implements Serializable{
             listarAtividadesAmanha();
         }
         return listaAtividadeSemana;
+    }
+
+    public List<Atividades> getListaTodasAtividade() {
+         if (listaTodasAtividade==null){
+           listarTodasAtividades();
+        }
+        return listaTodasAtividade;
+    }
+
+    public void setListaTodasAtividade(List<Atividades> listaTodasAtividade) {
+        this.listaTodasAtividade = listaTodasAtividade;
     }
 
     public List<Atividades> getListaAtividadesAmanha() {
@@ -205,6 +220,15 @@ public class AtividadeMB implements Serializable{
     public void setNamanha(String namanha) {
         this.namanha = namanha;
     }
+
+    public String getTodas() {
+        return todas;
+    }
+
+    public void setTodas(String todas) {
+        this.todas = todas;
+    }
+    
 
     public String getDois() {
         return dois;
@@ -430,6 +454,15 @@ public class AtividadeMB implements Serializable{
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
+    public String getNomeAtividades() {
+        return nomeAtividades;
+    }
+
+    public void setNomeAtividades(String nomeAtividades) {
+        this.nomeAtividades = nomeAtividades;
+    }
+    
     
     
     
@@ -533,7 +566,24 @@ public class AtividadeMB implements Serializable{
         }
         if (listaAtividadedia.size()<10){
             ndia = "Hoje (0" + String.valueOf(listaAtividadedia.size()) + ")";
-        }else ndia = String.valueOf(listaAtividadedia.size());
+        }else ndia = "Hoje (" + String.valueOf(listaAtividadedia.size()) +")";
+        
+    }
+    public  void listarTodasAtividades()  {
+        if (nomeAtividades == null) {
+            nomeAtividades = "";
+        }
+        AtividadeFacade atividadesFacade = new AtividadeFacade();
+        String sql = "Select a from Atividades a where a.prazo>='" + Formatacao.ConvercaoDataSql(new Date()) + 
+                 "' and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+                " order by a.prazo, a.prioridade, a.nome";
+        listaTodasAtividade = atividadesFacade.listar(sql);
+        if (listaTodasAtividade==null){
+            listaTodasAtividade = new ArrayList<Atividades>();
+        }
+        if (listaTodasAtividade.size()<10){
+            todas = "Todas (0" + String.valueOf(listaTodasAtividade.size()) + ")";
+        }else todas = "Todas (" + String.valueOf(listaTodasAtividade.size()) +")";
         
     }
     
@@ -610,6 +660,13 @@ public class AtividadeMB implements Serializable{
         return "tarefasAtrasadas";
     }
     
+    public String mostarTodasAtividades(){
+        listaAtividadesGeral = listaTodasAtividade;
+        atividadeMenu="todas";
+         titulo="Todas as Taferas";
+        return "tarefasTodas";
+    }
+    
     public String mostarAtividadesDepartamento(){
         listaAtividadesGeral = listaAtividadesDepartamento;
         atividadeMenu="departamento";
@@ -625,7 +682,21 @@ public class AtividadeMB implements Serializable{
             listaAtividadesGeral = listaAtividadeSemana;
         }else if (atividadeMenu.equalsIgnoreCase("atrasada")){
             listaAtividadesGeral = listaAtividadeAtrasada;
-        }else listaAtividadesGeral = listaAtividadesDepartamento;
+        }else if (atividadeMenu.equalsIgnoreCase("amanha")) {
+                listarAtividadesAmanha();
+            }else if (atividadeMenu.equalsIgnoreCase("dois")) {
+                listarAtividadesDois();
+            }else if (atividadeMenu.equalsIgnoreCase("tres")) {
+                listarAtividadesTres();
+            }else if (atividadeMenu.equalsIgnoreCase("quatro")) {
+                listarAtividadesQuatro();
+            }else if (atividadeMenu.equalsIgnoreCase("cinco")) {
+                listarAtividadesCinco();
+            }else if (atividadeMenu.equalsIgnoreCase("seis")) {
+                listarAtividadesSeis();
+            }else if (atividadeMenu.equalsIgnoreCase("sete")) {
+                listarAtividadesSete();
+            }else listaAtividadesGeral = listaAtividadesDepartamento;
     }
     
     public String imagem(Atividades atividade) {
@@ -652,7 +723,21 @@ public class AtividadeMB implements Serializable{
                 listarAtividadesSemana();
             } else if (atividadeMenu.equalsIgnoreCase("atrasada")) {
                 listarAtividadesAtrasadas();
-            } else {
+            } else if (atividadeMenu.equalsIgnoreCase("amanha")) {
+                listarAtividadesAmanha();
+            }else if (atividadeMenu.equalsIgnoreCase("dois")) {
+                listarAtividadesDois();
+            }else if (atividadeMenu.equalsIgnoreCase("tres")) {
+                listarAtividadesTres();
+            }else if (atividadeMenu.equalsIgnoreCase("quatro")) {
+                listarAtividadesQuatro();
+            }else if (atividadeMenu.equalsIgnoreCase("cinco")) {
+                listarAtividadesCinco();
+            }else if (atividadeMenu.equalsIgnoreCase("seis")) {
+                listarAtividadesSeis();
+            }else if (atividadeMenu.equalsIgnoreCase("sete")) {
+                listarAtividadesSete();
+            }else {
                 listarAtividadesDepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
             }
             carregarListaGeral();
@@ -669,6 +754,13 @@ public class AtividadeMB implements Serializable{
         listarAtividadesDia();
         listarAtividadesSemana();
         carregarListaGeral();
+        listarAtividadesAmanha();
+        listarAtividadesDois();
+        listarAtividadesTres();
+        listarAtividadesQuatro();
+        listarAtividadesCinco();
+        listarAtividadesSeis();
+        listarAtividadesSete();
         return "inicial";
     }
     
@@ -676,7 +768,8 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 1);
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadesAmanha = atividadeFacade.listar(sql);
         if(listaAtividadesAmanha==null){
@@ -689,7 +782,7 @@ public class AtividadeMB implements Serializable{
     
     public String mostarAtividadesAmanha(){
         listaAtividadesGeral = listaAtividadesAmanha;
-        atividadeMenu="Amanhã";
+        atividadeMenu="amanha";
         titulo="Tarefas de Amanhã";
         return "inicial";
     }
@@ -698,7 +791,8 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 2);
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadesDois = atividadeFacade.listar(sql);
         if(listaAtividadesDois==null){
@@ -713,7 +807,7 @@ public class AtividadeMB implements Serializable{
         listaAtividadesGeral = listaAtividadesDois;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 2);
-        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        atividadeMenu="dois";
         titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
     }
@@ -722,7 +816,8 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 3);
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadesTres = atividadeFacade.listar(sql);
         if(listaAtividadesTres==null){
@@ -737,7 +832,7 @@ public class AtividadeMB implements Serializable{
         listaAtividadesGeral = listaAtividadesTres;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 3);
-        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        atividadeMenu="tres";
         titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
     }
@@ -746,7 +841,8 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 4);
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadesQuatro = atividadeFacade.listar(sql);
         if(listaAtividadesQuatro==null){
@@ -761,7 +857,7 @@ public class AtividadeMB implements Serializable{
         listaAtividadesGeral = listaAtividadesQuatro;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 4);
-        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        atividadeMenu="quatro";
         titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
     }
@@ -770,7 +866,8 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 5);
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadesCinco = atividadeFacade.listar(sql);
         if(listaAtividadesCinco==null){
@@ -785,7 +882,7 @@ public class AtividadeMB implements Serializable{
         listaAtividadesGeral = listaAtividadesCinco;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 5);
-        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        atividadeMenu="cinco";
         titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
     }
@@ -794,7 +891,8 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 6);
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadesSeis = atividadeFacade.listar(sql);
         if(listaAtividadesSeis==null){
@@ -809,7 +907,7 @@ public class AtividadeMB implements Serializable{
         listaAtividadesGeral = listaAtividadesSeis;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 6);
-        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        atividadeMenu="seis";
         titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
     }
@@ -818,7 +916,8 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 7);
-        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=FALSE  and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
+        String sql = "Select a from Atividades a where a.prazo='" + Formatacao.ConvercaoDataSql(data) + "' and a.concluida=" + isCheckConcluidas() + 
+                " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " order by a.prazo, a.prioridade, a.nome";
         listaAtividadesSete = atividadeFacade.listar(sql);
         if(listaAtividadesSete==null){
@@ -833,7 +932,7 @@ public class AtividadeMB implements Serializable{
         listaAtividadesGeral = listaAtividadesSete;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 7);
-        atividadeMenu=Formatacao.diaSemanaEscrito(data);
+        atividadeMenu="sete";
         titulo="Tarefas de " + Formatacao.diaSemanaEscrito(data);
         return "inicial";
     }
@@ -891,5 +990,14 @@ public class AtividadeMB implements Serializable{
         idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getIdsubdepartamento());
         idUsuario = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getIdusuario());
         return "";
+    }
+    
+    public String pesquisarNome(){
+        listarTodasAtividades();
+        return "tarefasTodas";
+    
+    } 
+    public void quantidadeComentarios(){
+        
     }
 }

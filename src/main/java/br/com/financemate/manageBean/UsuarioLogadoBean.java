@@ -98,6 +98,7 @@ public class UsuarioLogadoBean implements Serializable{
                 atividadeMB.listarAtividadesCinco();
                 atividadeMB.listarAtividadesSeis();
                 atividadeMB.listarAtividadesSete();
+                atividadeMB.listarTodasAtividades();
                 return "inicial";
             }
         }
