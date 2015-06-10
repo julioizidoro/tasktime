@@ -40,8 +40,11 @@ public class RotinaAtividadeDao {
     public void excluir(Rotinaatividade rotinaatividade) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        rotinaatividade = manager.find(Rotinaatividade.class, rotinaatividade.getIdrotinaatividade());
-        manager.remove(rotinaatividade);
+        Query q = manager.createQuery("Select r From Rotinaatividade r where r.idrotinaatividade=" + rotinaatividade.getIdrotinaatividade());
+        if (q.getResultList().size()>0){
+            rotinaatividade = (Rotinaatividade) q.getResultList().get(0);
+            manager.remove(rotinaatividade);
+        }
         manager.getTransaction().commit();
     }
     

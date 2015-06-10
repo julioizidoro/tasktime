@@ -516,7 +516,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public void gerarListaCliente() {
-        ClienteFacade clienteFacade = new ClienteFacade();
+         ClienteFacade clienteFacade = new ClienteFacade();
         listaCliente = clienteFacade.listar("", "Ativo");
         if (listaCliente==null){
             listaCliente = new ArrayList<Cliente>();

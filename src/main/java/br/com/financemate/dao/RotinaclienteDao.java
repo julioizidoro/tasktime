@@ -53,4 +53,15 @@ public class RotinaclienteDao {
         }
         return null;
     }
+    
+    public void Excluir(int idRotinaCliente) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("Select r From Rotinacliente r where r.idrotinacliente=" + idRotinaCliente);
+        if (q.getResultList().size()>0){
+            Rotinacliente rotinacliente = (Rotinacliente) q.getResultList().get(0);
+            manager.remove(rotinacliente);
+        }
+        manager.getTransaction().commit();
+    }
 }

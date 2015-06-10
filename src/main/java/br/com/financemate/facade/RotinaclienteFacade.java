@@ -55,4 +55,13 @@ public class RotinaclienteFacade {
             return null;
         }
     }
+    
+    public void Excluir(int idRotinaCliente) {
+        rotinaclienteDao = new RotinaclienteDao();
+        try {
+            rotinaclienteDao.Excluir(idRotinaCliente);
+        } catch (SQLException ex) {
+            Logger.getLogger(RotinaclienteFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

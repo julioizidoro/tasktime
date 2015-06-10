@@ -323,9 +323,9 @@ public class RotinaMB  implements Serializable{
                     } else {
                         if (alterar) {
                             RotinaAtividadeFacade rotinaAtividadesFacade = new RotinaAtividadeFacade();
-                            String sql = "Select a from Rotinaatividade a where a.atividades.prazo>=" + Formatacao.ConvercaoDataSql(new Date())
-                                    + "  and a.atividades.concluida=FALSE and a.rotina.idrotina=" + rotina.getIdrotina() + " and a.atividades.cliente.idcliente=" + rc.getCliente().getIdcliente()
-                                    + " order by a.nome";
+                            String sql = "Select a from Rotinaatividade a where a.atividades.prazo>='" + Formatacao.ConvercaoDataSql(new Date())
+                                    + "'  and a.atividades.concluida=FALSE and a.rotina.idrotina=" + rotina.getIdrotina() + " and a.atividades.cliente.idcliente=" + rc.getCliente().getIdcliente()
+                                    + " order by a.rotina.nome";
                             List<Rotinaatividade> listaRotinaAtividade = rotinaAtividadesFacade.listar(sql);
                             AtividadeFacade atividadeFacade = new AtividadeFacade();
                             if (listaRotinaAtividade != null) {
@@ -342,6 +342,7 @@ public class RotinaMB  implements Serializable{
                     rc.setRotina(rotina);
                     rotinaclienteFacade.salvar(rc);
                 } else {
+                    rc = listaRotinabean.get(i).getRotinacliente();
                     AtividadeFacade atividadesFacade = new AtividadeFacade();
                     String sql = "Select a from Rotinaatividade a where a.atividades.prazo>=" + Formatacao.ConvercaoDataSql(new Date())
                             + "  and a.atividades.concluida=FALSE and a.rotina.idrotina=" + rotina.getIdrotina() + " and a.atividades.cliente.idcliente=" + rc.getCliente().getIdcliente()
@@ -349,11 +350,12 @@ public class RotinaMB  implements Serializable{
                     RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
                     List<Rotinaatividade> listaRotinaAtividade = rotinaAtividadeFacade.listar(sql);
                     if (listaRotinaAtividade != null) {
-                        for (int n = 0; n < listaRotinaAtividade.size(); i++) {
+                        for (int n = 0; n < listaRotinaAtividade.size(); n++) {
                             atividadesFacade.Excluir(listaRotinaAtividade.get(n).getAtividades().getIdatividades());
                             rotinaAtividadeFacade.excluir(listaRotinaAtividade.get(n));
                         }
                     }
+                    rotinaclienteFacade.Excluir(rc.getIdrotinacliente());
                 }
             }else {
                 if (listaRotinabean.get(i).isSelecionado()) {
@@ -404,6 +406,8 @@ public class RotinaMB  implements Serializable{
         int idRotina = Integer.parseInt(params.get("id_rotina"));
         RotinaFacade rotinaFacade = new RotinaFacade();
         rotina = rotinaFacade.consultar(idRotina);
+        idDepartamento = String.valueOf(rotina.getSubdepartamento().getDepartamento().getIddepartamento());
+        idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
         if (rotina != null) {
             idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
             gerarListaSubdepartamento();
