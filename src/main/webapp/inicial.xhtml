@@ -59,8 +59,12 @@
                         </p:column>   
                     </p:dataTable>
                     <br></br>
-                     <p:dialog header="Comentários" modal="true" showEffect="bounce" widgetVar="vercomentario" resizable="false"  class="dialog" width="37%" height="60%">
+                     <p:dialog header="Comentários" modal="true" showEffect="bounce" widgetVar="vercomentario" resizable="false"  class="dialog" width="33%" height="60%">
                          <br></br>
+                         <p:inputTextarea value="#{AtividadeMB.comentarios.comentario}" rows="3" cols="75"/>
+                         <br></br><br></br>
+                         <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvarComentario()}" onclick="addcomentario.hide();" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
+                        <br></br> <br></br>
                          <p:carousel value="#{AtividadeMB.atividades.comentariosList}" var="comentarios" itemStyleClass="carousel" style="width:400px;height:137px;" numVisible="1" firstVisible="0">
                             <h:panelGrid columns="2" style="width:100%" cellpadding="5" columnClasses="label,value">
                                 <h:outputText value="Data:" />
@@ -76,19 +80,9 @@
 
                                 <h:outputText value="Comentário:" />
                                 <h:outputText value="#{comentarios.comentario}"/>
-                                
-                                
                             </h:panelGrid>
                         </p:carousel>
                          <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                          <img src="resources/img/ADD.jpg" width="20" height="20" class="add"/> 
-                          <p:commandLink  value="Adicionar Comentário" styleClass="cadastro5"  oncomplete="PF('addcomentario').show()"/>
-                    </p:dialog>
-                     <p:dialog header="Adiconar Comentários" modal="true" showEffect="bounce" widgetVar="addcomentario" resizable="false"  class="dialog" width="40%" height="60%">
-                         <p:inputTextarea value="#{AtividadeMB.comentarios.comentario}" rows="5" cols="85" class="filtrar"/>
-                         <br></br><br></br>
-                         <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvarComentario()}" onclick="addcomentario.hide();" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
-                        <br></br><br></br>
                     </p:dialog>
                    
                 </div>

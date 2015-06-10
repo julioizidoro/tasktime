@@ -11,9 +11,12 @@
                                  <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
                                     <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
                                     <p:outputLabel value="#{UsuarioLogadoBean.usuario.nome}" /> 
-                                    <br></br><br></br>
+                                </h:panelGrid>
+                               <br></br><br></br>
+                                 <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
                                     <p:commandLink  value="Logout" styleClass="fonteUsuarioLogado" action="#{UsuarioLogadoBean.deslogar()}"/> 
-                                </h:panelGrid><br></br><br></br></td>
+                                    <img src="resources/img/deslogar.png" /> 
+                                 </h:panelGrid><br></br><br></br></td>
                     </tr>
                 </table>
             </td>
@@ -102,6 +105,7 @@
                 </p:selectOneMenu>
              <br></br><br></br>   
              <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" onclick="add.hide();" update="growl"/>
+             <img src="resources/img/ADD.jpg" width="20" height="20" /> 
         </p:dialog>
     </div>
     <br>  </br>
