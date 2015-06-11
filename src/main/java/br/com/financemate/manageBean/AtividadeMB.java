@@ -640,7 +640,6 @@ public class AtividadeMB implements Serializable{
         if (usuarioLogadoBean != null) {
             iddepartamento = usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento();
         }
-        Date data = Formatacao.SomarDiasData(new Date(), 7);
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.concluida=FALSE  order by a.prazo, a.prioridade, a.nome";
         listaAtividadesDepartamento = atividadesFacade.listar(sql);
@@ -1087,6 +1086,11 @@ public class AtividadeMB implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         listaAtividadesDepartamento = atividadeFacade.listar(sql);
         listaAtividadesGeral = listaAtividadesDepartamento;
+        if (listaAtividadesDepartamento.size() < 10) {
+            ndepartamento = "Atividades (0" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
+        } else {
+            ndepartamento = "Atividades (" + String.valueOf(listaAtividadesDepartamento.size()) + ")";
+        }
         return "inicial";
     }
 }
