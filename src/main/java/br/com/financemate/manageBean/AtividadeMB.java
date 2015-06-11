@@ -1093,4 +1093,11 @@ public class AtividadeMB implements Serializable{
         }
         return "inicial";
     }
+    public String carregarIcon(Atividades atividade){
+        if (atividade.getEstado().equalsIgnoreCase("Play")) {
+            return "ui-icon-play";
+        }  else {
+            return "ui-icon-pause";
+        }
+    }
 }

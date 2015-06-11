@@ -7,63 +7,70 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/WEB-INF/templates/default.xhtml">
         <ui:define name="corpo">
-            <h:form>
+            <h:form id="atividades">
                 <div id="centro2" >
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                      <br></br>
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
-                        <p:column headerText="Atividade" style="width:150px;" styleClass="border">
+                        <p:column headerText="Estado" style="width:70px;" styleClass="alinhaCentro">
+                             <p:commandButton disabled="#{tarefas.concluida}" value="#{tarefas.estado}"  icon="#{AtividadeMB.carregarIcon(tarefas)}" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
+                        </p:column>
+                        <p:column headerText="Atividade" style="width:130px;" styleClass="border">
                             <h:outputText value="#{tarefas.nome}" />
                         </p:column>
 
-                        <p:column headerText="Responsável" style="width:120px;" styleClass="alinhaCentro">
+                        <p:column headerText="Responsável" style="width:110px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.usuario.nome}" />
                         </p:column>
 
-                        <p:column headerText="Sub-Departamento" style="width:110px;" styleClass="alinhaCentro">
+                        <p:column headerText="Sub-Departamento" style="width:100px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.subdepartamento.departamento.nome}" />
                         </p:column>
-                        
-                        <p:column headerText="Comentário" style="width:70px;" styleClass="alinhaCentro">
-                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios()}" oncomplete="PF('vercomentario').show()" >
+
+                        <p:column headerText="Comentário" style="width:60px;" styleClass="alinhaCentro">
+                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios()}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" >
                                 <f:param name="id_atividades" value="#{tarefas.idatividades}"/>
                             </p:commandButton>
                         </p:column>
 
-                        <p:column headerText="Cliente" style="width:117px;" styleClass="alinhaCentro">
+                        <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.cliente.nomefantasia}" />
                         </p:column>
-                        
-                        <p:column headerText="Prazo" style="width:78px;" styleClass="alinhaCentro">
+
+                        <p:column headerText="Prazo" style="width:70px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.prazo}" >
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </h:outputText>    
                         </p:column>
-                        
-                        <p:column headerText="Prioridade" style="width:47px;" styleClass="alinhaCentro">
+
+                        <p:column headerText="Prioridade" style="width:46px;" styleClass="alinhaCentro">
                             <p:graphicImage value="#{AtividadeMB.imagem(tarefas)}" />
                         </p:column>
-                        
-                        <p:column style="width:26px" styleClass="alinhaCentro">
+
+                        <p:column style="width:22px" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{tarefas.concluida}" >
                                 <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.salvarAtividadeConcluida(rowIx)}" />
                             </p:selectBooleanCheckbox>
-                         </p:column>
-                        <p:column style="width:26px" styleClass="alinhaCentro">
-                             <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#{AtividadeMB.editar()}" actionListener="#{AtividadeMB.pegarLinha(rowIx)}" oncomplete="PF('add').show()" />
+                        </p:column>
+                        <p:column style="width:24px" styleClass="alinhaCentro">
+                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}" update="atividades:dialog_editTarefa"  oncomplete="PF('editar').show()" />
                         </p:column>   
                     </p:dataTable>
                     <br></br>
-                     <p:dialog header="Comentários" modal="true" showEffect="bounce" widgetVar="vercomentario" resizable="false"  class="dialog" width="37%" height="60%">
-                         <br></br>
-                         <p:carousel value="#{AtividadeMB.atividades.comentariosList}" var="comentarios" itemStyleClass="carousel" style="width:400px;height:137px;" numVisible="1" firstVisible="0">
+                    <p:dialog id="dialog_addComentario" header="Comentários" modal="true" showEffect="bounce" widgetVar="vercomentario" resizable="false"  class="dialog" width="33%" height="60%">
+                        <br></br>
+                        <p:inputTextarea value="#{AtividadeMB.comentarios.comentario}" rows="3" cols="75"/>
+                        <br></br><br></br>
+                        <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvarComentario()}" onclick="addcomentario.hide();" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
+                        <br></br> <br></br>
+                        <p:carousel value="#{AtividadeMB.atividades.comentariosList}" var="comentarios" itemStyleClass="carousel" style="width:400px;height:137px;" numVisible="1" firstVisible="0">
                             <h:panelGrid columns="2" style="width:100%" cellpadding="5" columnClasses="label,value">
                                 <h:outputText value="Data:" />
                                 <h:outputText value="#{comentarios.data}" >
                                     <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                 </h:outputText>
-                                
+
                                 <h:outputText value="Hora:" />
                                 <h:outputText value="#{comentarios.hora}"/>
 
@@ -72,19 +79,57 @@
 
                                 <h:outputText value="Comentário:" />
                                 <h:outputText value="#{comentarios.comentario}"/>
-                                
-                                
                             </h:panelGrid>
                         </p:carousel>
-                         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                          <img src="resources/img/ADD.jpg" width="20" height="20" class="add"/> 
-                          <p:commandLink  value="Adicionar Comentário" styleClass="cadastro5"  oncomplete="PF('addcomentario').show()"/>
+                        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                     </p:dialog>
-                     <p:dialog header="Adiconar Comentários" modal="true" showEffect="bounce" widgetVar="addcomentario" resizable="false"  class="dialog" width="40%" height="60%">
-                         <p:inputTextarea value="#{AtividadeMB.comentarios.comentario}" rows="5" cols="85" class="filtrar"/>
-                         <br></br><br></br>
-                         <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvarComentario()}" onclick="addcomentario.hide();" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
+
+                    <p:dialog id="dialog_editTarefa" header="Editar Tarafa" modal="true" showEffect="bounce" widgetVar="editar" resizable="false"  class="dialog" width="40%" height="60%">
+                        <br></br>
+                        <p:outputLabel value="Título" class="filtrar"/>
+                        <p:outputLabel value="Data" class="left3"/>
+                        <br></br>
+                        <p:inputText value="#{AtividadeMB.atividades.nome}" size="48" class="filtrar"/>
+                        <p:calendar id="prazo" size="18"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="filtrar6" value="#{AtividadeMB.atividades.prazo}" >
+                            <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                        </p:calendar>
                         <br></br><br></br>
+                        <p:outputLabel value="Depatamento" class="filtrar"/> 
+                        <p:outputLabel value="Sub-Depatamento" class="filtrar6"/> 
+                        <p:outputLabel value="Cliente" class="filtrar4"/> 
+                        <br></br>
+                        <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="filtrar" style="width:135px">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
+                            <p:ajax event="change" listener="#{AtividadeMB.gerarListaSubdepartamento()}" update="subdepartamento" />
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="filtrar7" style="width:140px">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:155px" class="filtrar7">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
+                        </p:selectOneMenu>
+                        <br></br>
+                        <br></br>
+                        <p:outputLabel value="Usuário" class="filtrar"/>
+                        <p:outputLabel value="Prioridade" class="left6"/>
+                        <br></br>
+
+                        <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" style="width:190px" class="filtrar">
+                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                            <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
+                        </p:selectOneMenu>
+
+                        <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" style="width:160px" class="filtrar3">
+                            <f:selectItem itemLabel="Normal" itemValue="normal" />
+                            <f:selectItem itemLabel="Alta" itemValue="alta" />
+                            <f:selectItem itemLabel="Urgente" itemValue="urgente" />
+                        </p:selectOneMenu>
+                        <br></br><br></br>   
+                        <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" onclick="add.hide();" />
+
                     </p:dialog>
                    
                 </div>

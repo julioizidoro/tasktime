@@ -18,46 +18,46 @@
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                  rowIndexVar="rowIx">
                          <p:column headerText="Estado" style="width:70px;" styleClass="alinhaCentro">
-                             <p:commandButton disabled="#{tarefas.concluida}" value="#{tarefas.estado}"  icon="ui-icon-comment" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
+                             <p:commandButton disabled="#{tarefas.concluida}" value="#{tarefas.estado}"  icon="#{AtividadeMB.carregarIcon(tarefas)}" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
                         </p:column>
-                        <p:column headerText="Atividade" style="width:150px;" styleClass="border">
+                        <p:column headerText="Atividade" style="width:130px;" styleClass="border">
                             <h:outputText value="#{tarefas.nome}" />
                         </p:column>
 
-                        <p:column headerText="Responsável" style="width:120px;" styleClass="alinhaCentro">
+                        <p:column headerText="Responsável" style="width:110px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.usuario.nome}" />
                         </p:column>
 
-                        <p:column headerText="Sub-Departamento" style="width:110px;" styleClass="alinhaCentro">
+                        <p:column headerText="Sub-Departamento" style="width:100px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.subdepartamento.departamento.nome}" />
                         </p:column>
 
-                        <p:column headerText="Comentário" style="width:70px;" styleClass="alinhaCentro">
+                        <p:column headerText="Comentário" style="width:60px;" styleClass="alinhaCentro">
                             <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios()}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" >
                                 <f:param name="id_atividades" value="#{tarefas.idatividades}"/>
                             </p:commandButton>
                         </p:column>
 
-                        <p:column headerText="Cliente" style="width:117px;" styleClass="alinhaCentro">
+                        <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.cliente.nomefantasia}" />
                         </p:column>
 
-                        <p:column headerText="Prazo" style="width:78px;" styleClass="alinhaCentro">
+                        <p:column headerText="Prazo" style="width:70px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.prazo}" >
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </h:outputText>    
                         </p:column>
 
-                        <p:column headerText="Prioridade" style="width:47px;" styleClass="alinhaCentro">
+                        <p:column headerText="Prioridade" style="width:46px;" styleClass="alinhaCentro">
                             <p:graphicImage value="#{AtividadeMB.imagem(tarefas)}" />
                         </p:column>
 
-                        <p:column style="width:26px" styleClass="alinhaCentro">
+                        <p:column style="width:22px" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{tarefas.concluida}" >
                                 <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.salvarAtividadeConcluida(rowIx)}" />
                             </p:selectBooleanCheckbox>
                         </p:column>
-                        <p:column style="width:26px" styleClass="alinhaCentro">
+                        <p:column style="width:24px" styleClass="alinhaCentro">
                             <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}" update="atividades:dialog_editTarefa"  oncomplete="PF('editar').show()" />
                         </p:column>   
                     </p:dataTable>
