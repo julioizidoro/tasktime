@@ -49,4 +49,7 @@ public class MenuMB implements Serializable{
     public String usuario(){
         return"consUsuario";
     }
+     public String perfil(){
+        return"consPerfil";
+    }
 }

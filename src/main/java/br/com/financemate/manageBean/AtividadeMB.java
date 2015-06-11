@@ -1101,4 +1101,16 @@ public class AtividadeMB implements Serializable{
             return "ui-icon-pause";
         }
     }
+    public String atrasadas(Atividades atividade) {
+        Date data = new Date();
+        String diaData = Formatacao.ConvercaoDataPadrao(data);
+        String dataHoje = Formatacao.ConvercaoDataPadrao(atividade.getPrazo());
+        if (!atividade.getPrazo().after(data)) {
+            return "atrasado";
+        } else if(diaData.equalsIgnoreCase(dataHoje)){
+            return "normal";
+        }else{
+            return "";
+        }
+    }
 }

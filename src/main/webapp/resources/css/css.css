@@ -186,6 +186,12 @@
          margin-top:10px;
          margin-left:220px;
      }
+     .dataGridperfil{
+         font-size:12px;
+         width: 680px;
+         margin-top:10px;
+         margin-left:220px;
+     }
      .titulo{
         font-family: Tahoma, Geneva, sans-serif;
         font-size: 20px;
@@ -649,4 +655,13 @@
         position: fixed;
         display: inline-block;
         padding: 1px;
+      }
+      
+      .letraVermelha{
+         color: red;
+         border:0px;
+      }
+      .letraPreta{
+         color: black;
+         border:0px;
       }
