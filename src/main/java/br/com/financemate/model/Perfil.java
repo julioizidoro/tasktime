@@ -23,8 +23,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "perfil")
-@NamedQueries({
-    @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p")})
 public class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -85,6 +83,12 @@ public class Perfil implements Serializable {
     private Integer tarefaeditaroutros;
     @Column(name = "situacao")
     private Integer situacao;
+    @Column(name = "cadperfil")
+    private Integer cadperfil;
+    @Column(name = "cadperfilincluir")
+    private Integer cadperfilincluir;
+    @Column(name = "cadperfileditar")
+    private Integer cadperfileditar;
 
     public Perfil() {
     }
@@ -307,6 +311,30 @@ public class Perfil implements Serializable {
 
     public void setSituacao(Integer situacao) {
         this.situacao = situacao;
+    }
+
+    public Integer getCadperfil() {
+        return cadperfil;
+    }
+
+    public void setCadperfil(Integer cadperfil) {
+        this.cadperfil = cadperfil;
+    }
+
+    public Integer getCadperfilincluir() {
+        return cadperfilincluir;
+    }
+
+    public void setCadperfilincluir(Integer cadperfilincluir) {
+        this.cadperfilincluir = cadperfilincluir;
+    }
+
+    public Integer getCadperfileditar() {
+        return cadperfileditar;
+    }
+
+    public void setCadperfileditar(Integer cadperfileditar) {
+        this.cadperfileditar = cadperfileditar;
     }
 
     @Override
