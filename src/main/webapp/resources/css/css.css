@@ -659,9 +659,25 @@
       
       .letraVermelha{
          color: red;
-         border:0px;
+         border:#fff;
       }
       .letraPreta{
          color: black;
-         border:0px;
+        border:#fff;
       }
+      .panelgrid2{
+            margin-left:325px;
+            width: 520px;
+            box-shadow: 5px 4px 10px #828282;
+            -moz-box-shadow: 5px 4px 10px #828282;
+            -webkit-box-shadow: 5px 4px 10px #828282;
+            -khtml-box-shadow: 5px 4px 10px #828282;
+        }
+        .panelgrid{
+            margin-left:325px;
+            width: 520px;
+            box-shadow: 5px 4px 10px #828282;
+            -moz-box-shadow: 5px 4px 10px #828282;
+            -webkit-box-shadow: 5px 4px 10px #828282;
+            -khtml-box-shadow: 5px 4px 10px #828282;
+        }

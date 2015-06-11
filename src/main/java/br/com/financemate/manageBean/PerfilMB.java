@@ -21,10 +21,7 @@ public class PerfilMB implements Serializable{
     private Perfil perfil;
     private List<Perfil> listaPerfil;
 
-    public PerfilMB(Perfil perfil) {
-        gerarListaPerfil("");
-    }
-
+    
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
     }

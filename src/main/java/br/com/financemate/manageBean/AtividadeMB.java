@@ -485,6 +485,7 @@ public class AtividadeMB implements Serializable{
         idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
         idCliente = "4";
         idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+        gerarListaSubdepartamento();
         idSubdepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getIdsubdepartamento());
         atividades.setPrazo(new Date());
         atividades.setPrioridade("normal");
@@ -1103,14 +1104,13 @@ public class AtividadeMB implements Serializable{
     }
     public String atrasadas(Atividades atividade) {
         Date data = new Date();
-        String diaData = Formatacao.ConvercaoDataPadrao(data);
-        String dataHoje = Formatacao.ConvercaoDataPadrao(atividade.getPrazo());
-        if (!atividade.getPrazo().after(data)) {
+        String sData = Formatacao.ConvercaoDataPadrao(data);
+        data = Formatacao.ConvercaoStringDataBrasil(sData);
+        boolean bdata = atividade.getPrazo().before(data);
+        if (bdata) {
             return "atrasado";
-        } else if(diaData.equalsIgnoreCase(dataHoje)){
+        } else {
             return "normal";
-        }else{
-            return "";
         }
     }
 }

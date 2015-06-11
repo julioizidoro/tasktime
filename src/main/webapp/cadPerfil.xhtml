@@ -10,7 +10,89 @@
             <h:form>
                 <div id="centro2" >
                       <legend class="titulo">Cadastro de Perfil</legend>
-                     
+                        <h:panelGrid columns="6" cellpadding="5">   
+                                <p:outputLabel value="Tipo de Acesso " for="acesso" class="left1"/>
+                            </h:panelGrid>       
+                            <h:panelGrid columns="6" cellpadding="5">   
+                                <p:inputText id="acesso"  size="46" class="left1" value="#{PerfilMB.perfil.tipoacesso}"/>
+                            </h:panelGrid> 
+                           <h:panelGrid columns="8" style="border:50px;" class="panelgrid" cellpadding="5" >
+                                <h:outputText value="Cliente Cadastro" class="fonte"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadcliente}" />
+                                <h:outputText value="Editar" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadclienteeditar}" />
+                                <h:outputText value="Incluir" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadclienteincluir}" />
+                                <h:outputText value="Situação" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadclientesituacao}" />
+                            </h:panelGrid>
+                            <br></br>
+                           <h:panelGrid columns="8" style="border:50px;" class="panelgrid" cellpadding="5" >
+                                <h:outputText value="Departamento Cadastro" class="fonte"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.caddepartamento}" />
+                                <h:outputText value="Editar" class="filtrar6"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.caddepartamentoeditar}" />
+                                <h:outputText value="Incluir" class="left5" />
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.caddepartamentoincluir}" />
+                           </h:panelGrid>
+                            <br></br>
+                           <h:panelGrid columns="8" style="border:50px;" class="panelgrid" cellpadding="5" >
+                                <h:outputText value="Sub-Departamento" class="fonte"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadsubdepartamento}" />
+                                <h:outputText value="Editar" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadsubdepartamentoeditar}" />
+                                <h:outputText value="Incluir" class="left5" />
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadsubdepartamentoincluir}" />
+                                <h:outputText value="Situação" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadsubdepartamentosituacao}" />
+                            </h:panelGrid>
+                            <br></br>
+                           <h:panelGrid columns="8" style="border:50px;" class="panelgrid" cellpadding="5" >
+                                <h:outputText value="Perfil Cadastro" class="fonte"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadperfil}" />
+                                <h:outputText value="Editar" class="filtrar6"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadperfileditar}" />
+                                <h:outputText value="Incluir" class="filtrar6"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadperfilincluir}" />
+                            </h:panelGrid>
+                            <br></br>
+                           <h:panelGrid columns="8" style="border:50px;" class="panelgrid" cellpadding="5" >
+                                <h:outputText value="Rotina Cadastro" class="fonte"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadrotina}" />
+                                <h:outputText value="Editar" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadrotinaeditar}" />
+                                <h:outputText value="Excluir" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadrotinaexcluir}" />
+                                <h:outputText value="Incluir" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadrotinaincluir}" />
+                           </h:panelGrid>    
+                            <br></br>
+                           <h:panelGrid columns="8" style="border:50px;" class="panelgrid" cellpadding="5" >    
+                                 <h:outputText value="Usuario Cadastro" class="fonte"/>
+                                 <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadusuario}" />
+                                <h:outputText value="Editar" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadusuarioeditar}" />
+                                <h:outputText value="Incluir" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadusuarioincluir}" />
+                                <h:outputText value="Situação" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.cadusuariosituacao}" />
+                           </h:panelGrid>     
+                            <br></br>
+                           <h:panelGrid columns="8" style="border:50px;" class="panelgrid2" cellpadding="5" >    
+                                <h:outputText value="Tarefa Cadastro" class="fonte"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.tarefasincluir}" />
+                                <h:outputText value="Editar" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.tarefaseditar}" />
+                                <h:outputText value="Tempo" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.tarefatempo}" />
+                                <h:outputText value="Outros" class="left5"/>
+                                <p:selectBooleanCheckbox value="#{PerfilMB.perfil.tarefasoutros}" />
+                           </h:panelGrid>    
+                            <br></br>
+                           
+                    <br></br>
+                    <p:commandButton icon=" ui-icon-check" value="Cadastrar" class="cadastro4" action="#{PerfilMB.salvar()}"/>  
+                    <p:commandButton icon=" ui-icon-close " value="Cancelar" class="cancelar" action="#"/> 
                 </div>
                 
             </h:form>     
