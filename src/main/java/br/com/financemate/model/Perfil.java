@@ -6,15 +6,14 @@
 package br.com.financemate.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -24,6 +23,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "perfil")
+@NamedQueries({
+    @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p")})
 public class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,8 +35,56 @@ public class Perfil implements Serializable {
     @Size(max = 15)
     @Column(name = "tipoacesso")
     private String tipoacesso;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfil")
-    private List<Usuario> usuarioList;
+    @Column(name = "cadcliente")
+    private Integer cadcliente;
+    @Column(name = "cadclienteincluir")
+    private Integer cadclienteincluir;
+    @Column(name = "cadclienteeditar")
+    private Integer cadclienteeditar;
+    @Column(name = "cadclientesituacao")
+    private Integer cadclientesituacao;
+    @Column(name = "caddepartamento")
+    private Integer caddepartamento;
+    @Column(name = "caddepartamentoincluir")
+    private Integer caddepartamentoincluir;
+    @Column(name = "caddepartamentoeditar")
+    private Integer caddepartamentoeditar;
+    @Column(name = "cadsubdepartamento")
+    private Integer cadsubdepartamento;
+    @Column(name = "cadsubdepartamentoincluir")
+    private Integer cadsubdepartamentoincluir;
+    @Column(name = "cadsubdepartamentoeditar")
+    private Integer cadsubdepartamentoeditar;
+    @Column(name = "cadsubdepartamentosituacao")
+    private Integer cadsubdepartamentosituacao;
+    @Column(name = "cadrotina")
+    private Integer cadrotina;
+    @Column(name = "cadrotinaincluir")
+    private Integer cadrotinaincluir;
+    @Column(name = "cadrotinaeditar")
+    private Integer cadrotinaeditar;
+    @Column(name = "cadrotinaexcluir")
+    private Integer cadrotinaexcluir;
+    @Column(name = "cadusuario")
+    private Integer cadusuario;
+    @Column(name = "cadusuarioincluir")
+    private Integer cadusuarioincluir;
+    @Column(name = "cadusuarioeditar")
+    private Integer cadusuarioeditar;
+    @Column(name = "cadusuariosituacao")
+    private Integer cadusuariosituacao;
+    @Column(name = "tarefasincluir")
+    private Integer tarefasincluir;
+    @Column(name = "tarefaseditar")
+    private Integer tarefaseditar;
+    @Column(name = "tarefasoutros")
+    private Integer tarefasoutros;
+    @Column(name = "tarefatempo")
+    private Integer tarefatempo;
+    @Column(name = "tarefaeditaroutros")
+    private Integer tarefaeditaroutros;
+    @Column(name = "situacao")
+    private Integer situacao;
 
     public Perfil() {
     }
@@ -60,12 +109,204 @@ public class Perfil implements Serializable {
         this.tipoacesso = tipoacesso;
     }
 
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public Integer getCadcliente() {
+        return cadcliente;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setCadcliente(Integer cadcliente) {
+        this.cadcliente = cadcliente;
+    }
+
+    public Integer getCadclienteincluir() {
+        return cadclienteincluir;
+    }
+
+    public void setCadclienteincluir(Integer cadclienteincluir) {
+        this.cadclienteincluir = cadclienteincluir;
+    }
+
+    public Integer getCadclienteeditar() {
+        return cadclienteeditar;
+    }
+
+    public void setCadclienteeditar(Integer cadclienteeditar) {
+        this.cadclienteeditar = cadclienteeditar;
+    }
+
+    public Integer getCadclientesituacao() {
+        return cadclientesituacao;
+    }
+
+    public void setCadclientesituacao(Integer cadclientesituacao) {
+        this.cadclientesituacao = cadclientesituacao;
+    }
+
+    public Integer getCaddepartamento() {
+        return caddepartamento;
+    }
+
+    public void setCaddepartamento(Integer caddepartamento) {
+        this.caddepartamento = caddepartamento;
+    }
+
+    public Integer getCaddepartamentoincluir() {
+        return caddepartamentoincluir;
+    }
+
+    public void setCaddepartamentoincluir(Integer caddepartamentoincluir) {
+        this.caddepartamentoincluir = caddepartamentoincluir;
+    }
+
+    public Integer getCaddepartamentoeditar() {
+        return caddepartamentoeditar;
+    }
+
+    public void setCaddepartamentoeditar(Integer caddepartamentoeditar) {
+        this.caddepartamentoeditar = caddepartamentoeditar;
+    }
+
+    public Integer getCadsubdepartamento() {
+        return cadsubdepartamento;
+    }
+
+    public void setCadsubdepartamento(Integer cadsubdepartamento) {
+        this.cadsubdepartamento = cadsubdepartamento;
+    }
+
+    public Integer getCadsubdepartamentoincluir() {
+        return cadsubdepartamentoincluir;
+    }
+
+    public void setCadsubdepartamentoincluir(Integer cadsubdepartamentoincluir) {
+        this.cadsubdepartamentoincluir = cadsubdepartamentoincluir;
+    }
+
+    public Integer getCadsubdepartamentoeditar() {
+        return cadsubdepartamentoeditar;
+    }
+
+    public void setCadsubdepartamentoeditar(Integer cadsubdepartamentoeditar) {
+        this.cadsubdepartamentoeditar = cadsubdepartamentoeditar;
+    }
+
+    public Integer getCadsubdepartamentosituacao() {
+        return cadsubdepartamentosituacao;
+    }
+
+    public void setCadsubdepartamentosituacao(Integer cadsubdepartamentosituacao) {
+        this.cadsubdepartamentosituacao = cadsubdepartamentosituacao;
+    }
+
+    public Integer getCadrotina() {
+        return cadrotina;
+    }
+
+    public void setCadrotina(Integer cadrotina) {
+        this.cadrotina = cadrotina;
+    }
+
+    public Integer getCadrotinaincluir() {
+        return cadrotinaincluir;
+    }
+
+    public void setCadrotinaincluir(Integer cadrotinaincluir) {
+        this.cadrotinaincluir = cadrotinaincluir;
+    }
+
+    public Integer getCadrotinaeditar() {
+        return cadrotinaeditar;
+    }
+
+    public void setCadrotinaeditar(Integer cadrotinaeditar) {
+        this.cadrotinaeditar = cadrotinaeditar;
+    }
+
+    public Integer getCadrotinaexcluir() {
+        return cadrotinaexcluir;
+    }
+
+    public void setCadrotinaexcluir(Integer cadrotinaexcluir) {
+        this.cadrotinaexcluir = cadrotinaexcluir;
+    }
+
+    public Integer getCadusuario() {
+        return cadusuario;
+    }
+
+    public void setCadusuario(Integer cadusuario) {
+        this.cadusuario = cadusuario;
+    }
+
+    public Integer getCadusuarioincluir() {
+        return cadusuarioincluir;
+    }
+
+    public void setCadusuarioincluir(Integer cadusuarioincluir) {
+        this.cadusuarioincluir = cadusuarioincluir;
+    }
+
+    public Integer getCadusuarioeditar() {
+        return cadusuarioeditar;
+    }
+
+    public void setCadusuarioeditar(Integer cadusuarioeditar) {
+        this.cadusuarioeditar = cadusuarioeditar;
+    }
+
+    public Integer getCadusuariosituacao() {
+        return cadusuariosituacao;
+    }
+
+    public void setCadusuariosituacao(Integer cadusuariosituacao) {
+        this.cadusuariosituacao = cadusuariosituacao;
+    }
+
+    public Integer getTarefasincluir() {
+        return tarefasincluir;
+    }
+
+    public void setTarefasincluir(Integer tarefasincluir) {
+        this.tarefasincluir = tarefasincluir;
+    }
+
+    public Integer getTarefaseditar() {
+        return tarefaseditar;
+    }
+
+    public void setTarefaseditar(Integer tarefaseditar) {
+        this.tarefaseditar = tarefaseditar;
+    }
+
+    public Integer getTarefasoutros() {
+        return tarefasoutros;
+    }
+
+    public void setTarefasoutros(Integer tarefasoutros) {
+        this.tarefasoutros = tarefasoutros;
+    }
+
+    public Integer getTarefatempo() {
+        return tarefatempo;
+    }
+
+    public void setTarefatempo(Integer tarefatempo) {
+        this.tarefatempo = tarefatempo;
+    }
+
+    public Integer getTarefaeditaroutros() {
+        return tarefaeditaroutros;
+    }
+
+    public void setTarefaeditaroutros(Integer tarefaeditaroutros) {
+        this.tarefaeditaroutros = tarefaeditaroutros;
+    }
+
+    public Integer getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Integer situacao) {
+        this.situacao = situacao;
     }
 
     @Override
