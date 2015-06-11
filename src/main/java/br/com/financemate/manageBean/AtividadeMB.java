@@ -16,7 +16,9 @@ import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
 import static java.lang.Boolean.FALSE;
+import java.math.BigInteger;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,6 +79,7 @@ public class AtividadeMB implements Serializable{
     private boolean checkConcluidas=false;
     private Comentarios comentarios;
     private String nomeAtividades;
+    private String visualizar;
     
 
     public AtividadeMB()  {
@@ -106,6 +109,14 @@ public class AtividadeMB implements Serializable{
 
     public void setListaAtividadedia(List<Atividades> listaAtividadedia) {
         this.listaAtividadedia = listaAtividadedia;
+    }
+
+    public String getVisualizar() {
+        return visualizar;
+    }
+
+    public void setVisualizar(String visualizar) {
+        this.visualizar = visualizar;
     }
 
     public List<Atividades> getListaAtividadeSemana()  {
@@ -469,6 +480,8 @@ public class AtividadeMB implements Serializable{
     
     public String novo(){
         atividades = new Atividades();
+        atividades.setTempo(0);
+        atividades.setEstado("Play");
         idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
         idCliente = "4";
         idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
@@ -492,6 +505,7 @@ public class AtividadeMB implements Serializable{
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
         atividades.setUsuario(usuario);
         atividades = atividadeFacade.salvar(atividades);
+        atividadeMenu="dia";
         listarAtividadesAtrasadas();
         listarAtividadesDia();
         listarAtividadesSemana();
@@ -541,6 +555,8 @@ public class AtividadeMB implements Serializable{
             if (listaSubdepartamento == null) {
                 listaSubdepartamento = new ArrayList<Subdepartamento>();
             }
+        }else {
+            listaSubdepartamento = new ArrayList<Subdepartamento>();
         }
     }
     
@@ -714,6 +730,18 @@ public class AtividadeMB implements Serializable{
     public void salvarAtividadeConcluida(String linha) {
         int iLinha = Integer.parseInt(linha);
         atividades = listaAtividadesGeral.get(iLinha);
+        if (atividades.getEstado().equalsIgnoreCase("Pause")){
+            Long termino = new Date().getTime();
+            BigInteger valorInicio = atividades.getInicio();
+            Long inicio = valorInicio.longValue();
+            Long resultado = termino - inicio;
+            resultado = resultado/1000;
+            resultado = resultado/60;
+            int tempo = resultado.intValue();
+            tempo = tempo + atividades.getTempo();
+            atividades.setTempo(tempo);
+            atividades.setEstado("Pause");
+        }
         if (usuarioLogadoBean.getUsuario().getIdusuario() == atividades.getUsuario().getIdusuario()) {
             AtividadeFacade atividadeFacade = new AtividadeFacade();
             atividadeFacade.salvar(atividades);
@@ -991,7 +1019,6 @@ public class AtividadeMB implements Serializable{
         idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
         idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getIdsubdepartamento());
         idUsuario = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getIdusuario());
-        usuarioLogadoBean.teste();
         return "";
     }
     
@@ -1002,5 +1029,64 @@ public class AtividadeMB implements Serializable{
     } 
     public void quantidadeComentarios(){
         
+    }
+    
+    public void iniciarAtividade(String linha){
+        this.linha = linha;
+        int nlinha = Integer.parseInt(linha);
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        if (listaAtividadesGeral.get(nlinha).getEstado().equalsIgnoreCase("Play")){
+            //Play
+            Long inicio = new Date().getTime();
+            listaAtividadesGeral.get(nlinha).setInicio(BigInteger.valueOf(inicio));
+            listaAtividadesGeral.get(nlinha).setEstado("Pause");
+            atividadeFacade.salvar(listaAtividadesGeral.get(nlinha));
+        }else {
+            //Pause
+            Long termino = new Date().getTime();
+            BigInteger valorInicio = listaAtividadesGeral.get(nlinha).getInicio();
+            Long inicio = valorInicio.longValue();
+            Long resultado = termino - inicio;
+            resultado = resultado/1000;
+            resultado = resultado/60;
+            int tempo = resultado.intValue();
+            int tempoAtual = listaAtividadesGeral.get(nlinha).getTempo();
+            tempo = tempo + tempoAtual;
+            listaAtividadesGeral.get(nlinha).setTempo(tempo);
+            listaAtividadesGeral.get(nlinha).setEstado("Play");
+            atividadeFacade.salvar(listaAtividadesGeral.get(nlinha));
+        }
+    }
+    
+    public String filtrarTarefasDepartamento(){
+        String sql = "Select a From Atividades a where a.concluida=" + checkConcluidas;
+        if (visualizar.equalsIgnoreCase("proxsete")){
+            Date data7 = Formatacao.SomarDiasData(new Date(), 7);
+            sql = sql + " and a.prazo>='" + Formatacao.ConvercaoDataSql(new Date()) + "' and a.prazo<='" 
+                    + Formatacao.ConvercaoDataSql(data7) + "' ";
+        }
+        if (visualizar.equalsIgnoreCase("hoje")){
+            sql = sql + " and a.prazo='" + Formatacao.ConvercaoDataSql(new Date()) + "' ";
+        }
+        if (visualizar.equalsIgnoreCase("atrasadas")){
+            sql = sql + " and a.prazo<'" + Formatacao.ConvercaoDataSql(new Date()) + "' ";
+        }
+        if (!idDepartamento.equalsIgnoreCase("0")){
+            sql = sql + " and a.subdepartamento.departamento.iddepartamento=" + Integer.parseInt(idDepartamento);
+        }
+        if (!idSubdepartamento.equalsIgnoreCase("0")){
+            sql = sql + " and a.subdepartamento.idsubdepartamento=" + Integer.parseInt(idSubdepartamento);
+        }
+        if (!idCliente.equalsIgnoreCase("0")){
+            sql = sql + " and a.cliente.idcliente=" + Integer.parseInt(idCliente);
+        }
+        if (!idUsuario.equalsIgnoreCase("0")){
+            sql = sql + " and a.usuario.idusuario=" + Integer.parseInt(idUsuario);
+        }
+        sql = sql + " order by a.prazo, a.prioridade, a.nome";
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        listaAtividadesDepartamento = atividadeFacade.listar(sql);
+        listaAtividadesGeral = listaAtividadesDepartamento;
+        return "inicial";
     }
 }

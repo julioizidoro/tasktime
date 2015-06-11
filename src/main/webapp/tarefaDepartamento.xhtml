@@ -18,34 +18,39 @@
                         <p:outputLabel value="Cliente" class="fonte"/> 
                         <p:outputLabel value="Usuário" class="fonte"/> 
                         
-                        <p:selectOneMenu id="visualizar" value="#" style="width:145px" class="fonte">
+                        <p:selectOneMenu id="visualizar" value="#{AtividadeMB.visualizar}" style="width:145px" class="fonte">
                             <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
                             <f:selectItem itemLabel="Próximos 7 dias" itemValue="proxsete" />  
                             <f:selectItem itemLabel="Hoje" itemValue="hoje" />  
-                            <f:selectItem itemLabel="Atrasadas" itemValue="atrasadas" />     
+                            <f:selectItem itemLabel="Atrasadas" itemValue="atrasadas" />   
+                            <p:ajax event="change" listener="#{AtividadeMB.filtrarTarefasDepartamento()}"  update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                         </p:selectOneMenu>
                         <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="fonte" style="width:145px">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />
                             <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
-                            <p:ajax event="change" listener="#{AtividadeMB.gerarListaSubdepartamento()}" update="subdepartamento" />
+                            <p:ajax event="change" listener="#{AtividadeMB.gerarListaSubdepartamento()}"  update="subdepartamento" />
+                            <p:ajax event="change" listener="#{AtividadeMB.filtrarTarefasDepartamento()}"  update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                         </p:selectOneMenu>
                         <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="fonte" style="width:120px">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />
                             <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
+                            <p:ajax event="change" listener="#{AtividadeMB.filtrarTarefasDepartamento()}"  update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                         </p:selectOneMenu>
                         <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:155px" class="fonte">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />
                             <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
+                            <p:ajax event="change" listener="#{AtividadeMB.filtrarTarefasDepartamento()}"  update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                         </p:selectOneMenu>
                         <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" style="width:190px" class="fonte">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />
                             <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
+                            <p:ajax event="change" listener="#{AtividadeMB.filtrarTarefasDepartamento()}"  update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                         </p:selectOneMenu>
                         
                      </p:panelGrid>
                     <h:outputText value="Concluídas" class="concluida"/>  
                     <p:selectBooleanCheckbox value="#{AtividadeMB.checkConcluidas}" class="Selecionarconcluida">
-                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.filtarConcluidas()}" />
+                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.filtrarTarefasDepartamento()}" />
                     </p:selectBooleanCheckbox> 
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">

@@ -15,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +26,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "comentarios")
-@NamedQueries({
-    @NamedQuery(name = "Comentarios.findAll", query = "SELECT c FROM Comentarios c")})
 public class Comentarios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,18 +36,18 @@ public class Comentarios implements Serializable {
     @Column(name = "data")
     @Temporal(TemporalType.DATE)
     private Date data;
-    @Size(max = 500)
-    @Column(name = "comentario")
-    private String comentario;
-    @JoinColumn(name = "atividades_idatividades", referencedColumnName = "idatividades")
-    @ManyToOne(optional = false)
-    private Atividades atividades;
-    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-    @ManyToOne(optional = false)
-    private Usuario usuario;
     @Size(max = 5)
     @Column(name = "hora")
     private String hora;
+    @Size(max = 500)
+    @Column(name = "comentario")
+    private String comentario;
+    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(optional = false)
+    private Usuario usuario;
+    @JoinColumn(name = "atividades_idatividades", referencedColumnName = "idatividades")
+    @ManyToOne(optional = false)
+    private Atividades atividades;
 
     public Comentarios() {
     }
@@ -76,20 +72,20 @@ public class Comentarios implements Serializable {
         this.data = data;
     }
 
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
     public String getComentario() {
         return comentario;
     }
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
-    }
-
-    public Atividades getAtividades() {
-        return atividades;
-    }
-
-    public void setAtividades(Atividades atividades) {
-        this.atividades = atividades;
     }
 
     public Usuario getUsuario() {
@@ -100,14 +96,13 @@ public class Comentarios implements Serializable {
         this.usuario = usuario;
     }
 
-    public String getHora() {
-        return hora;
+    public Atividades getAtividades() {
+        return atividades;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setAtividades(Atividades atividades) {
+        this.atividades = atividades;
     }
-    
 
     @Override
     public int hashCode() {

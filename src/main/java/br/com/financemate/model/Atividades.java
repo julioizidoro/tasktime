@@ -6,6 +6,7 @@
 package br.com.financemate.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -31,6 +32,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "atividades")
 public class Atividades implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Comentarios> comentariosList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,27 +49,28 @@ public class Atividades implements Serializable {
     @Size(max = 30)
     @Column(name = "prioridade")
     private String prioridade;
-     @Size(max = 1)
-    @Column(name = "tipo")
-    private String tipo;
     @Column(name = "concluida")
     private Boolean concluida;
+    @Size(max = 1)
+    @Column(name = "tipo")
+    private String tipo;
+    @Column(name = "inicio")
+    private BigInteger inicio;
+    @Column(name = "tempo")
+    private Integer tempo;
+    @Column(name = "estado")
+    private String estado;
+    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(optional = false)
+    private Usuario usuario;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)
     private Subdepartamento subdepartamento;
     @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
     @ManyToOne(optional = false)
     private Cliente cliente;
-    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-    @ManyToOne(optional = false)
-    private Usuario usuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
-    private List<Rotinaatividade> rotinaatividadeList;
     @Transient
     private boolean selecionado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
-    private List<Comentarios> comentariosList;
-    
 
     public Atividades() {
     }
@@ -107,6 +111,14 @@ public class Atividades implements Serializable {
         this.prioridade = prioridade;
     }
 
+    public Boolean getConcluida() {
+        return concluida;
+    }
+
+    public void setConcluida(Boolean concluida) {
+        this.concluida = concluida;
+    }
+
     public String getTipo() {
         return tipo;
     }
@@ -115,14 +127,46 @@ public class Atividades implements Serializable {
         this.tipo = tipo;
     }
 
-    public Boolean getConcluida() {
-        return concluida;
+    public BigInteger getInicio() {
+        return inicio;
     }
 
-    public void setConcluida(Boolean concluida) {
-        this.concluida = concluida;
+    public void setInicio(BigInteger inicio) {
+        this.inicio = inicio;
     }
-    
+
+    public Integer getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(Integer tempo) {
+        this.tempo = tempo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Subdepartamento getSubdepartamento() {
         return subdepartamento;
     }
@@ -138,23 +182,6 @@ public class Atividades implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public boolean isSelecionado() {
-        return selecionado;
-    }
-
-    public void setSelecionado(boolean selecionado) {
-        this.selecionado = selecionado;
-    }
-    
 
     @Override
     public int hashCode() {
@@ -181,14 +208,6 @@ public class Atividades implements Serializable {
         return "br.com.financemate.model.Atividades[ idatividades=" + idatividades + " ]";
     }
 
-    public List<Rotinaatividade> getRotinaatividadeList() {
-        return rotinaatividadeList;
-    }
-
-    public void setRotinaatividadeList(List<Rotinaatividade> rotinaatividadeList) {
-        this.rotinaatividadeList = rotinaatividadeList;
-    }
-
     public List<Comentarios> getComentariosList() {
         return comentariosList;
     }
@@ -196,6 +215,5 @@ public class Atividades implements Serializable {
     public void setComentariosList(List<Comentarios> comentariosList) {
         this.comentariosList = comentariosList;
     }
-    
     
 }
