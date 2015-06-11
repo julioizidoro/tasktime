@@ -1016,6 +1016,7 @@ public class AtividadeMB implements Serializable{
         atividades = atividadeFacade.consultar(listaAtividadesGeral.get(nLinha).getIdatividades());
         idCliente = String.valueOf(atividades.getCliente().getIdcliente());
         idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+        gerarListaSubdepartamento();
         idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getIdsubdepartamento());
         idUsuario = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getIdusuario());
         return "";
