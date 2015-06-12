@@ -34,61 +34,61 @@ public class Perfil implements Serializable {
     @Column(name = "tipoacesso")
     private String tipoacesso;
     @Column(name = "cadcliente")
-    private Integer cadcliente;
+    private Boolean cadcliente;
     @Column(name = "cadclienteincluir")
-    private Integer cadclienteincluir;
+    private Boolean cadclienteincluir;
     @Column(name = "cadclienteeditar")
-    private Integer cadclienteeditar;
+    private Boolean cadclienteeditar;
     @Column(name = "cadclientesituacao")
-    private Integer cadclientesituacao;
+    private Boolean cadclientesituacao;
     @Column(name = "caddepartamento")
-    private Integer caddepartamento;
+    private Boolean caddepartamento;
     @Column(name = "caddepartamentoincluir")
-    private Integer caddepartamentoincluir;
+    private Boolean caddepartamentoincluir;
     @Column(name = "caddepartamentoeditar")
-    private Integer caddepartamentoeditar;
+    private Boolean caddepartamentoeditar;
     @Column(name = "cadsubdepartamento")
-    private Integer cadsubdepartamento;
+    private Boolean cadsubdepartamento;
     @Column(name = "cadsubdepartamentoincluir")
-    private Integer cadsubdepartamentoincluir;
+    private Boolean cadsubdepartamentoincluir;
     @Column(name = "cadsubdepartamentoeditar")
-    private Integer cadsubdepartamentoeditar;
+    private Boolean cadsubdepartamentoeditar;
     @Column(name = "cadsubdepartamentosituacao")
-    private Integer cadsubdepartamentosituacao;
+    private Boolean cadsubdepartamentosituacao;
     @Column(name = "cadrotina")
-    private Integer cadrotina;
+    private Boolean cadrotina;
     @Column(name = "cadrotinaincluir")
-    private Integer cadrotinaincluir;
+    private Boolean cadrotinaincluir;
     @Column(name = "cadrotinaeditar")
-    private Integer cadrotinaeditar;
+    private Boolean cadrotinaeditar;
     @Column(name = "cadrotinaexcluir")
-    private Integer cadrotinaexcluir;
+    private Boolean cadrotinaexcluir;
     @Column(name = "cadusuario")
-    private Integer cadusuario;
+    private Boolean cadusuario;
     @Column(name = "cadusuarioincluir")
-    private Integer cadusuarioincluir;
+    private Boolean cadusuarioincluir;
     @Column(name = "cadusuarioeditar")
-    private Integer cadusuarioeditar;
+    private Boolean cadusuarioeditar;
     @Column(name = "cadusuariosituacao")
-    private Integer cadusuariosituacao;
+    private Boolean cadusuariosituacao;
     @Column(name = "tarefasincluir")
-    private Integer tarefasincluir;
+    private Boolean tarefasincluir;
     @Column(name = "tarefaseditar")
-    private Integer tarefaseditar;
+    private Boolean tarefaseditar;
     @Column(name = "tarefasoutros")
-    private Integer tarefasoutros;
+    private Boolean tarefasoutros;
     @Column(name = "tarefatempo")
-    private Integer tarefatempo;
+    private Boolean tarefatempo;
     @Column(name = "tarefaeditaroutros")
-    private Integer tarefaeditaroutros;
+    private Boolean tarefaeditaroutros;
     @Column(name = "situacao")
-    private Integer situacao;
+    private Boolean situacao;
     @Column(name = "cadperfil")
-    private Integer cadperfil;
+    private Boolean cadperfil;
     @Column(name = "cadperfilincluir")
-    private Integer cadperfilincluir;
+    private Boolean cadperfilincluir;
     @Column(name = "cadperfileditar")
-    private Integer cadperfileditar;
+    private Boolean cadperfileditar;
 
     public Perfil() {
     }
@@ -113,227 +113,227 @@ public class Perfil implements Serializable {
         this.tipoacesso = tipoacesso;
     }
 
-    public Integer getCadcliente() {
+    public Boolean getCadcliente() {
         return cadcliente;
     }
 
-    public void setCadcliente(Integer cadcliente) {
+    public void setCadcliente(Boolean cadcliente) {
         this.cadcliente = cadcliente;
     }
 
-    public Integer getCadclienteincluir() {
+    public Boolean getCadclienteincluir() {
         return cadclienteincluir;
     }
 
-    public void setCadclienteincluir(Integer cadclienteincluir) {
+    public void setCadclienteincluir(Boolean cadclienteincluir) {
         this.cadclienteincluir = cadclienteincluir;
     }
 
-    public Integer getCadclienteeditar() {
+    public Boolean getCadclienteeditar() {
         return cadclienteeditar;
     }
 
-    public void setCadclienteeditar(Integer cadclienteeditar) {
+    public void setCadclienteeditar(Boolean cadclienteeditar) {
         this.cadclienteeditar = cadclienteeditar;
     }
 
-    public Integer getCadclientesituacao() {
+    public Boolean getCadclientesituacao() {
         return cadclientesituacao;
     }
 
-    public void setCadclientesituacao(Integer cadclientesituacao) {
+    public void setCadclientesituacao(Boolean cadclientesituacao) {
         this.cadclientesituacao = cadclientesituacao;
     }
 
-    public Integer getCaddepartamento() {
+    public Boolean getCaddepartamento() {
         return caddepartamento;
     }
 
-    public void setCaddepartamento(Integer caddepartamento) {
+    public void setCaddepartamento(Boolean caddepartamento) {
         this.caddepartamento = caddepartamento;
     }
 
-    public Integer getCaddepartamentoincluir() {
+    public Boolean getCaddepartamentoincluir() {
         return caddepartamentoincluir;
     }
 
-    public void setCaddepartamentoincluir(Integer caddepartamentoincluir) {
+    public void setCaddepartamentoincluir(Boolean caddepartamentoincluir) {
         this.caddepartamentoincluir = caddepartamentoincluir;
     }
 
-    public Integer getCaddepartamentoeditar() {
+    public Boolean getCaddepartamentoeditar() {
         return caddepartamentoeditar;
     }
 
-    public void setCaddepartamentoeditar(Integer caddepartamentoeditar) {
+    public void setCaddepartamentoeditar(Boolean caddepartamentoeditar) {
         this.caddepartamentoeditar = caddepartamentoeditar;
     }
 
-    public Integer getCadsubdepartamento() {
+    public Boolean getCadsubdepartamento() {
         return cadsubdepartamento;
     }
 
-    public void setCadsubdepartamento(Integer cadsubdepartamento) {
+    public void setCadsubdepartamento(Boolean cadsubdepartamento) {
         this.cadsubdepartamento = cadsubdepartamento;
     }
 
-    public Integer getCadsubdepartamentoincluir() {
+    public Boolean getCadsubdepartamentoincluir() {
         return cadsubdepartamentoincluir;
     }
 
-    public void setCadsubdepartamentoincluir(Integer cadsubdepartamentoincluir) {
+    public void setCadsubdepartamentoincluir(Boolean cadsubdepartamentoincluir) {
         this.cadsubdepartamentoincluir = cadsubdepartamentoincluir;
     }
 
-    public Integer getCadsubdepartamentoeditar() {
+    public Boolean getCadsubdepartamentoeditar() {
         return cadsubdepartamentoeditar;
     }
 
-    public void setCadsubdepartamentoeditar(Integer cadsubdepartamentoeditar) {
+    public void setCadsubdepartamentoeditar(Boolean cadsubdepartamentoeditar) {
         this.cadsubdepartamentoeditar = cadsubdepartamentoeditar;
     }
 
-    public Integer getCadsubdepartamentosituacao() {
+    public Boolean getCadsubdepartamentosituacao() {
         return cadsubdepartamentosituacao;
     }
 
-    public void setCadsubdepartamentosituacao(Integer cadsubdepartamentosituacao) {
+    public void setCadsubdepartamentosituacao(Boolean cadsubdepartamentosituacao) {
         this.cadsubdepartamentosituacao = cadsubdepartamentosituacao;
     }
 
-    public Integer getCadrotina() {
+    public Boolean getCadrotina() {
         return cadrotina;
     }
 
-    public void setCadrotina(Integer cadrotina) {
+    public void setCadrotina(Boolean cadrotina) {
         this.cadrotina = cadrotina;
     }
 
-    public Integer getCadrotinaincluir() {
+    public Boolean getCadrotinaincluir() {
         return cadrotinaincluir;
     }
 
-    public void setCadrotinaincluir(Integer cadrotinaincluir) {
+    public void setCadrotinaincluir(Boolean cadrotinaincluir) {
         this.cadrotinaincluir = cadrotinaincluir;
     }
 
-    public Integer getCadrotinaeditar() {
+    public Boolean getCadrotinaeditar() {
         return cadrotinaeditar;
     }
 
-    public void setCadrotinaeditar(Integer cadrotinaeditar) {
+    public void setCadrotinaeditar(Boolean cadrotinaeditar) {
         this.cadrotinaeditar = cadrotinaeditar;
     }
 
-    public Integer getCadrotinaexcluir() {
+    public Boolean getCadrotinaexcluir() {
         return cadrotinaexcluir;
     }
 
-    public void setCadrotinaexcluir(Integer cadrotinaexcluir) {
+    public void setCadrotinaexcluir(Boolean cadrotinaexcluir) {
         this.cadrotinaexcluir = cadrotinaexcluir;
     }
 
-    public Integer getCadusuario() {
+    public Boolean getCadusuario() {
         return cadusuario;
     }
 
-    public void setCadusuario(Integer cadusuario) {
+    public void setCadusuario(Boolean cadusuario) {
         this.cadusuario = cadusuario;
     }
 
-    public Integer getCadusuarioincluir() {
+    public Boolean getCadusuarioincluir() {
         return cadusuarioincluir;
     }
 
-    public void setCadusuarioincluir(Integer cadusuarioincluir) {
+    public void setCadusuarioincluir(Boolean cadusuarioincluir) {
         this.cadusuarioincluir = cadusuarioincluir;
     }
 
-    public Integer getCadusuarioeditar() {
+    public Boolean getCadusuarioeditar() {
         return cadusuarioeditar;
     }
 
-    public void setCadusuarioeditar(Integer cadusuarioeditar) {
+    public void setCadusuarioeditar(Boolean cadusuarioeditar) {
         this.cadusuarioeditar = cadusuarioeditar;
     }
 
-    public Integer getCadusuariosituacao() {
+    public Boolean getCadusuariosituacao() {
         return cadusuariosituacao;
     }
 
-    public void setCadusuariosituacao(Integer cadusuariosituacao) {
+    public void setCadusuariosituacao(Boolean cadusuariosituacao) {
         this.cadusuariosituacao = cadusuariosituacao;
     }
 
-    public Integer getTarefasincluir() {
+    public Boolean getTarefasincluir() {
         return tarefasincluir;
     }
 
-    public void setTarefasincluir(Integer tarefasincluir) {
+    public void setTarefasincluir(Boolean tarefasincluir) {
         this.tarefasincluir = tarefasincluir;
     }
 
-    public Integer getTarefaseditar() {
+    public Boolean getTarefaseditar() {
         return tarefaseditar;
     }
 
-    public void setTarefaseditar(Integer tarefaseditar) {
+    public void setTarefaseditar(Boolean tarefaseditar) {
         this.tarefaseditar = tarefaseditar;
     }
 
-    public Integer getTarefasoutros() {
+    public Boolean getTarefasoutros() {
         return tarefasoutros;
     }
 
-    public void setTarefasoutros(Integer tarefasoutros) {
+    public void setTarefasoutros(Boolean tarefasoutros) {
         this.tarefasoutros = tarefasoutros;
     }
 
-    public Integer getTarefatempo() {
+    public Boolean getTarefatempo() {
         return tarefatempo;
     }
 
-    public void setTarefatempo(Integer tarefatempo) {
+    public void setTarefatempo(Boolean tarefatempo) {
         this.tarefatempo = tarefatempo;
     }
 
-    public Integer getTarefaeditaroutros() {
+    public Boolean getTarefaeditaroutros() {
         return tarefaeditaroutros;
     }
 
-    public void setTarefaeditaroutros(Integer tarefaeditaroutros) {
+    public void setTarefaeditaroutros(Boolean tarefaeditaroutros) {
         this.tarefaeditaroutros = tarefaeditaroutros;
     }
 
-    public Integer getSituacao() {
+    public Boolean getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(Integer situacao) {
+    public void setSituacao(Boolean situacao) {
         this.situacao = situacao;
     }
 
-    public Integer getCadperfil() {
+    public Boolean getCadperfil() {
         return cadperfil;
     }
 
-    public void setCadperfil(Integer cadperfil) {
+    public void setCadperfil(Boolean cadperfil) {
         this.cadperfil = cadperfil;
     }
 
-    public Integer getCadperfilincluir() {
+    public Boolean getCadperfilincluir() {
         return cadperfilincluir;
     }
 
-    public void setCadperfilincluir(Integer cadperfilincluir) {
+    public void setCadperfilincluir(Boolean cadperfilincluir) {
         this.cadperfilincluir = cadperfilincluir;
     }
 
-    public Integer getCadperfileditar() {
+    public Boolean getCadperfileditar() {
         return cadperfileditar;
     }
 
-    public void setCadperfileditar(Integer cadperfileditar) {
+    public void setCadperfileditar(Boolean cadperfileditar) {
         this.cadperfileditar = cadperfileditar;
     }
 
