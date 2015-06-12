@@ -7,15 +7,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/WEB-INF/templates/default.xhtml">
         <ui:define name="corpo">
+             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="resources/img/ajax-loader.gif" />
+            </p:dialog>
             <h:form id="atividades">
                 <div id="centro2" >
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                      <br></br>
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
-                        <p:column headerText="Estado" style="width:70px;" styleClass="alinhaCentro">
-                             <p:commandButton disabled="#{tarefas.concluida}" value="#{tarefas.estado}"  icon="#{AtividadeMB.carregarIcon(tarefas)}" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
-                        </p:column>
+                       
                         <p:column headerText="Atividade" style="width:130px;" styleClass="border">
                             <h:outputText value="#{tarefas.nome}" />
                         </p:column>
@@ -44,7 +47,7 @@
                             </h:outputText>    
                         </p:column>
 
-                        <p:column headerText="Prioridade" style="width:46px;" styleClass="alinhaCentro">
+                        <p:column headerText="Prioridade" style="width:49px;" styleClass="alinhaCentro">
                             <p:graphicImage value="#{AtividadeMB.imagem(tarefas)}" />
                         </p:column>
 
@@ -88,7 +91,7 @@
                         <br></br>
                         <p:outputLabel value="Título" class="filtrar"/>
                         <p:outputLabel value="Data" class="left3"/>
-                        <br></br>
+                        <br></br><br></br>
                         <p:inputText value="#{AtividadeMB.atividades.nome}" size="48" class="filtrar"/>
                         <p:calendar id="prazo" size="18"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="filtrar6" value="#{AtividadeMB.atividades.prazo}" >
                             <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
@@ -97,7 +100,7 @@
                         <p:outputLabel value="Depatamento" class="filtrar"/> 
                         <p:outputLabel value="Sub-Depatamento" class="filtrar6"/> 
                         <p:outputLabel value="Cliente" class="filtrar4"/> 
-                        <br></br>
+                        <br></br><br></br>
                         <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="filtrar" style="width:135px">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />
                             <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
@@ -115,7 +118,7 @@
                         <br></br>
                         <p:outputLabel value="Usuário" class="filtrar"/>
                         <p:outputLabel value="Prioridade" class="left6"/>
-                        <br></br>
+                        <br></br><br></br>
 
                         <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" style="width:190px" class="filtrar">
                             <f:selectItem itemLabel="Selecione" itemValue="0"   />

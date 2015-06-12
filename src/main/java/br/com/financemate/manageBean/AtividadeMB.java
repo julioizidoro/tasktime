@@ -483,6 +483,7 @@ public class AtividadeMB implements Serializable{
             atividades = new Atividades();
             atividades.setTempo(0);
             atividades.setEstado("Play");
+            atividades.setMostratempo("00:00");
             idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
             idCliente = "4";
             idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
@@ -602,15 +603,16 @@ public class AtividadeMB implements Serializable{
     }
     public  void listarTodasAtividades()  {
         if (nomeAtividades == null) {
-            nomeAtividades = "";
+            nomeAtividades = " ";
         }
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql = "Select a from Atividades a where a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
-                " order by a.prazo, a.prioridade, a.nome";
-        listaTodasAtividade = atividadesFacade.listar(nomeAtividades + sql);
+                " and a.nome like '%" + nomeAtividades + "%' and a.concluida=FALSE order by a.prazo, a.prioridade, a.nome";
+        listaTodasAtividade = atividadesFacade.listar(sql);
         if (listaTodasAtividade==null){
             listaTodasAtividade = new ArrayList<Atividades>();
         }
+        listaAtividadesGeral=listaTodasAtividade;
         if (listaTodasAtividade.size()<10){
             todas = "Todas (0" + String.valueOf(listaTodasAtividade.size()) + ")";
         }else todas = "Todas (" + String.valueOf(listaTodasAtividade.size()) +")";
@@ -702,7 +704,7 @@ public class AtividadeMB implements Serializable{
     public String mostarAtividadesDepartamento(){
         listaAtividadesGeral = listaAtividadesDepartamento;
         atividadeMenu="departamento";
-        titulo="Taferas do Departamento";
+        titulo="Taferas da Equipe";
         return "tarefaDepartamento";
     }
     
@@ -1076,6 +1078,16 @@ public class AtividadeMB implements Serializable{
                 int tempoAtual = listaAtividadesGeral.get(nlinha).getTempo();
                 tempo = tempo + tempoAtual;
                 listaAtividadesGeral.get(nlinha).setTempo(tempo);
+                int hora = tempo/60;
+                int minutos = tempo - hora;
+                String sHora;
+                if (hora>9){
+                    sHora = String.valueOf(hora) + ":";
+                }else sHora = "0" + String.valueOf(hora) + ":";
+                if (minutos>9){
+                    sHora = sHora + String.valueOf(minutos);
+                }else sHora = sHora + "0" + String.valueOf(minutos);
+                listaAtividadesGeral.get(nlinha).setMostratempo(sHora);
                 listaAtividadesGeral.get(nlinha).setEstado("Play");
                 atividadeFacade.salvar(listaAtividadesGeral.get(nlinha));
                 }
@@ -1142,5 +1154,10 @@ public class AtividadeMB implements Serializable{
         } else {
             return "normal";
         }
+    }
+    
+    public String mostrarTempo(Atividades atifivade){
+        String texto = "Tempo " + atifivade.getMostratempo();
+        return texto;
     }
 }

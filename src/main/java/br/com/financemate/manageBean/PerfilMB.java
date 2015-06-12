@@ -59,12 +59,12 @@ public class PerfilMB implements Serializable{
     }
     
     public String novo(){
-        if(usuarioLogadoBean.getUsuario().getPerfil().getCadperfil()){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadperfilincluir()){
             perfil = new Perfil();
             return "cadPerfil";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+             FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -75,10 +75,12 @@ public class PerfilMB implements Serializable{
             perfilFacade.salvar(perfil);
             perfil = new Perfil();
             gerarListaPerfil("");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
             return "consPerfil";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -97,9 +99,13 @@ public class PerfilMB implements Serializable{
                 }
             }
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return null;
+    }
+    
+    public String cancelar(){
+        return "consPerfil";
     }
 }

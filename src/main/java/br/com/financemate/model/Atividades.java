@@ -60,6 +60,8 @@ public class Atividades implements Serializable {
     private Integer tempo;
     @Column(name = "estado")
     private String estado;
+    @Column(name = "mostratempo")
+    private String mostratempo;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -103,6 +105,16 @@ public class Atividades implements Serializable {
         this.prazo = prazo;
     }
 
+    public String getMostratempo() {
+        return mostratempo;
+    }
+
+    public void setMostratempo(String mostratempo) {
+        this.mostratempo = mostratempo;
+    }
+
+    
+    
     public String getPrioridade() {
         return prioridade;
     }

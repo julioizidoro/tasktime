@@ -7,19 +7,20 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/WEB-INF/templates/default.xhtml">
         <ui:define name="corpo">
-            <h:form>
+            <h:form id="consperfil">
                 <div id="centro2" >
+                    <p:growl id="growl2" showDetail="true" sticky="true" />
                       <legend class="titulo">Consulta de Perfil</legend>
                      <br></br>
                      <img src="resources/img/ADD.jpg" width="20" height="20" class="add"/>
-                     <p:commandLink  value="Adicionar Perfil" styleClass="cadastro5" action="#{PerfilMB.novo()}"/>  
+                     <p:commandLink  value="Adicionar Perfil" styleClass="cadastro5" action="#{PerfilMB.novo()}" update="consperfil:growl2"/>  
                     <p:dataTable var="consPerfil" value="#{PerfilMB.listaPerfil}" class="dataGridperfil" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                         <p:column headerText="Tipo de Acesso"  styleClass="border">
                             <h:outputText value="#{consPerfil.tipoacesso}" />
                         </p:column>
                         <p:column style="width:26px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#{PerfilMB.editar()}" >
+                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#{PerfilMB.editar()}" update="consperfil:growl2">
                                 <f:param name="id_perfil" value="#{consPerfil.idperfil}"/>
                             </p:commandButton>
                         </p:column>  

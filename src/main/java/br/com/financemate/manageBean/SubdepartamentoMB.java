@@ -97,14 +97,14 @@ public class SubdepartamentoMB implements Serializable{
     }
     
     public String novo() throws SQLException{
-        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamento()){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamentoincluir()){
             subdepartamento.setSituacao("Ativo");
             subdepartamento = new Subdepartamento();
             gerarListaDepartamento();
             return "cadSubdepartamento";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro!", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -118,10 +118,12 @@ public class SubdepartamentoMB implements Serializable{
             subdepartamentoFacade.salvar(subdepartamento);
             subdepartamento = new Subdepartamento();
             gerarListaSubdepartamento();
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
             return "consSubdepartamento";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -140,8 +142,8 @@ public class SubdepartamentoMB implements Serializable{
                 }
             }
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return null;
     }
@@ -171,8 +173,8 @@ public class SubdepartamentoMB implements Serializable{
                } 
             }
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+           FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }

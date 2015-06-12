@@ -266,8 +266,8 @@ public class RotinaMB  implements Serializable{
             gerarListaUsuario();
             return "cadRotina";
         } else {
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
             return "";
         }
     }
@@ -426,8 +426,8 @@ public class RotinaMB  implements Serializable{
                 return "";
             }
         } else {
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
             return "";
         }
     }
@@ -576,8 +576,8 @@ public class RotinaMB  implements Serializable{
                 return "consRotina";
             }
         } else {
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+           FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
             return "";
         }
         return "";

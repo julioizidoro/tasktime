@@ -211,27 +211,38 @@ public class SituacaoMB implements Serializable{
             boolean verificar = false;
             if (!listaSituacao.get(i).getJan().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getFev().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getFev().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getMar().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getMar().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getAbr().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getAbr().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getMai().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getMai().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getJun().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getJun().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getJul().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getJul().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getAgo().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getAgo().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getSet().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getSet().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getOut().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getOut().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getNov().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getNov().equalsIgnoreCase("X")){
                 verificar=true;
-            }else if (!listaSituacao.get(i).getDez().equalsIgnoreCase("X")){
+            }
+            if (!listaSituacao.get(i).getDez().equalsIgnoreCase("X")){
                 verificar=true;
             }
             if (!verificar){

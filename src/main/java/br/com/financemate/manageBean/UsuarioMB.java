@@ -151,7 +151,7 @@ public class UsuarioMB implements Serializable{
     }
     
     public String novo() throws SQLException{
-        if(usuarioLogadoBean.getUsuario().getPerfil().getCadusuario()){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamentoincluir()){
             usuario = new Usuario();
             usuario.setSenha("1");
             usuario.setSituacao("Ativo");
@@ -159,8 +159,8 @@ public class UsuarioMB implements Serializable{
             gerarListaPerfil("");
             return "cadUsuario";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -177,10 +177,12 @@ public class UsuarioMB implements Serializable{
             usuarioFacade.salvar(usuario);
             usuario = new Usuario();
             gerarListaUsuarios("");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
             return "consUsuario";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -203,8 +205,8 @@ public class UsuarioMB implements Serializable{
                 }
             }
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return null;
     }
@@ -253,8 +255,8 @@ public class UsuarioMB implements Serializable{
                } 
             }
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }

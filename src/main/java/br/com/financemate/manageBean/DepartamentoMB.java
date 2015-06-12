@@ -86,13 +86,13 @@ public class DepartamentoMB implements Serializable{
     }
     
     public String novo() throws SQLException{
-        if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamento()){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamentoincluir()){
             departamento = new Departamento();
             gerarListaUsuario();
             return "cadDepartamento";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -106,10 +106,12 @@ public class DepartamentoMB implements Serializable{
             departamentoFacade.salvar(departamento);
             departamento = new Departamento();
             gerarListaDepartamento("");
+             FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
             return "consDepartamento";
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return "";
     }
@@ -128,8 +130,8 @@ public class DepartamentoMB implements Serializable{
                 }
             }
         }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+           FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
         }
         return null;
     }
