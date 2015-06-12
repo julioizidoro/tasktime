@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -258,11 +259,17 @@ public class RotinaMB  implements Serializable{
     }
     
     public String novo() {
-        rotina = new Rotina();
-        gerarListaSubdepartamento();
-        gerarListaRotinaBean();
-        gerarListaUsuario();
-        return "cadRotina";
+        if (usuarioLogadoBean.getUsuario().getPerfil().getCadrotinaincluir()) {
+            rotina = new Rotina();
+            gerarListaSubdepartamento();
+            gerarListaRotinaBean();
+            gerarListaUsuario();
+            return "cadRotina";
+        } else {
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            return "";
+        }
     }
     
     
@@ -401,20 +408,26 @@ public class RotinaMB  implements Serializable{
     }
     
     public String editar() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        int idRotina = Integer.parseInt(params.get("id_rotina"));
-        RotinaFacade rotinaFacade = new RotinaFacade();
-        rotina = rotinaFacade.consultar(idRotina);
-        idDepartamento = String.valueOf(rotina.getSubdepartamento().getDepartamento().getIddepartamento());
-        idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
-        if (rotina != null) {
+        if (usuarioLogadoBean.getUsuario().getPerfil().getCadrotinaeditar()) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int idRotina = Integer.parseInt(params.get("id_rotina"));
+            RotinaFacade rotinaFacade = new RotinaFacade();
+            rotina = rotinaFacade.consultar(idRotina);
+            idDepartamento = String.valueOf(rotina.getSubdepartamento().getDepartamento().getIddepartamento());
             idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
-            gerarListaSubdepartamento();
-            gerarListaRotinaBeanEditar();
-            gerarListaUsuario();
-            return "cadRotina";
+            if (rotina != null) {
+                idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
+                gerarListaSubdepartamento();
+                gerarListaRotinaBeanEditar();
+                gerarListaUsuario();
+                return "cadRotina";
+            } else {
+                return "";
+            }
         } else {
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
             return "";
         }
     }
@@ -534,4 +547,40 @@ public class RotinaMB  implements Serializable{
             listaDepartamento = new ArrayList<Departamento>();
         }
     }
+    
+    public String excluir() {
+        if (usuarioLogadoBean.getUsuario().getPerfil().getCadrotinaexcluir()) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int idRotina = Integer.parseInt(params.get("id_rotina"));
+            RotinaFacade rotinaFacade = new RotinaFacade();
+            rotina = rotinaFacade.consultar(idRotina);
+            if (rotina != null) {
+                if (rotina.getRotinaatividadeList() != null) {
+                    AtividadeFacade atividadeFacade = new AtividadeFacade();
+                    for (int i = 0; i < rotina.getRotinaatividadeList().size(); i++) {
+                        atividadeFacade.Excluir(rotina.getRotinaatividadeList().get(i).getAtividades().getIdatividades());
+                    }
+                }
+                RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
+                rotinaAtividadeFacade.excluir(rotina.getRotinaatividadeList().get(0));
+                if (rotina.getRotinaclienteList() != null) {
+                    RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
+                    for (int i = 0; i < rotina.getRotinaclienteList().size(); i++) {
+                        rotinaclienteFacade.Excluir(rotina.getRotinaclienteList().get(i).getIdrotinacliente());
+                    }
+                }
+                rotinaFacade.excluir(rotina.getIdrotina());
+                FacesMessage mensagem = new FacesMessage("Sucesso! ", "Rotina Excluída");
+                FacesContext.getCurrentInstance().addMessage(null, mensagem);
+                return "consRotina";
+            }
+        } else {
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            return "";
+        }
+        return "";
+    }
 }
+

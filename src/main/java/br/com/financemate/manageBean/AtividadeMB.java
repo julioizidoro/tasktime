@@ -653,7 +653,12 @@ public class AtividadeMB implements Serializable{
             iddepartamento = usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento();
         }
         AtividadeFacade atividadesFacade = new AtividadeFacade();
-        String sql = "Select a from Atividades a where a.concluida=FALSE  order by a.prazo, a.prioridade, a.nome";
+        String sql="";
+        if (usuarioLogadoBean.getUsuario().getPerfil().getTarefasoutros()) {
+            sql = "Select a from Atividades a where a.concluida=FALSE  order by a.prazo, a.prioridade, a.nome";
+        } else {
+            sql = "Select a from Atividades a where a.concluida=FALSE and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() + " order by a.prazo, a.prioridade, a.nome";
+        }
         listaAtividadesDepartamento = atividadesFacade.listar(sql);
         if (listaAtividadesDepartamento==null){
             listaAtividadesDepartamento = new ArrayList<Atividades>();
@@ -1102,8 +1107,12 @@ public class AtividadeMB implements Serializable{
         if (!idCliente.equalsIgnoreCase("0")){
             sql = sql + " and a.cliente.idcliente=" + Integer.parseInt(idCliente);
         }
-        if (!idUsuario.equalsIgnoreCase("0")){
-            sql = sql + " and a.usuario.idusuario=" + Integer.parseInt(idUsuario);
+        if (usuarioLogadoBean.getUsuario().getPerfil().getTarefaeditaroutros()) {
+            if (!idUsuario.equalsIgnoreCase("0")) {
+                sql = sql + " and a.usuario.idusuario=" + Integer.parseInt(idUsuario);
+            }
+        } else {
+            sql = sql + " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario();
         }
         sql = sql + " order by a.prazo, a.prioridade, a.nome";
         AtividadeFacade atividadeFacade = new AtividadeFacade();

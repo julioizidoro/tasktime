@@ -56,4 +56,15 @@ public class RotinaDao {
         manager.getTransaction().commit();
         return lista;
     }
+    
+    public void excluir(int idRotina) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("select r from Rotina r where r.idrotina=" + idRotina);
+        if (q.getResultList().size()>0){
+            Rotina rotina = (Rotina) q.getResultList().get(0);
+            manager.remove(rotina);
+        }
+        manager.getTransaction().commit();
+    }
 }

@@ -63,4 +63,13 @@ public class RotinaFacade {
             return null;
         }
     }
+    
+    public void excluir(int idRotina) {
+        rotinaDao = new RotinaDao();
+        try {
+            rotinaDao.excluir(idRotina);
+        } catch (SQLException ex) {
+            Logger.getLogger(RotinaFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
