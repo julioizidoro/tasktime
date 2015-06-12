@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -169,6 +170,7 @@ public class ClienteMB implements Serializable{
     
     } 
     public String novo(){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadcliente()){
             cliente = new Cliente();
             cliente.setSituacao("Ativo");
             cliente.setContabilidade(false);
@@ -180,36 +182,52 @@ public class ClienteMB implements Serializable{
             gestaofinanceira=true;
             outros=true;
             return "cadCliente";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     public String salvar() throws SQLException{
-        ClienteFacade clienteFacade = new ClienteFacade();
-        if (valorcontabilidade.length()>0){
-            cliente.setValorcontabilidade(Formatacao.formatarStringfloat(valorcontabilidade));
-        }else cliente.setValorcontabilidade(0.0f);
-        if (valorgestaofinanceira.length()>0){
-            cliente.setValorgestaofinanceira(Formatacao.ConvercaoMonetariaFloat(valorgestaofinanceira));
-        }else cliente.setValorgestaofinanceira(0.0f);
-        if (valoroutros.length()>0){
-            cliente.setValoroutros(Formatacao.ConvercaoMonetariaFloat(valoroutros));
-        }else cliente.setValoroutros(0.0f);
-        if (valortercerizacao.length()>0){
-            cliente.setValortercerizacao(Formatacao.ConvercaoMonetariaFloat(valortercerizacao));
-        }else cliente.setValortercerizacao(0.0f);
-        clienteFacade.salvar(cliente);
-        cliente = new Cliente();
-        gerarListaClientes();
-        return "consCliente";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadclienteincluir()){
+            ClienteFacade clienteFacade = new ClienteFacade();
+            if (valorcontabilidade.length()>0){
+                cliente.setValorcontabilidade(Formatacao.formatarStringfloat(valorcontabilidade));
+            }else cliente.setValorcontabilidade(0.0f);
+            if (valorgestaofinanceira.length()>0){
+                cliente.setValorgestaofinanceira(Formatacao.ConvercaoMonetariaFloat(valorgestaofinanceira));
+            }else cliente.setValorgestaofinanceira(0.0f);
+            if (valoroutros.length()>0){
+                cliente.setValoroutros(Formatacao.ConvercaoMonetariaFloat(valoroutros));
+            }else cliente.setValoroutros(0.0f);
+            if (valortercerizacao.length()>0){
+                cliente.setValortercerizacao(Formatacao.ConvercaoMonetariaFloat(valortercerizacao));
+            }else cliente.setValortercerizacao(0.0f);
+            clienteFacade.salvar(cliente);
+            cliente = new Cliente();
+            gerarListaClientes();
+            return "consCliente";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     public String editar() throws SQLException{
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        int idCliente =  Integer.parseInt(params.get("id_cliente"));
-        if (idCliente>0){
-            ClienteFacade clienteFacade = new ClienteFacade();
-            cliente = clienteFacade.consultar(idCliente);
-             if (cliente!=null){
-                return "cadCliente";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadclienteeditar()){
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+            int idCliente =  Integer.parseInt(params.get("id_cliente"));
+            if (idCliente>0){
+                ClienteFacade clienteFacade = new ClienteFacade();
+                cliente = clienteFacade.consultar(idCliente);
+                 if (cliente!=null){
+                    return "cadCliente";
+                }
             }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
         return null;
     }
@@ -219,16 +237,21 @@ public class ClienteMB implements Serializable{
     }
     
     public String habilitarDesabilitar(){
-        if (linha!=null){
-            int nlinha = Integer.parseInt(linha);
-           if (nlinha>=0){
-               if (listaClientes.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
-                   listaClientes.get(nlinha).setSituacao("Inativo");
-               }else listaClientes.get(nlinha).setSituacao("Ativo");
-               ClienteFacade clienteFacade = new ClienteFacade();
-               clienteFacade.salvar(listaClientes.get(nlinha));
-               return "consCliente";
-           } 
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadclientesituacao()){
+            if (linha!=null){
+                int nlinha = Integer.parseInt(linha);
+               if (nlinha>=0){
+                   if (listaClientes.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
+                       listaClientes.get(nlinha).setSituacao("Inativo");
+                   }else listaClientes.get(nlinha).setSituacao("Ativo");
+                   ClienteFacade clienteFacade = new ClienteFacade();
+                   clienteFacade.salvar(listaClientes.get(nlinha));
+                   return "consCliente";
+               } 
+            }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
         return "";
     }

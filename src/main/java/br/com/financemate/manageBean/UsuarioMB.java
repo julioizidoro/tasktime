@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -150,43 +151,60 @@ public class UsuarioMB implements Serializable{
     }
     
     public String novo() throws SQLException{
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadusuario()){
             usuario = new Usuario();
             usuario.setSenha("1");
             usuario.setSituacao("Ativo");
             gerarListaSubdepartamento();
             gerarListaPerfil("");
             return "cadUsuario";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     
     public String salvar() throws SQLException{
-        UsuarioFacade usuarioFacade = new UsuarioFacade();
-        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-        Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
-        usuario.setSubdepartamento(subddepartamento);
-        PerfilFacade perfilFacade = new PerfilFacade();
-        Perfil perfil = perfilFacade.consultar(Integer.parseInt(idPerfil));
-        usuario.setPerfil(perfil);
-        usuarioFacade.salvar(usuario);
-        usuario = new Usuario();
-        gerarListaUsuarios("");
-        return "consUsuario";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamentoincluir()){
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+            usuario.setSubdepartamento(subddepartamento);
+            PerfilFacade perfilFacade = new PerfilFacade();
+            Perfil perfil = perfilFacade.consultar(Integer.parseInt(idPerfil));
+            usuario.setPerfil(perfil);
+            usuarioFacade.salvar(usuario);
+            usuario = new Usuario();
+            gerarListaUsuarios("");
+            return "consUsuario";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     
     public String editar() throws SQLException{
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        int idUsuario =  Integer.parseInt(params.get("id_usuario"));
-        if (idUsuario>0){
-            UsuarioFacade usuarioFacade = new UsuarioFacade();
-            usuario = usuarioFacade.consultar(idUsuario);
-            idDepartamento = String.valueOf(usuario.getSubdepartamento().getDepartamento().getIddepartamento());
-            gerarListaSubdepartamento();
-            idSubdepartamento = String.valueOf(usuario.getSubdepartamento().getIdsubdepartamento());
-            idPerfil = String.valueOf(usuario.getPerfil().getIdperfil());
-             if (usuario!=null){
-                 gerarListaPerfil("");
-                return "cadUsuario";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadusuarioeditar()){
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+            int idUsuario =  Integer.parseInt(params.get("id_usuario"));
+            if (idUsuario>0){
+                UsuarioFacade usuarioFacade = new UsuarioFacade();
+                usuario = usuarioFacade.consultar(idUsuario);
+                idDepartamento = String.valueOf(usuario.getSubdepartamento().getDepartamento().getIddepartamento());
+                gerarListaSubdepartamento();
+                idSubdepartamento = String.valueOf(usuario.getSubdepartamento().getIdsubdepartamento());
+                idPerfil = String.valueOf(usuario.getPerfil().getIdperfil());
+                 if (usuario!=null){
+                     gerarListaPerfil("");
+                    return "cadUsuario";
+                }
             }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
         return null;
     }
@@ -222,18 +240,22 @@ public class UsuarioMB implements Serializable{
     }
     
     public String habilitarDesabilitar(){
-        if (linha!=null){
-            int nlinha = Integer.parseInt(linha);
-           if (nlinha>=0){
-               if (listaUsuario.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
-                   listaUsuario.get(nlinha).setSituacao("Inativo");
-               }else listaUsuario.get(nlinha).setSituacao("Ativo");
-               UsuarioFacade usuarioFacade = new UsuarioFacade();
-               usuarioFacade.salvar(listaUsuario.get(nlinha));
-               return "consUsuario";
-           } 
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadusuariosituacao()){
+            if (linha!=null){
+                int nlinha = Integer.parseInt(linha);
+               if (nlinha>=0){
+                   if (listaUsuario.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
+                       listaUsuario.get(nlinha).setSituacao("Inativo");
+                   }else listaUsuario.get(nlinha).setSituacao("Ativo");
+                   UsuarioFacade usuarioFacade = new UsuarioFacade();
+                   usuarioFacade.salvar(listaUsuario.get(nlinha));
+                   return "consUsuario";
+               } 
+            }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
         return "";
     }
-
 }

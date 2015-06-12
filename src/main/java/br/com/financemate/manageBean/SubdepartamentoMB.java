@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -96,34 +97,51 @@ public class SubdepartamentoMB implements Serializable{
     }
     
     public String novo() throws SQLException{
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamento()){
             subdepartamento.setSituacao("Ativo");
             subdepartamento = new Subdepartamento();
             gerarListaDepartamento();
             return "cadSubdepartamento";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro!", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     
     public String salvar() throws SQLException{
-        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-        Departamento departamento = departamentoFacade.consultar(Integer.parseInt(idDepartamento));
-        subdepartamento.setDepartamento(departamento);
-        subdepartamentoFacade.salvar(subdepartamento);
-        subdepartamento = new Subdepartamento();
-        gerarListaSubdepartamento();
-        return "consSubdepartamento";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamentoincluir()){
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+            Departamento departamento = departamentoFacade.consultar(Integer.parseInt(idDepartamento));
+            subdepartamento.setDepartamento(departamento);
+            subdepartamentoFacade.salvar(subdepartamento);
+            subdepartamento = new Subdepartamento();
+            gerarListaSubdepartamento();
+            return "consSubdepartamento";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     
     public String editar() throws SQLException{
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        int idSub =  Integer.parseInt(params.get("id_subdepartamento"));
-        if (idSub>0){
-            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            subdepartamento = subdepartamentoFacade.consultar(idSub);
-             if (subdepartamento!=null){
-                 gerarListaDepartamento();
-                return "cadSubdepartamento";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamentoeditar()){
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+            int idSub =  Integer.parseInt(params.get("id_subdepartamento"));
+            if (idSub>0){
+                SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+                subdepartamento = subdepartamentoFacade.consultar(idSub);
+                 if (subdepartamento!=null){
+                     gerarListaDepartamento();
+                    return "cadSubdepartamento";
+                }
             }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
         return null;
     }
@@ -140,16 +158,21 @@ public class SubdepartamentoMB implements Serializable{
     }
     
     public String habilitarDesabilitar(){
-        if (linha!=null){
-            int nlinha = Integer.parseInt(linha);
-           if (nlinha>=0){
-               if (listaSubdepartamento.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
-                   listaSubdepartamento.get(nlinha).setSituacao("Inativo");
-               }else listaSubdepartamento.get(nlinha).setSituacao("Ativo");
-               SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-               subdepartamentoFacade.salvar(listaSubdepartamento.get(nlinha));
-               return "consSubdepartamento";
-           } 
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamentosituacao()){
+            if (linha!=null){
+                int nlinha = Integer.parseInt(linha);
+               if (nlinha>=0){
+                   if (listaSubdepartamento.get(nlinha).getSituacao().equalsIgnoreCase("Ativo")){
+                       listaSubdepartamento.get(nlinha).setSituacao("Inativo");
+                   }else listaSubdepartamento.get(nlinha).setSituacao("Ativo");
+                   SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+                   subdepartamentoFacade.salvar(listaSubdepartamento.get(nlinha));
+                   return "consSubdepartamento";
+               } 
+            }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
         return "";
     }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -85,33 +86,50 @@ public class DepartamentoMB implements Serializable{
     }
     
     public String novo() throws SQLException{
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamento()){
             departamento = new Departamento();
             gerarListaUsuario();
             return "cadDepartamento";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     
     public String salvar() throws SQLException{
-        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-        UsuarioFacade usuarioFacade = new UsuarioFacade();
-        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
-        departamento.setUsuario(usuario);
-        departamentoFacade.salvar(departamento);
-        departamento = new Departamento();
-        gerarListaDepartamento("");
-        return "consDepartamento";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamentoincluir()){
+            DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+            departamento.setUsuario(usuario);
+            departamentoFacade.salvar(departamento);
+            departamento = new Departamento();
+            gerarListaDepartamento("");
+            return "consDepartamento";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
     }
     
     public String editar() throws SQLException{
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        int idDepartamento =  Integer.parseInt(params.get("id_departamento"));
-        if (idDepartamento>0){
-            DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-            departamento = departamentoFacade.consultar(idDepartamento);
-             if (departamento!=null){
-                 gerarListaUsuario();
-                return "cadDepartamento";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamentoeditar()){
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+            int idDepartamento =  Integer.parseInt(params.get("id_departamento"));
+            if (idDepartamento>0){
+                DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+                departamento = departamentoFacade.consultar(idDepartamento);
+                 if (departamento!=null){
+                     gerarListaUsuario();
+                    return "cadDepartamento";
+                }
             }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
         return null;
     }

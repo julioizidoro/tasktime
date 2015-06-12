@@ -479,58 +479,69 @@ public class AtividadeMB implements Serializable{
     
     
     public String novo(){
-        atividades = new Atividades();
-        atividades.setTempo(0);
-        atividades.setEstado("Play");
-        idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
-        idCliente = "4";
-        idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
-        gerarListaSubdepartamento();
-        idSubdepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getIdsubdepartamento());
-        atividades.setPrazo(new Date());
-        atividades.setPrioridade("normal");
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
+            atividades = new Atividades();
+            atividades.setTempo(0);
+            atividades.setEstado("Play");
+            idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
+            idCliente = "4";
+            idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+            gerarListaSubdepartamento();
+            idSubdepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getIdsubdepartamento());
+            atividades.setPrazo(new Date());
+            atividades.setPrioridade("normal");
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
         return "";
     }
     
     public String salvar() {
-        AtividadeFacade atividadeFacade = new AtividadeFacade();
-        SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-        Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
-        atividades.setSubdepartamento(subddepartamento);
-        atividades.setConcluida(FALSE);
-        ClienteFacade clienteFacade = new ClienteFacade();
-        Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
-        atividades.setCliente(cliente);
-        atividades.setTipo("A");
-        UsuarioFacade usuarioFacade = new UsuarioFacade();
-        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
-        atividades.setUsuario(usuario);
-        atividades = atividadeFacade.salvar(atividades);
-        atividadeMenu="dia";
-        listarAtividadesAtrasadas();
-        listarAtividadesDia();
-        listarAtividadesSemana();
-        listarTodasAtividades();
-        listarAtividadesAmanha();
-        listarAtividadesDois();
-        listarAtividadesTres();
-        listarAtividadesQuatro();
-        listarAtividadesCinco();
-        listarAtividadesSeis();
-        listarAtividadesSete();
-        if (atividades.getUsuario().getSubdepartamento().getDepartamento().equals(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento())){
-            listarAtividadesDepartamento(0);
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
+            AtividadeFacade atividadeFacade = new AtividadeFacade();
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+            atividades.setSubdepartamento(subddepartamento);
+            atividades.setConcluida(FALSE);
+            ClienteFacade clienteFacade = new ClienteFacade();
+            Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
+            atividades.setCliente(cliente);
+            atividades.setTipo("A");
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+            atividades.setUsuario(usuario);
+            atividades = atividadeFacade.salvar(atividades);
+            atividadeMenu="dia";
+            listarAtividadesAtrasadas();
+            listarAtividadesDia();
+            listarAtividadesSemana();
+            listarTodasAtividades();
+            listarAtividadesAmanha();
+            listarAtividadesDois();
+            listarAtividadesTres();
+            listarAtividadesQuatro();
+            listarAtividadesCinco();
+            listarAtividadesSeis();
+            listarAtividadesSete();
+            if (atividades.getUsuario().getSubdepartamento().getDepartamento().equals(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento())){
+                listarAtividadesDepartamento(0);
+            }
+            carregarListaGeral();
+            atividades = new Atividades();
+            idCliente="0";
+            idUsuario="0";
+            idDepartamento="0";
+            idSubdepartamento="0";
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+            atividadeMenu="dia";
+            return "inicial";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
-        carregarListaGeral();
-        atividades = new Atividades();
-        idCliente="0";
-        idUsuario="0";
-        idDepartamento="0";
-        idSubdepartamento="0";
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
-        atividadeMenu="dia";
-        return "inicial";
+        return "";
     }
     
     public void gerarListaCliente() {
@@ -728,19 +739,19 @@ public class AtividadeMB implements Serializable{
    
     
     public void salvarAtividadeConcluida(String linha) {
-        int iLinha = Integer.parseInt(linha);
-        atividades = listaAtividadesGeral.get(iLinha);
-        if (atividades.getEstado().equalsIgnoreCase("Pause")){
-            Long termino = new Date().getTime();
-            BigInteger valorInicio = atividades.getInicio();
-            Long inicio = valorInicio.longValue();
-            Long resultado = termino - inicio;
-            resultado = resultado/1000;
-            resultado = resultado/60;
-            int tempo = resultado.intValue();
-            tempo = tempo + atividades.getTempo();
-            atividades.setTempo(tempo);
-            atividades.setEstado("Pause");
+            int iLinha = Integer.parseInt(linha);
+            atividades = listaAtividadesGeral.get(iLinha);
+            if (atividades.getEstado().equalsIgnoreCase("Pause")){
+                Long termino = new Date().getTime();
+                BigInteger valorInicio = atividades.getInicio();
+                Long inicio = valorInicio.longValue();
+                Long resultado = termino - inicio;
+                resultado = resultado/1000;
+                resultado = resultado/60;
+                int tempo = resultado.intValue();
+                tempo = tempo + atividades.getTempo();
+                atividades.setTempo(tempo);
+                atividades.setEstado("Pause");
         }
         if (usuarioLogadoBean.getUsuario().getIdusuario() == atividades.getUsuario().getIdusuario()) {
             AtividadeFacade atividadeFacade = new AtividadeFacade();
@@ -1011,15 +1022,20 @@ public class AtividadeMB implements Serializable{
     }
     
     public String editar(){
-        int nLinha= Integer.parseInt(linha);
-        
-        AtividadeFacade atividadeFacade = new AtividadeFacade();
-        atividades = atividadeFacade.consultar(listaAtividadesGeral.get(nLinha).getIdatividades());
-        idCliente = String.valueOf(atividades.getCliente().getIdcliente());
-        idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
-        gerarListaSubdepartamento();
-        idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getIdsubdepartamento());
-        idUsuario = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getIdusuario());
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefaseditar()){
+            int nLinha= Integer.parseInt(linha);
+
+            AtividadeFacade atividadeFacade = new AtividadeFacade();
+            atividades = atividadeFacade.consultar(listaAtividadesGeral.get(nLinha).getIdatividades());
+            idCliente = String.valueOf(atividades.getCliente().getIdcliente());
+            idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+            gerarListaSubdepartamento();
+            idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getSubdepartamento().getIdsubdepartamento());
+            idUsuario = String.valueOf(listaAtividadesGeral.get(nLinha).getUsuario().getIdusuario());
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
         return "";
     }
     
@@ -1033,29 +1049,34 @@ public class AtividadeMB implements Serializable{
     }
     
     public void iniciarAtividade(String linha){
-        this.linha = linha;
-        int nlinha = Integer.parseInt(linha);
-        AtividadeFacade atividadeFacade = new AtividadeFacade();
-        if (listaAtividadesGeral.get(nlinha).getEstado().equalsIgnoreCase("Play")){
-            //Play
-            Long inicio = new Date().getTime();
-            listaAtividadesGeral.get(nlinha).setInicio(BigInteger.valueOf(inicio));
-            listaAtividadesGeral.get(nlinha).setEstado("Pause");
-            atividadeFacade.salvar(listaAtividadesGeral.get(nlinha));
-        }else {
-            //Pause
-            Long termino = new Date().getTime();
-            BigInteger valorInicio = listaAtividadesGeral.get(nlinha).getInicio();
-            Long inicio = valorInicio.longValue();
-            Long resultado = termino - inicio;
-            resultado = resultado/1000;
-            resultado = resultado/60;
-            int tempo = resultado.intValue();
-            int tempoAtual = listaAtividadesGeral.get(nlinha).getTempo();
-            tempo = tempo + tempoAtual;
-            listaAtividadesGeral.get(nlinha).setTempo(tempo);
-            listaAtividadesGeral.get(nlinha).setEstado("Play");
-            atividadeFacade.salvar(listaAtividadesGeral.get(nlinha));
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefatempo()){
+            this.linha = linha;
+            int nlinha = Integer.parseInt(linha);
+            AtividadeFacade atividadeFacade = new AtividadeFacade();
+            if (listaAtividadesGeral.get(nlinha).getEstado().equalsIgnoreCase("Play")){
+                //Play
+                Long inicio = new Date().getTime();
+                listaAtividadesGeral.get(nlinha).setInicio(BigInteger.valueOf(inicio));
+                listaAtividadesGeral.get(nlinha).setEstado("Pause");
+                atividadeFacade.salvar(listaAtividadesGeral.get(nlinha));
+            }else {
+                //Pause
+                Long termino = new Date().getTime();
+                BigInteger valorInicio = listaAtividadesGeral.get(nlinha).getInicio();
+                Long inicio = valorInicio.longValue();
+                Long resultado = termino - inicio;
+                resultado = resultado/1000;
+                resultado = resultado/60;
+                int tempo = resultado.intValue();
+                int tempoAtual = listaAtividadesGeral.get(nlinha).getTempo();
+                tempo = tempo + tempoAtual;
+                listaAtividadesGeral.get(nlinha).setTempo(tempo);
+                listaAtividadesGeral.get(nlinha).setEstado("Play");
+                atividadeFacade.salvar(listaAtividadesGeral.get(nlinha));
+                }
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
     }
     
