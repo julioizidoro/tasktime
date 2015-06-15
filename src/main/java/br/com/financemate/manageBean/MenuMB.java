@@ -1,6 +1,8 @@
 package br.com.financemate.manageBean;
 
+import br.com.financemate.bean.SituacaoBean;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -13,6 +15,8 @@ public class MenuMB implements Serializable{
     
     @Inject
     UsuarioLogadoBean usuarioLogadoBean;
+    @Inject
+    private SituacaoMB situacaoMB;
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -66,6 +70,7 @@ public class MenuMB implements Serializable{
     }
     
       public String situacao(){
+        situacaoMB.setListaSituacao(new ArrayList<SituacaoBean>());
         return"consSituacao";
     }
       
