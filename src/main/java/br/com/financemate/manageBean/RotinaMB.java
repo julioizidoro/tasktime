@@ -24,6 +24,7 @@ import br.com.financemate.model.Rotinacliente;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -534,6 +535,10 @@ public class RotinaMB  implements Serializable{
         atividades.setNome(rotina.getNome());
         atividades.setPrioridade(rotina.getPrioridade());
         atividades.setTipo("R");
+        atividades.setTempo(0);
+        atividades.setInicio(BigInteger.valueOf(0));
+        atividades.setEstado("Play");
+        atividades.setMostratempo("00:00");
         atividades.setSubdepartamento(rotina.getSubdepartamento());
         atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
         atividades.setPrazo(rotinaBean.getRotinacliente().getData());
