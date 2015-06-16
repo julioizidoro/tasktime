@@ -100,4 +100,7 @@ public class MenuMB implements Serializable{
         }
         return "";
     }
+     public String informacao(){
+       return "informacoes";
+     }
  }
