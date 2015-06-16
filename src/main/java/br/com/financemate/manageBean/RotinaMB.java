@@ -8,6 +8,7 @@ package br.com.financemate.manageBean;
 import br.com.financemate.bean.Formatacao;
 import br.com.financemate.bean.RotinaBean;
 import br.com.financemate.facade.AtividadeFacade;
+import br.com.financemate.facade.AtividadeUsuarioFacade;
 import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.facade.RotinaAtividadeFacade;
@@ -16,6 +17,7 @@ import br.com.financemate.facade.RotinaclienteFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Atividades;
+import br.com.financemate.model.Atividadeusuario;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Rotina;
@@ -356,7 +358,6 @@ public class RotinaMB  implements Serializable{
                                 for (int n = 0; n < listaRotinaAtividade.size(); n++) {
                                     Rotinaatividade rotinaAtividade = listaRotinaAtividade.get(n);
                                     rotinaAtividade.getAtividades().setPrioridade(rotina.getPrioridade());
-                                    rotinaAtividade.getAtividades().setUsuario(rc.getUsuario());
                                     atividadeFacade.salvar(rotinaAtividade.getAtividades());
                                 }
                             }
@@ -491,7 +492,6 @@ public class RotinaMB  implements Serializable{
         for (int i=0;i<7;i++){
             Atividades atividades = new Atividades();
             atividades.setCliente(rotinaBean.getCliente());
-            atividades.setConcluida(false);
             atividades.setNome(rotina.getNome());
             atividades.setPrioridade(rotina.getPrioridade());
             atividades.setTipo("R");
@@ -500,7 +500,6 @@ public class RotinaMB  implements Serializable{
             atividades.setTempo(0);
             atividades.setMostratempo("00:00");
             atividades.setSubdepartamento(rotina.getSubdepartamento());
-            atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
             data = Formatacao.SomarDiasData(data, 1);
             int diaSemana = Formatacao.diaSemana(data);
@@ -510,6 +509,13 @@ public class RotinaMB  implements Serializable{
                 data = Formatacao.SomarDiasData(data, 2);
             }
             atividades = atividadeFacade.salvar(atividades);
+            Atividadeusuario atividadeusuario = new Atividadeusuario();
+            atividadeusuario.setAtividades(atividades);
+            atividadeusuario.setParticipacao("Executor");
+            atividadeusuario.setSituacao(false);
+            atividadeusuario.setUsuario(rotinaBean.getRotinacliente().getUsuario());
+            AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
+            atiUsuarioFacade.salvar(atividadeusuario);
             salvarRotinaAtividade(atividades);
         }
         return data;
@@ -530,7 +536,6 @@ public class RotinaMB  implements Serializable{
         for (int i=0;i<3;i++){
             Atividades atividades = new Atividades();
             atividades.setCliente(rotinaBean.getCliente());
-            atividades.setConcluida(false);
             atividades.setNome(rotina.getNome());
             atividades.setPrioridade(rotina.getPrioridade());
             atividades.setTipo("R");
@@ -539,9 +544,15 @@ public class RotinaMB  implements Serializable{
             atividades.setTempo(0);
             atividades.setMostratempo("00:00");
             atividades.setSubdepartamento(rotina.getSubdepartamento());
-            atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
             atividades = atividadeFacade.salvar(atividades);
+            Atividadeusuario atividadeusuario = new Atividadeusuario();
+            atividadeusuario.setAtividades(atividades);
+            atividadeusuario.setParticipacao("Executor");
+            atividadeusuario.setSituacao(false);
+            atividadeusuario.setUsuario(rotinaBean.getRotinacliente().getUsuario());
+            AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
+            atiUsuarioFacade.salvar(atividadeusuario);
             salvarRotinaAtividade(atividades);
             int novoDiaSemana = -1;
             while (diaSemana!=novoDiaSemana){
@@ -557,7 +568,6 @@ public class RotinaMB  implements Serializable{
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Atividades atividades = new Atividades();
         atividades.setCliente(rotinaBean.getCliente());
-        atividades.setConcluida(false);
         atividades.setNome(rotina.getNome());
         atividades.setPrioridade(rotina.getPrioridade());
         atividades.setEstado("Play");
@@ -566,9 +576,15 @@ public class RotinaMB  implements Serializable{
         atividades.setMostratempo("00:00");
         atividades.setTipo("R");
         atividades.setSubdepartamento(rotina.getSubdepartamento());
-        atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
         atividades.setPrazo(rotinaBean.getRotinacliente().getData());
         atividades = atividadeFacade.salvar(atividades);
+        Atividadeusuario atividadeusuario = new Atividadeusuario();
+        atividadeusuario.setAtividades(atividades);
+        atividadeusuario.setParticipacao("Executor");
+        atividadeusuario.setSituacao(false);
+        atividadeusuario.setUsuario(rotinaBean.getRotinacliente().getUsuario());
+        AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
+        atiUsuarioFacade.salvar(atividadeusuario);
         salvarRotinaAtividade(atividades);
     }
     public void gerarListaDepartamento() throws SQLException{

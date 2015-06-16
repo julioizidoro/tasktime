@@ -28,8 +28,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "rotina")
 public class Rotina implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
-    private List<Rotinaatividade> rotinaatividadeList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,13 +41,16 @@ public class Rotina implements Serializable {
     @Column(name = "prioridade")
     private String prioridade;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
+    private List<Rotinaatividade> rotinaatividadeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
     private List<Rotinacliente> rotinaclienteList;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)
     private Subdepartamento subdepartamento;
     @Transient
     private boolean selecionado;
-
+    
+    
     public Rotina() {
     }
 
@@ -79,6 +80,14 @@ public class Rotina implements Serializable {
 
     public void setPrioridade(String prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public List<Rotinaatividade> getRotinaatividadeList() {
+        return rotinaatividadeList;
+    }
+
+    public void setRotinaatividadeList(List<Rotinaatividade> rotinaatividadeList) {
+        this.rotinaatividadeList = rotinaatividadeList;
     }
 
     public List<Rotinacliente> getRotinaclienteList() {
@@ -128,14 +137,6 @@ public class Rotina implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Rotina[ idrotina=" + idrotina + " ]";
-    }
-
-    public List<Rotinaatividade> getRotinaatividadeList() {
-        return rotinaatividadeList;
-    }
-
-    public void setRotinaatividadeList(List<Rotinaatividade> rotinaatividadeList) {
-        this.rotinaatividadeList = rotinaatividadeList;
     }
     
 }

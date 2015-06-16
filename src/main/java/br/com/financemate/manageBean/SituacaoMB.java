@@ -292,13 +292,26 @@ public class SituacaoMB implements Serializable{
     }
     
     public String verificarSituacao(Rotinaatividade rotinaatividade) {
+        boolean concluida=false;
+        if (rotinaatividade==null){
+            return "X";
+        }
+        for(int i=0;i<rotinaatividade.getAtividades().getAtividadeusuarioList().size();i++){
+            if (rotinaatividade.getAtividades().getAtividadeusuarioList().get(i).getParticipacao().equalsIgnoreCase("Executor")){
+                if (rotinaatividade.getAtividades().getAtividadeusuarioList().get(i).getSituacao()){
+                    concluida=true;
+                }
+            }
+        }
         if (rotinaatividade == null) {
             return "X";
         } else {
-            if (rotinaatividade.getAtividades().getPrazo().after(new Date())) {
+            String sdata = Formatacao.ConvercaoDataPadrao(new Date());
+            Date data = Formatacao.ConvercaoStringData(sdata);
+            if (rotinaatividade.getAtividades().getPrazo().after(data)) {
                 return "AM";
             } else {
-                if (rotinaatividade.getAtividades().getConcluida()) {
+               if (concluida) {
                     return "VD";
                 } else {
                     return "VR";

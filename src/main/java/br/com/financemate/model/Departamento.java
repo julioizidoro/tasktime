@@ -16,9 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -27,6 +28,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "departamento")
+@NamedQueries({
+    @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d")})
 public class Departamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,8 +45,6 @@ public class Departamento implements Serializable {
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
-    @Transient
-    private boolean selecionado;
 
     public Departamento() {
     }
@@ -59,15 +60,6 @@ public class Departamento implements Serializable {
     public void setIddepartamento(Integer iddepartamento) {
         this.iddepartamento = iddepartamento;
     }
-
-    public boolean isSelecionado() {
-        return selecionado;
-    }
-
-    public void setSelecionado(boolean selecionado) {
-        this.selecionado = selecionado;
-    }
-    
 
     public String getNome() {
         return nome;
@@ -115,7 +107,7 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return getNome();
+        return "br.com.financemate.model.Departamento[ iddepartamento=" + iddepartamento + " ]";
     }
     
 }

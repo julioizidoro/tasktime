@@ -27,25 +27,24 @@ import javax.validation.constraints.Size;
  * @author Wolverine
  */
 @Entity
-@Table(name = "comentarios")
+@Table(name = "atividadeusuario")
 @NamedQueries({
-    @NamedQuery(name = "Comentarios.findAll", query = "SELECT c FROM Comentarios c")})
-public class Comentarios implements Serializable {
+    @NamedQuery(name = "Atividadeusuario.findAll", query = "SELECT a FROM Atividadeusuario a")})
+public class Atividadeusuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idcomentarios")
-    private Integer idcomentarios;
-    @Column(name = "data")
+    @Column(name = "idatividadeusuario")
+    private Integer idatividadeusuario;
+    @Column(name = "situacao")
+    private Boolean situacao;
+    @Column(name = "dataconclusao")
     @Temporal(TemporalType.DATE)
-    private Date data;
-    @Size(max = 5)
-    @Column(name = "hora")
-    private String hora;
-    @Size(max = 500)
-    @Column(name = "comentario")
-    private String comentario;
+    private Date dataconclusao;
+    @Size(max = 15)
+    @Column(name = "participacao")
+    private String participacao;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -53,43 +52,43 @@ public class Comentarios implements Serializable {
     @ManyToOne(optional = false)
     private Atividades atividades;
 
-    public Comentarios() {
+    public Atividadeusuario() {
     }
 
-    public Comentarios(Integer idcomentarios) {
-        this.idcomentarios = idcomentarios;
+    public Atividadeusuario(Integer idatividadeusuario) {
+        this.idatividadeusuario = idatividadeusuario;
     }
 
-    public Integer getIdcomentarios() {
-        return idcomentarios;
+    public Integer getIdatividadeusuario() {
+        return idatividadeusuario;
     }
 
-    public void setIdcomentarios(Integer idcomentarios) {
-        this.idcomentarios = idcomentarios;
+    public void setIdatividadeusuario(Integer idatividadeusuario) {
+        this.idatividadeusuario = idatividadeusuario;
     }
 
-    public Date getData() {
-        return data;
+    public Boolean getSituacao() {
+        return situacao;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setSituacao(Boolean situacao) {
+        this.situacao = situacao;
     }
 
-    public String getHora() {
-        return hora;
+    public Date getDataconclusao() {
+        return dataconclusao;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setDataconclusao(Date dataconclusao) {
+        this.dataconclusao = dataconclusao;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getParticipacao() {
+        return participacao;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setParticipacao(String participacao) {
+        this.participacao = participacao;
     }
 
     public Usuario getUsuario() {
@@ -111,18 +110,18 @@ public class Comentarios implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idcomentarios != null ? idcomentarios.hashCode() : 0);
+        hash += (idatividadeusuario != null ? idatividadeusuario.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Comentarios)) {
+        if (!(object instanceof Atividadeusuario)) {
             return false;
         }
-        Comentarios other = (Comentarios) object;
-        if ((this.idcomentarios == null && other.idcomentarios != null) || (this.idcomentarios != null && !this.idcomentarios.equals(other.idcomentarios))) {
+        Atividadeusuario other = (Atividadeusuario) object;
+        if ((this.idatividadeusuario == null && other.idatividadeusuario != null) || (this.idatividadeusuario != null && !this.idatividadeusuario.equals(other.idatividadeusuario))) {
             return false;
         }
         return true;
@@ -130,7 +129,7 @@ public class Comentarios implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.financemate.model.Comentarios[ idcomentarios=" + idcomentarios + " ]";
+        return "br.com.financemate.model.Atividadeusuario[ idatividadeusuario=" + idatividadeusuario + " ]";
     }
     
 }

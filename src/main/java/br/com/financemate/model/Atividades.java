@@ -18,6 +18,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,6 +33,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "atividades")
+@NamedQueries({
+    @NamedQuery(name = "Atividades.findAll", query = "SELECT a FROM Atividades a")})
 public class Atividades implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,8 +51,6 @@ public class Atividades implements Serializable {
     @Size(max = 30)
     @Column(name = "prioridade")
     private String prioridade;
-    @Column(name = "concluida")
-    private Boolean concluida;
     @Size(max = 1)
     @Column(name = "tipo")
     private String tipo;
@@ -63,20 +65,20 @@ public class Atividades implements Serializable {
     @Column(name = "mostratempo")
     private String mostratempo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Atividadeusuario> atividadeusuarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
     private List<Rotinaatividade> rotinaatividadeList;
-    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-    @ManyToOne(optional = false)
-    private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Comentarios> comentariosList;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)
     private Subdepartamento subdepartamento;
     @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
     @ManyToOne(optional = false)
     private Cliente cliente;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
-    private List<Comentarios> comentariosList;
     @Transient
     private boolean selecionado;
+
 
     public Atividades() {
     }
@@ -115,14 +117,6 @@ public class Atividades implements Serializable {
 
     public void setPrioridade(String prioridade) {
         this.prioridade = prioridade;
-    }
-
-    public Boolean getConcluida() {
-        return concluida;
-    }
-
-    public void setConcluida(Boolean concluida) {
-        this.concluida = concluida;
     }
 
     public String getTipo() {
@@ -165,6 +159,14 @@ public class Atividades implements Serializable {
         this.mostratempo = mostratempo;
     }
 
+    public List<Atividadeusuario> getAtividadeusuarioList() {
+        return atividadeusuarioList;
+    }
+
+    public void setAtividadeusuarioList(List<Atividadeusuario> atividadeusuarioList) {
+        this.atividadeusuarioList = atividadeusuarioList;
+    }
+
     public List<Rotinaatividade> getRotinaatividadeList() {
         return rotinaatividadeList;
     }
@@ -173,12 +175,12 @@ public class Atividades implements Serializable {
         this.rotinaatividadeList = rotinaatividadeList;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<Comentarios> getComentariosList() {
+        return comentariosList;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setComentariosList(List<Comentarios> comentariosList) {
+        this.comentariosList = comentariosList;
     }
 
     public Subdepartamento getSubdepartamento() {
@@ -195,14 +197,6 @@ public class Atividades implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    public List<Comentarios> getComentariosList() {
-        return comentariosList;
-    }
-
-    public void setComentariosList(List<Comentarios> comentariosList) {
-        this.comentariosList = comentariosList;
     }
 
     public boolean isSelecionado() {

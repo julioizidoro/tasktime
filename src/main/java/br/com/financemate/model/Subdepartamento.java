@@ -16,11 +16,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Size;
-
 
 /**
  *
@@ -28,9 +28,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "subdepartamento")
+@NamedQueries({
+    @NamedQuery(name = "Subdepartamento.findAll", query = "SELECT s FROM Subdepartamento s")})
 public class Subdepartamento implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdepartamento")
-    private List<Usuario> usuarioList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,17 +40,18 @@ public class Subdepartamento implements Serializable {
     @Size(max = 50)
     @Column(name = "nome")
     private String nome;
+    @Size(max = 15)
     @Column(name = "situacao")
     private String situacao;
     @JoinColumn(name = "departamento_iddepartamento", referencedColumnName = "iddepartamento")
     @ManyToOne(optional = false)
     private Departamento departamento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdepartamento")
+    private List<Usuario> usuarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdepartamento")
     private List<Atividades> atividadesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdepartamento")
     private List<Rotina> rotinaList;
-    @Transient
-    private boolean selecionado;
 
     public Subdepartamento() {
     }
@@ -67,15 +68,6 @@ public class Subdepartamento implements Serializable {
         this.idsubdepartamento = idsubdepartamento;
     }
 
-    public boolean isSelecionado() {
-        return selecionado;
-    }
-
-    public void setSelecionado(boolean selecionado) {
-        this.selecionado = selecionado;
-    }
-    
-
     public String getNome() {
         return nome;
     }
@@ -83,7 +75,6 @@ public class Subdepartamento implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
 
     public String getSituacao() {
         return situacao;
@@ -99,6 +90,14 @@ public class Subdepartamento implements Serializable {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
+    }
+
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     public List<Atividades> getAtividadesList() {
@@ -140,14 +139,6 @@ public class Subdepartamento implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Subdepartamento[ idsubdepartamento=" + idsubdepartamento + " ]";
-    }
-
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
     }
     
 }

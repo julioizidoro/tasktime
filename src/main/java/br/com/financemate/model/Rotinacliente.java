@@ -29,6 +29,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "rotinacliente")
+@NamedQueries({
+    @NamedQuery(name = "Rotinacliente.findAll", query = "SELECT r FROM Rotinacliente r")})
 public class Rotinacliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

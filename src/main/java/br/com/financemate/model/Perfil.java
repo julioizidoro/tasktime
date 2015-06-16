@@ -26,9 +26,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "perfil")
+@NamedQueries({
+    @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p")})
 public class Perfil implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfil")
-    private List<Usuario> usuarioList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -94,6 +94,8 @@ public class Perfil implements Serializable {
     private Boolean cadperfilincluir;
     @Column(name = "cadperfileditar")
     private Boolean cadperfileditar;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfil")
+    private List<Usuario> usuarioList;
 
     public Perfil() {
     }
@@ -342,6 +344,14 @@ public class Perfil implements Serializable {
         this.cadperfileditar = cadperfileditar;
     }
 
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -365,14 +375,6 @@ public class Perfil implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Perfil[ idperfil=" + idperfil + " ]";
-    }
-
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
     }
     
 }

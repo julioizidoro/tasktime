@@ -16,11 +16,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -29,11 +30,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "cliente")
+@NamedQueries({
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")})
 public class Cliente implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Atividades> atividadesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Rotinacliente> rotinaclienteList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,10 +115,15 @@ public class Cliente implements Serializable {
     @Size(max = 20)
     @Column(name = "inscricaomunicipal")
     private String inscricaomunicipal;
+    @Size(max = 15)
     @Column(name = "situacao")
     private String situacao;
-    @Transient
-    private boolean selecionado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Rotinacliente> rotinaclienteList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Atividades> atividadesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Planodre> planodreList;
 
     public Cliente() {
     }
@@ -360,12 +364,28 @@ public class Cliente implements Serializable {
         this.situacao = situacao;
     }
 
-    public boolean isSelecionado() {
-        return selecionado;
+    public List<Rotinacliente> getRotinaclienteList() {
+        return rotinaclienteList;
     }
 
-    public void setSelecionado(boolean selecionado) {
-        this.selecionado = selecionado;
+    public void setRotinaclienteList(List<Rotinacliente> rotinaclienteList) {
+        this.rotinaclienteList = rotinaclienteList;
+    }
+
+    public List<Atividades> getAtividadesList() {
+        return atividadesList;
+    }
+
+    public void setAtividadesList(List<Atividades> atividadesList) {
+        this.atividadesList = atividadesList;
+    }
+
+    public List<Planodre> getPlanodreList() {
+        return planodreList;
+    }
+
+    public void setPlanodreList(List<Planodre> planodreList) {
+        this.planodreList = planodreList;
     }
 
     @Override
@@ -391,22 +411,6 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Cliente[ idcliente=" + idcliente + " ]";
-    }
-
-    public List<Rotinacliente> getRotinaclienteList() {
-        return rotinaclienteList;
-    }
-
-    public void setRotinaclienteList(List<Rotinacliente> rotinaclienteList) {
-        this.rotinaclienteList = rotinaclienteList;
-    }
-
-    public List<Atividades> getAtividadesList() {
-        return atividadesList;
-    }
-
-    public void setAtividadesList(List<Atividades> atividadesList) {
-        this.atividadesList = atividadesList;
     }
     
 }

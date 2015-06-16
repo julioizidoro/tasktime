@@ -20,7 +20,7 @@
                                  rowIndexVar="rowIx">
 
                         <p:column headerText="Atividade" style="width:130px;" styleClass="border">
-                            <h:outputText value="#{tarefas.nome}" />
+                            <h:outputText value="#{tarefas.atividades.nome}" />
                         </p:column>
 
                         <p:column headerText="Responsável" style="width:110px;" styleClass="alinhaCentro">
@@ -28,31 +28,31 @@
                         </p:column>
 
                         <p:column headerText="Sub-Departamento" style="width:100px;" styleClass="alinhaCentro">
-                            <h:outputText value="#{tarefas.subdepartamento.departamento.nome}" />
+                            <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" />
                         </p:column>
 
                         <p:column headerText="Comentário" style="width:60px;" styleClass="alinhaCentro">
-                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios()}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()"  value="#{AtividadeMB.quantidadeComentario(tarefas)}" >
-                                <f:param name="id_atividades" value="#{tarefas.idatividades}"/>
+                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios()}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()"  value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
+                                <f:param name="id_atividades" value="#{tarefas.atividades.idatividades}"/>
                             </p:commandButton>
                         </p:column>
 
                         <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro">
-                            <h:outputText value="#{tarefas.cliente.nomefantasia}" />
+                            <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" />
                         </p:column>
 
                         <p:column headerText="Prazo" style="width:70px;" styleClass="alinhaCentro">
-                            <h:outputText value="#{tarefas.prazo}" >
+                            <h:outputText value="#{tarefas.atividades.prazo}" >
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </h:outputText>    
                         </p:column>
 
                         <p:column headerText="Prioridade" style="width:49px;" styleClass="alinhaCentro">
-                            <p:graphicImage value="#{AtividadeMB.imagem(tarefas)}" />
+                            <p:graphicImage value="#{AtividadeMB.imagem(tarefas.atividades)}" />
                         </p:column>
 
                         <p:column style="width:22px" styleClass="alinhaCentro">
-                            <p:selectBooleanCheckbox value="#{tarefas.concluida}" >
+                            <p:selectBooleanCheckbox value="#{tarefas.situacao}" >
                                 <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.salvarAtividadeConcluida(rowIx)}" />
                             </p:selectBooleanCheckbox>
                         </p:column>
