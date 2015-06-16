@@ -90,7 +90,7 @@ public class UsuarioLogadoBean implements Serializable{
             }else {
                 atividadeMB.listarAtividadesDia();
                 atividadeMB.listarAtividadesAtrasadas();
-                atividadeMB.listarAtividadesDepartamento(usuario.getSubdepartamento().getDepartamento().getIddepartamento());
+                atividadeMB.listarAtividadesDepartamento();
                 atividadeMB.listarAtividadesSemana();
                 atividadeMB.listarAtividadesAmanha();
                 atividadeMB.listarAtividadesDois();

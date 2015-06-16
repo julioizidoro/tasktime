@@ -32,8 +32,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "atividades")
 public class Atividades implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
-    private List<Comentarios> comentariosList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,10 +56,14 @@ public class Atividades implements Serializable {
     private BigInteger inicio;
     @Column(name = "tempo")
     private Integer tempo;
+    @Size(max = 6)
     @Column(name = "estado")
     private String estado;
+    @Size(max = 5)
     @Column(name = "mostratempo")
     private String mostratempo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Rotinaatividade> rotinaatividadeList;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -71,6 +73,8 @@ public class Atividades implements Serializable {
     @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
     @ManyToOne(optional = false)
     private Cliente cliente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Comentarios> comentariosList;
     @Transient
     private boolean selecionado;
 
@@ -105,16 +109,6 @@ public class Atividades implements Serializable {
         this.prazo = prazo;
     }
 
-    public String getMostratempo() {
-        return mostratempo;
-    }
-
-    public void setMostratempo(String mostratempo) {
-        this.mostratempo = mostratempo;
-    }
-
-    
-    
     public String getPrioridade() {
         return prioridade;
     }
@@ -163,12 +157,20 @@ public class Atividades implements Serializable {
         this.estado = estado;
     }
 
-    public boolean isSelecionado() {
-        return selecionado;
+    public String getMostratempo() {
+        return mostratempo;
     }
 
-    public void setSelecionado(boolean selecionado) {
-        this.selecionado = selecionado;
+    public void setMostratempo(String mostratempo) {
+        this.mostratempo = mostratempo;
+    }
+
+    public List<Rotinaatividade> getRotinaatividadeList() {
+        return rotinaatividadeList;
+    }
+
+    public void setRotinaatividadeList(List<Rotinaatividade> rotinaatividadeList) {
+        this.rotinaatividadeList = rotinaatividadeList;
     }
 
     public Usuario getUsuario() {
@@ -195,6 +197,22 @@ public class Atividades implements Serializable {
         this.cliente = cliente;
     }
 
+    public List<Comentarios> getComentariosList() {
+        return comentariosList;
+    }
+
+    public void setComentariosList(List<Comentarios> comentariosList) {
+        this.comentariosList = comentariosList;
+    }
+
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -218,14 +236,6 @@ public class Atividades implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Atividades[ idatividades=" + idatividades + " ]";
-    }
-
-    public List<Comentarios> getComentariosList() {
-        return comentariosList;
-    }
-
-    public void setComentariosList(List<Comentarios> comentariosList) {
-        this.comentariosList = comentariosList;
     }
     
 }

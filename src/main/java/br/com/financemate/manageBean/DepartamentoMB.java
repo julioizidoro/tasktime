@@ -138,7 +138,7 @@ public class DepartamentoMB implements Serializable{
     
     public void gerarListaUsuario() throws SQLException{
         UsuarioFacade usuarioFacade = new UsuarioFacade();
-        listaUsuario = usuarioFacade.listar("");
+        listaUsuario = usuarioFacade.listarAtivos();
         if (listaUsuario==null){
             listaUsuario = new ArrayList<Usuario>();
         }

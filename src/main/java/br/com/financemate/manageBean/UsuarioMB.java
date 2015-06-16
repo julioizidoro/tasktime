@@ -144,7 +144,7 @@ public class UsuarioMB implements Serializable{
     
     public void gerarListaUsuarios(String nome) {
         UsuarioFacade usuarioFacade = new UsuarioFacade();
-        listaUsuario = usuarioFacade.listar(nome);
+        listaUsuario = usuarioFacade.listarTodos(nome);
         if (listaUsuario == null) {
             listaUsuario = new ArrayList<Usuario>();
         }

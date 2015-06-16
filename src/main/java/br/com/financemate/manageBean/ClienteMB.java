@@ -189,7 +189,6 @@ public class ClienteMB implements Serializable{
         return "";
     }
     public String salvar() throws SQLException{
-        if(usuarioLogadoBean.getUsuario().getPerfil().getCadclienteincluir()){
             ClienteFacade clienteFacade = new ClienteFacade();
             if (valorcontabilidade.length()>0){
                 cliente.setValorcontabilidade(Formatacao.formatarStringfloat(valorcontabilidade));
@@ -204,16 +203,15 @@ public class ClienteMB implements Serializable{
                 cliente.setValortercerizacao(Formatacao.ConvercaoMonetariaFloat(valortercerizacao));
             }else cliente.setValortercerizacao(0.0f);
             clienteFacade.salvar(cliente);
+            valorcontabilidade="";
+            valorgestaofinanceira="";
+            valoroutros="";
+            valortercerizacao="";
             cliente = new Cliente();
             gerarListaClientes();
              FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
             return "consCliente";
-        }else{
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
-        }
-        return "";
     }
     public String editar() throws SQLException{
         if(usuarioLogadoBean.getUsuario().getPerfil().getCadclienteeditar()){
@@ -224,6 +222,10 @@ public class ClienteMB implements Serializable{
                 ClienteFacade clienteFacade = new ClienteFacade();
                 cliente = clienteFacade.consultar(idCliente);
                  if (cliente!=null){
+                     valorcontabilidade = Formatacao.foramtarFloatString(cliente.getValorcontabilidade());
+                     valorgestaofinanceira = Formatacao.foramtarFloatString(cliente.getValorgestaofinanceira());
+                     valortercerizacao = Formatacao.foramtarFloatString(cliente.getValortercerizacao());
+                     valoroutros = Formatacao.foramtarFloatString(cliente.getValoroutros());
                     return "cadCliente";
                 }
             }

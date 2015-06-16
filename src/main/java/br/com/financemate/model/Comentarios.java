@@ -48,6 +48,7 @@ public class Comentarios implements Serializable {
     @JoinColumn(name = "atividades_idatividades", referencedColumnName = "idatividades")
     @ManyToOne(optional = false)
     private Atividades atividades;
+    
 
     public Comentarios() {
     }

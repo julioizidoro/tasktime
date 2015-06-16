@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -29,12 +31,12 @@ public class Rotinaatividade implements Serializable {
     @Basic(optional = false)
     @Column(name = "idrotinaatividade")
     private Integer idrotinaatividade;
-    @JoinColumn(name = "atividades_idatividades", referencedColumnName = "idatividades")
-    @ManyToOne(optional = false)
-    private Atividades atividades;
     @JoinColumn(name = "rotina_idrotina", referencedColumnName = "idrotina")
     @ManyToOne(optional = false)
     private Rotina rotina;
+    @JoinColumn(name = "atividades_idatividades", referencedColumnName = "idatividades")
+    @ManyToOne(optional = false)
+    private Atividades atividades;
 
     public Rotinaatividade() {
     }
@@ -51,20 +53,20 @@ public class Rotinaatividade implements Serializable {
         this.idrotinaatividade = idrotinaatividade;
     }
 
-    public Atividades getAtividades() {
-        return atividades;
-    }
-
-    public void setAtividades(Atividades atividades) {
-        this.atividades = atividades;
-    }
-
     public Rotina getRotina() {
         return rotina;
     }
 
     public void setRotina(Rotina rotina) {
         this.rotina = rotina;
+    }
+
+    public Atividades getAtividades() {
+        return atividades;
+    }
+
+    public void setAtividades(Atividades atividades) {
+        this.atividades = atividades;
     }
 
     @Override

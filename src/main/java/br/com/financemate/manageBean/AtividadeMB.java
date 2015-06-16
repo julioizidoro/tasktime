@@ -2,16 +2,22 @@ package br.com.financemate.manageBean;
 
 
 import br.com.financemate.bean.Formatacao;
+import br.com.financemate.bean.RotinaBean;
 import br.com.financemate.facade.AtividadeFacade;
 import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.ComentariosFacade;
 import br.com.financemate.facade.DepartamentoFacade;
+import br.com.financemate.facade.RotinaAtividadeFacade;
+import br.com.financemate.facade.RotinaFacade;
+import br.com.financemate.facade.RotinaclienteFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Comentarios;
 import br.com.financemate.model.Departamento;
+import br.com.financemate.model.Rotina;
+import br.com.financemate.model.Rotinacliente;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
@@ -20,6 +26,7 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -316,7 +323,7 @@ public class AtividadeMB implements Serializable{
 
     public List<Atividades> getListaAtividadesDepartamento()  {
         if (listaAtividadesDepartamento==null){
-            listarAtividadesDepartamento(0);
+            listarAtividadesDepartamento();
         }
         return listaAtividadesDepartamento;
     }
@@ -504,6 +511,10 @@ public class AtividadeMB implements Serializable{
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
             Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
             atividades.setSubdepartamento(subddepartamento);
+            atividades.setEstado("Play");
+            atividades.setInicio(BigInteger.valueOf(0));
+            atividades.setTempo(0);
+            atividades.setMostratempo("00:00");
             atividades.setConcluida(FALSE);
             ClienteFacade clienteFacade = new ClienteFacade();
             Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
@@ -525,9 +536,7 @@ public class AtividadeMB implements Serializable{
             listarAtividadesCinco();
             listarAtividadesSeis();
             listarAtividadesSete();
-            if (atividades.getUsuario().getSubdepartamento().getDepartamento().equals(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento())){
-                listarAtividadesDepartamento(0);
-            }
+            listarAtividadesDepartamento();
             carregarListaGeral();
             atividades = new Atividades();
             idCliente="0";
@@ -575,7 +584,7 @@ public class AtividadeMB implements Serializable{
     
     public void gerarListaUsuario() {
         UsuarioFacade usuarioFacade = new UsuarioFacade();
-        listaUsuario = usuarioFacade.listar("");
+        listaUsuario = usuarioFacade.listarAtivos();
         if (listaUsuario==null){
             listaUsuario = new ArrayList<Usuario>();
         }
@@ -650,10 +659,7 @@ public class AtividadeMB implements Serializable{
         }else natrasada = "Atrasadas (" + String.valueOf(listaAtividadeAtrasada.size())+")";
     }
     
-    public void listarAtividadesDepartamento(int iddepartamento)  {
-        if (usuarioLogadoBean != null) {
-            iddepartamento = usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento();
-        }
+    public void listarAtividadesDepartamento()  {
         AtividadeFacade atividadesFacade = new AtividadeFacade();
         String sql="";
         if (usuarioLogadoBean.getUsuario().getPerfil().getTarefasoutros()) {
@@ -762,7 +768,10 @@ public class AtividadeMB implements Serializable{
         }
         if (usuarioLogadoBean.getUsuario().getIdusuario() == atividades.getUsuario().getIdusuario()) {
             AtividadeFacade atividadeFacade = new AtividadeFacade();
-            atividadeFacade.salvar(atividades);
+            atividades = atividadeFacade.salvar(atividades);
+            if (atividades.getTipo().equalsIgnoreCase("R")){
+                gerarProximasAtividades();
+            }
             if (atividadeMenu.equalsIgnoreCase("dia")) {
                 listarAtividadesDia();
             } else if (atividadeMenu.equalsIgnoreCase("semana")) {
@@ -784,8 +793,9 @@ public class AtividadeMB implements Serializable{
             }else if (atividadeMenu.equalsIgnoreCase("sete")) {
                 listarAtividadesSete();
             }else {
-                listarAtividadesDepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+                listarAtividadesDepartamento();
             }
+            listarTodasAtividades();
             carregarListaGeral();
         }else {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -1051,9 +1061,7 @@ public class AtividadeMB implements Serializable{
         return "tarefasTodas";
     
     } 
-    public void quantidadeComentarios(){
-        
-    }
+   
     
     public void iniciarAtividade(String linha){
         if(usuarioLogadoBean.getUsuario().getPerfil().getTarefatempo()){
@@ -1145,19 +1153,131 @@ public class AtividadeMB implements Serializable{
         }
     }
     public String atrasadas(Atividades atividade) {
-        Date data = new Date();
-        String sData = Formatacao.ConvercaoDataPadrao(data);
-        data = Formatacao.ConvercaoStringDataBrasil(sData);
-        boolean bdata = atividade.getPrazo().before(data);
-        if (bdata) {
-            return "atrasado";
-        } else {
-            return "normal";
+        if (atividade.getPrazo() != null) {
+            Date data = new Date();
+            String sData = Formatacao.ConvercaoDataPadrao(data);
+            data = Formatacao.ConvercaoStringDataBrasil(sData);
+            boolean bdata = atividade.getPrazo().before(data);
+            if (bdata) {
+                return "atrasado";
+            } else {
+                return "normal";
+            }
         }
+        return "normal";
     }
     
     public String mostrarTempo(Atividades atifivade){
         String texto = "Tempo " + atifivade.getMostratempo();
         return texto;
+    }
+    
+    public String quantidadeComentario(Atividades atividade){
+        String quantidade = "(" + atividade.getComentariosList().size() + ")";
+        return quantidade;
+    }
+    
+    public void gerarProximasAtividades() {
+        String peridicidade = "nada";
+        Rotinacliente rotinaCliente = null;
+        RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
+        if (atividades.getRotinaatividadeList() != null) {
+            if (atividades.getRotinaatividadeList().size() > 0) {
+                peridicidade = atividades.getRotinaatividadeList().get(0).getRotina().getPrioridade();
+                rotinaCliente = rotinaclienteFacade.getRotinaCliente(atividades.getCliente().getIdcliente(), atividades.getRotinaatividadeList().get(0).getRotina().getIdrotina());
+            }
+            if (peridicidade.equalsIgnoreCase("diaria")) {
+                criarAtividadesDiaria(rotinaCliente);
+            } else if (peridicidade.equalsIgnoreCase("semanal")) {
+                criarAtividadesSemanal(rotinaCliente);
+            } else {
+                criarAtividadeMensalTrimestralAnual(peridicidade, rotinaCliente);
+            }
+        }
+    }
+
+    
+    public void criarAtividadeMensalTrimestralAnual(String peridicidade, Rotinacliente rotinaCliente) {
+        if (!peridicidade.equalsIgnoreCase("nada")) {
+            AtividadeFacade atividadeFacade = new AtividadeFacade();
+            Atividades atividades = new Atividades();
+            atividades.setCliente(this.atividades.getCliente());
+            atividades.setConcluida(false);
+            atividades.setNome(this.atividades.getNome());
+            atividades.setPrioridade(this.atividades.getPrioridade());
+            atividades.setEstado("Play");
+            atividades.setInicio(BigInteger.valueOf(0));
+            atividades.setTempo(0);
+            atividades.setMostratempo("00:00");
+            atividades.setTipo("R");
+            atividades.setSubdepartamento(this.atividades.getSubdepartamento());
+            atividades.setUsuario(this.atividades.getUsuario());
+            RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
+            Calendar c = Calendar.getInstance();
+            c.setTime(rotinaCliente.getData());    
+            if (peridicidade.equalsIgnoreCase("trimestral")){
+                c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 3);
+            }else if (!peridicidade.equalsIgnoreCase("mensal")){
+                c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 1);
+            }else if (!peridicidade.equalsIgnoreCase("anual")){
+                c.set(Calendar.YEAR, c.get(Calendar.YEAR) + 1);
+            }
+            atividades.setPrazo(c.getTime());
+            atividades = atividadeFacade.salvar(atividades);
+            RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
+            rotinaCliente.setData(c.getTime());
+            rotinaclienteFacade.salvar(rotinaCliente);
+        }
+    }
+    
+    public void criarAtividadesDiaria(Rotinacliente rotinaCliente) {
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = rotinaCliente.getData();
+        Atividades atividades = new Atividades();
+        atividades.setCliente(this.atividades.getCliente());
+        atividades.setConcluida(false);
+        atividades.setNome(this.atividades.getNome());
+        atividades.setPrioridade(this.atividades.getPrioridade());
+        atividades.setTipo("R");
+        atividades.setEstado("Play");
+        atividades.setInicio(BigInteger.valueOf(0));
+        atividades.setTempo(0);
+        atividades.setMostratempo("00:00");
+        atividades.setSubdepartamento(this.atividades.getSubdepartamento());
+        atividades.setUsuario(this.atividades.getUsuario());
+        data = Formatacao.SomarDiasData(data, 1);
+        int diaSemana = Formatacao.diaSemana(data);
+        if (diaSemana == 0) {
+            data = Formatacao.SomarDiasData(data, 1);
+        } else if (diaSemana == 6) {
+            data = Formatacao.SomarDiasData(data, 2);
+        }
+        atividades.setPrazo(data);
+        atividades = atividadeFacade.salvar(atividades);
+        RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
+        rotinaCliente.setData(data);
+        rotinaclienteFacade.salvar(rotinaCliente);
+    }
+    
+    public void criarAtividadesSemanal(Rotinacliente rotinaCliente) {
+        AtividadeFacade atividadeFacade = new AtividadeFacade();
+        Date data = Formatacao.SomarDiasData(rotinaCliente.getData(), 7);
+        Atividades atividades = new Atividades();
+        atividades.setCliente(this.atividades.getCliente());
+        atividades.setConcluida(false);
+        atividades.setNome(this.atividades.getNome());
+        atividades.setPrioridade(this.atividades.getPrioridade());
+        atividades.setTipo("R");
+        atividades.setEstado("Play");
+        atividades.setInicio(BigInteger.valueOf(0));
+        atividades.setTempo(0);
+        atividades.setMostratempo("00:00");
+        atividades.setSubdepartamento(this.atividades.getSubdepartamento());
+        atividades.setUsuario(this.atividades.getUsuario());
+        atividades.setPrazo(data);
+        atividades = atividadeFacade.salvar(atividades);
+        RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
+        rotinaCliente.setData(data);
+        rotinaclienteFacade.salvar(rotinaCliente);
     }
 }

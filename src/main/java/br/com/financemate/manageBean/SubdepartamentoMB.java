@@ -115,6 +115,7 @@ public class SubdepartamentoMB implements Serializable{
             DepartamentoFacade departamentoFacade = new DepartamentoFacade();
             Departamento departamento = departamentoFacade.consultar(Integer.parseInt(idDepartamento));
             subdepartamento.setDepartamento(departamento);
+            subdepartamento.setSituacao("Ativo");
             subdepartamentoFacade.salvar(subdepartamento);
             subdepartamento = new Subdepartamento();
             gerarListaSubdepartamento();
@@ -137,6 +138,7 @@ public class SubdepartamentoMB implements Serializable{
                 SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
                 subdepartamento = subdepartamentoFacade.consultar(idSub);
                  if (subdepartamento!=null){
+                     idDepartamento= String.valueOf(subdepartamento.getDepartamento().getIddepartamento());
                      gerarListaDepartamento();
                     return "cadSubdepartamento";
                 }

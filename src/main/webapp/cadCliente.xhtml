@@ -110,22 +110,22 @@
                         </p:calendar>
                     </h:panelGrid> 
                     <p:selectBooleanCheckbox value="#{ClienteMB.cliente.contabilidade}"  class="left3">
-                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                        <p:ajax update="contabilidadeH" listener="#{ClienteMB.alterarComboBox()}" />
                     </p:selectBooleanCheckbox>
                     <p:outputLabel value="Contabilidade" class="Selecionarconcluida"/>
 
                     <p:selectBooleanCheckbox value="#{ClienteMB.cliente.getaofinanceira}"  class="filtrar6">
-                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                        <p:ajax update="financeiraH" listener="#{ClienteMB.alterarComboBox()}" />
                     </p:selectBooleanCheckbox>
                     <p:outputLabel value="Financeiro" class="Selecionarconcluida"/>
                     
                     <p:selectBooleanCheckbox value="#{ClienteMB.cliente.tercerizacao}"  class="filtrar6">
-                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                        <p:ajax update="tercerizacaoH" listener="#{ClienteMB.alterarComboBox()}" />
                     </p:selectBooleanCheckbox>
                     <p:outputLabel value="Tercerização" class="Selecionarconcluida"/>
                     
                     <p:selectBooleanCheckbox value="#{ClienteMB.cliente.outros}"  class="filtrar6">
-                        <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{ClienteMB.alterarComboBox()}" />
+                        <p:ajax update="outrosH" listener="#{ClienteMB.alterarComboBox()}" />
                     </p:selectBooleanCheckbox>
                     <p:outputLabel value="Outros" class="Selecionarconcluida"/>
                     

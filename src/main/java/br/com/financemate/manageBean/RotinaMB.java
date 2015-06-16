@@ -46,6 +46,8 @@ public class RotinaMB  implements Serializable{
     
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
+    @Inject
+    private AtividadeMB atividadeMB;
     private RotinaBean rotinabean;
     private Rotina rotina;
     private String nomeRotina;
@@ -59,6 +61,7 @@ public class RotinaMB  implements Serializable{
     private String idRotina;
     private String prioridade;
     private String idDepartamento="0";
+    private String nomeRotinaAntigo;
     
     public RotinaMB()  {
         rotina = new Rotina();
@@ -277,7 +280,20 @@ public class RotinaMB  implements Serializable{
     public String salvar() {
         if (rotina.getIdrotina()==null){
             salvarNovaRotina();
-        }else salvarEditarRotina();
+        } else
+            salvarEditarRotina();
+        atividadeMB.listarAtividadesDia();
+        atividadeMB.listarAtividadesAtrasadas();
+        atividadeMB.listarAtividadesDepartamento();
+        atividadeMB.listarAtividadesSemana();
+        atividadeMB.listarAtividadesAmanha();
+        atividadeMB.listarAtividadesDois();
+        atividadeMB.listarAtividadesTres();
+        atividadeMB.listarAtividadesQuatro();
+        atividadeMB.listarAtividadesCinco();
+        atividadeMB.listarAtividadesSeis();
+        atividadeMB.listarAtividadesSete();
+        atividadeMB.listarTodasAtividades();
         rotina = new Rotina();
         gerarListaRotina();
         return "consRotina";
@@ -381,6 +397,7 @@ public class RotinaMB  implements Serializable{
                 }
             }
         }
+        trocarNomeRotinaAtividade();
     }
 
     public void salvarNovaRotina() {
@@ -418,6 +435,7 @@ public class RotinaMB  implements Serializable{
             idDepartamento = String.valueOf(rotina.getSubdepartamento().getDepartamento().getIddepartamento());
             idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
             if (rotina != null) {
+                nomeRotinaAntigo = rotina.getNome();
                 idSubdepartamento = String.valueOf(rotina.getSubdepartamento().getIdsubdepartamento());
                 gerarListaSubdepartamento();
                 gerarListaRotinaBeanEditar();
@@ -454,7 +472,7 @@ public class RotinaMB  implements Serializable{
     
     public void gerarListaUsuario() {
         UsuarioFacade usuarioFacade = new UsuarioFacade();
-        listaUsuario = usuarioFacade.listar("");
+        listaUsuario = usuarioFacade.listarAtivos();
         if (listaUsuario==null){
             listaUsuario = new ArrayList<Usuario>();
         }
@@ -477,6 +495,10 @@ public class RotinaMB  implements Serializable{
             atividades.setNome(rotina.getNome());
             atividades.setPrioridade(rotina.getPrioridade());
             atividades.setTipo("R");
+            atividades.setEstado("Play");
+            atividades.setInicio(BigInteger.valueOf(0));
+            atividades.setTempo(0);
+            atividades.setMostratempo("00:00");
             atividades.setSubdepartamento(rotina.getSubdepartamento());
             atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
@@ -512,6 +534,10 @@ public class RotinaMB  implements Serializable{
             atividades.setNome(rotina.getNome());
             atividades.setPrioridade(rotina.getPrioridade());
             atividades.setTipo("R");
+            atividades.setEstado("Play");
+            atividades.setInicio(BigInteger.valueOf(0));
+            atividades.setTempo(0);
+            atividades.setMostratempo("00:00");
             atividades.setSubdepartamento(rotina.getSubdepartamento());
             atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
             atividades.setPrazo(data);
@@ -534,11 +560,11 @@ public class RotinaMB  implements Serializable{
         atividades.setConcluida(false);
         atividades.setNome(rotina.getNome());
         atividades.setPrioridade(rotina.getPrioridade());
-        atividades.setTipo("R");
-        atividades.setTempo(0);
-        atividades.setInicio(BigInteger.valueOf(0));
         atividades.setEstado("Play");
+        atividades.setInicio(BigInteger.valueOf(0));
+        atividades.setTempo(0);
         atividades.setMostratempo("00:00");
+        atividades.setTipo("R");
         atividades.setSubdepartamento(rotina.getSubdepartamento());
         atividades.setUsuario(rotinaBean.getRotinacliente().getUsuario());
         atividades.setPrazo(rotinaBean.getRotinacliente().getData());
@@ -586,6 +612,22 @@ public class RotinaMB  implements Serializable{
             return "";
         }
         return "";
+    }
+    
+    public void trocarNomeRotinaAtividade(){
+        if (!rotina.getNome().equalsIgnoreCase(nomeRotinaAntigo)){
+            RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
+            String sql = "Selet r from Rotinaatividade r where r.rotina=" + idRotina;
+            List<Rotinaatividade> lista = rotinaAtividadeFacade.listar(sql);
+            AtividadeFacade atividadeFacade = new AtividadeFacade();
+            if (lista!=null){
+                for(int i=0;i<lista.size();i++){
+                    Atividades atividade = lista.get(i).getAtividades();
+                    atividade.setNome(rotina.getNome());
+                    atividadeFacade.salvar(atividade);
+                }
+            }
+        }
     }
 }
 

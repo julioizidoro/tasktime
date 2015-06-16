@@ -69,11 +69,11 @@
                         </p:column>
 
                         <p:column headerText="Sub-Departamento" style="width:100px;" styleClass="alinhaCentro">
-                            <h:outputText value="#{tarefas.subdepartamento.departamento.nome}" />
+                            <h:outputText value="#{tarefas.subdepartamento.nome}" />
                         </p:column>
 
                         <p:column headerText="Comentário" style="width:60px;" styleClass="alinhaCentro">
-                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios()}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" >
+                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios()}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()"  value="#{AtividadeMB.quantidadeComentario(tarefas)}" >
                                 <f:param name="id_atividades" value="#{tarefas.idatividades}"/>
                             </p:commandButton>
                         </p:column>

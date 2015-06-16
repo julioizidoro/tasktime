@@ -32,10 +32,20 @@ public class UsuarioFacade {
         }
     }
     
-    public List<Usuario> listar(String nomeUsuario) {
+    public List<Usuario> listarTodos(String nomeUsuario) {
         usuarioDao = new UsuarioDao();
         try {
-            return usuarioDao.listar(nomeUsuario);
+            return usuarioDao.listarTodos(nomeUsuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public List<Usuario> listarAtivos() {
+        usuarioDao = new UsuarioDao();
+        try {
+            return usuarioDao.listarAtivos();
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
