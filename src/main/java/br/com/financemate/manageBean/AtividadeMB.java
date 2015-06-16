@@ -1010,14 +1010,14 @@ public class AtividadeMB implements Serializable{
     }
     
     public String salvarComentario() throws SQLException{
+        int nLinha = Integer.parseInt(linha);
         ComentariosFacade comentariosFacade = new ComentariosFacade();
         comentarios.setUsuario(getUsuarioLogadoBean().getUsuario());
-        comentarios.setAtividades(atividades);
+        comentarios.setAtividades(listaAtividadesGeral.get(nLinha));
         comentarios.setData(new Date());
         comentarios.setHora(Formatacao.foramtarHoraString());
         comentariosFacade.salvar(comentarios);
         comentarios = new Comentarios();
-        int nLinha = Integer.parseInt(linha);
         List<Comentarios> lista = comentariosFacade.listar(atividades.getIdatividades());
          if (atividadeMenu.equalsIgnoreCase("dia")){
             listaAtividadedia.get(nLinha).setComentariosList(lista);

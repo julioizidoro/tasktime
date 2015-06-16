@@ -617,7 +617,7 @@ public class RotinaMB  implements Serializable{
     public void trocarNomeRotinaAtividade(){
         if (!rotina.getNome().equalsIgnoreCase(nomeRotinaAntigo)){
             RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
-            String sql = "Selet r from Rotinaatividade r where r.rotina=" + idRotina;
+            String sql = "Select r from Rotinaatividade r where r.rotina.idrotina=" + rotina.getIdrotina();
             List<Rotinaatividade> lista = rotinaAtividadeFacade.listar(sql);
             AtividadeFacade atividadeFacade = new AtividadeFacade();
             if (lista!=null){
