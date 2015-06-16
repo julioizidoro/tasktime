@@ -606,6 +606,12 @@ public class RotinaMB  implements Serializable{
                 if (rotina.getRotinaatividadeList() != null) {
                     AtividadeFacade atividadeFacade = new AtividadeFacade();
                     for (int i = 0; i < rotina.getRotinaatividadeList().size(); i++) {
+                        if (rotina.getRotinaatividadeList().get(i).getAtividades().getAtividadeusuarioList()!=null){
+                            AtividadeUsuarioFacade atividadeUsuarioFacade = new AtividadeUsuarioFacade();
+                            for(int n=0; n<rotina.getRotinaatividadeList().get(i).getAtividades().getAtividadeusuarioList().size();n++){
+                                atividadeUsuarioFacade.excluir(rotina.getRotinaatividadeList().get(i).getAtividades().getAtividadeusuarioList().get(n).getIdatividadeusuario());
+                            }
+                        }
                         atividadeFacade.Excluir(rotina.getRotinaatividadeList().get(i).getAtividades().getIdatividades());
                     }
                 }

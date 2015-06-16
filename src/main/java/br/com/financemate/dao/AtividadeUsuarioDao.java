@@ -37,4 +37,15 @@ public class AtividadeUsuarioDao {
         return lista;
     }
     
+    public void excluir(int idAtividadeUsuario) throws SQLException {
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("Seelct a From Atividadeusuario a where a.idatividadeusuario=" + idAtividadeUsuario);
+        if (q.getResultList().size()>0){
+            Atividadeusuario atividadeusuario = (Atividadeusuario) q.getResultList().get(0);
+            manager.remove(atividadeusuario);
+        }
+        manager.getTransaction().commit();
+    }
+    
 }

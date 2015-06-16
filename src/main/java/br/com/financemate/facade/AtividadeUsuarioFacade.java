@@ -40,4 +40,13 @@ public class AtividadeUsuarioFacade {
         }
     }
     
+    public void excluir(int idAtividadeUsuario) {
+        atividadeUsuarioDao = new AtividadeUsuarioDao();
+        try {
+            atividadeUsuarioDao.excluir(idAtividadeUsuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtividadeUsuarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

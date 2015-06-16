@@ -537,6 +537,7 @@ public class AtividadeMB implements Serializable{
             UsuarioFacade usuarioFacade = new UsuarioFacade();
             Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
             atividades = atividadeFacade.salvar(atividades);
+            salvarUsuarioAtividade();
             atividadeMenu="dia";
             listarAtividadesAtrasadas();
             listarAtividadesDia();
@@ -1326,6 +1327,10 @@ public class AtividadeMB implements Serializable{
     
     public void gerarListaUsuarioBean(){
         listaUsuarioBean = new ArrayList<UsuarioBean>();
+        if (listaUsuario==null){
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            listaUsuario =usuarioFacade.listarAtivos();
+        }
         for(int i=0;i<listaUsuario.size();i++){
             UsuarioBean usuarioBean = new UsuarioBean();
             usuarioBean.setParticipacao("ND");
