@@ -98,8 +98,8 @@ public class SubdepartamentoMB implements Serializable{
     
     public String novo() throws SQLException{
         if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamentoincluir()){
-            subdepartamento.setSituacao("Ativo");
             subdepartamento = new Subdepartamento();
+            subdepartamento.setSituacao("Ativo");
             gerarListaDepartamento();
             return "cadSubdepartamento";
         }else{
