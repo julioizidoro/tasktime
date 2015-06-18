@@ -36,8 +36,8 @@
             <p:menuitem class="submenu" value="Usuário" action="#{MenuMB.usuario()}" update="growl"/>
             <p:menuitem class="submenu" value="Perfil" action="#{MenuMB.perfil()}" update="growl"/>
         </p:submenu>
-        <p:menuitem value="Adicionar Tarefas" class="submenu2" action="#{AtividadeMB.novo()}" actionListener="#{AtividadeMB.gerarListaUsuarioBean()}" update="dialog_addTarefa" icon=" ui-icon-plus " oncomplete="PF('add').show()"  >
-        </p:menuitem>
+        <p:menuitem value="Adicionar Tarefas" class="submenu2" action="#{AtividadeMB.novo()}" actionListener="#{AtividadeMB.gerarListaUsuarioBean()}" update="dialog_addTarefa" icon=" ui-icon-plus " oncomplete="PF('add').show()"  />
+        <p:menuitem  class="submenu3" icon="ui-icon-folder-open" value="1" oncomplete="PF('notificacao').show()"></p:menuitem>
     </p:menubar>
     </div>
     <div id="centro">
@@ -67,7 +67,7 @@
         </p:submenu>
     </p:menu>
         
-        <p:dialog id="dialog_addTarefa" header="Adicionar Tarafas" modal="true" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
+        <p:dialog id="dialog_addTarefa" header="Adicionar Tarafas" showEffect="bounce" widgetVar="add" resizable="false"  class="dialog" width="40%" height="60%">
             <br></br>
             <p:outputLabel value="Título" class="filtrar"/>
             <p:outputLabel value="Data" class="left3"/>
@@ -104,7 +104,8 @@
                 <f:selectItem itemLabel="Urgente" itemValue="urgente" />
             </p:selectOneMenu><br></br><br></br>
              <p:dataTable var="selecaoUsuario" value="#{AtividadeMB.listaUsuarioBean}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                     rowIndexVar="rowIx">
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="8"  rowIndexVar="rowIx">
                         <p:column  style="width:30px;" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{selecaoUsuario.selecionado}"/>
                         </p:column>
@@ -128,6 +129,14 @@
                     </p:dataTable>
                <br>  </br>
               <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" onclick="add.hide();" update="growl"/>
+        </p:dialog>
+        
+        <p:dialog header="Notificações" widgetVar="notificacao" height="60" class="fonte">
+            
+            
+            <br>  </br>
+            <p:commandButton value="Limpar" icon="ui-icon-minus" class="botaoDialog" action="#" />  
+            <p:commandButton value="Fechar" icon=" ui-icon-close" class="botaoDialog" onclick="notificacao.hide();"/>   
         </p:dialog>
     </div>
     <br>  </br>
