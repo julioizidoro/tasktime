@@ -1,6 +1,8 @@
 package br.com.financemate.manageBean;
 
+import br.com.financemate.bean.Formatacao;
 import br.com.financemate.facade.NotificacaoFacade;
+import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Notificacao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class MenuMB implements Serializable{
     @Inject
     UsuarioLogadoBean usuarioLogadoBean;
     private List<Notificacao> listaNotificacao;
+    private String quantidade;
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -26,6 +29,7 @@ public class MenuMB implements Serializable{
     public void setUsuarioLogadoBean(UsuarioLogadoBean usuarioLogadoBean) {
         this.usuarioLogadoBean = usuarioLogadoBean;
     }
+
 
     public List<Notificacao> getListaNotificacao() {
         if (listaNotificacao==null){
@@ -37,6 +41,15 @@ public class MenuMB implements Serializable{
     public void setListaNotificacao(List<Notificacao> listaNotificacao) {
         this.listaNotificacao = listaNotificacao;
     }
+
+    public String getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(String quantidade) {
+        this.quantidade = quantidade;
+    }
+    
     
     
     
@@ -126,5 +139,10 @@ public class MenuMB implements Serializable{
          if (listaNotificacao==null){
              listaNotificacao = new ArrayList<Notificacao>();
          }
+         if (listaNotificacao.size()<10){
+            quantidade=  "  0" + String.valueOf(listaNotificacao.size()) + " ";
+        }else quantidade = " " + String.valueOf(listaNotificacao.size()) + " ";
      }
+     
+     
  }

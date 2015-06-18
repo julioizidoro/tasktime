@@ -68,7 +68,7 @@
                         </p:column>   
                     </p:dataTable>
                     <br></br>
-                    <p:dialog id="dialog_addComentario" header="Comentários" modal="true" showEffect="bounce" widgetVar="vercomentario" resizable="false"  class="dialog" width="33%" height="60%">
+                    <p:dialog id="dialog_addComentario" header="Comentários"  widgetVar="vercomentario" resizable="false"  class="dialog" width="33%" height="60%">
                         <br></br>
                         <p:inputTextarea value="#{AtividadeMB.comentarios.comentario}" rows="3" cols="75"/>
                         <br></br><br></br>
@@ -94,7 +94,7 @@
                         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                     </p:dialog>
 
-                    <p:dialog id="dialog_editTarefa" header="Editar Tarafa" modal="true" showEffect="bounce" widgetVar="editar" resizable="false"  class="dialog" width="40%" height="60%">
+                    <p:dialog id="dialog_editTarefa" header="Editar Tarafa"  widgetVar="editar" resizable="false"  class="dialog" width="40%" height="60%">
                         <br></br>
                         <p:outputLabel value="Título" class="filtrar"/>
                         <p:outputLabel value="Data" class="left3"/>
@@ -131,7 +131,8 @@
                 <f:selectItem itemLabel="Urgente" itemValue="urgente" />
             </p:selectOneMenu><br></br><br></br>
              <p:dataTable var="selecaoUsuario" value="#{AtividadeMB.listaUsuarioBean}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                     rowIndexVar="rowIx">
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" rows="8"   rowIndexVar="rowIx">
                         <p:column  style="width:30px;" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{selecaoUsuario.selecionado}"/>
                         </p:column>

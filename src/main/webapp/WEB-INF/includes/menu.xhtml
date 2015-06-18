@@ -37,7 +37,7 @@
             <p:menuitem class="submenu" value="Perfil" action="#{MenuMB.perfil()}" update="growl"/>
         </p:submenu>
         <p:menuitem value="Adicionar Tarefas" class="submenu2" action="#{AtividadeMB.novo()}" actionListener="#{AtividadeMB.gerarListaUsuarioBean()}" update="dialog_addTarefa" icon=" ui-icon-plus " oncomplete="PF('add').show()"  />
-        <p:menuitem  class="submenu3" icon="ui-icon-folder-open" value="1" oncomplete="PF('notificacao').show()"></p:menuitem>
+        <p:menuitem  class="submenu3" icon="ui-icon-folder-open" value="#{MenuMB.quantidade}" oncomplete="PF('notificacao').show()"></p:menuitem>
     </p:menubar>
     </div>
     <div id="centro">
@@ -131,9 +131,16 @@
               <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" onclick="add.hide();" update="growl"/>
         </p:dialog>
         
-        <p:dialog header="Notificações" widgetVar="notificacao" height="60" class="fonte">
-            
-            
+        <p:dialog header="Notificações" widgetVar="notificacao" height="50%" width="22%" class="fonte2">
+            <p:dataTable var="notificacao" value="#{MenuMB.listaNotificacao}" class="dataGriddialog2" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'odd-row' : 'odd-row'}"
+                            rowIndexVar="rowIx">
+                <p:column  style="width:15px;" styleClass="alinhaCentro">
+                    <p:selectBooleanCheckbox value="#{notificacao.lido}"/>
+                </p:column>
+                <p:column  styleClass="border">
+                    <h:outputText value="#{notificacao.texto}" />
+                </p:column>
+            </p:dataTable>  
             <br>  </br>
             <p:commandButton value="Limpar" icon="ui-icon-minus" class="botaoDialog" action="#" />  
             <p:commandButton value="Fechar" icon=" ui-icon-close" class="botaoDialog" onclick="notificacao.hide();"/>   
@@ -141,5 +148,5 @@
     </div>
     <br>  </br>
     <br>  </br>
-    <p:poll interval="180" listener="#{MenuMB.gerarLitaNotificacao()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
+    <p:poll interval="300" listener="#{MenuMB.gerarLitaNotificacao()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
 </h:form>

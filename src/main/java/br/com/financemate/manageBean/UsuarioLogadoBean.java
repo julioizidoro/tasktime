@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 public class UsuarioLogadoBean implements Serializable{
     
     @Inject AtividadeMB atividadeMB;
+    @Inject MenuMB menuMB;
     private Usuario usuario;
     private Cliente cliente;
     private String novaSenha;
@@ -79,6 +80,17 @@ public class UsuarioLogadoBean implements Serializable{
     public void setConfirmaNovaSenha(String confirmaNovaSenha) {
         this.confirmaNovaSenha = confirmaNovaSenha;
     }
+
+    public MenuMB getMenuMB() {
+        return menuMB;
+    }
+
+    public void setMenuMB(MenuMB menuMB) {
+        this.menuMB = menuMB;
+    }
+    
+    
+    
     public String validarUsuario() throws SQLException{
         if ((usuario.getLogin()!=null) && (usuario.getSenha()==null)){
              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Login Invalido."));
@@ -100,6 +112,7 @@ public class UsuarioLogadoBean implements Serializable{
                 atividadeMB.listarAtividadesSeis();
                 atividadeMB.listarAtividadesSete();
                 atividadeMB.listarTodasAtividades();
+                menuMB.gerarLitaNotificacao();
                 return "inicial";
             }
         }

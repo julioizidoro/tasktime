@@ -198,6 +198,12 @@
          width: 470px;
          margin-left: 20px;
      }
+     .dataGriddialog2{
+         font-size:12px;
+         width: 300px;
+         margin-top:-15px;
+         margin-left:-15px;
+     }
      .dataGridperfil{
          font-size:12px;
          width: 680px;
@@ -651,6 +657,13 @@
         margin-left:-40px;
     }
     .fonte{
+        font-size: 12px;
+        border-color:#fff;
+    }
+    .fonte2{
+        position:fixed;
+        margin-top:-60px;
+        margin-left:400px;
         font-size: 12px;
         border-color:#fff;
     }
