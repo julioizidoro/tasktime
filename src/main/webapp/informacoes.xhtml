@@ -16,23 +16,23 @@
                 <div id="centro2" >
                     <legend class="titulo" ><h:outputText value="Informações!" /></legend>
                      <br></br>
-                    <p:dataTable var="informacoes" value="#" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                     <p:dataTable var="informacoes" value="#{InformacaoMB.listaInformacao}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">
                        
                         <p:column headerText="Atividade" style="width:130px;" styleClass="border">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{informacoes.atividades.nome}" />
                         </p:column>
 
-                        <p:column headerText="Responsável" style="width:110px;" styleClass="alinhaCentro">
+                        <p:column headerText="Executor" style="width:110px;" styleClass="alinhaCentro">
                             <h:outputText value="#" />
                         </p:column>
                         
                         <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{informacoes.atividades.cliente.nomefantasia}" />
                         </p:column>
 
                         <p:column headerText="Prazo" style="width:70px;" styleClass="alinhaCentro">
-                            <h:outputText value="" >
+                            <h:outputText value="#{informacoes.atividades.prazo}" >
                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                             </h:outputText>    
                         </p:column>

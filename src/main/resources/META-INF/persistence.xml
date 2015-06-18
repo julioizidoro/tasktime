@@ -14,6 +14,7 @@
     <class>br.com.financemate.model.Rotinacliente</class>
     <class>br.com.financemate.model.Subdepartamento</class>
     <class>br.com.financemate.model.Usuario</class>
+    <class>br.com.financemate.model.Notificacao</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

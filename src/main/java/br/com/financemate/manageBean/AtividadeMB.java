@@ -8,6 +8,7 @@ import br.com.financemate.facade.AtividadeUsuarioFacade;
 import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.ComentariosFacade;
 import br.com.financemate.facade.DepartamentoFacade;
+import br.com.financemate.facade.NotificacaoFacade;
 import br.com.financemate.facade.RotinaAtividadeFacade;
 import br.com.financemate.facade.RotinaclienteFacade;
 import br.com.financemate.facade.SubdepartamentoFacade;
@@ -17,6 +18,7 @@ import br.com.financemate.model.Atividadeusuario;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Comentarios;
 import br.com.financemate.model.Departamento;
+import br.com.financemate.model.Notificacao;
 import br.com.financemate.model.Rotinacliente;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
@@ -793,6 +795,20 @@ public class AtividadeMB implements Serializable{
         if (executor) {
             AtividadeFacade atividadeFacade = new AtividadeFacade();
             atividades = atividadeFacade.salvar(atividades);
+            NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+            for (int i=0;i<atividades.getAtividadeusuarioList().size();i++){
+                if (!atividades.getAtividadeusuarioList().get(i).getParticipacao().equalsIgnoreCase("Executor")){
+                    Notificacao notificacao = new Notificacao();
+                    notificacao.setLido(false);
+                    String texto = usuarioLogadoBean.getUsuario().getNome() + " concluiu " +
+                            atividades.getNome();
+                    if (texto.length()>100){
+                        texto = texto.substring(0,100);
+                    }
+                    notificacao.setTexto(texto);
+                    notificacaoFacade.salvar(notificacao);
+                }
+            }
             if (atividades.getTipo().equalsIgnoreCase("R")){
                 gerarProximasAtividades();
             }
@@ -1327,6 +1343,8 @@ public class AtividadeMB implements Serializable{
     }
     
     public void salvarUsuarioAtividade() {
+        AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
+        NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
         for (int i = 0; i < listaUsuarioBean.size(); i++) {
             if (listaUsuarioBean.get(i).isSelecionado()) {
                 Atividadeusuario atividadeusuario = new Atividadeusuario();
@@ -1334,8 +1352,15 @@ public class AtividadeMB implements Serializable{
                 atividadeusuario.setParticipacao(listaUsuarioBean.get(i).getParticipacao());
                 atividadeusuario.setSituacao(false);
                 atividadeusuario.setUsuario(listaUsuarioBean.get(i).getUsuario());
-                AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
-                atiUsuarioFacade.salvar(atividadeusuario);
+                atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
+                if (usuarioLogadoBean.getUsuario().getIdusuario() != atividadeusuario.getUsuario().getIdusuario()) {
+                    Notificacao notificacao = new Notificacao();
+                    notificacao.setLido(false);
+                    notificacao.setUsuario(atividadeusuario.getUsuario());
+                    String texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa on você é " +  atividadeusuario.getParticipacao();
+                    notificacao.setTexto(texto);
+                    notificacaoFacade.salvar(notificacao);
+                }
             }
         }
     }
