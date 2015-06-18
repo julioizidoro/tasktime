@@ -32,8 +32,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "usuario")
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -66,20 +64,12 @@ public class Usuario implements Serializable {
     @Size(max = 7)
     @Column(name = "situacao")
     private String situacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Atividadeusuario> atividadeusuarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Rotinacliente> rotinaclienteList;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)
     private Subdepartamento subdepartamento;
     @JoinColumn(name = "perfil_idperfil", referencedColumnName = "idperfil")
     @ManyToOne(optional = false)
     private Perfil perfil;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Comentarios> comentariosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Departamento> departamentoList;
     @Transient
     private boolean selecionado;
 
@@ -163,22 +153,6 @@ public class Usuario implements Serializable {
         this.situacao = situacao;
     }
 
-    public List<Atividadeusuario> getAtividadeusuarioList() {
-        return atividadeusuarioList;
-    }
-
-    public void setAtividadeusuarioList(List<Atividadeusuario> atividadeusuarioList) {
-        this.atividadeusuarioList = atividadeusuarioList;
-    }
-
-    public List<Rotinacliente> getRotinaclienteList() {
-        return rotinaclienteList;
-    }
-
-    public void setRotinaclienteList(List<Rotinacliente> rotinaclienteList) {
-        this.rotinaclienteList = rotinaclienteList;
-    }
-
     public Subdepartamento getSubdepartamento() {
         return subdepartamento;
     }
@@ -194,23 +168,7 @@ public class Usuario implements Serializable {
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
-
-    public List<Comentarios> getComentariosList() {
-        return comentariosList;
-    }
-
-    public void setComentariosList(List<Comentarios> comentariosList) {
-        this.comentariosList = comentariosList;
-    }
-
-    public List<Departamento> getDepartamentoList() {
-        return departamentoList;
-    }
-
-    public void setDepartamentoList(List<Departamento> departamentoList) {
-        this.departamentoList = departamentoList;
-    }
-
+    
     public boolean isSelecionado() {
         return selecionado;
     }

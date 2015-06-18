@@ -30,7 +30,7 @@ public class AtividadeUsuarioFacade {
         }
     }
     
-    public List<Atividadeusuario> listar(String sql) {
+    public List<Atividadeusuario> lista(String sql) {
         atividadeUsuarioDao = new AtividadeUsuarioDao();
         try {
             return atividadeUsuarioDao.listar(sql);
