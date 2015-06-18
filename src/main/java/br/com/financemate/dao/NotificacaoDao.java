@@ -6,7 +6,6 @@
 package br.com.financemate.dao;
 
 import br.com.financemate.connection.ConectionFactory;
-import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Notificacao;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,7 +30,7 @@ public class NotificacaoDao {
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Query q = manager.createQuery("Select n from Notificacao n where n.usuario.idusuario=" + idUsuario + 
-                " and n.lida=FALSE order by n.idnotificacao");
+                " and n.lido=FALSE order by n.idnotificacao");
         List<Notificacao> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;
