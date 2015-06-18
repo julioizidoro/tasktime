@@ -313,7 +313,7 @@ public class SituacaoMB implements Serializable{
             return "X";
         } else {
             String sdata = Formatacao.ConvercaoDataPadrao(new Date());
-            Date data = Formatacao.ConvercaoStringData(sdata);
+            Date data = Formatacao.ConvercaoStringDataBrasil(sdata);
             if (rotinaatividade.getAtividades().getPrazo().after(data)) {
                 return "AM";
             } else {
