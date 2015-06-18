@@ -201,5 +201,4 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.com.financemate.model.Usuario[ idusuario=" + idusuario + " ]";
     }
-    
 }

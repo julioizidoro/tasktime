@@ -207,48 +207,54 @@ public class SituacaoMB implements Serializable{
     }
     
     public void verrifcarSituacaoCliente(){
-        for (int i=0;i<listaSituacao.size();i++){
-            boolean verificar = false;
-            if (!listaSituacao.get(i).getJan().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getFev().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getMar().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getAbr().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getMai().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getJun().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getJul().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getAgo().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getSet().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getOut().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getNov().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!listaSituacao.get(i).getDez().equalsIgnoreCase("X")){
-                verificar=true;
-            }
-            if (!verificar){
-                listaSituacao.remove(i);
+        List<SituacaoBean> novaLista = listaSituacao;
+        listaSituacao = new ArrayList<SituacaoBean>();
+        for (int i=0;i<novaLista.size();i++){
+            boolean ver = verrifcarSituacaoClienteIndividual(novaLista.get(i));
+            if (ver){
+                listaSituacao.add(novaLista.get(i));
             }
         }
+    }
+    
+    public boolean verrifcarSituacaoClienteIndividual(SituacaoBean situacaoBean) {
+        if (!situacaoBean.getJan().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getFev().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getMar().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getAbr().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getMai().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getJun().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getJul().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getAgo().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getSet().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getOut().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getNov().equalsIgnoreCase("X")) {
+            return true;
+        }
+        if (!situacaoBean.getDez().equalsIgnoreCase("X")) {
+            return true;
+        }
+        return  false;
     }
     
     public void  verificarRotinas(List<Rotina> listaRotina, int mes, String ano){

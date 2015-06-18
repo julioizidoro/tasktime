@@ -1,6 +1,10 @@
 package br.com.financemate.manageBean;
 
+import br.com.financemate.facade.NotificacaoFacade;
+import br.com.financemate.model.Notificacao;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -13,6 +17,7 @@ public class MenuMB implements Serializable{
     
     @Inject
     UsuarioLogadoBean usuarioLogadoBean;
+    private List<Notificacao> listaNotificacao;
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -20,6 +25,17 @@ public class MenuMB implements Serializable{
 
     public void setUsuarioLogadoBean(UsuarioLogadoBean usuarioLogadoBean) {
         this.usuarioLogadoBean = usuarioLogadoBean;
+    }
+
+    public List<Notificacao> getListaNotificacao() {
+        if (listaNotificacao==null){
+            gerarLitaNotificacao();
+        }
+        return listaNotificacao;
+    }
+
+    public void setListaNotificacao(List<Notificacao> listaNotificacao) {
+        this.listaNotificacao = listaNotificacao;
     }
     
     
@@ -102,5 +118,13 @@ public class MenuMB implements Serializable{
     }
      public String informacao(){
        return "informacoes";
+     }
+     
+     public void gerarLitaNotificacao(){
+         NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+         listaNotificacao = notificacaoFacade.listar(usuarioLogadoBean.getUsuario().getIdusuario());
+         if (listaNotificacao==null){
+             listaNotificacao = new ArrayList<Notificacao>();
+         }
      }
  }
