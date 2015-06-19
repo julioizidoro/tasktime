@@ -1168,10 +1168,10 @@ public class AtividadeMB implements Serializable{
             sql = sql + " and a.atividades.subdepartamento.departamento.iddepartamento=" + Integer.parseInt(idDepartamento);
         }
         if (!idSubdepartamento.equalsIgnoreCase("0")){
-            sql = sql + " and a.atvidades.subdepartamento.idsubdepartamento=" + Integer.parseInt(idSubdepartamento);
+            sql = sql + " and a.atividades.subdepartamento.idsubdepartamento=" + Integer.parseInt(idSubdepartamento);
         }
         if (!idCliente.equalsIgnoreCase("0")){
-            sql = sql + " and a.atvidades.cliente.idcliente=" + Integer.parseInt(idCliente);
+            sql = sql + " and a.atividades.cliente.idcliente=" + Integer.parseInt(idCliente);
         }
         if (usuarioLogadoBean.getUsuario().getPerfil().getTarefaeditaroutros()) {
             if (!idUsuario.equalsIgnoreCase("0")) {

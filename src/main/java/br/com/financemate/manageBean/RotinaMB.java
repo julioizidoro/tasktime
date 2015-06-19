@@ -350,7 +350,7 @@ public class RotinaMB  implements Serializable{
                         if (alterar) {
                             RotinaAtividadeFacade rotinaAtividadesFacade = new RotinaAtividadeFacade();
                             String sql = "Select a from Rotinaatividade a where a.atividades.prazo>='" + Formatacao.ConvercaoDataSql(new Date())
-                                    + "'  and a.atividades.concluida=FALSE and a.rotina.idrotina=" + rotina.getIdrotina() + " and a.atividades.cliente.idcliente=" + rc.getCliente().getIdcliente()
+                                    + "'  and a.rotina.idrotina=" + rotina.getIdrotina() + " and a.atividades.cliente.idcliente=" + rc.getCliente().getIdcliente()
                                     + " order by a.rotina.nome";
                             List<Rotinaatividade> listaRotinaAtividade = rotinaAtividadesFacade.listar(sql);
                             AtividadeFacade atividadeFacade = new AtividadeFacade();
