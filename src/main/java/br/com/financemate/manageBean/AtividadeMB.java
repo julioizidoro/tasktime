@@ -1367,7 +1367,7 @@ public class AtividadeMB implements Serializable{
                     Notificacao notificacao = new Notificacao();
                     notificacao.setLido(false);
                     notificacao.setUsuario(atividadeusuario.getUsuario());
-                    String texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa on você é " +  atividadeusuario.getParticipacao();
+                    String texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa onde você é " +  atividadeusuario.getParticipacao();
                     notificacao.setTexto(texto);
                     notificacaoFacade.salvar(notificacao);
                 }
