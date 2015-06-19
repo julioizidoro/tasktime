@@ -19,6 +19,8 @@ public class MenuMB implements Serializable{
     
     @Inject
     UsuarioLogadoBean usuarioLogadoBean;
+    @Inject
+    private InformacaoMB informacaoMB;
     private List<Notificacao> listaNotificacao;
     private String quantidade;
 
@@ -130,6 +132,7 @@ public class MenuMB implements Serializable{
         return "";
     }
      public String informacao(){
+       informacaoMB.gerarListaInformacao();
        return "informacoes";
      }
      
