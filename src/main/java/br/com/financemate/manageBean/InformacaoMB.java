@@ -29,6 +29,7 @@ public class InformacaoMB implements Serializable{
     @Inject 
     private UsuarioLogadoBean usuarioLogadoBean;
     private List<Atividadeusuario> listaInformacao;
+    
 
     public UsuarioLogadoBean getUsuarioLogadoBean() {
         return usuarioLogadoBean;
@@ -45,7 +46,8 @@ public class InformacaoMB implements Serializable{
     public void setListaInformacao(List<Atividadeusuario> listaInformacao) {
         this.listaInformacao = listaInformacao;
     }
-    
+
+   
     public void gerarListaInformacao(){
         AtividadeUsuarioFacade atividadeUsuarioFacade = new AtividadeUsuarioFacade();
         String sql = "Select a from Atividadeusuario a where a.situacao=FALSE" + 

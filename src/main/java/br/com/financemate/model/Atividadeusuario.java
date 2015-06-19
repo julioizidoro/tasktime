@@ -45,12 +45,18 @@ public class Atividadeusuario implements Serializable {
     @Size(max = 15)
     @Column(name = "participacao")
     private String participacao;
+    @Size(max = 50)
+    @Column(name = "nomeexecutor")
+    private String nomeexecutor;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
     @JoinColumn(name = "atividades_idatividades", referencedColumnName = "idatividades")
     @ManyToOne(optional = false)
     private Atividades atividades;
+    
+    
+    
 
     public Atividadeusuario() {
     }
@@ -89,6 +95,14 @@ public class Atividadeusuario implements Serializable {
 
     public void setParticipacao(String participacao) {
         this.participacao = participacao;
+    }
+
+    public String getNomeexecutor() {
+        return nomeexecutor;
+    }
+
+    public void setNomeexecutor(String nomeexecutor) {
+        this.nomeexecutor = nomeexecutor;
     }
 
     public Usuario getUsuario() {
