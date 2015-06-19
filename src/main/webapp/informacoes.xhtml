@@ -25,7 +25,7 @@
                         </p:column>
 
                         <p:column headerText="Executor" style="width:110px;" styleClass="alinhaCentro">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{informacoes.nomeexecutor}" />
                         </p:column>
                         
                         <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro">
@@ -39,13 +39,9 @@
                         </p:column>
                         
                         <p:column headerText="Tempo de Execução" style="width:65px;" styleClass="alinhaCentro">
-                            <p:graphicImage value="#" />
+                            <h:outputText value="#{informacoes.atividades.mostratempo}" />
                         </p:column>
-                        <p:column style="width:22px" styleClass="alinhaCentro">
-                            <p:selectBooleanCheckbox value="#" >
-                                <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"  />
-                            </p:selectBooleanCheckbox>
-                        </p:column>
+                        
                     </p:dataTable>
                     <br></br>
                 </div>
