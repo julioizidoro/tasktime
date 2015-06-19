@@ -1180,7 +1180,7 @@ public class AtividadeMB implements Serializable{
         } else {
             sql = sql + " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario();
         }
-        sql = sql + " order by a.atividades.prazo, a.atividades.prioridade, a.atvidades.nome";
+        sql = sql + " order by a.atividades.prazo, a.atividades.prioridade, a.atividades.nome";
         AtividadeUsuarioFacade atividadesAtividadeFacade = new AtividadeUsuarioFacade();
         listaAtividadesDepartamento = atividadesAtividadeFacade.lista(sql);
         listaAtividadesGeral = listaAtividadesDepartamento;
@@ -1368,6 +1368,12 @@ public class AtividadeMB implements Serializable{
         atividadeusuario.setUsuario(usuario);
         atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
         NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+        Notificacao notificacao = new Notificacao();
+        notificacao.setLido(false);
+        notificacao.setUsuario(atividadeusuario.getUsuario());
+        String texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa.";
+        notificacao.setTexto(texto);
+        notificacaoFacade.salvar(notificacao);
         for (int i = 0; i < listaUsuarioBean.size(); i++) {
             if (listaUsuarioBean.get(i).isSelecionado()) {
                 atividadeusuario = new Atividadeusuario();
@@ -1378,10 +1384,9 @@ public class AtividadeMB implements Serializable{
                 atividadeusuario.setUsuario(listaUsuarioBean.get(i).getUsuario());
                 atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
                 if (usuarioLogadoBean.getUsuario().getIdusuario() != atividadeusuario.getUsuario().getIdusuario()) {
-                    Notificacao notificacao = new Notificacao();
+                    notificacao = new Notificacao();
                     notificacao.setLido(false);
                     notificacao.setUsuario(atividadeusuario.getUsuario());
-                    String texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa onde você é " +  atividadeusuario.getParticipacao();
                     notificacao.setTexto(texto);
                     notificacaoFacade.salvar(notificacao);
                 }
