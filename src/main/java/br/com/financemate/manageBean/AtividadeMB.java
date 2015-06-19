@@ -19,6 +19,7 @@ import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Comentarios;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Notificacao;
+import br.com.financemate.model.Rotinaatividade;
 import br.com.financemate.model.Rotinacliente;
 import br.com.financemate.model.Subdepartamento;
 import br.com.financemate.model.Usuario;
@@ -636,7 +637,6 @@ public class AtividadeMB implements Serializable{
         if (listaTodasAtividade==null){
             listaTodasAtividade = new ArrayList<Atividadeusuario>();
         }
-        listaAtividadesGeral=listaTodasAtividade;
         if (listaTodasAtividade.size()<10){
             todas = "Todas (0" + String.valueOf(listaTodasAtividade.size()) + ")";
         }else todas = "Todas (" + String.valueOf(listaTodasAtividade.size()) +")";
@@ -772,7 +772,9 @@ public class AtividadeMB implements Serializable{
     
     public void salvarAtividadeConcluida(String linha) {
             int iLinha = Integer.parseInt(linha);
+            Atividadeusuario atividadeusuario = listaAtividadesGeral.get(iLinha);
             atividades = listaAtividadesGeral.get(iLinha).getAtividades();
+            AtividadeUsuarioFacade atividadeUsuarioFacade = new AtividadeUsuarioFacade();
             if (atividades.getEstado().equalsIgnoreCase("Pause")){
                 Long termino = new Date().getTime();
                 BigInteger valorInicio = atividades.getInicio();
@@ -785,15 +787,11 @@ public class AtividadeMB implements Serializable{
                 atividades.setTempo(tempo);
                 atividades.setEstado("Pause");
         }
-        boolean executor = false;
-        for(int i=0;i<atividades.getAtividadeusuarioList().size();i++){
-            if (usuarioLogadoBean.getUsuario().getIdusuario() == atividades.getAtividadeusuarioList().get(i).getUsuario().getIdusuario()) {
-                executor=true;
-                i=10000;
-            }
-        }
-        if (executor) {
+        if (usuarioLogadoBean.getUsuario().getIdusuario() == atividadeusuario.getUsuario().getIdusuario()) {
             AtividadeFacade atividadeFacade = new AtividadeFacade();
+            atividadeusuario.setDataconclusao(new Date());
+            atividadeusuario.setSituacao(true);
+            atividadeUsuarioFacade.salvar(atividadeusuario);
             atividades = atividadeFacade.salvar(atividades);
             NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
             for (int i=0;i<atividades.getAtividadeusuarioList().size();i++){
@@ -832,6 +830,8 @@ public class AtividadeMB implements Serializable{
                 listarAtividadesSeis();
             }else if (atividadeMenu.equalsIgnoreCase("sete")) {
                 listarAtividadesSete();
+            }else if (atividadeMenu.equalsIgnoreCase("todas")){
+                listarTodasAtividades();
             }else {
                 listarAtividadesDepartamento();
             }
@@ -1278,6 +1278,10 @@ public class AtividadeMB implements Serializable{
             RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
             rotinaCliente.setData(c.getTime());
             rotinaclienteFacade.salvar(rotinaCliente);
+            Rotinaatividade rotinaatividade = new Rotinaatividade();
+            rotinaatividade.setAtividades(atividades);
+            rotinaatividade.setRotina(rotinaCliente.getRotina());
+            rotinaAtividadeFacade.salvar(rotinaatividade);
         }
     }
     
@@ -1312,6 +1316,11 @@ public class AtividadeMB implements Serializable{
         atiUsuarioFacade.salvar(atividadeusuario);
         RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
         rotinaCliente.setData(data);
+        Rotinaatividade rotinaatividade = new Rotinaatividade();
+        rotinaatividade.setAtividades(atividades);
+        rotinaatividade.setRotina(rotinaCliente.getRotina());
+        RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
+        rotinaAtividadeFacade.salvar(rotinaatividade);
         rotinaclienteFacade.salvar(rotinaCliente);
     }
     
@@ -1340,6 +1349,11 @@ public class AtividadeMB implements Serializable{
         RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
         rotinaCliente.setData(data);
         rotinaclienteFacade.salvar(rotinaCliente);
+        Rotinaatividade rotinaatividade = new Rotinaatividade();
+        rotinaatividade.setAtividades(atividades);
+        rotinaatividade.setRotina(rotinaCliente.getRotina());
+        RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
+        rotinaAtividadeFacade.salvar(rotinaatividade);
     }
     
     public void salvarUsuarioAtividade() {
