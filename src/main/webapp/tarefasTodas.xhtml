@@ -17,8 +17,9 @@
                      <p:inputText id="atividade"   size="43" maxlength="100" class="filtrar"  value="#{AtividadeMB.nomeAtividades}" />
                      <p:commandButton icon="ui-icon-search" class="botao1" action="#{AtividadeMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
                      
-                    <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                     rowIndexVar="rowIx">
+                    <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid"  rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
+                                                        AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
+                                                      null}"   rowIndexVar="rowIx">
                       
                         <p:column headerText="Atividade" style="width:130px;" styleClass="border">
                             <h:outputText value="#{tarefas.atividades.nome}" />

@@ -7,9 +7,11 @@ package br.com.financemate.manageBean;
 
 import br.com.financemate.bean.Formatacao;
 import br.com.financemate.facade.AtividadeUsuarioFacade;
+import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Atividadeusuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -46,7 +48,7 @@ public class InformacaoMB implements Serializable{
     
     public void gerarListaInformacao(){
         AtividadeUsuarioFacade atividadeUsuarioFacade = new AtividadeUsuarioFacade();
-        String sql = "Select a from Atividadeusuario a where  and a.situacao=FALSE" + 
+        String sql = "Select a from Atividadeusuario a where a.situacao=FALSE" + 
                 " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() +
                 " and a.participacao<>'Executor'" +
                 " order by a.atividades.prazo, a.atividades.prioridade, a.atividades.nome";
@@ -54,6 +56,21 @@ public class InformacaoMB implements Serializable{
         if (listaInformacao==null){
             listaInformacao = new ArrayList<Atividadeusuario>();
         }
+    }
+    
+    public String atrasadas(Atividadeusuario atividade) {
+        if (atividade.getAtividades().getPrazo() != null) {
+            Date data = new Date();
+            String sData = Formatacao.ConvercaoDataPadrao(data);
+            data = Formatacao.ConvercaoStringDataBrasil(sData);
+            boolean bdata = atividade.getAtividades().getPrazo().before(data);
+            if (bdata) {
+                return "atrasado";
+            } else {
+                return "normal";
+            }
+        }
+        return "normal";
     }
     
 }

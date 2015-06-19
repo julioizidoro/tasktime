@@ -16,8 +16,9 @@
                 <div id="centro2" >
                     <legend class="titulo" ><h:outputText value="Informações!" /></legend>
                      <br></br>
-                     <p:dataTable var="informacoes" value="#{InformacaoMB.listaInformacao}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                     rowIndexVar="rowIx">
+                     <p:dataTable var="informacoes" value="#{InformacaoMB.listaInformacao}" class="dataGrid"  rowStyleClass="#{InformacaoMB.atrasadas(informacoes) eq 'normal' ? 'letraPreta' : 
+                                                             InformacaoMB.atrasadas(informacoes) eq 'atrasado' ? 'letraVermelha' :
+                                                        null}"    rowIndexVar="rowIx">
                        
                         <p:column headerText="Atividade" style="width:130px;" styleClass="border">
                             <h:outputText value="#{informacoes.atividades.nome}" />
