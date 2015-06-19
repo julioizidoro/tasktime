@@ -116,35 +116,27 @@
                         </p:selectOneMenu>
                          <br></br><br></br>
               <p:outputLabel value="Prioridade" class="filtrar"/> 
-             <br></br><br></br>
+            <p:outputLabel value="Usuário Executor" class="filtrar2"/> 
+             <br></br> <br></br>
             <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" class="filtrar" style="width:135px">
                 <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
                 <f:selectItem itemLabel="Normal" itemValue="normal" />
                 <f:selectItem itemLabel="Alta" itemValue="alta" />
                 <f:selectItem itemLabel="Urgente" itemValue="urgente" />
-            </p:selectOneMenu><br></br><br></br>
-             <p:dataTable var="selecaoUsuario" value="#{AtividadeMB.listaUsuarioBean}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+            </p:selectOneMenu>
+             <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" class="filtrar7" style="width:318px">
+                <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioselecionado" itemLabel="#{usuarioselecionado.nome}" itemValue="#{usuarioselecionado.idusuario}"/>
+                <p:ajax event="change" listener="#{AtividadeMB.gerarListaUsuarioBean()}" update="selecao" />
+             </p:selectOneMenu><br></br> <br></br>
+             <p:dataTable id="selecao" var="selecaoUsuario" value="#{AtividadeMB.listaUsuarioBean}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="8"   rowIndexVar="rowIx">
+                             paginator="true" rows="8"  rowIndexVar="rowIx">
                         <p:column  style="width:30px;" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{selecaoUsuario.selecionado}"/>
                         </p:column>
                         <p:column headerText="Usuário" style="width:170px;" styleClass="border">
                             <h:outputText value="#{selecaoUsuario.usuario.nome}" />
-                        </p:column>
-
-                        <p:column headerText="Função" style="width:80px;" styleClass="border">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{selecaoUsuario.participacao}" /></f:facet>
-                                <f:facet name="input">
-                                    <h:selectOneMenu value="#{selecaoUsuario.participacao}" style="width:100%">
-                                         <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
-                                         <f:selectItem itemLabel="Responsavel" itemValue="Responsavel" />
-                                         <f:selectItem itemLabel="Executor" itemValue="Executor" />
-                                         <f:selectItem itemLabel="Informação" itemValue="Informação" />
-                                    </h:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>
                         </p:column>
                     </p:dataTable>
                         <br>  </br>
