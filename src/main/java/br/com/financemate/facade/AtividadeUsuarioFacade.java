@@ -49,4 +49,14 @@ public class AtividadeUsuarioFacade {
         }
     }
     
+    public Atividadeusuario consultar(int idUsuario,  int idAtividade)  {
+        atividadeUsuarioDao = new AtividadeUsuarioDao();
+        try {
+            return atividadeUsuarioDao.consultar(idUsuario, idAtividade);
+        } catch (SQLException ex) {
+            Logger.getLogger(AtividadeUsuarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 }

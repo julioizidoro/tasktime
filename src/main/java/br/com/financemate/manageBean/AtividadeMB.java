@@ -89,6 +89,7 @@ public class AtividadeMB implements Serializable{
     private String nomeAtividades;
     private String visualizar;
     private List<UsuarioBean> listaUsuarioBean;
+    private int idExecutor;
     
 
     public AtividadeMB()  {
@@ -1094,6 +1095,8 @@ public class AtividadeMB implements Serializable{
             idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getAtividades().getSubdepartamento().getDepartamento().getIddepartamento());
             gerarListaSubdepartamento();
             idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getAtividades().getSubdepartamento().getIdsubdepartamento());
+            gerarListaUsuarioBeanEditar(atividades.getIdatividades());
+            idUsuario =String.valueOf(idExecutor);
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -1227,10 +1230,11 @@ public class AtividadeMB implements Serializable{
         String peridicidade = "nada";
         Rotinacliente rotinaCliente = null;
         RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
+        atividades.getRotinaatividadeList();
         if (atividades.getRotinaatividadeList() != null) {
             if (atividades.getRotinaatividadeList().size() > 0) {
-                peridicidade = atividades.getRotinaatividadeList().get(0).getRotina().getPrioridade();
                 rotinaCliente = rotinaclienteFacade.getRotinaCliente(atividades.getCliente().getIdcliente(), atividades.getRotinaatividadeList().get(0).getRotina().getIdrotina());
+                peridicidade = rotinaCliente.getPeriodicidade();
             }
             if (peridicidade.equalsIgnoreCase("diaria")) {
                 criarAtividadesDiaria(rotinaCliente);
@@ -1360,35 +1364,67 @@ public class AtividadeMB implements Serializable{
         AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
-        Atividadeusuario atividadeusuario = new Atividadeusuario();
-        atividadeusuario.setAtividades(atividades);
-        atividadeusuario.setSituacao(false);
-        atividadeusuario.setNomeexecutor(usuario.getNome());
-        atividadeusuario.setParticipacao("Executor");
-        atividadeusuario.setUsuario(usuario);
-        atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
+        Atividadeusuario atividadeusuario = null;
         NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
-        Notificacao notificacao = new Notificacao();
-        notificacao.setLido(false);
-        notificacao.setUsuario(atividadeusuario.getUsuario());
-        String texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa.";
-        notificacao.setTexto(texto);
-        notificacaoFacade.salvar(notificacao);
-        for (int i = 0; i < listaUsuarioBean.size(); i++) {
-            if (listaUsuarioBean.get(i).isSelecionado()) {
-                atividadeusuario = new Atividadeusuario();
-                atividadeusuario.setAtividades(atividades);
-                atividadeusuario.setSituacao(false);
-                atividadeusuario.setNomeexecutor(usuario.getNome());
-                atividadeusuario.setParticipacao("Informação");
-                atividadeusuario.setUsuario(listaUsuarioBean.get(i).getUsuario());
-                atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
-                if (usuarioLogadoBean.getUsuario().getIdusuario() != atividadeusuario.getUsuario().getIdusuario()) {
-                    notificacao = new Notificacao();
+        String texto="";
+        if (idExecutor > 0) {
+            if (idExecutor != usuario.getIdusuario()) {
+                atividadeusuario = atiUsuarioFacade.consultar(usuario.getIdusuario(), atividades.getIdatividades());
+                if (atividadeusuario != null) {
+                    atiUsuarioFacade.excluir(atividadeusuario.getIdatividadeusuario());
+                    atividadeusuario.setAtividades(atividades);
+                    atividadeusuario.setSituacao(false);
+                    atividadeusuario.setNomeexecutor(usuario.getNome());
+                    atividadeusuario.setParticipacao("Executor");
+                    atividadeusuario.setUsuario(usuario);
+                    atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
+                    Notificacao notificacao = new Notificacao();
                     notificacao.setLido(false);
                     notificacao.setUsuario(atividadeusuario.getUsuario());
+                    texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa.";
                     notificacao.setTexto(texto);
                     notificacaoFacade.salvar(notificacao);
+                }
+            }
+        } else {
+            atiUsuarioFacade.excluir(atividadeusuario.getIdatividadeusuario());
+            atividadeusuario.setAtividades(atividades);
+            atividadeusuario.setSituacao(false);
+            atividadeusuario.setNomeexecutor(usuario.getNome());
+            atividadeusuario.setParticipacao("Executor");
+            atividadeusuario.setUsuario(usuario);
+            atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
+            Notificacao notificacao = new Notificacao();
+            notificacao.setLido(false);
+            notificacao.setUsuario(atividadeusuario.getUsuario());
+            texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa.";
+            notificacao.setTexto(texto);
+            notificacaoFacade.salvar(notificacao);
+        }
+        
+        for (int i = 0; i < listaUsuarioBean.size(); i++) {
+            Notificacao notificacao;
+            atividadeusuario = atiUsuarioFacade.consultar(listaUsuarioBean.get(i).getUsuario().getIdusuario(), atividades.getIdatividades());
+            if (listaUsuarioBean.get(i).isSelecionado()) {
+                if (atividadeusuario == null) {
+                    atividadeusuario = new Atividadeusuario();
+                    atividadeusuario.setAtividades(atividades);
+                    atividadeusuario.setSituacao(false);
+                    atividadeusuario.setNomeexecutor(usuario.getNome());
+                    atividadeusuario.setParticipacao("Informação");
+                    atividadeusuario.setUsuario(listaUsuarioBean.get(i).getUsuario());
+                    atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
+                    if (usuarioLogadoBean.getUsuario().getIdusuario() != atividadeusuario.getUsuario().getIdusuario()) {
+                        notificacao = new Notificacao();
+                        notificacao.setLido(false);
+                        notificacao.setUsuario(atividadeusuario.getUsuario());
+                        notificacao.setTexto(texto);
+                        notificacaoFacade.salvar(notificacao);
+                    }
+                }
+            }else {
+                if (atividadeusuario!=null){
+                    atiUsuarioFacade.excluir(atividadeusuario.getIdatividadeusuario());
                 }
             }
         }
@@ -1406,6 +1442,39 @@ public class AtividadeMB implements Serializable{
             if (nid != listaUsuario.get(i).getIdusuario()) {
                 UsuarioBean usuarioBean = new UsuarioBean();
                 usuarioBean.setSelecionado(false);
+                usuarioBean.setUsuario(listaUsuario.get(i));
+                listaUsuarioBean.add(usuarioBean);
+            }
+        }
+    }
+    
+    public void gerarListaUsuarioBeanEditar(int idAtividade){
+        listaUsuarioBean = new ArrayList<UsuarioBean>();
+        if (listaUsuario == null) {
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            listaUsuario = usuarioFacade.listarAtivos();
+        }
+        AtividadeUsuarioFacade atividadeUsuarioFacade = new AtividadeUsuarioFacade();
+        List<Atividadeusuario> lista = atividadeUsuarioFacade.lista("Select a From Atividadeusuario a where a.atividades.idatividades=" +idAtividade);
+        if (lista!=null){
+            for(int i=0;i<lista.size();i++){
+                if (lista.get(i).getParticipacao().equalsIgnoreCase("Executor")){
+                    idExecutor = lista.get(i).getUsuario().getIdusuario();
+                    i=1000;
+                }
+            }
+        }
+        listaUsuarioBean = new ArrayList<UsuarioBean>();
+        for (int i = 0; i < listaUsuario.size(); i++) {
+            if (idExecutor != listaUsuario.get(i).getIdusuario()) {
+                boolean s = false;
+                for(int n=0;n<lista.size();n++){
+                    if (lista.get(n).getUsuario().getIdusuario()==listaUsuario.get(i).getIdusuario()){
+                        s=true;
+                    }
+                }
+                UsuarioBean usuarioBean = new UsuarioBean();
+                usuarioBean.setSelecionado(s);
                 usuarioBean.setUsuario(listaUsuario.get(i));
                 listaUsuarioBean.add(usuarioBean);
             }

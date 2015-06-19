@@ -16,6 +16,7 @@ public class UsuarioBean {
     private Usuario usuario;
     private String participacao;
     private boolean selecionado;
+    private int idAtividadeUsuario;
 
     public Usuario getUsuario() {
         return usuario;
@@ -39,6 +40,14 @@ public class UsuarioBean {
 
     public void setSelecionado(boolean selecionado) {
         this.selecionado = selecionado;
+    }
+
+    public int getIdAtividadeUsuario() {
+        return idAtividadeUsuario;
+    }
+
+    public void setIdAtividadeUsuario(int idAtividadeUsuario) {
+        this.idAtividadeUsuario = idAtividadeUsuario;
     }
     
     

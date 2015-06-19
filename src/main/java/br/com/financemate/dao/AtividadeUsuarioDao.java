@@ -6,7 +6,6 @@
 package br.com.financemate.dao;
 
 import br.com.financemate.connection.ConectionFactory;
-import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Atividadeusuario;
 import java.sql.SQLException;
 import java.util.List;
@@ -46,6 +45,19 @@ public class AtividadeUsuarioDao {
             manager.remove(atividadeusuario);
         }
         manager.getTransaction().commit();
+    }
+    
+    public Atividadeusuario consultar(int idUsuario,  int idAtividade) throws SQLException {
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("Select a From Atividadeusuario a where a.atividades.idatividades=" + idAtividade +
+                " and a.usuario.idusuario=" + idUsuario);
+        Atividadeusuario atividadeusuario = null;
+        if (q.getResultList().size()>0){
+            atividadeusuario = (Atividadeusuario) q.getResultList().get(0);
+        }
+        manager.getTransaction().commit();
+        return atividadeusuario;
     }
     
 }
