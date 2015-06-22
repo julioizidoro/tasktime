@@ -300,9 +300,6 @@ public class SituacaoMB implements Serializable{
     public String verificarSituacao(Rotinaatividade rotinaatividade) {
         boolean concluida=false;
         if (rotinaatividade==null){
-            if (rotinaatividade.getRotina().getPrioridade().equalsIgnoreCase("Mensal")){
-                return "AM";
-            }
             return "X";
         }
         for(int i=0;i<rotinaatividade.getAtividades().getAtividadeusuarioList().size();i++){

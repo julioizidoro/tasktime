@@ -527,6 +527,7 @@ public class AtividadeMB implements Serializable{
     
     public String salvar() {
         if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
+            idExecutor = Integer.parseInt(idUsuario);
             AtividadeFacade atividadeFacade = new AtividadeFacade();
             SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
             Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
@@ -756,6 +757,8 @@ public class AtividadeMB implements Serializable{
                 listarAtividadesSeis();
             }else if (atividadeMenu.equalsIgnoreCase("sete")) {
                 listarAtividadesSete();
+            }else  if (atividadeMenu.equalsIgnoreCase("Todas")){
+                listaAtividadesGeral = listaTodasAtividade;
             }else listaAtividadesGeral = listaAtividadesDepartamento;
     }
     
@@ -836,7 +839,7 @@ public class AtividadeMB implements Serializable{
             }else {
                 listarAtividadesDepartamento();
             }
-            listarTodasAtividades();
+            
             carregarListaGeral();
         }else {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -1089,6 +1092,7 @@ public class AtividadeMB implements Serializable{
     public String editar(){
         if(usuarioLogadoBean.getUsuario().getPerfil().getTarefaseditar()){
             int nLinha= Integer.parseInt(linha);
+            idExecutor = usuarioLogadoBean.getUsuario().getIdusuario();
             AtividadeFacade atividadeFacade = new AtividadeFacade();
             atividades = atividadeFacade.consultar(listaAtividadesGeral.get(nLinha).getAtividades().getIdatividades());
             idCliente = String.valueOf(atividades.getCliente().getIdcliente());
@@ -1367,27 +1371,9 @@ public class AtividadeMB implements Serializable{
         Atividadeusuario atividadeusuario = null;
         NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
         String texto="";
-        if (idExecutor > 0) {
-            if (idExecutor != usuario.getIdusuario()) {
-                atividadeusuario = atiUsuarioFacade.consultar(usuario.getIdusuario(), atividades.getIdatividades());
-                if (atividadeusuario != null) {
-                    atiUsuarioFacade.excluir(atividadeusuario.getIdatividadeusuario());
-                    atividadeusuario.setAtividades(atividades);
-                    atividadeusuario.setSituacao(false);
-                    atividadeusuario.setNomeexecutor(usuario.getNome());
-                    atividadeusuario.setParticipacao("Executor");
-                    atividadeusuario.setUsuario(usuario);
-                    atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
-                    Notificacao notificacao = new Notificacao();
-                    notificacao.setLido(false);
-                    notificacao.setUsuario(atividadeusuario.getUsuario());
-                    texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa.";
-                    notificacao.setTexto(texto);
-                    notificacaoFacade.salvar(notificacao);
-                }
-            }
-        } else {
-            atiUsuarioFacade.excluir(atividadeusuario.getIdatividadeusuario());
+        atividadeusuario = atiUsuarioFacade.consultar(usuario.getIdusuario(), atividades.getIdatividades());
+        if (atividadeusuario == null) {
+            atividadeusuario = new Atividadeusuario();
             atividadeusuario.setAtividades(atividades);
             atividadeusuario.setSituacao(false);
             atividadeusuario.setNomeexecutor(usuario.getNome());
@@ -1401,7 +1387,6 @@ public class AtividadeMB implements Serializable{
             notificacao.setTexto(texto);
             notificacaoFacade.salvar(notificacao);
         }
-        
         for (int i = 0; i < listaUsuarioBean.size(); i++) {
             Notificacao notificacao;
             atividadeusuario = atiUsuarioFacade.consultar(listaUsuarioBean.get(i).getUsuario().getIdusuario(), atividades.getIdatividades());
