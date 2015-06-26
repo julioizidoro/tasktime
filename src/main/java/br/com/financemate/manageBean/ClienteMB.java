@@ -252,6 +252,7 @@ public class ClienteMB implements Serializable{
                    }else listaClientes.get(nlinha).setSituacao("Ativo");
                    ClienteFacade clienteFacade = new ClienteFacade();
                    clienteFacade.salvar(listaClientes.get(nlinha));
+                   atividadeMB.gerarListaCliente();
                    return "consCliente";
                } 
             }

@@ -69,6 +69,7 @@ public class AtividadeMB implements Serializable{
     private List<Atividadeusuario> listaAtividadesCinco;
     private List<Atividadeusuario> listaAtividadesSeis;
     private List<Atividadeusuario> listaAtividadesSete;
+    private List<Comentarios> listaComentarios;
     private String atividadeMenu="dia";
     private String ndia;
     private String nsemana;
@@ -115,6 +116,22 @@ public class AtividadeMB implements Serializable{
             listarAtividadesDia();
         }
         return listaAtividadedia;
+    }
+
+    public List<Comentarios> getListaComentarios() {
+        return listaComentarios;
+    }
+
+    public void setListaComentarios(List<Comentarios> listaComentarios) {
+        this.listaComentarios = listaComentarios;
+    }
+
+    public int getIdExecutor() {
+        return idExecutor;
+    }
+
+    public void setIdExecutor(int idExecutor) {
+        this.idExecutor = idExecutor;
     }
 
     public void setListaAtividadedia(List<Atividadeusuario> listaAtividadedia) {
@@ -431,9 +448,9 @@ public class AtividadeMB implements Serializable{
     }
 
     public List<Cliente> getListaCliente()  {
-          if(listaCliente==null){
+        if(listaCliente==null){
             gerarListaCliente();
-          }
+        }
         return listaCliente;
     }
 
@@ -729,11 +746,18 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesDepartamento(){
-        listaAtividadesGeral = listaAtividadesDepartamento;
-        atividadeMenu="departamento";
-        titulo="Taferas da Equipe";
-        return "tarefaDepartamento";
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasoutros()){
+            listaAtividadesGeral = listaAtividadesDepartamento;
+            atividadeMenu="departamento";
+            titulo="Taferas da Equipe";
+            return "tarefaDepartamento";
+        }else{
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
+        }
+        return "";
     }
+    
     
     public void carregarListaGeral(){
         listaAtividadesGeral = new ArrayList<Atividadeusuario>();
@@ -827,12 +851,18 @@ public class AtividadeMB implements Serializable{
             }else {
                 listarAtividadesDepartamento();
             }
-            listarAtividadesDois();
-            listarAtividadesTres();
-            listarAtividadesQuatro();
+            listarAtividadesAmanha();
+            listarAtividadesAtrasadas();
             listarAtividadesCinco();
+            listarAtividadesDepartamento();
+            listarAtividadesDia();
+            listarAtividadesDois();
+            listarAtividadesQuatro();
             listarAtividadesSeis();
+            listarAtividadesSemana();
             listarAtividadesSete();
+            listarAtividadesTres();
+            listarTodasAtividades();
             carregarListaGeral();
         }else {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -1037,20 +1067,13 @@ public class AtividadeMB implements Serializable{
         return "inicial";
     }
     
-    public String verComentarios(){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        int idAtividade =  Integer.parseInt(params.get("id_atividades"));
-        if (idAtividade>0){
-            for (int i=0;i<listaAtividadesGeral.size();i++){
-                if (idAtividade==listaAtividadesGeral.get(i).getAtividades().getIdatividades()){
-                    linha = String.valueOf(i);
-                    atividades = listaAtividadesGeral.get(i).getAtividades();
-                    return null;
-                }
-            }
-        }
-        return null;
+    public String verComentarios(String linha) {
+       this.linha = linha;
+       listaComentarios =  listaAtividadesGeral.get(Integer.parseInt(linha)).getAtividades().getComentariosList();
+       if (listaComentarios==null){
+           listaComentarios = new ArrayList<Comentarios>();
+       }
+       return null;
     }
     
     public String salvarComentario() throws SQLException{
@@ -1060,17 +1083,18 @@ public class AtividadeMB implements Serializable{
         comentarios.setAtividades(listaAtividadesGeral.get(nLinha).getAtividades());
         comentarios.setData(new Date());
         comentarios.setHora(Formatacao.foramtarHoraString());
-        comentariosFacade.salvar(comentarios);
+        comentarios = comentariosFacade.salvar(comentarios);
+        listaComentarios.add(comentarios);
         comentarios = new Comentarios();
-        List<Comentarios> lista = comentariosFacade.listar(atividades.getIdatividades());
+        listaAtividadesGeral.get(nLinha).getAtividades().getComentariosList();
          if (atividadeMenu.equalsIgnoreCase("dia")){
-            listaAtividadedia.get(nLinha).getAtividades().setComentariosList(lista);
+            listaAtividadedia.get(nLinha).getAtividades().setComentariosList(listaComentarios);
         }else if (atividadeMenu.equalsIgnoreCase("semana")){
-            listaAtividadeSemana.get(nLinha).getAtividades().setComentariosList(lista);
+            listaAtividadeSemana.get(nLinha).getAtividades().setComentariosList(listaComentarios);
         }else if (atividadeMenu.equalsIgnoreCase("atrasada")){
-            listaAtividadeAtrasada.get(nLinha).getAtividades().setComentariosList(lista);
+            listaAtividadeAtrasada.get(nLinha).getAtividades().setComentariosList(listaComentarios);
         }else {
-            listaAtividadesDepartamento.get(nLinha).getAtividades().setComentariosList(lista);
+            listaAtividadesDepartamento.get(nLinha).getAtividades().setComentariosList(listaComentarios);
         }
          linha="0";
          atividades = new Atividades();

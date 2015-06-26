@@ -253,6 +253,7 @@ public class UsuarioMB implements Serializable{
                    }else listaUsuario.get(nlinha).setSituacao("Ativo");
                    UsuarioFacade usuarioFacade = new UsuarioFacade();
                    usuarioFacade.salvar(listaUsuario.get(nlinha));
+                   atividadeMB.gerarListaUsuario();
                    return "consUsuario";
                } 
             }
