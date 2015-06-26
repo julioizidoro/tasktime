@@ -822,24 +822,17 @@ public class AtividadeMB implements Serializable{
                 listarAtividadesAtrasadas();
             } else if (atividadeMenu.equalsIgnoreCase("amanha")) {
                 listarAtividadesAmanha();
-            }else if (atividadeMenu.equalsIgnoreCase("dois")) {
-                listarAtividadesDois();
-            }else if (atividadeMenu.equalsIgnoreCase("tres")) {
-                listarAtividadesTres();
-            }else if (atividadeMenu.equalsIgnoreCase("quatro")) {
-                listarAtividadesQuatro();
-            }else if (atividadeMenu.equalsIgnoreCase("cinco")) {
-                listarAtividadesCinco();
-            }else if (atividadeMenu.equalsIgnoreCase("seis")) {
-                listarAtividadesSeis();
-            }else if (atividadeMenu.equalsIgnoreCase("sete")) {
-                listarAtividadesSete();
             }else if (atividadeMenu.equalsIgnoreCase("todas")){
                 listarTodasAtividades();
             }else {
                 listarAtividadesDepartamento();
             }
-            
+            listarAtividadesDois();
+            listarAtividadesTres();
+            listarAtividadesQuatro();
+            listarAtividadesCinco();
+            listarAtividadesSeis();
+            listarAtividadesSete();
             carregarListaGeral();
         }else {
             FacesContext context = FacesContext.getCurrentInstance();

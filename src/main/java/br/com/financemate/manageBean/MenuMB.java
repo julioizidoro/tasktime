@@ -147,5 +147,22 @@ public class MenuMB implements Serializable{
         }else quantidade = " " + String.valueOf(listaNotificacao.size()) + " ";
      }
      
+     public void concluirNotificacao(Notificacao notificacao){
+         NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+         notificacaoFacade.salvar(notificacao);
+         gerarLitaNotificacao();
+     }
+     
+     public void concluirListaNotificacao(){
+         if (listaNotificacao!=null){
+             NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+             for(int i=0;i<listaNotificacao.size();i++){
+                 listaNotificacao.get(i).setLido(true);
+                 notificacaoFacade.salvar(listaNotificacao.get(i));
+             }
+             gerarLitaNotificacao();
+         }
+     }
+     
      
  }

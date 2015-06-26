@@ -263,16 +263,28 @@ public class ClienteMB implements Serializable{
     public void alterarComboBox(){
         if (cliente.getContabilidade()){
             contabilidade = false;
-        }else contabilidade=true;
+        }else {
+            contabilidade=true;
+            valorcontabilidade="0,00";
+        }
         if (cliente.getGetaofinanceira()){
             gestaofinanceira=false;
-        }else gestaofinanceira=true;
+        }else {
+            gestaofinanceira=true;
+            valorgestaofinanceira="0,00";
+        }
         if (cliente.getTercerizacao()){
             tercerizacao=false;
-        }else tercerizacao=true;
+        }else {
+            tercerizacao=true;
+            valortercerizacao="0,00";
+        }
         if (cliente.getOutros()){
             outros=false;
-        }else outros=true;
+        }else {
+            outros=true;
+            valoroutros="0,00";
+        }
     }
 
 }
