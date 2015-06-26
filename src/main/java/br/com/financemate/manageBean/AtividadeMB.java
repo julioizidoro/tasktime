@@ -1482,4 +1482,21 @@ public class AtividadeMB implements Serializable{
             }
         }
     }
+    
+    public String abrirDialog(){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefaseditar()){
+            return "PF('editar').show()";
+        }else{
+            return "";
+        }
+    }
+    
+    
+    public String mensagemGrow(){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefaseditar()){
+            return "atividades:dialog_editTarefa";
+        }else{
+            return "atividades:growl";
+        }
+    }
 }

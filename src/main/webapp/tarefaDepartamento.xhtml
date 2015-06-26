@@ -57,11 +57,11 @@
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
                                                       null}"     rowIndexVar="rowIx">
                         
-                        <p:column headerText="Atividade" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
+                        <p:column headerText="Atividade" style="width:125px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
                             <h:outputText value="#{tarefas.atividades.nome}" />
                         </p:column>
 
-                        <p:column headerText="Responsável" style="width:110px;" styleClass="alinhaCentro" sortBy="#{tarefas.usuario.nome}">
+                        <p:column headerText="Responsável" style="width:115px;" styleClass="alinhaCentro" sortBy="#{tarefas.usuario.nome}">
                             <h:outputText value="#{tarefas.usuario.nome}" />
                         </p:column>
 
@@ -69,7 +69,7 @@
                             <h:outputText value="#{tarefas.atividades.subdepartamento.nome}" />
                         </p:column>
 
-                        <p:column headerText="Comentário" style="width:55px;" styleClass="alinhaCentro">
+                        <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
                             <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()"  value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
                                 
                             </p:commandButton>

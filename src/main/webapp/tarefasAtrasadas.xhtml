@@ -19,19 +19,19 @@
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                  rowIndexVar="rowIx">
 
-                       <p:column headerText="Atividade" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
+                       <p:column headerText="Atividade" style="width:120px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
                             <h:outputText value="#{tarefas.atividades.nome}" />
                         </p:column>
 
-                        <p:column headerText="Responsável" style="width:110px;" styleClass="alinhaCentro" sortBy="#{tarefas.usuario.nome}">
+                        <p:column headerText="Responsável" style="width:100px;" styleClass="alinhaCentro">
                             <h:outputText value="#{tarefas.usuario.nome}" />
                         </p:column>
 
-                        <p:column headerText="Sub-Departamento" style="width:100px;" styleClass="alinhaCentro">
+                        <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
                             <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" />
                         </p:column>
 
-                        <p:column headerText="Comentário" style="width:55px;" styleClass="alinhaCentro">
+                        <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
                             <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
 
                             </p:commandButton>
