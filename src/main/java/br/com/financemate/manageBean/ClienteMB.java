@@ -25,6 +25,7 @@ public class ClienteMB implements Serializable{
     
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
+    @Inject AtividadeMB atividadeMB;
     private Cliente cliente;
     private String nomeCliente;
     private List<Cliente> listaClientes;
@@ -211,6 +212,7 @@ public class ClienteMB implements Serializable{
             gerarListaClientes();
              FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+            atividadeMB.gerarListaCliente();
             return "consCliente";
     }
     public String editar() throws SQLException{

@@ -34,6 +34,7 @@ public class UsuarioMB implements Serializable{
     
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
+    @Inject AtividadeMB atividadeMB;
     private Usuario usuario;
     private List<Usuario> listaUsuario;
     private String nomeUsuario;
@@ -179,6 +180,7 @@ public class UsuarioMB implements Serializable{
             gerarListaUsuarios("");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+            atividadeMB.gerarListaUsuario();
             return "consUsuario";
         }else{
             FacesContext context = FacesContext.getCurrentInstance();
