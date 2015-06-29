@@ -781,7 +781,7 @@ public class AtividadeMB implements Serializable{
         AtividadeUsuarioFacade atividadesAtividadeFacade = new AtividadeUsuarioFacade();
         String sql="";
         if (usuarioLogadoBean.getUsuario().getPerfil().getTarefasoutros()) {
-            sql = "Select a from Atividadeusuario a where a.situacao=FALSE   and a.participacao='Executor' order by a.atividades.prazo, a.atividades.prioridade, a.atividades.nome";
+            sql = "Select a from Atividadeusuario a where a.situacao=FALSE   and a.participacao='Executor' and a.tipo=0 order by a.atividades.prazo, a.atividades.prioridade, a.atividades.nome";
         } else {
             sql = "Select a from Atividadeusuario a where a.situacao=FALSE and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() + 
                     " and a.participacao='Executor' and a.tipo=0" +
