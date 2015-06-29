@@ -69,7 +69,7 @@ public class Atividades implements Serializable {
     private List<Atividadeusuario> atividadeusuarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades", fetch = FetchType.LAZY)
     private List<Rotinaatividade> rotinaatividadeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades", fetch = FetchType.EAGER)
     private List<Comentarios> comentariosList;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)

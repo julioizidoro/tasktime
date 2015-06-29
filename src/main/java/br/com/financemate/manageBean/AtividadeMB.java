@@ -93,6 +93,7 @@ public class AtividadeMB implements Serializable{
     private String visualizar;
     private List<UsuarioBean> listaUsuarioBean;
     private int idExecutor;
+    private int tipo=0;
     
 
     public AtividadeMB()  {
@@ -538,6 +539,7 @@ public class AtividadeMB implements Serializable{
             atividades.setPrazo(new Date());
             atividades.setPrioridade("normal");
             gerarListaUsuarioBean();
+            tipo=0;
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -545,6 +547,80 @@ public class AtividadeMB implements Serializable{
         return "";
     }
     
+    public String novoParticular(){
+        menuMB.gerarLitaNotificacao();
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
+            atividades = new Atividades();
+            atividades.setTempo(0);
+            atividades.setEstado("Play");
+            atividades.setMostratempo("00:00");
+            atividades.setPrazo(new Date());
+            atividades.setPrioridade("normal");
+            tipo=1;
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
+    }
+    
+            
+            
+     public String salvarParticular() {
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
+            idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
+            idCliente = "1";
+            idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+            idSubdepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getIdsubdepartamento());
+            idExecutor = Integer.parseInt(idUsuario);
+            AtividadeFacade atividadeFacade = new AtividadeFacade();
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+            atividades.setSubdepartamento(subddepartamento);
+            atividades.setEstado("Play");
+            atividades.setInicio(BigInteger.valueOf(0));
+            atividades.setTempo(0);
+            atividades.setMostratempo("00:00");
+            ClienteFacade clienteFacade = new ClienteFacade();
+            Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
+            atividades.setCliente(cliente);
+            atividades.setTipo("A");
+            atividades.getComentariosList();
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+            atividades = atividadeFacade.salvar(atividades);
+            salvarUsuarioAtividadeParticular();
+            atividadeMenu="dia";
+            listarAtividadesAtrasadas();
+            listarAtividadesDia();
+            listarAtividadesSemana();
+            listarTodasAtividades();
+            listarAtividadesAmanha();
+            listarAtividadesDois();
+            listarAtividadesTres();
+            listarAtividadesQuatro();
+            listarAtividadesCinco();
+            listarAtividadesSeis();
+            listarAtividadesSete();
+            listarAtividadesDepartamento();
+            carregarListaGeral();
+            atividades = new Atividades();
+            idCliente="0";
+            idUsuario="0";
+            idDepartamento="0";
+            idSubdepartamento="0";
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+            atividadeMenu="dia";
+            return "inicial";
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
+    }
+            
+            
     public String salvar() {
         if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
             idExecutor = Integer.parseInt(idUsuario);
@@ -594,6 +670,8 @@ public class AtividadeMB implements Serializable{
         }
         return "";
     }
+    
+    
     
     public void gerarListaCliente() {
         ClienteFacade clienteFacade = new ClienteFacade();
@@ -706,7 +784,7 @@ public class AtividadeMB implements Serializable{
             sql = "Select a from Atividadeusuario a where a.situacao=FALSE   and a.participacao='Executor' order by a.atividades.prazo, a.atividades.prioridade, a.atividades.nome";
         } else {
             sql = "Select a from Atividadeusuario a where a.situacao=FALSE and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario() + 
-                    " and a.participacao='Executor'" +
+                    " and a.participacao='Executor' and a.tipo=0" +
                     " order by a.atividades.prazo, a.atividades.prioridade, a.atividades.nome";
         }
         listaAtividadesDepartamento = atividadesAtividadeFacade.lista(sql);
@@ -1403,6 +1481,32 @@ public class AtividadeMB implements Serializable{
         rotinaAtividadeFacade.salvar(rotinaatividade);
     }
     
+    public void salvarUsuarioAtividadeParticular() {
+        AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+        Atividadeusuario atividadeusuario = null;
+        NotificacaoFacade notificacaoFacade = new NotificacaoFacade();
+        String texto="";
+        atividadeusuario = atiUsuarioFacade.consultar(usuario.getIdusuario(), atividades.getIdatividades());
+        if (atividadeusuario == null) {
+            atividadeusuario = new Atividadeusuario();
+            atividadeusuario.setAtividades(atividades);
+            atividadeusuario.setSituacao(false);
+            atividadeusuario.setNomeexecutor(usuario.getNome());
+            atividadeusuario.setParticipacao("Executor");
+            atividadeusuario.setUsuario(usuario);
+            atividadeusuario.setTipo(tipo);
+            atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
+            Notificacao notificacao = new Notificacao();
+            notificacao.setLido(false);
+            notificacao.setUsuario(atividadeusuario.getUsuario());
+            texto = usuarioLogadoBean.getUsuario().getNome() + " Criou uma nova tarefa.";
+            notificacao.setTexto(texto);
+            notificacaoFacade.salvar(notificacao);
+        }
+    }
+    
     public void salvarUsuarioAtividade() {
         AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
         UsuarioFacade usuarioFacade = new UsuarioFacade();
@@ -1418,6 +1522,7 @@ public class AtividadeMB implements Serializable{
             atividadeusuario.setNomeexecutor(usuario.getNome());
             atividadeusuario.setParticipacao("Executor");
             atividadeusuario.setUsuario(usuario);
+            atividadeusuario.setTipo(tipo);
             atividadeusuario = atiUsuarioFacade.salvar(atividadeusuario);
             Notificacao notificacao = new Notificacao();
             notificacao.setLido(false);

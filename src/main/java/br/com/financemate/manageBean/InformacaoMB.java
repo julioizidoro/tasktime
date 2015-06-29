@@ -7,7 +7,6 @@ package br.com.financemate.manageBean;
 
 import br.com.financemate.bean.Formatacao;
 import br.com.financemate.facade.AtividadeUsuarioFacade;
-import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Atividadeusuario;
 import java.io.Serializable;
 import java.util.ArrayList;
