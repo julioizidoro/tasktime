@@ -5,38 +5,55 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript">
+    PrimeFaces.locales['pt_BR'] = {
+        closeText: 'Fechar',
+        prevText: 'Anterior',
+        nextText: 'Próximo',
+        currentText: 'Começo',
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Só Horas',
+        timeText: 'Tempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Data Atual',
+                ampm: false,
+        month: 'Mês',
+        week: 'Semana',
+        day: 'Dia',
+        allDayText: 'Todo Dia'
+    };
+</script>
     <ui:composition template="/WEB-INF/templates/default.xhtml">
         <ui:define name="corpo">
             <h:form id="atividades">
+                <script type="text/javascript" src="js/locale-primefaces.js"></script>  
                 <div id="centro2" >
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
-                     <br></br>
                     <br></br>
-                     <p:outputLabel value="Atividade" class="filtrar" /> 
-                     <br></br>
-                     <p:inputText id="atividade"   size="43" maxlength="100" class="filtrar"  value="#{AtividadeMB.nomeAtividades}" />
-                     <p:commandButton icon="ui-icon-search" class="botao1" action="#{AtividadeMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
-                     
-                    <h:panelGrid columnClasses="value">
-                    <h3 style="margin-top: 0">Editable Schedule</h3>
-                    <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+                    <br></br>
+                    <p:outputLabel value="Atividade" class="filtrar" /> 
+                    <br></br>
+                    <p:inputText id="atividade"   size="43" maxlength="100" class="filtrar"  value="#{AtividadeMB.nomeAtividades}" />
+                    <p:commandButton icon="ui-icon-search" class="botao1" action="#{AtividadeMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
 
-                        <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                        <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                        <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
-                        <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
-
-                    </p:schedule>
-
-                    <h3>Locale Support ( Example: Turkish )</h3>
-                    <p:schedule id="scheduleLocale" value="#{scheduleView.eventModel}" locale="tr" />
- 
-        <h3>Lazy Schedule</h3>
-        <p:schedule value="#{scheduleView.lazyEventModel}" />
-    </h:panelGrid>
+                    <h:panelGrid columnClasses="value">  
+                             <p:calendar id="calendario" locale="pt_BR" />  
+                             <p:schedule locale="pt_BR" />     
+                    </h:panelGrid>
+                    
+                </div>
             </h:form>     
-
         </ui:define>
     </ui:composition>
 </html>
-
