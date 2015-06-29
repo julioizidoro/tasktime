@@ -65,11 +65,11 @@
                     <br></br>
                     <p:dialog id="dialog_addComentario" header="Comentários" widgetVar="vercomentario" resizable="false"  class="dialog" width="33%" height="60%">
                         <br></br>
-                        <p:inputTextarea value="#{AtividadeMB.listaComentarios}" rows="3" cols="75"/>
+                        <p:inputTextarea value="#{AtividadeMB.comentarios.comentario}" rows="3" cols="75"/>
                         <br></br><br></br>
                         <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvarComentario()}" onclick="addcomentario.hide();" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
                         <br></br> <br></br>
-                        <p:carousel value="#{AtividadeMB.atividades.comentariosList}" var="comentarios" itemStyleClass="carousel" style="width:400px;height:137px;" numVisible="1" firstVisible="0">
+                        <p:carousel value="#{AtividadeMB.listaComentarios}" var="comentarios" itemStyleClass="carousel" style="width:400px;height:137px;" numVisible="1" firstVisible="0">
                             <h:panelGrid columns="2" style="width:100%" cellpadding="5" columnClasses="label,value">
                                 <h:outputText value="Data:" />
                                 <h:outputText value="#{comentarios.data}" >
