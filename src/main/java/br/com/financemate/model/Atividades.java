@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -64,11 +65,11 @@ public class Atividades implements Serializable {
     @Size(max = 5)
     @Column(name = "mostratempo")
     private String mostratempo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades", fetch = FetchType.LAZY)
     private List<Atividadeusuario> atividadeusuarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades", fetch = FetchType.LAZY)
     private List<Rotinaatividade> rotinaatividadeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades", fetch = FetchType.LAZY)
     private List<Comentarios> comentariosList;
     @JoinColumn(name = "subdepartamento_idsubdepartamento", referencedColumnName = "idsubdepartamento")
     @ManyToOne(optional = false)

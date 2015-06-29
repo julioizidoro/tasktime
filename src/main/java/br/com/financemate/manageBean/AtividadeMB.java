@@ -47,6 +47,8 @@ public class AtividadeMB implements Serializable{
     
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
+    @Inject
+    private MenuMB menuMB;
     private Atividades atividades;
     private List<Departamento> listaDepartamento;
     private List<Subdepartamento> listaSubdepartamento;
@@ -522,6 +524,7 @@ public class AtividadeMB implements Serializable{
     
     
     public String novo(){
+        menuMB.gerarLitaNotificacao();
         if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
             atividades = new Atividades();
             atividades.setTempo(0);
@@ -557,6 +560,7 @@ public class AtividadeMB implements Serializable{
             Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
             atividades.setCliente(cliente);
             atividades.setTipo("A");
+            atividades.getComentariosList();
             UsuarioFacade usuarioFacade = new UsuarioFacade();
             Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
             atividades = atividadeFacade.salvar(atividades);
@@ -718,6 +722,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesDia(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadedia;
         atividadeMenu="dia";
         titulo="Taferas de Hoje";
@@ -725,6 +730,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesSemana(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadeSemana;
         atividadeMenu="semana";
         titulo="Taferas da Semana";
@@ -732,6 +738,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesAtrasadas(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadeAtrasada;
         atividadeMenu="atrasada";
          titulo="Taferas Atrasadas";
@@ -739,6 +746,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarTodasAtividades(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaTodasAtividade;
         atividadeMenu="todas";
          titulo="Todas as Taferas";
@@ -746,6 +754,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesDepartamento(){
+        menuMB.gerarLitaNotificacao();
         if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasoutros()){
             listaAtividadesGeral = listaAtividadesDepartamento;
             atividadeMenu="departamento";
@@ -905,6 +914,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesAmanha(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadesAmanha;
         atividadeMenu="amanha";
         titulo="Tarefas de Amanhã";
@@ -929,6 +939,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesDois(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadesDois;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 2);
@@ -955,6 +966,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesTres(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadesTres;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 3);
@@ -981,6 +993,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesQuatro(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadesQuatro;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 4);
@@ -1007,6 +1020,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesCinco(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadesCinco;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 5);
@@ -1033,6 +1047,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesSeis(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadesSeis;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 6);
@@ -1059,6 +1074,7 @@ public class AtividadeMB implements Serializable{
     }
     
     public String mostarAtividadesSete(){
+        menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaAtividadesSete;
         Date data = new Date();
         data = Formatacao.SomarDiasData(data, 7);
@@ -1253,6 +1269,12 @@ public class AtividadeMB implements Serializable{
         RotinaclienteFacade rotinaclienteFacade = new RotinaclienteFacade();
         atividades.getRotinaatividadeList();
         if (atividades.getRotinaatividadeList() != null) {
+            if (atividades.getRotinaatividadeList().size()==0){
+                RotinaAtividadeFacade rotinaAtividadeFacade = new RotinaAtividadeFacade();
+                String sql ="Select r from Rotinaatividade r where r.atividades.idatividades=" + atividades.getIdatividades();
+                List<Rotinaatividade> lista = rotinaAtividadeFacade.listar(sql);
+                atividades.setRotinaatividadeList(lista);
+            }
             if (atividades.getRotinaatividadeList().size() > 0) {
                 rotinaCliente = rotinaclienteFacade.getRotinaCliente(atividades.getCliente().getIdcliente(), atividades.getRotinaatividadeList().get(0).getRotina().getIdrotina());
                 peridicidade = rotinaCliente.getPeriodicidade();
@@ -1286,9 +1308,9 @@ public class AtividadeMB implements Serializable{
             c.setTime(rotinaCliente.getData());    
             if (peridicidade.equalsIgnoreCase("trimestral")){
                 c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 3);
-            }else if (!peridicidade.equalsIgnoreCase("mensal")){
+            }else if (peridicidade.equalsIgnoreCase("mensal")){
                 c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 1);
-            }else if (!peridicidade.equalsIgnoreCase("anual")){
+            }else if (peridicidade.equalsIgnoreCase("anual")){
                 c.set(Calendar.YEAR, c.get(Calendar.YEAR) + 1);
             }
             atividades.setPrazo(c.getTime());

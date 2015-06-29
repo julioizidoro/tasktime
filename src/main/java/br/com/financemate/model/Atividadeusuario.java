@@ -48,6 +48,8 @@ public class Atividadeusuario implements Serializable {
     @Size(max = 50)
     @Column(name = "nomeexecutor")
     private String nomeexecutor;
+    @Column(name = "tipo")
+    private int tipo;
     @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -119,6 +121,14 @@ public class Atividadeusuario implements Serializable {
 
     public void setAtividades(Atividades atividades) {
         this.atividades = atividades;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     @Override

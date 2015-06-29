@@ -297,6 +297,10 @@ public class RotinaMB  implements Serializable{
         atividadeMB.listarAtividadesSete();
         atividadeMB.listarTodasAtividades();
         rotina = new Rotina();
+        idUsuario="0";
+        idDepartamento="0";
+        idSubdepartamento="0";
+        prioridade="sn";
         gerarListaRotina();
         return "consRotina";
     }

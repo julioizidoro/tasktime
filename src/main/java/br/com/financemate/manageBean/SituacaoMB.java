@@ -272,28 +272,174 @@ public class SituacaoMB implements Serializable{
                     dataInical, dataFinal);
             String resultado = verificarSituacao(rotinaatividade);
             if (mes==1){
-                listaSituacao.get(i).setJan(resultado);
+                if (listaSituacao.get(i).getJan().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setJan(resultado);
+                }else if (listaSituacao.get(i).getJan().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setJan(resultado);
+                    }
+                }else if (listaSituacao.get(i).getJan().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setJan(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setJan(resultado);
+                    }
+                }
             }else if (mes==2){
-                listaSituacao.get(i).setFev(resultado);
+                if (listaSituacao.get(i).getFev().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setJan(resultado);
+                }else if (listaSituacao.get(i).getFev().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setFev(resultado);
+                    }
+                }else if (listaSituacao.get(i).getFev().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setFev(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setFev(resultado);
+                    }
+                }
             }else if (mes==3){
-                listaSituacao.get(i).setMar(resultado);
+                if (listaSituacao.get(i).getMar().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setMar(resultado);
+                }else if (listaSituacao.get(i).getMar().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setMar(resultado);
+                    }
+                }else if (listaSituacao.get(i).getMar().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setMar(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setMar(resultado);
+                    }
+                }
             }else if (mes==4){
-                listaSituacao.get(i).setAbr(resultado);
+                if (listaSituacao.get(i).getAbr().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setAbr(resultado);
+                }else if (listaSituacao.get(i).getAbr().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setAbr(resultado);
+                    }
+                }else if (listaSituacao.get(i).getAbr().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setAbr(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setAbr(resultado);
+                    }
+                }
             }else if (mes==5){
-                listaSituacao.get(i).setMai(resultado);
+                if (listaSituacao.get(i).getMai().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setMai(resultado);
+                }else if (listaSituacao.get(i).getMai().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setMai(resultado);
+                    }
+                }else if (listaSituacao.get(i).getMai().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setMai(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setMai(resultado);
+                    }
+                }
             }else if (mes==6){
-                listaSituacao.get(i).setJun(resultado);
+                if (listaSituacao.get(i).getJun().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setJun(resultado);
+                }else if (listaSituacao.get(i).getJun().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setJun(resultado);
+                    }
+                }else if (listaSituacao.get(i).getJun().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setJun(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setJun(resultado);
+                    }
+                }
             }else if (mes==7){
-                listaSituacao.get(i).setJul(resultado);
+                if (listaSituacao.get(i).getJul().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setJul(resultado);
+                }else if (listaSituacao.get(i).getJul().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setJul(resultado);
+                    }
+                }else if (listaSituacao.get(i).getJul().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setJul(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setJul(resultado);
+                    }
+                }
             }else if (mes==8){
-                listaSituacao.get(i).setAgo(resultado);
+                if (listaSituacao.get(i).getAgo().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setAgo(resultado);
+                }else if (listaSituacao.get(i).getAgo().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setAgo(resultado);
+                    }
+                }else if (listaSituacao.get(i).getAgo().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setAgo(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setAgo(resultado);
+                    }
+                }
             }else if (mes==9){
-                listaSituacao.get(i).setSet(resultado);
+                if (listaSituacao.get(i).getSet().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setSet(resultado);
+                }else if (listaSituacao.get(i).getSet().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setSet(resultado);
+                    }
+                }else if (listaSituacao.get(i).getSet().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setSet(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setSet(resultado);
+                    }
+                }
             }else if (mes==10){
-                listaSituacao.get(i).setOut(resultado);
+                if (listaSituacao.get(i).getOut().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setOut(resultado);
+                }else if (listaSituacao.get(i).getOut().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setOut(resultado);
+                    }
+                }else if (listaSituacao.get(i).getOut().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setOut(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setOut(resultado);
+                    }
+                }
             }else if (mes==11){
-                listaSituacao.get(i).setNov(resultado);
-            }else listaSituacao.get(i).setDez(resultado);
+                if (listaSituacao.get(i).getNov().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setNov(resultado);
+                }else if (listaSituacao.get(i).getNov().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setNov(resultado);
+                    }
+                }else if (listaSituacao.get(i).getNov().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setNov(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setNov(resultado);
+                    }
+                }
+            }else {
+                if (listaSituacao.get(i).getDez().equalsIgnoreCase("X")){
+                    listaSituacao.get(i).setDez(resultado);
+                }else if (listaSituacao.get(i).getDez().equalsIgnoreCase("AM")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setDez(resultado);
+                    }
+                }else if (listaSituacao.get(i).getDez().equalsIgnoreCase("VD")){
+                    if (resultado.equalsIgnoreCase("VR")){
+                        listaSituacao.get(i).setDez(resultado);
+                    }else if (resultado.equalsIgnoreCase("AM")){
+                        listaSituacao.get(i).setDez(resultado);
+                    }
+                }
+            }
         }
     }
     

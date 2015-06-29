@@ -1,8 +1,6 @@
 package br.com.financemate.manageBean;
 
-import br.com.financemate.bean.Formatacao;
 import br.com.financemate.facade.NotificacaoFacade;
-import br.com.financemate.model.Atividades;
 import br.com.financemate.model.Notificacao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,6 +54,7 @@ public class MenuMB implements Serializable{
     
     
     public String cliente(){
+        gerarLitaNotificacao();
         if(usuarioLogadoBean.getUsuario().getPerfil().getCadcliente()){
             return"consCliente";    
         }else{
@@ -66,6 +65,7 @@ public class MenuMB implements Serializable{
     }
     
     public String departamento(){
+        gerarLitaNotificacao();
         if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamento()){
             return"consDepartamento";
         }else{
@@ -77,6 +77,7 @@ public class MenuMB implements Serializable{
     
     
      public String subdepartamento(){
+         gerarLitaNotificacao();
          if(usuarioLogadoBean.getUsuario().getPerfil().getCadsubdepartamento()){
             return"consSubdepartamento";
          }else{
@@ -87,6 +88,7 @@ public class MenuMB implements Serializable{
     }
      
       public String rotina(){
+        gerarLitaNotificacao();
         if(usuarioLogadoBean.getUsuario().getPerfil().getCadrotina()){  
           return"consRotina";
         }else{
@@ -97,22 +99,27 @@ public class MenuMB implements Serializable{
     }
     
       public String situacao(){
+        gerarLitaNotificacao();
         return"consSituacao";
     }
       
     public String financeiro(){
+      gerarLitaNotificacao();
       return"gestaoFinanceira";  
     }
     
     public String contabilidade(){
+      gerarLitaNotificacao();
       return"contabilidade";  
     }
     
     public String tercerizacao(){
+      gerarLitaNotificacao();
       return"tercerizacao";  
     }
     
     public String usuario(){
+        gerarLitaNotificacao();
         if(usuarioLogadoBean.getUsuario().getPerfil().getCadusuario()){
             return"consUsuario";
         }else{
@@ -123,6 +130,7 @@ public class MenuMB implements Serializable{
     }
     
      public String perfil(){
+         gerarLitaNotificacao();
          if(usuarioLogadoBean.getUsuario().getPerfil().getCadperfil()){
             return"consPerfil";
          }else{
@@ -131,7 +139,9 @@ public class MenuMB implements Serializable{
         }
         return "";
     }
+     
      public String informacao(){
+       gerarLitaNotificacao();
        informacaoMB.gerarListaInformacao();
        return "informacoes";
      }
