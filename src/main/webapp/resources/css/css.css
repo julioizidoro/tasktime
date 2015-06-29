@@ -136,7 +136,7 @@
         font-family: tahoma;
         float:right;
         font-size: 14px;
-        margin-left:890px;
+        margin-left:700px;
     }
      .menu li a{
         color:#fff;
@@ -618,6 +618,11 @@
     .botaoDialog{
         font-size: 12px;
         margin-left:18px;
+    }
+    .botaoDialogparticular{
+        font-size: 12px;
+        top:-17px;
+        margin-left:170px;
     }
     .botaoDialog2{
         font-size: 12px;
