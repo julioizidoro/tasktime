@@ -14,6 +14,7 @@
             </p:dialog>
            <h:form id="atividades">
                 <div id="centro2" >
+                    <p:growl id="growl" showDetail="true" sticky="true" />
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                     <br></br>
                     <p:panelGrid columns="5" styleClass="semBorda" class="semBorda" >
@@ -95,7 +96,7 @@
                             </p:selectBooleanCheckbox>
                         </p:column>
                         <p:column style="width:20px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}" update="atividades:dialog_editTarefa"  oncomplete="PF('editar').show()" />
+                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}" update="#{AtividadeMB.mensagemGrow()}"  oncomplete="#{AtividadeMB.abrirDialog()}" />
                         </p:column>      
                     </p:dataTable>
                     <br></br>

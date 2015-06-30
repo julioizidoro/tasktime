@@ -5,6 +5,7 @@ import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -164,9 +165,8 @@ public class UsuarioLogadoBean implements Serializable{
     }
     public String deslogar(){
         usuario.setIdusuario(null);
-        FacesContext fc = FacesContext.getCurrentInstance();  
-        HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);  
-        session.invalidate(); 
+        Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();  
+        sessionMap.clear();  
         return "index";
     }
 }

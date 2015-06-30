@@ -9,6 +9,7 @@
         <ui:define name="corpo">
             <h:form id="atividades">
                 <div id="centro2" >
+                    <p:growl id="growl" showDetail="true" sticky="true" />
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                      <br></br>
                     <br></br>
@@ -23,10 +24,6 @@
                       
                         <p:column headerText="Atividade" style="width:120px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
                             <h:outputText value="#{tarefas.atividades.nome}" />
-                        </p:column>
-
-                        <p:column headerText="Responsável" style="width:100px;" styleClass="alinhaCentro" >
-                            <h:outputText value="#{tarefas.usuario.nome}" />
                         </p:column>
 
                         <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}"> 
@@ -49,7 +46,7 @@
                             </h:outputText>    
                         </p:column>
 
-                        <p:column headerText="Prioridade" style="width:80px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
+                        <p:column headerText="Prioridade" style="width:70px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
                             <p:graphicImage value="#{AtividadeMB.imagem(tarefas.atividades)}" />
                         </p:column>
 
@@ -59,7 +56,7 @@
                             </p:selectBooleanCheckbox>
                         </p:column>
                         <p:column style="width:24px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}" update="atividades:dialog_editTarefa"  oncomplete="PF('editar').show()" />
+                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}" actionListener="#{AtividadeMB.pegarLinha(rowIx)}" update="#{AtividadeMB.mensagemGrow()}"  oncomplete="#{AtividadeMB.abrirDialog()}"  />
                         </p:column>      
                     </p:dataTable>
                     <br></br>

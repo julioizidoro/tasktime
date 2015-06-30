@@ -748,7 +748,7 @@ public class AtividadeMB implements Serializable{
     public  void listarAtividadesSemana()  {
         AtividadeUsuarioFacade atividadesAtividadeFacade = new AtividadeUsuarioFacade();
         Date data = Formatacao.SomarDiasData(new Date(), 7);
-        String sql = "Select a from Atividadeusuario a where a.atividades.prazo>'" + Formatacao.ConvercaoDataSql(new Date()) + 
+        String sql = "Select a from Atividadeusuario a where a.atividades.prazo>='" + Formatacao.ConvercaoDataSql(new Date()) + 
                 "' and a.atividades.prazo<='" + Formatacao.ConvercaoDataSql(data) + "'  and a.situacao=" + isCheckConcluidas() + 
                 " and a.usuario.idusuario=" + usuarioLogadoBean.getUsuario().getIdusuario()  +
                 " and a.participacao='Executor'" +

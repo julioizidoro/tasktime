@@ -37,6 +37,7 @@
     <ui:composition template="/WEB-INF/templates/default.xhtml">
         <ui:define name="corpo">
             <h:form id="atividades">
+            <p:growl id="growl" showDetail="true" sticky="true" />
                 <script type="text/javascript" src="js/locale-primefaces.js"></script>  
                 <div id="centro2" >
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
@@ -47,7 +48,8 @@
                              <p:schedule id="schedule" value="#{CalendarioMB.eventModel}" widgetVar="myschedule" 
                                          clientTimeZone="America/Sao_Paulo" locale="pt_BR"
                                          initialDate="#{CalendarioMB.dataInicia}">
-                                 
+                                 <p:ajax event="eventMove" listener="#{CalendarioMB.onEventMove}" update="growl" />
+                                 <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="growl" />
                              </p:schedule>     
                     </h:panelGrid>
                     

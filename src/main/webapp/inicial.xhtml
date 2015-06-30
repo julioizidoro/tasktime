@@ -28,10 +28,6 @@
                             <h:outputText value="#{tarefas.atividades.nome}" />
                         </p:column>
 
-                        <p:column headerText="Responsável" style="width:100px;" styleClass="alinhaCentro">
-                            <h:outputText value="#{tarefas.usuario.nome}" />
-                        </p:column>
-
                         <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
                             <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" />
                         </p:column>
@@ -52,7 +48,7 @@
                             </h:outputText>    
                         </p:column>
 
-                        <p:column headerText="Prioridade" style="width:80px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
+                        <p:column headerText="Prioridade" style="width:70px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
                             <p:graphicImage value="#{AtividadeMB.imagem(tarefas.atividades)}" />
                         </p:column>
 
