@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -49,6 +48,8 @@ public class AtividadeMB implements Serializable{
     private UsuarioLogadoBean usuarioLogadoBean;
     @Inject
     private MenuMB menuMB;
+    @Inject
+    private CalendarioMB calendarioMB;
     private Atividades atividades;
     private List<Departamento> listaDepartamento;
     private List<Subdepartamento> listaSubdepartamento;
@@ -827,8 +828,10 @@ public class AtividadeMB implements Serializable{
         menuMB.gerarLitaNotificacao();
         listaAtividadesGeral = listaTodasAtividade;
         atividadeMenu="todas";
+        calendarioMB.gerarEventos();
          titulo="Todas as Taferas";
-        return "tarefasTodas";
+        //return "tarefasTodas";
+         return "teste";
     }
     
     public String mostarAtividadesDepartamento(){

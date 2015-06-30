@@ -42,14 +42,13 @@
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                     <br></br>
                     <br></br>
-                    <p:outputLabel value="Atividade" class="filtrar" /> 
-                    <br></br>
-                    <p:inputText id="atividade"   size="43" maxlength="100" class="filtrar"  value="#{AtividadeMB.nomeAtividades}" />
-                    <p:commandButton icon="ui-icon-search" class="botao1" action="#{AtividadeMB.pesquisarNome()}"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
-
+                    
                     <h:panelGrid columnClasses="value">  
-                             <p:calendar id="calendario" locale="pt_BR" />  
-                             <p:schedule locale="pt_BR" />     
+                             <p:schedule id="schedule" value="#{CalendarioMB.eventModel}" widgetVar="myschedule" 
+                                         clientTimeZone="America/Sao_Paulo" locale="pt_BR"
+                                         initialDate="#{CalendarioMB.dataInicia}">
+                                 
+                             </p:schedule>     
                     </h:panelGrid>
                     
                 </div>
