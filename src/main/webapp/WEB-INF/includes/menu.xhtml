@@ -1,4 +1,4 @@
-<h:form xmlns="http://www.w3.org/1999/xhtml"
+<h:form id="formMenu" xmlns="http://www.w3.org/1999/xhtml"
         xmlns:p="http://primefaces.org/ui"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html">
@@ -49,7 +49,7 @@
                 <p:menuitem value="#{AtividadeMB.nsemana}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesSemana()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                 <p:menuitem value="#{AtividadeMB.natrasada}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesAtrasadas()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                 <p:menuitem value="#{AtividadeMB.todas}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarTodasAtividades()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
-                <p:menuitem value="Informações" icon=" ui-icon-notice" action="#{MenuMB.informacao()}"/>
+                <p:menuitem id="menu_informacao" value="Informações" icon=" ui-icon-notice" action="#{MenuMB.informacao()}"/>
             </p:submenu>
             <p:submenu label="Próximas 7 dias">
                 <p:menuitem value="#{AtividadeMB.namanha}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesAmanha()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
@@ -167,3 +167,4 @@
     <br>  </br>
     <br>  </br>
 </h:form>
+
