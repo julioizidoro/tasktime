@@ -2,7 +2,10 @@ body {
     font-family: tahoma;
     background-color:#E0EEEE;
 }
-
+body2 {
+    font-family: tahoma;
+    background-color:#E0EEEE;
+}
 h1 {
     margin: 10px 20px 10px 20px;
 }
@@ -18,8 +21,8 @@ h1 {
 }
 #centro {
     background: #fff;
-    width: 1155px;
-    margin-left:72px;
+    width: 1157px;
+    margin-left:5%;
     margin-top:-50px;
     height:470px; 
     //borda arredondada
@@ -41,8 +44,8 @@ h1 {
 }
 #centro2 {
     background: #fff;
-    width: 1155px;
-    margin-left:72px;
+    width: 1157px;
+    margin-left:5%;
     margin-top:-520px;
     //borda arredondada
     -webkit-border-bottom-right-radius: 5px;
@@ -72,8 +75,8 @@ h1 {
         from(#f2f9fa),
         color-stop(0.45, #ebebeb),
         to(#a1bbf0));
-    width: 1155px;
-    margin-left:72px;
+    width: 1157px;
+    margin-left:5%;
     margin-top:-50px;
     height:300px; 
     //borda arredondada
@@ -110,7 +113,7 @@ h1 {
     margin-top:-20px;
     font-size: 12px;
     width:185px;
-    height: 485px;
+    height: 108%;
 }
 .submenu{
     font-family: tahoma;
@@ -195,8 +198,13 @@ h1 {
 }
 .dataGriddialog{
     font-size:12px;
-    width:88%;
-    margin-left:7%;
+    width: 492px;
+    margin-left: 20px;
+}
+.dataGriddialogg{
+    font-size:12px;
+    width: 492px;
+    margin-left:80px;
 }
 .dataGriddialog2{
     font-size:12px;
@@ -220,12 +228,12 @@ h1 {
 }
 .subtitulo{
     background:#ccc;
-    width:780px;
+    width:676px;
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 14px;
     font-weight: bold;
     font-variant: small-caps;
-    margin-left:300px;
+    margin-left:316px;
     letter-spacing: 1.6pt;
     word-spacing: 1.6pt;
 }
@@ -234,7 +242,7 @@ h1 {
     margin-left:867px;
 }
 .Selecionarconcluida{
-    margin-left:5px;
+    margin-left:0.7%;
     font-size:12px;
 }
 button.botao4{
@@ -278,20 +286,39 @@ button.botao1 {
         0px 1px 0px rgba(255,255,255,1);
 }
 .filtrar2{
+     position: relative;
     font-size:12px;
-    margin-left:100px;
+    margin-left:29%;
+}
+.filtrar22{
+     position: relative;
+    font-size:12px;
+    margin-left:15%;
 }
 .filtrar3{
+     position: relative;
     font-size:12px;
     margin-left:120px;
 }
 .filtrar{
+    position: relative;
     font-size:12px;
-    margin-left:20px;
+    margin-left:13%;
+}
+.filtrar10{
+    position: relative;
+    font-size:12px;
+    margin-left:8%;
 }
 .filtrar4{
+    position: relative;
     font-size:12px;
-    margin-left:60px;
+    margin-left:25.5%;
+}
+.filtrar44{
+    position: relative;
+    font-size:12px;
+    margin-left:9%;
 }
 .filtrar5{
     margin-top:-30px;
@@ -311,6 +338,21 @@ button.botao1 {
     font-size:11px;
     margin-left:20px;
 }
+.filtrar9{
+    position: relative;
+    font-size:12px;
+    margin-left:220%;
+}
+.filtrar11{
+     position: relative;
+    font-size:12px;
+    margin-left:48%;
+}
+.filtrar12{
+    position: relative;
+    font-size:12px;
+    margin-left:2%;
+}
 .alinhaCentro{
     text-align:center;
     border:#fff;
@@ -323,8 +365,14 @@ button.botao1 {
     border:#fff;
 }
 .left{
+     position:relative;
     font-size:12px;
-    margin-left:200px;
+    margin-left:775%;
+}
+.left17{
+     position:relative;
+    font-size:12px;
+    margin-left:640%;
 }
 button.cadastro4 {
     font-family: Arial, Helvetica, sans-serif;
@@ -365,40 +413,6 @@ button.cadastro2 {
     color: #3A5795;
     padding: 5px 0px;
     margin-left:480px;
-    background: -moz-linear-gradient(
-        top,
-        #f2f9fa 0%,
-        #ebebeb 45%,
-        #a1bbf0);
-    background: -webkit-gradient(
-        linear, left top, left bottom,
-        from(#f2f9fa),
-        color-stop(0.45, #ebebeb),
-        to(#a1bbf0));
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    border: 0px solid #3b5695;
-    -moz-box-shadow:
-        0px 1px 3px rgba(000,000,000,0.5),
-        inset 0px 0px 3px rgba(255,255,255,1);
-    -webkit-box-shadow:
-        0px 1px 3px rgba(000,000,000,0.5),
-        inset 0px 0px 3px rgba(255,255,255,1);
-    box-shadow:
-        0px 1px 3px rgba(000,000,000,0.5),
-        inset 0px 0px 3px rgba(255,255,255,1);
-    text-shadow:
-        0px -1px 0px rgba(000,000,000,0.2),
-        0px 1px 0px rgba(255,255,255,1);
-}
-
-button.cadastro6 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    color: #3A5795;
-    padding: 5px 0px;
-    margin-left:30%;
     background: -moz-linear-gradient(
         top,
         #f2f9fa 0%,
@@ -583,16 +597,18 @@ button.contabilidade {
         0px 1px 0px rgba(255,255,255,1);
 }
 .left1{
+    position: relative;
     font-size:12px;
     margin-left:130px;
-}
-.left1rig{
-    font-size:12px;
-    margin-left:130px;
-    text-align: right;
 }
 
 .left2{
+     position: relative;
+    font-size:12px;
+    margin-left:820%;
+}
+.left18{
+     position: relative;
     font-size:12px;
     margin-left:185px;
 }
@@ -601,6 +617,7 @@ button.contabilidade {
     margin-left:325px;
 }
 .left4{
+     position: relative;
     font-size:12px;
     margin-left:245px;
 }
@@ -630,12 +647,12 @@ button.contabilidade {
 }
 .left5{
     font-size:12px;
-    margin-left:45px;
+    margin-left:42px;
 }
 .rightFiltrar{
     text-align: right;
     font-size:12px;
-    margin-left:20px;
+    margin-left:13%;
 }
 .rightleft3{
     text-align: right;
@@ -652,12 +669,16 @@ button.contabilidade {
     border:0px;
 }  
 .dialog{
+    margin-top:-10px;
     font-size: 12px;
 }
 .botaoDialog{
-
     font-size: 12px;
     margin-left:18px;
+}
+.botaoDialog4{
+    font-size: 12px;
+    margin-left:75%;
 }
 ////
 .botaoDialogparticular{
@@ -733,7 +754,7 @@ button.contabilidade {
     border:#fff;
 }
 .letraPreta{
-    color: black;
+    color: #000;
     border:#fff;
 }
 .panelgrid4{
@@ -772,48 +793,4 @@ button.contabilidade {
 }
 .value {
     width: 1000px;
-}
-
-.espaco1{
-    margin-left: 1%;
-}
-.espaco2{
-    margin-left: 2%;
-}
-.espaco2meio{
-    margin-left: 2.3%;
-}
-
-.espaco4{
-    margin-left:4%;
-}
-
-.espaco9meio{
-    margin-left:9.3%;
-}
-
-.espaco8tres{
-    margin-left:8.3%;
-}
-.espaco3{
-    margin-left:3%;
-}
-.espaco10{
-    margin-left:10%;
-}
-.espaco10dois{
-    margin-left:10.2%;
-}
-.espaco5dois{
-    margin-left:5.4%;
-}
-.espaco8{
-    margin-left:8%;
-}
-
-.espaco14{
-    margin-left:14%;
-}
-.espaco14meio{
-    margin-left:14.4%;
 }
