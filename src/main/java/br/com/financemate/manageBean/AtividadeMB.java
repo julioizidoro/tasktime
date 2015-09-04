@@ -560,12 +560,12 @@ public class AtividadeMB implements Serializable{
             atividades.setPrazo(new Date());
             atividades.setPrioridade("normal");
             tipo=1;
-            
+            RequestContext.getCurrentInstance().openDialog("cadastroTarefaParticular");
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
-        RequestContext.getCurrentInstance().openDialog("cadastroTarefaParticular");
+        
         return "";
     }
     
@@ -610,22 +610,33 @@ public class AtividadeMB implements Serializable{
             listarAtividadesDepartamento();
             carregarListaGeral();
             atividades = new Atividades();
+            atividades.setTempo(0);
+            atividades.setEstado("Play");
+            atividades.setMostratempo("00:00");
+            atividades.setPrazo(new Date());
+            atividades.setPrioridade("normal");
+            tipo=1;
             idCliente="0";
             idUsuario="0";
             idDepartamento="0";
             idSubdepartamento="0";
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+            menuMB.gerarLitaNotificacao();
+            listaAtividadesGeral = listaAtividadedia;
             atividadeMenu="dia";
-             RequestContext.getCurrentInstance().closeDialog("inicial");
-            return "inicial";
+            titulo="Taferas de Hoje";
+            return "cadastroTarefaParticular";
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
-        novoParticular();
         return "";
     }
+     
+     public String fecharDialog(){
+        RequestContext.getCurrentInstance().closeDialog(null);
+        RequestContext.getCurrentInstance().update("@all");
+        return "inicial";
+     }
             
             
     public String salvar() {
@@ -663,20 +674,31 @@ public class AtividadeMB implements Serializable{
             listarAtividadesDepartamento();
             carregarListaGeral();
             atividades = new Atividades();
+            atividades.setTempo(0);
+            atividades.setEstado("Play");
+            atividades.setMostratempo("00:00");
+            idUsuario = String.valueOf(usuarioLogadoBean.getUsuario().getIdusuario());
+            idCliente = "4";
+            idDepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getDepartamento().getIddepartamento());
+            gerarListaSubdepartamento();
+            idSubdepartamento = String.valueOf(usuarioLogadoBean.getUsuario().getSubdepartamento().getIdsubdepartamento());
+            atividades.setPrazo(new Date());
+            atividades.setPrioridade("normal");
+            gerarListaUsuarioBean();
+            tipo=0;
             idCliente="0";
             idUsuario="0";
             idDepartamento="0";
             idSubdepartamento="0";
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+            menuMB.gerarLitaNotificacao();
+            listaAtividadesGeral = listaAtividadedia;
             atividadeMenu="dia";
-            RequestContext.getCurrentInstance().closeDialog("inicial");
-            return "inicial";
+            titulo="Taferas de Hoje";
+            return "cadastroTarefa";
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
         }
-        novo();
         return "";
     }
     
@@ -1224,6 +1246,54 @@ public class AtividadeMB implements Serializable{
             gerarListaUsuarioBeanEditar(atividades.getIdatividades());
             idUsuario =String.valueOf(idExecutor);
             RequestContext.getCurrentInstance().openDialog("editarTarefa");
+        }else{
+            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        }
+        return "";
+    }
+    
+    public String salvarEdicao(){
+        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
+            idExecutor = Integer.parseInt(idUsuario);
+            AtividadeFacade atividadeFacade = new AtividadeFacade();
+            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+            Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+            atividades.setSubdepartamento(subddepartamento);
+            atividades.setEstado("Play");
+            atividades.setInicio(BigInteger.valueOf(0));
+            atividades.setTempo(0);
+            atividades.setMostratempo("00:00");
+            ClienteFacade clienteFacade = new ClienteFacade();
+            Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
+            atividades.setCliente(cliente);
+            atividades.setTipo("A");
+            atividades.getComentariosList();
+            UsuarioFacade usuarioFacade = new UsuarioFacade();
+            Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+            atividades = atividadeFacade.salvar(atividades);
+            salvarUsuarioAtividade();
+            atividadeMenu="dia";
+            listarAtividadesAtrasadas();
+            listarAtividadesDia();
+            listarAtividadesSemana();
+            listarTodasAtividades();
+            listarAtividadesAmanha();
+            listarAtividadesDois();
+            listarAtividadesTres();
+            listarAtividadesQuatro();
+            listarAtividadesCinco();
+            listarAtividadesSeis();
+            listarAtividadesSete();
+            listarAtividadesDepartamento();
+            carregarListaGeral();
+            atividades = new Atividades();
+            menuMB.gerarLitaNotificacao();
+            listaAtividadesGeral = listaAtividadedia;
+            atividadeMenu="dia";
+            titulo="Taferas de Hoje";
+            RequestContext.getCurrentInstance().closeDialog(null);
+            return "inicial";
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);

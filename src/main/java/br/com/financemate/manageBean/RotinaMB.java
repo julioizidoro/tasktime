@@ -507,9 +507,9 @@ public class RotinaMB  implements Serializable{
             atividades.setPrazo(data);
             data = Formatacao.SomarDiasData(data, 1);
             int diaSemana = Formatacao.diaSemana(data);
-            if (diaSemana==0){
+            if (diaSemana==1){
                 data = Formatacao.SomarDiasData(data, 1);
-            }else if (diaSemana==6){
+            }else if (diaSemana==7){
                 data = Formatacao.SomarDiasData(data, 2);
             }
             atividades = atividadeFacade.salvar(atividades);
@@ -581,6 +581,12 @@ public class RotinaMB  implements Serializable{
         atividades.setTipo("R");
         atividades.setSubdepartamento(rotina.getSubdepartamento());
         atividades.setPrazo(rotinaBean.getRotinacliente().getData());
+        int diaSemana = Formatacao.diaSemana(atividades.getPrazo());
+        if (diaSemana == 1) {
+            atividades.setPrazo(Formatacao.SomarDiasData(atividades.getPrazo(), 1));
+        } else if (diaSemana == 7) {
+            atividades.setPrazo(Formatacao.SomarDiasData(atividades.getPrazo(), 2));
+        }
         atividades = atividadeFacade.salvar(atividades);
         Atividadeusuario atividadeusuario = new Atividadeusuario();
         atividadeusuario.setAtividades(atividades);
@@ -591,6 +597,9 @@ public class RotinaMB  implements Serializable{
         atiUsuarioFacade.salvar(atividadeusuario);
         salvarRotinaAtividade(atividades);
     }
+    
+    
+    
     public void gerarListaDepartamento() throws SQLException{
         DepartamentoFacade departamentoFacade = new DepartamentoFacade();
         listaDepartamento = departamentoFacade.listar("");

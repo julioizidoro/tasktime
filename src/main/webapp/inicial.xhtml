@@ -12,13 +12,13 @@
             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                 <img src="resources/img/ajax-loader.gif" />
             </p:dialog>
-            <h:form id="atividades">
+            <h:form id="inicial" >
                 <div id="centro2" >
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                     <br></br>
 
-                    <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid"   rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
+                    <p:dataTable id="tabelaAtividades" var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid"   rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
                                                         null}"  rowIndexVar="rowIx">
                         <p:column headerText="Estado" style="width:40px;" styleClass="alinhaCentro">
@@ -33,7 +33,7 @@
                         </p:column>
 
                         <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
-                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
+                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update=":inicial:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
 
                             </p:commandButton>
                         </p:column>
@@ -58,7 +58,9 @@
                             </p:selectBooleanCheckbox>
                         </p:column>
                         <p:column style="width:20px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}" update="#{AtividadeMB.mensagemGrow()}"  oncomplete="#{AtividadeMB.abrirDialog()}"  />
+                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}"   >
+                                 <p:ajax event="dialogReturn" update="@all"/>
+                            </p:commandButton>
                         </p:column>   
                     </p:dataTable>
                     <br></br>

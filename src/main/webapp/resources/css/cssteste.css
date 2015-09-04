@@ -97,6 +97,59 @@ h1 {
     ///////
 
 }
+
+
+
+.espaco1{
+    margin-left: 1%;
+}
+.espaco2{
+    margin-left: 2%;
+}
+.espaco2meio{
+    margin-left: 2.3%;
+}
+
+.espaco4{
+    margin-left:4%;
+}
+
+.espaco9meio{
+    margin-left:9.3%;
+}
+
+.espaco8tres{
+    margin-left:8.3%;
+}
+.espaco3{
+    margin-left:3%;
+}
+.espaco10{
+    margin-left:10%;
+}
+.espaco10dois{
+    margin-left:10.2%;
+}
+.espaco5dois{
+    margin-left:5.4%;
+}
+.espaco8{
+    margin-left:8%;
+}
+
+.espaco14{
+    margin-left:14%;
+}
+.espaco14meio{
+    margin-left:14.4%;
+}
+
+.espaco9dois{
+    margin-left:9.2%;
+}
+.espaco22{
+    margin-left:22%;
+}
 .menu{
     font-family: tahoma;
     list-style:none; 
@@ -794,3 +847,4 @@ button.contabilidade {
 .value {
     width: 1000px;
 }
+

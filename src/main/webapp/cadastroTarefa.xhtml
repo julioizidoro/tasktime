@@ -5,21 +5,25 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
-         <link href="resources/css/css2.css" rel="stylesheet" type="text/css" />
+
+        <link href="resources/css/cssteste.css" rel="stylesheet" type="text/css" />
     </h:head>
 
     <h:body class="body2">
         <h:form id="cadastrotarefa" class="body2" style="font-size: 12px">
-           
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="resources/img/ajax-loader.gif" />
+            </p:dialog>
             <p:growl id="growl" showDetail="true" sticky="true" />
             <title>Adicionar Tarefa</title>
 
             <p:outputLabel value="Título:" class="espaco10"/>
-            <p:inputText value="#{AtividadeMB.atividades.nome}" class="espaco2" style="width: 38%"/>
+            <p:inputText value="#{AtividadeMB.atividades.nome}" class="espaco2" style="width:38%"/>
             <p:outputLabel value="Data:" class="espaco4"/>
             <p:calendar id="prazo" size="10"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="espaco2" value="#{AtividadeMB.atividades.prazo}" >
                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
@@ -57,8 +61,8 @@
                 <p:ajax event="change" listener="#{AtividadeMB.gerarListaUsuarioBean()}" update="selecao" />
             </p:selectOneMenu>
             <br></br> <br></br>
-            <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" update="growl" oncomplete="PF('add').show()" />
-            
+            <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" update="@all" ajax="true"/>
+            <p:commandButton value="Fechar" icon="ui-icon-close" class="espaco2" action="#{AtividadeMB.fecharDialog()}" update="@all" ajax="true"/>
             <p:dataTable id="selecao" var="selecaoUsuario" value="#{AtividadeMB.listaUsuarioBean}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                          paginator="true" rows="8"  rowIndexVar="rowIx">
