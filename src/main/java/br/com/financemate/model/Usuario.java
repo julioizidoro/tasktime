@@ -34,6 +34,8 @@ import javax.validation.constraints.Size;
 @Table(name = "usuario")
 public class Usuario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Processosituacao> processosituacaoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Departamento> departamentoList;
     private static final long serialVersionUID = 1L;
     @Id
@@ -210,5 +212,13 @@ public class Usuario implements Serializable {
 
     public void setDepartamentoList(List<Departamento> departamentoList) {
         this.departamentoList = departamentoList;
+    }
+
+    public List<Processosituacao> getProcessosituacaoList() {
+        return processosituacaoList;
+    }
+
+    public void setProcessosituacaoList(List<Processosituacao> processosituacaoList) {
+        this.processosituacaoList = processosituacaoList;
     }
 }

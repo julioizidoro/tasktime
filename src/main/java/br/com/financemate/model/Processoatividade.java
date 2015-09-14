@@ -33,12 +33,15 @@ public class Processoatividade implements Serializable {
     @Basic(optional = false)
     @Column(name = "idprocessoatividade")
     private Integer idprocessoatividade;
-    @JoinColumn(name = "processorotina_idprocessorotina", referencedColumnName = "idprocessorotina")
-    @ManyToOne(optional = false)
-    private Processorotina processorotina;
     @JoinColumn(name = "atividades_idatividades", referencedColumnName = "idatividades")
     @ManyToOne(optional = false)
     private Atividades atividades;
+    @JoinColumn(name = "processorotina_idprocessorotina", referencedColumnName = "idprocessorotina")
+    @ManyToOne(optional = false)
+    private Processorotina processorotina;
+    @JoinColumn(name = "processosituacao_dataabertura", referencedColumnName = "dataabertura")
+    @ManyToOne(optional = false)
+    private Processosituacao processosituacao;
 
     public Processoatividade() {
     }
@@ -55,6 +58,14 @@ public class Processoatividade implements Serializable {
         this.idprocessoatividade = idprocessoatividade;
     }
 
+    public Atividades getAtividades() {
+        return atividades;
+    }
+
+    public void setAtividades(Atividades atividades) {
+        this.atividades = atividades;
+    }
+
     public Processorotina getProcessorotina() {
         return processorotina;
     }
@@ -63,12 +74,12 @@ public class Processoatividade implements Serializable {
         this.processorotina = processorotina;
     }
 
-    public Atividades getAtividades() {
-        return atividades;
+    public Processosituacao getProcessosituacao() {
+        return processosituacao;
     }
 
-    public void setAtividades(Atividades atividades) {
-        this.atividades = atividades;
+    public void setProcessosituacao(Processosituacao processosituacao) {
+        this.processosituacao = processosituacao;
     }
 
     @Override
