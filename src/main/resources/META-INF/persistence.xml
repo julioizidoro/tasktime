@@ -15,6 +15,10 @@
     <class>br.com.financemate.model.Subdepartamento</class>
     <class>br.com.financemate.model.Usuario</class>
     <class>br.com.financemate.model.Notificacao</class>
+    <class>br.com.financemate.model.Processo</class>
+    <class>br.com.financemate.model.Processoatividade</class>
+    <class>br.com.financemate.model.Processorotina</class>
+    <class>br.com.financemate.model.Processosituacao</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
