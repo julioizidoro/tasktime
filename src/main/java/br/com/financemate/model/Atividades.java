@@ -37,6 +37,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Atividades.findAll", query = "SELECT a FROM Atividades a")})
 public class Atividades implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividades")
+    private List<Processoatividade> processoatividadeList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -231,6 +233,14 @@ public class Atividades implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Atividades[ idatividades=" + idatividades + " ]";
+    }
+
+    public List<Processoatividade> getProcessoatividadeList() {
+        return processoatividadeList;
+    }
+
+    public void setProcessoatividadeList(List<Processoatividade> processoatividadeList) {
+        this.processoatividadeList = processoatividadeList;
     }
     
 }

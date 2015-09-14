@@ -33,6 +33,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Departamento> departamentoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -200,5 +202,13 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return getNome();
+    }
+
+    public List<Departamento> getDepartamentoList() {
+        return departamentoList;
+    }
+
+    public void setDepartamentoList(List<Departamento> departamentoList) {
+        this.departamentoList = departamentoList;
     }
 }

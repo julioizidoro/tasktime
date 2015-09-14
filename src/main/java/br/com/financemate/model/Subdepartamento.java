@@ -31,6 +31,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Subdepartamento.findAll", query = "SELECT s FROM Subdepartamento s")})
 public class Subdepartamento implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdepartamento")
+    private List<Processo> processoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -139,6 +141,14 @@ public class Subdepartamento implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Subdepartamento[ idsubdepartamento=" + idsubdepartamento + " ]";
+    }
+
+    public List<Processo> getProcessoList() {
+        return processoList;
+    }
+
+    public void setProcessoList(List<Processo> processoList) {
+        this.processoList = processoList;
     }
     
 }
