@@ -6,12 +6,13 @@
 package br.com.financemate.manageBean;
 
 import br.com.financemate.model.Processorotina;
+import java.io.Serializable;
 
 /**
  *
  * @author Wolverine
  */
-public class ProcessoRotinaMB {
+public class ProcessoRotinaMB implements Serializable{
     
     private Processorotina processorotina;
 

@@ -20,44 +20,91 @@
                      
                     <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid"  rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
-                                                      null}"   rowIndexVar="rowIx">
-                      
-                        <p:column headerText="Atividade" style="width:120px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
-                            <h:outputText value="#{tarefas.atividades.nome}" />
+                                                      null}"  editable="true" rowIndexVar="rowIx">
+                       
+                        <p:ajax event="rowEdit" listener="#{AtividadeMB.editar}" update=":inicial:growl, :inicial:tabelaAtividades" />
+                        <p:ajax event="rowEditCancel" listener="#{AtividadeMB.cancelarEdicao}" update=":inicial:growl" />
+ 
+                        
+                        <p:column headerText="Estado" style="width:40px;" styleClass="alinhaCentro">
+                            <p:commandButton disabled="#{tarefas.situacao}"   icon="#{AtividadeMB.carregarIcon(tarefas.atividades)}" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" title="#{AtividadeMB.mostrarTempo(tarefas.atividades)}"/>
+                        </p:column>
+                        <p:column headerText="Atividade" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{tarefas.atividades.nome}" /></f:facet>
+                                <f:facet name="input"><p:inputText id="titulo" value="#{tarefas.atividades.nome}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}"> 
-                            <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" />
+                        <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" /></f:facet>
+                                <f:facet name="input">
+                                 <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" style="width:100%">
+                                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                                    <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
+                                </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
-                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update="atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
+                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update=":inicial:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
 
                             </p:commandButton>
                         </p:column>
 
                         <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
-                            <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" />
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" /></f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:100%" >
+                                        <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                                        <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Prazo" style="width:52px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
-                            <h:outputText value="#{tarefas.atividades.prazo}" >
-                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-                            </h:outputText>    
+                           <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{tarefas.atividades.prazo}" >
+                                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                     </h:outputText>  
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="nome" value="#{tarefas.atividades.prazo}" style="width:100%">
+                                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Prioridade" style="width:70px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
-                            <p:graphicImage value="#{AtividadeMB.imagem(tarefas.atividades)}" />
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <p:graphicImage value="#{AtividadeMB.imagem(tarefas.atividades)}" /></f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" style="width:100%">
+                                        <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
+                                        <f:selectItem itemLabel="Normal" itemValue="normal" />
+                                        <f:selectItem itemLabel="Alta" itemValue="alta" />
+                                        <f:selectItem itemLabel="Urgente" itemValue="urgente" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
 
-                        <p:column style="width:22px" styleClass="alinhaCentro">
+                        <p:column style="width:18px" styleClass="alinhaCentro">
                             <p:selectBooleanCheckbox value="#{tarefas.situacao}" >
                                 <p:ajax update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" listener="#{AtividadeMB.salvarAtividadeConcluida(rowIx)}" />
                             </p:selectBooleanCheckbox>
                         </p:column>
-                        <p:column style="width:24px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar"  action="#{AtividadeMB.editar()}"  actionListener="#{AtividadeMB.pegarLinha(rowIx)}"   />
-                        </p:column>      
+                        
+                        <p:column style="width:32px">
+                            <p:rowEditor />
+                        </p:column>
                     </p:dataTable>
                     <br></br>
                     <p:dialog id="dialog_addComentario" header="Comentários" widgetVar="vercomentario" resizable="false"  class="dialog" width="33%" height="60%">
@@ -85,62 +132,6 @@
                         </p:carousel>
                         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                     </p:dialog>
-
-                   <p:dialog id="dialog_editTarefa" header="Editar Tarafa"  widgetVar="editar" resizable="false"  class="dialog" width="50%" height="60%">
-                        <br></br>
-                        <p:outputLabel value="Título:" class="espaco10"/>
-                        <p:inputText value="#{AtividadeMB.atividades.nome}" class="espaco2" style="width: 38%"/>
-                        <p:outputLabel value="Data:" class="espaco4"/>
-                        <p:calendar id="prazo" size="10"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="espaco2" value="#{AtividadeMB.atividades.prazo}" >
-                            <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-                        </p:calendar>
-                        <br></br><br></br>
-                        <p:outputLabel value="Depatamento:" class="espaco3"/>
-                        <p:selectOneMenu id="departamento" value="#{AtividadeMB.idDepartamento}" class="espaco2" style="width:20%">
-                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                            <f:selectItems value="#{AtividadeMB.listaDepartamento}" var="departamento" itemLabel="#{departamento.nome}" itemValue="#{departamento.iddepartamento}"/>
-                            <p:ajax event="change" listener="#{AtividadeMB.gerarListaSubdepartamento()}" update="subdepartamento" />
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Sub-Depatamento:" class="espaco4"/>
-                        <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" class="espaco2" style="width:20%">
-                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                            <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
-                        </p:selectOneMenu>
-                        <br></br><br></br>
-                        <p:outputLabel value="Cliente:" class="espaco8tres"/> 
-                        <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:27%" class="espaco2">
-                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                            <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Prioridade:" class="espaco4"/> 
-                        <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" class="espaco2" style="width:20%">
-                            <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
-                            <f:selectItem itemLabel="Normal" itemValue="normal" />
-                            <f:selectItem itemLabel="Alta" itemValue="alta" />
-                            <f:selectItem itemLabel="Urgente" itemValue="urgente" />
-                        </p:selectOneMenu>
-                        <br></br> <br></br>
-                        <p:outputLabel value="Usuário Executor:" /> 
-                        <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" class="espaco2" style="width:40%">
-                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                            <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioselecionado" itemLabel="#{usuarioselecionado.nome}" itemValue="#{usuarioselecionado.idusuario}"/>
-                            <p:ajax event="change" listener="#{AtividadeMB.gerarListaUsuarioBean()}" update="selecao" />
-                        </p:selectOneMenu>
-                        <br></br> <br></br>
-                        <p:dataTable id="selecao" var="selecaoUsuario" value="#{AtividadeMB.listaUsuarioBean}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                     paginator="true" rows="8"  rowIndexVar="rowIx">
-                            <p:column  style="width:30px;" styleClass="alinhaCentro">
-                                <p:selectBooleanCheckbox value="#{selecaoUsuario.selecionado}"/>
-                            </p:column>
-                            <p:column headerText="Usuário" style="width:170px;" styleClass="border">
-                                <h:outputText value="#{selecaoUsuario.usuario.nome}" />
-                            </p:column>
-                        </p:dataTable>
-                        <br>  </br>
-                        <p:commandButton value="Adicionar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" onclick="add.hide();"/>
-                    </p:dialog>
-                   
                 </div>
                 
             </h:form>     

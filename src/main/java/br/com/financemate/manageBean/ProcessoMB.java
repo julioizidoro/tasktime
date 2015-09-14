@@ -8,6 +8,7 @@ package br.com.financemate.manageBean;
 import br.com.financemate.facade.DepartamentoFacade;
 import br.com.financemate.model.Departamento;
 import br.com.financemate.model.Processo;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class ProcessoMB {
+public class ProcessoMB implements Serializable{
     
     private Processo processo;
     private List<Processo> listaProcesso;

@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.RowEditEvent;
 /**
  *
  * @author Kamila
@@ -116,24 +117,39 @@ public class DepartamentoMB implements Serializable{
         return "";
     }
     
-    public String editar() throws SQLException{
-        if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamentoeditar()){
-            FacesContext fc = FacesContext.getCurrentInstance();
-            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-            int idDepartamento =  Integer.parseInt(params.get("id_departamento"));
-            if (idDepartamento>0){
-                DepartamentoFacade departamentoFacade = new DepartamentoFacade();
-                departamento = departamentoFacade.consultar(idDepartamento);
-                 if (departamento!=null){
-                     gerarListaUsuario();
-                    return "cadDepartamento";
-                }
-            }
-        }else{
-           FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
-        }
-        return null;
+//    public String editar() throws SQLException{
+//        if(usuarioLogadoBean.getUsuario().getPerfil().getCaddepartamentoeditar()){
+//            FacesContext fc = FacesContext.getCurrentInstance();
+//            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+//            int idDepartamento =  Integer.parseInt(params.get("id_departamento"));
+//            if (idDepartamento>0){
+//                DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+//                departamento = departamentoFacade.consultar(idDepartamento);
+//                 if (departamento!=null){
+//                     gerarListaUsuario();
+//                    return "cadDepartamento";
+//                }
+//            }
+//        }else{
+//           FacesContext context = FacesContext.getCurrentInstance();
+//            context.addMessage(null, new FacesMessage("Erro!", "Acesso Negado"));
+//        }
+//        return null;
+//    }
+    
+    public void editar(RowEditEvent event) {
+        departamento = new Departamento();
+        departamento = (Departamento) event.getObject();
+        DepartamentoFacade departamentoFacade = new DepartamentoFacade();
+        departamentoFacade.salvar(departamento);
+        gerarListaDepartamento("");
+        FacesMessage msg = new FacesMessage("Editado com Sucesso", ((Departamento) event.getObject()).getNome());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void cancelarEdicao(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edição Cancelada", ((Departamento) event.getObject()).getNome());
+       FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
     public void gerarListaUsuario() throws SQLException{

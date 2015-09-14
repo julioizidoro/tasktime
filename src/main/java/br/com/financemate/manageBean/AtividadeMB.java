@@ -29,13 +29,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -99,9 +103,12 @@ public class AtividadeMB implements Serializable{
     
 
     public AtividadeMB()  {
-         atividadeMenu="dia";
+        atividadeMenu="dia";
         atividades = new Atividades();
         comentarios = new Comentarios();
+        gerarListaUsuario();
+        gerarListaCliente();
+        gerarListaSubdepartamento();
     }
 
     public List<Atividadeusuario> getListaAtividadesGeral()  {
@@ -542,7 +549,10 @@ public class AtividadeMB implements Serializable{
             atividades.setPrioridade("normal");
             gerarListaUsuarioBean();
             tipo=0;
-            RequestContext.getCurrentInstance().openDialog("cadastroTarefa");
+            Map<String,Object> options = new HashMap<String, Object>();
+            options.put("contentWidth", 550);
+
+            RequestContext.getCurrentInstance().openDialog("cadastroTarefa", options, null);
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -560,7 +570,10 @@ public class AtividadeMB implements Serializable{
             atividades.setPrazo(new Date());
             atividades.setPrioridade("normal");
             tipo=1;
-            RequestContext.getCurrentInstance().openDialog("cadastroTarefaParticular");
+            Map<String,Object> options = new HashMap<String, Object>();
+            options.put("contentWidth", 430);
+
+            RequestContext.getCurrentInstance().openDialog("cadastroTarefaParticular", options, null);
         }else{
             FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
@@ -1233,73 +1246,100 @@ public class AtividadeMB implements Serializable{
         this.linha = linha;
     }
     
-    public String editar(){
-        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefaseditar()){
-            int nLinha= Integer.parseInt(linha);
-            idExecutor = usuarioLogadoBean.getUsuario().getIdusuario();
-            AtividadeFacade atividadeFacade = new AtividadeFacade();
-            atividades = atividadeFacade.consultar(listaAtividadesGeral.get(nLinha).getAtividades().getIdatividades());
-            idCliente = String.valueOf(atividades.getCliente().getIdcliente());
-            idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getAtividades().getSubdepartamento().getDepartamento().getIddepartamento());
-            gerarListaSubdepartamento();
-            idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getAtividades().getSubdepartamento().getIdsubdepartamento());
-            gerarListaUsuarioBeanEditar(atividades.getIdatividades());
-            idUsuario =String.valueOf(idExecutor);
-            RequestContext.getCurrentInstance().openDialog("editarTarefa");
-        }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
-        }
-        return "";
+//    public String editar(){
+//        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefaseditar()){
+//            int nLinha= Integer.parseInt(linha);
+//            idExecutor = usuarioLogadoBean.getUsuario().getIdusuario();
+//            AtividadeFacade atividadeFacade = new AtividadeFacade();
+//            atividades = atividadeFacade.consultar(listaAtividadesGeral.get(nLinha).getAtividades().getIdatividades());
+//            idCliente = String.valueOf(atividades.getCliente().getIdcliente());
+//            idDepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getAtividades().getSubdepartamento().getDepartamento().getIddepartamento());
+//            gerarListaSubdepartamento();
+//            idSubdepartamento = String.valueOf(listaAtividadesGeral.get(nLinha).getAtividades().getSubdepartamento().getIdsubdepartamento());
+//            gerarListaUsuarioBeanEditar(atividades.getIdatividades());
+//            idUsuario =String.valueOf(idExecutor);
+//            RequestContext.getCurrentInstance().openDialog("editarTarefa");
+//        }else{
+//            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+//            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+//        }
+//        return "";
+//    }
+    
+    public void cancelarEdicao(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edição Cancelada", ((Atividades) event.getObject()).getNome());
+       FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
-    public String salvarEdicao(){
-        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
-            idExecutor = Integer.parseInt(idUsuario);
-            AtividadeFacade atividadeFacade = new AtividadeFacade();
-            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-            Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
-            atividades.setSubdepartamento(subddepartamento);
-            atividades.setEstado("Play");
-            atividades.setInicio(BigInteger.valueOf(0));
-            atividades.setTempo(0);
-            atividades.setMostratempo("00:00");
-            ClienteFacade clienteFacade = new ClienteFacade();
-            Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
-            atividades.setCliente(cliente);
-            atividades.setTipo("A");
-            atividades.getComentariosList();
-            UsuarioFacade usuarioFacade = new UsuarioFacade();
-            Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
-            atividades = atividadeFacade.salvar(atividades);
-            salvarUsuarioAtividade();
-            atividadeMenu="dia";
-            listarAtividadesAtrasadas();
-            listarAtividadesDia();
-            listarAtividadesSemana();
-            listarTodasAtividades();
-            listarAtividadesAmanha();
-            listarAtividadesDois();
-            listarAtividadesTres();
-            listarAtividadesQuatro();
-            listarAtividadesCinco();
-            listarAtividadesSeis();
-            listarAtividadesSete();
-            listarAtividadesDepartamento();
-            carregarListaGeral();
-            atividades = new Atividades();
-            menuMB.gerarLitaNotificacao();
-            listaAtividadesGeral = listaAtividadedia;
-            atividadeMenu="dia";
-            titulo="Taferas de Hoje";
-            RequestContext.getCurrentInstance().closeDialog(null);
-            return "inicial";
-        }else{
-            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
-        }
-        return "";
+    public void editar(CellEditEvent event, Atividades atividade) {
+        AtividadeFacade AtividadeFacade = new AtividadeFacade();
+        AtividadeFacade.salvar(atividade);
+        listarAtividadesAtrasadas();
+        listarAtividadesDia();
+        listarAtividadesSemana();
+        listarTodasAtividades();
+        listarAtividadesAmanha();
+        listarAtividadesDois();
+        listarAtividadesTres();
+        listarAtividadesQuatro();
+        listarAtividadesCinco();
+        listarAtividadesSeis();
+        listarAtividadesSete();
+        listarAtividadesDepartamento();
+        carregarListaGeral();
+//        if(newValue != null && !newValue.equals(oldValue)) {
+//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Editado com Sucesso", " " + newValue);
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//        }
     }
+    
+//    public String salvarEdicao(){
+//        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
+//            idExecutor = Integer.parseInt(idUsuario);
+//            AtividadeFacade atividadeFacade = new AtividadeFacade();
+//            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
+//            Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
+//            atividades.setSubdepartamento(subddepartamento);
+//            atividades.setEstado("Play");
+//            atividades.setInicio(BigInteger.valueOf(0));
+//            atividades.setTempo(0);
+//            atividades.setMostratempo("00:00");
+//            ClienteFacade clienteFacade = new ClienteFacade();
+//            Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
+//            atividades.setCliente(cliente);
+//            atividades.setTipo("A");
+//            atividades.getComentariosList();
+//            UsuarioFacade usuarioFacade = new UsuarioFacade();
+//            Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
+//            atividades = atividadeFacade.salvar(atividades);
+//            salvarUsuarioAtividade();
+//            atividadeMenu="dia";
+//            listarAtividadesAtrasadas();
+//            listarAtividadesDia();
+//            listarAtividadesSemana();
+//            listarTodasAtividades();
+//            listarAtividadesAmanha();
+//            listarAtividadesDois();
+//            listarAtividadesTres();
+//            listarAtividadesQuatro();
+//            listarAtividadesCinco();
+//            listarAtividadesSeis();
+//            listarAtividadesSete();
+//            listarAtividadesDepartamento();
+//            carregarListaGeral();
+//            atividades = new Atividades();
+//            menuMB.gerarLitaNotificacao();
+//            listaAtividadesGeral = listaAtividadedia;
+//            atividadeMenu="dia";
+//            titulo="Taferas de Hoje";
+//            RequestContext.getCurrentInstance().closeDialog(null);
+//            return "inicial";
+//        }else{
+//            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
+//            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+//        }
+//        return "";
+//    }
     
     public String pesquisarNome(){
         listarTodasAtividades();

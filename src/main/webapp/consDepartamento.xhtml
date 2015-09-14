@@ -14,21 +14,33 @@
                      <br></br>
                      <img src="resources/img/ADD.jpg" width="20" height="20" class="add"/>
                     <p:commandLink  value="Adicionar Departamento" styleClass="cadastro5" action="#{DepartamentoMB.novo()}" update="consperfil:growl2"/>  
-                     <p:dataTable var="consDepartamento" value="#{DepartamentoMB.listaDepartamento}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                     rowIndexVar="rowIx">
+                     <p:dataTable id="tabeladepartamento" var="consDepartamento" value="#{DepartamentoMB.listaDepartamento}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                   editable="true"  rowIndexVar="rowIx">
+                         
+                         <p:ajax event="rowEdit" listener="#{DepartamentoMB.editar}" update=":consperfil:growl2, :consperfil:tabeladepartamento" />
+                         <p:ajax event="rowEditCancel" listener="#{DepartamentoMB.cancelarEdicao}" update=":consperfil:growl2" />
+ 
                         <p:column headerText="Nome"  styleClass="border">
-                            <h:outputText value="#{consDepartamento.nome}" />
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{consDepartamento.nome}" /></f:facet>
+                                <f:facet name="input"><p:inputText id="nome" value="#{consDepartamento.nome}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Responsável" styleClass="border">
-                            <h:outputText value="#{consDepartamento.usuario.nome}" />
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{consDepartamento.usuario.nome}" /></f:facet>
+                                <f:facet name="input">
+                                <p:selectOneMenu id="responsavel" value="#{DepartamentoMB.idUsuario}"  style="width:100%">
+                                    <f:selectItem itemLabel="Selecione" itemValue="sn"   />
+                                    <f:selectItems value="#{DepartamentoMB.listaUsuario}" var="usuarioSelecionado" itemLabel="#{usuarioSelecionado.nome}" itemValue="#{usuarioSelecionado.idusuario}"/>
+                                </p:selectOneMenu></f:facet>
+                            </p:cellEditor>
                         </p:column>
-
-                        <p:column style="width:26px" styleClass="alinhaCentro">
-                            <p:commandButton  id="editar" icon="ui-icon-pencil" title="Editar" action="#{DepartamentoMB.editar()}" update="consperfil:growl2" >
-                                <f:param name="id_departamento" value="#{consDepartamento.iddepartamento}"/>
-                            </p:commandButton>
-                        </p:column>  
+                         
+                         <p:column style="width:32px">
+                            <p:rowEditor />
+                        </p:column>
                     </p:dataTable>
                     <br></br>
                     
