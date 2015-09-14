@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -51,9 +52,6 @@ public class ProcessoMB implements Serializable{
         this.listaDepartamento = listaDepartamento;
     }
     
-    
-    
-    
      public void gerarListaDepartamento() throws SQLException{
         DepartamentoFacade departamentoFacade = new DepartamentoFacade();
         listaDepartamento = departamentoFacade.listar("");
@@ -62,6 +60,9 @@ public class ProcessoMB implements Serializable{
         }
     }
     
-     
+    public String novo(){
+       RequestContext.getCurrentInstance().openDialog("cadProcesso");
+       return "";
+    }
     
 }

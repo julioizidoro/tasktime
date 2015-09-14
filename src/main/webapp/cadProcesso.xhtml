@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+      
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+    </h:head>
+
+    <h:body>
+        <h:form id="cadastroprocesso" style="font-size: 12px">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="resources/img/ajax-loader.gif" />
+            </p:dialog>
+             
+            <title>Adicionar Rotina de Processo</title>
+            <div > 
+                <p:outputLabel value="Descrição:" class="espaco5seis"/>
+                <p:inputText value="#{processoRotinaMB.processorotina.descricao}" style="width:67%" class="espaco2"/>
+                <br></br> <br></br>   
+                <p:outputLabel value="Depatamento:" class="espaco3"/>
+                <p:selectOneMenu id="departamento" value="#" class="espaco2" style="width:22%">
+                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                    <f:selectItems value="#" var="departamento" itemLabel="#" itemValue="#"/>
+                    <p:ajax event="change" update="subdepartamento" />
+                </p:selectOneMenu>
+                <p:outputLabel value="Sub-Depatamento:" class="espaco4"/>
+                <p:selectOneMenu id="subdepartamento" value="#" class="espaco2" style="width:20%">
+                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                    <f:selectItems value="#" var="subdepartamentoSelecionado" itemLabel="#" itemValue="#"/>
+                </p:selectOneMenu>
+                 <br></br> <br></br>   
+                <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="espaco22" action="#" update="@all" ajax="true"/>
+                <p:commandButton value="Fechar" icon="ui-icon-close" class="espaco2" action="#" update="@all" ajax="true"/>
+            </div>
+        </h:form>
+    </h:body>
+
+</html>
