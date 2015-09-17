@@ -1272,21 +1272,25 @@ public class AtividadeMB implements Serializable{
     }
     
     public void editar(CellEditEvent event, Atividades atividade) {
-        AtividadeFacade AtividadeFacade = new AtividadeFacade();
-        AtividadeFacade.salvar(atividade);
-        listarAtividadesAtrasadas();
-        listarAtividadesDia();
-        listarAtividadesSemana();
-        listarTodasAtividades();
-        listarAtividadesAmanha();
-        listarAtividadesDois();
-        listarAtividadesTres();
-        listarAtividadesQuatro();
-        listarAtividadesCinco();
-        listarAtividadesSeis();
-        listarAtividadesSete();
-        listarAtividadesDepartamento();
-        carregarListaGeral();
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+        if (newValue != null && !newValue.equals(oldValue)) {
+            AtividadeFacade AtividadeFacade = new AtividadeFacade();
+            AtividadeFacade.salvar(atividade);
+            listarAtividadesAtrasadas();
+            listarAtividadesDia();
+            listarAtividadesSemana();
+            listarTodasAtividades();
+            listarAtividadesAmanha();
+            listarAtividadesDois();
+            listarAtividadesTres();
+            listarAtividadesQuatro();
+            listarAtividadesCinco();
+            listarAtividadesSeis();
+            listarAtividadesSete();
+            listarAtividadesDepartamento();
+            carregarListaGeral();
+        }
 //        if(newValue != null && !newValue.equals(oldValue)) {
 //            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Editado com Sucesso", " " + newValue);
 //            FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -22,7 +22,7 @@
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
                                                         null}"  editable="true" editMode="cell" rowIndexVar="rowIx">
                        
-                        <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(event, tarefas.atividades)}" update=":inicial:growl, :inicial:tabelaAtividades" />
+                        <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(this, tarefas.atividades)}" update=":inicial:tabelaAtividades" />
                        
                         <p:column headerText="Estado" style="width:40px;" styleClass="alinhaCentro">
                             <p:commandButton disabled="#{tarefas.situacao}"   icon="#{AtividadeMB.carregarIcon(tarefas.atividades)}" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" title="#{AtividadeMB.mostrarTempo(tarefas.atividades)}"/>
