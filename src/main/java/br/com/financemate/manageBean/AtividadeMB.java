@@ -1297,53 +1297,7 @@ public class AtividadeMB implements Serializable{
 //        }
     }
     
-//    public String salvarEdicao(){
-//        if(usuarioLogadoBean.getUsuario().getPerfil().getTarefasincluir()){
-//            idExecutor = Integer.parseInt(idUsuario);
-//            AtividadeFacade atividadeFacade = new AtividadeFacade();
-//            SubdepartamentoFacade subdepartamentoFacade = new SubdepartamentoFacade();
-//            Subdepartamento subddepartamento = subdepartamentoFacade.consultar(Integer.parseInt(idSubdepartamento));
-//            atividades.setSubdepartamento(subddepartamento);
-//            atividades.setEstado("Play");
-//            atividades.setInicio(BigInteger.valueOf(0));
-//            atividades.setTempo(0);
-//            atividades.setMostratempo("00:00");
-//            ClienteFacade clienteFacade = new ClienteFacade();
-//            Cliente cliente = clienteFacade.consultar(Integer.parseInt(idCliente));
-//            atividades.setCliente(cliente);
-//            atividades.setTipo("A");
-//            atividades.getComentariosList();
-//            UsuarioFacade usuarioFacade = new UsuarioFacade();
-//            Usuario usuario = usuarioFacade.consultar(Integer.parseInt(idUsuario));
-//            atividades = atividadeFacade.salvar(atividades);
-//            salvarUsuarioAtividade();
-//            atividadeMenu="dia";
-//            listarAtividadesAtrasadas();
-//            listarAtividadesDia();
-//            listarAtividadesSemana();
-//            listarTodasAtividades();
-//            listarAtividadesAmanha();
-//            listarAtividadesDois();
-//            listarAtividadesTres();
-//            listarAtividadesQuatro();
-//            listarAtividadesCinco();
-//            listarAtividadesSeis();
-//            listarAtividadesSete();
-//            listarAtividadesDepartamento();
-//            carregarListaGeral();
-//            atividades = new Atividades();
-//            menuMB.gerarLitaNotificacao();
-//            listaAtividadesGeral = listaAtividadedia;
-//            atividadeMenu="dia";
-//            titulo="Taferas de Hoje";
-//            RequestContext.getCurrentInstance().closeDialog(null);
-//            return "inicial";
-//        }else{
-//            FacesMessage mensagem = new FacesMessage("Erro! ", "Acesso Negado");
-//            FacesContext.getCurrentInstance().addMessage(null, mensagem);
-//        }
-//        return "";
-//    }
+
     
     public String pesquisarNome(){
         listarTodasAtividades();
