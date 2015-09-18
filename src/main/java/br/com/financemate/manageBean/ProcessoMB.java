@@ -11,7 +11,9 @@ import br.com.financemate.model.Processo;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
@@ -60,7 +62,16 @@ public class ProcessoMB implements Serializable{
         }
     }
     
+    public String iniciarProcesso(){
+       Map<String,Object> options = new HashMap<String, Object>();
+       options.put("contentWidth", 405);
+       RequestContext.getCurrentInstance().openDialog("inicializarProcessos");
+       return "";
+    }
+    
     public String novo(){
+       Map<String,Object> options = new HashMap<String, Object>();
+       options.put("contentWidth", 410);
        RequestContext.getCurrentInstance().openDialog("cadProcesso");
        return "";
     }

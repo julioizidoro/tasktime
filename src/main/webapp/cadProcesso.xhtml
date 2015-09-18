@@ -9,7 +9,7 @@
     <h:head>
       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="resources/css/cssteste.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/cssdialog.css" rel="stylesheet" type="text/css" />
     </h:head>
 
     <h:body>
@@ -20,19 +20,19 @@
                 <img src="resources/img/ajax-loader.gif" />
             </p:dialog>
              
-            <title>Adicionar Rotina de Processo</title>
+            <title>Adicionar Processo</title>
             <div > 
-                <p:outputLabel value="Descrição:" class="espaco5seis"/>
+                <p:outputLabel value="Descrição:" class="espaco5dois"/>
                 <p:inputText value="#{processoRotinaMB.processorotina.descricao}" style="width:67%" class="espaco2"/>
                 <br></br> <br></br>   
-                <p:outputLabel value="Depatamento:" class="espaco3"/>
+                <p:outputLabel value="Depatamento:" class="espaco2sete"/>
                 <p:selectOneMenu id="departamento" value="#" class="espaco2" style="width:22%">
                     <f:selectItem itemLabel="Selecione" itemValue="0"   />
                     <f:selectItems value="#" var="departamento" itemLabel="#" itemValue="#"/>
                     <p:ajax event="change" update="subdepartamento" />
                 </p:selectOneMenu>
                 <p:outputLabel value="Sub-Depatamento:" class="espaco4"/>
-                <p:selectOneMenu id="subdepartamento" value="#" class="espaco2" style="width:20%">
+                <p:selectOneMenu id="subdepartamento" value="#" class="espaco2" style="width:23%">
                     <f:selectItem itemLabel="Selecione" itemValue="0"   />
                     <f:selectItems value="#" var="subdepartamentoSelecionado" itemLabel="#" itemValue="#"/>
                 </p:selectOneMenu>

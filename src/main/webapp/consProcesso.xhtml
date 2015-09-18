@@ -17,13 +17,14 @@
                      <p:commandButton icon="ui-icon-search" class="botao1" action="#"  update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}"  /> 
                      
                     <img src="resources/img/ADD.jpg" width="20" height="20" class="add2"/> 
-                    <p:commandLink  value="Adicionar Processo" styleClass="cadastro5" action="#{processoMB.novo()}" /> 
+                    <p:commandLink  value="Adicionar Processo" styleClass="cadastro5" action="#{processoRotinaMB.novo()}" /> 
                      <br></br>
                      
                      <p:contextMenu for="tabelaprocessos">
-                         <p:menuitem value="Adicionar Rotina de Processo" icon="ui-icon-search" action="#{processoRotinaMB.novo()}"/>
-                        <p:menuitem value="Visualizar Rotinas de Processo" icon="ui-icon-close" actionListener="#"/>
-                        <p:menuitem value="Editar" icon="ui-icon-close" actionListener="#"/>
+                         <p:menuitem value="Iníciar Processo Processo" icon=" ui-icon-play" action="#{processoMB.iniciarProcesso()}"/>
+                        <p:menuitem value="Adicionar Rotina de Processo" icon=" ui-icon-plus" action="#{processoRotinaMB.novo()}"/>
+                        <p:menuitem value="Visualizar Rotinas de Processo" icon="ui-icon-search" actionListener="#" update="tabelarotinaprocessos"/>
+                        <p:menuitem value="Editar" icon="ui-icon-pencil" actionListener="#"/>
                     </p:contextMenu>
                      <p:dataTable id="tabelaprocessos" var="processos" value="#{processoMB.listaProcesso}" class="tabelaprocessos" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                      rowIndexVar="rowIx">

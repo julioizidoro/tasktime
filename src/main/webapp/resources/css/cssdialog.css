@@ -103,8 +103,8 @@ h1 {
 .espaco1{
     margin-left: 1%;
 }
-.espaco1dois{
-    margin-left: 1.2%;
+.espaco1tres{
+    margin-left: 1.3%;
 }
 .espaco2{
     margin-left: 2%;
@@ -112,7 +112,9 @@ h1 {
 .espaco2meio{
     margin-left: 2.3%;
 }
-
+.espaco2sete{
+    margin-left: 2.7%;
+}
 .espaco4{
     margin-left:4%;
 }
@@ -856,7 +858,6 @@ button.contabilidade {
 
 .tabelainicializarprocessos{
     font-size:11px;
-    width: 85%;
+    width: 94%;
     margin-top:10px;
-    margin-left:200px;
 }

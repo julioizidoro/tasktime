@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+      
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="resources/css/cssdialog.css" rel="stylesheet" type="text/css" />
+    </h:head>
+
+    <h:body>
+        <h:form id="telaInicializarProcesso" style="font-size: 12px">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="resources/img/ajax-loader.gif" />
+            </p:dialog>
+             
+            <title>Iniciar Processo</title>
+            <div > 
+                <p:outputLabel value="Processo:" styleClass="espaco5dois"/>
+                <p:inputText value="#" style="width:40%" styleClass="espaco2"/>
+                <p:outputLabel value="Data de Início:" styleClass="espaco2"/>
+                <p:inputMask  mask="99/99/9999" style="width:11%" value="" styleClass="espaco2" >
+                    <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                </p:inputMask>
+                <br></br> <br></br>   
+                <p:outputLabel value="Depatamento:" styleClass="espaco1tres"/>
+                <p:selectOneMenu id="departamento" value="#" styleClass="espaco2" style="width:25%">
+                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                    <f:selectItems value="#" var="departamento" itemLabel="#" itemValue="#"/>
+                    <p:ajax event="change" update="subdepartamento" />
+                </p:selectOneMenu>
+                <p:outputLabel value="Sub-Depatamento:" styleClass="espaco4"/>
+                <p:selectOneMenu id="subdepartamento" value="#" class="espaco2" style="width:23%">
+                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                    <f:selectItems value="#" var="subdepartamentoSelecionado" itemLabel="#" itemValue="#"/>
+                </p:selectOneMenu>
+                <br></br> <br></br>   
+                <p:dataTable id="tabelainicializarProcessos" var="inicializarprocesso" value="#" styleClass="tabelainicializarprocessos" 
+                                     rowIndexVar="rowIx">
+                    
+                   <p:column headerText="Atividades" styleClass="border">
+                       <h:outputText value="#" />
+                   </p:column>
+
+                   <p:column headerText="Data" style="width:100px;" styleClass="border">
+                       <h:outputText value="" >
+                           <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                       </h:outputText>
+                   </p:column>
+                    <p:column headerText="Usuario" styleClass="border">
+                       <h:outputText value="#" />
+                   </p:column>
+                    <p:column style="width:18px" styleClass="border">
+                        <p:selectBooleanCheckbox value="#" />
+                    </p:column>
+               </p:dataTable>
+                 <br></br> <br></br>   
+                <p:commandButton value="Confirmar" icon="ui-icon-plusthick" styleClass="espaco22" action="#" update="@all" ajax="true"/>
+                <p:commandButton value="Fechar" icon="ui-icon-close" styleClass="espaco2" action="#" update="@all" ajax="true"/>
+            </div>
+        </h:form>
+    </h:body>
+
+</html>
