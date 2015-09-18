@@ -52,13 +52,11 @@
                          <p:ajax event="change" listener="#{AtividadeMB.filtrarTarefasDepartamento()}"  update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" />
                      </p:selectOneMenu>
                         
-                    <p:dataTable var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
+                    <p:dataTable id="tabelaAtividades" var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
-                                                      null}"   editable="true" rowIndexVar="rowIx">
+                                                      null}"  editable="true" editMode="cell" rowIndexVar="rowIx">
                        
-                        <p:ajax event="rowEdit" listener="#{AtividadeMB.editar}" update=":inicial:growl, :inicial:tabelaAtividades" />
-                        <p:ajax event="rowEditCancel" listener="#{AtividadeMB.cancelarEdicao}" update=":inicial:growl" />
- 
+                        <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(this, tarefas.atividades)}" update=":atividades:tabelaAtividades" />
                         
                         <p:column headerText="Atividade" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
                             <p:cellEditor>
@@ -81,33 +79,17 @@
                         </p:column>
 
                         <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" /></f:facet>
-                                <f:facet name="input">
-                                 <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" style="width:100%">
-                                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                                    <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
-                                </p:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" />
                         </p:column>
 
                         <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
-                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update=":inicial:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
+                            <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update=":atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
 
                             </p:commandButton>
                         </p:column>
 
                         <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" /></f:facet>
-                                <f:facet name="input">
-                                    <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:100%" >
-                                        <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                                        <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
-                                    </p:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" />
                         </p:column>
 
                         <p:column headerText="Prazo" style="width:52px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
@@ -146,9 +128,6 @@
                             </p:selectBooleanCheckbox>
                         </p:column>
                         
-                        <p:column style="width:32px">
-                            <p:rowEditor />
-                        </p:column>
                     </p:dataTable>
                     <br></br>
                      <p:dialog id="dialog_addComentario" header="Comentários" widgetVar="vercomentario" resizable="false"  class="dialog" width="33%" height="60%">

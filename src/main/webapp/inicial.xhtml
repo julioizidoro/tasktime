@@ -22,7 +22,7 @@
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
                                                         null}"  editable="true" editMode="cell" rowIndexVar="rowIx">
                        
-                        <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(this, tarefas.atividades)}" update=":inicial:tabelaAtividades" />
+                        <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(event, tarefas.atividades)}" update=":inicial:tabelaAtividades" />
                        
                         <p:column headerText="Estado" style="width:40px;" styleClass="alinhaCentro">
                             <p:commandButton disabled="#{tarefas.situacao}"   icon="#{AtividadeMB.carregarIcon(tarefas.atividades)}" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" title="#{AtividadeMB.mostrarTempo(tarefas.atividades)}"/>
@@ -35,15 +35,7 @@
                         </p:column>
 
                         <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" /></f:facet>
-                                <f:facet name="input">
-                                 <p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" style="width:100%">
-                                    <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                                    <f:selectItems value="#{AtividadeMB.listaSubdepartamento}" var="subdepartamentoSelecionado" itemLabel="#{subdepartamentoSelecionado.nome}" itemValue="#{subdepartamentoSelecionado.idsubdepartamento}"/>
-                                </p:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" />
                         </p:column>
 
                         <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
@@ -53,15 +45,7 @@
                         </p:column>
 
                         <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" /></f:facet>
-                                <f:facet name="input">
-                                    <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:100%" >
-                                        <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                                        <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
-                                    </p:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" />
                         </p:column>
 
                         <p:column headerText="Prazo" style="width:52px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
@@ -73,7 +57,7 @@
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:inputText id="nome" value="#{tarefas.atividades.prazo}" style="width:100%">
-                                        <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                        <f:convertDateTime  id="prazo" pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                     </p:inputText>
                                 </f:facet>
                             </p:cellEditor>
