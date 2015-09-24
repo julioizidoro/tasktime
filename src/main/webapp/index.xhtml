@@ -4,75 +4,49 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>InTime</title>
-        <link href="resources/css/css.css" rel="stylesheet" type="text/css" />
 
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>InTime</title>
+
+        <link href="resources/css/csslogin.css" rel="stylesheet" type="text/css" />
+        <link rel="SHORTCUT ICON" href="https://image.freepik.com/fotos-gratis/ilustracao-do-relogio_21219272.jpg"/>
     </h:head>
 
-    <h:body>
-         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+    <h:body >
+        <div class="LoginScreen">
+            <div class="center">
+                <div class="contentBox">
+                    <h1><br></br><br></br><p:outputLabel value="InTime" style="color: #fff"><span class="ScreenReaderOnly"></span>
 
-            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                <img src="resources/img/ajax-loader.gif" />
-            </p:dialog>
-        <h:form xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html">
+                        </p:outputLabel></h1>
+                    <div id="ZLoginAppName">InTime</div>
 
-            <div id="tudo">
-                <tr>
-                    <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td><img src="resources/img/logotasktime.png" alt="" width="140" height="100" /></td>
+                    <h:form xmlns="http://www.w3.org/1999/xhtml"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://java.sun.com/jsf/html">
+                        <input type="hidden" name="loginOp" value="login"/>
+                        <table class="form">
+                            <b><p:outputLabel  for="username" value="Nome do usuário:" style="color:#fff"> </p:outputLabel></b>
+                            <p:inputText  id="username" class="zLoginField"  type="text" value="#{UsuarioLogadoBean.usuario.login}" size="40" maxlength="1024" style="margin-left: 1%;"/>
+                            <br></br><br></br>
+                            <b> <p:outputLabel for="password" value="Senha:" style="color:#fff;margin-left:12.7%"></p:outputLabel></b>
+                            <p:inputText id="password" autocomplete="off" class="zLoginField"  type="password" value="#{UsuarioLogadoBean.usuario.senha}" size="40" maxlength="1024" style="margin-left: 1%;"/>
+                           <tr>
+                               <td style="width:80%" class="submitTD">
+                                     <br></br>
+                                        <p:commandButton  class="ZLoginButton DwtButton" value="Login" action="#{UsuarioLogadoBean.validarUsuario()}"/>
+                                        <p:commandButton  class="ZLoginButton DwtButton" value="Alterar Senha" action="#{UsuarioLogadoBean.validarTrocarSenha()}" oncomplete="PF('dll').show()"/>
+                                 </td>
+                            </tr>
+                            <tr >
+                                <td colspan="2"><hr/></td>
                             </tr>
                         </table>
-                    </td>
-                </tr>
-                <br></br>
-
+                    </h:form>
+                </div>
             </div>
-            <div id="centro3" >
-                <br></br>
-                <br></br> 
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-                <h:panelGrid columns="2" cellpadding="5" class="login">   
-                    <p:outputLabel value="Login" for="login" class=""/>
-                    <p:inputText id="login"  size="25" class="senha" value="#{UsuarioLogadoBean.usuario.login}"/>
-                    <p:outputLabel value="Senha" for="senha" class=""/>
-                    <p:password id="senha" value="#{UsuarioLogadoBean.usuario.senha}"  size="25" class="senha" required="required" requiredMessage="Campo Obrigatorio"/>
-                    <p:commandButton value="Login" class="botaologin" action="#{UsuarioLogadoBean.validarUsuario()}" />
-                    <p:commandButton value="Alterar Senha" action="#{UsuarioLogadoBean.validarTrocarSenha()}" class="botaologin2"  oncomplete="PF('dll').show()"  />
-                </h:panelGrid> 
-                <p:dialog header="Alterar Senha" modal="true" showEffect="bounce" widgetVar="dll" resizable="false"  class="dialog" width="18%" height="60%">
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:outputLabel value="Nova Senha" for="novasenha"  class=""/>
-                    </h:panelGrid>        
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:inputText  id="novasenha" value="#{UsuarioLogadoBean.novaSenha}"  size="28" maxlength="50"  class="" type="password"/> 
-                    </h:panelGrid>
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:outputLabel value="Confirmar Senha" for="confirmarsenha"  class="" />
-                    </h:panelGrid>        
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:inputText  id="confirmarsenha" value="#{UsuarioLogadoBean.confirmaNovaSenha}"  size="28" maxlength="50"  class="" type="password"/> 
-                    </h:panelGrid>
-                    <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="dialog" onclick="dll.hide();" action="#{UsuarioLogadoBean.confirmaNovaSenha}" />
-                    <p:commandButton value="Cancelar" onclick="dll.hide();" icon="ui-icon-closethick" class="botaoDialog" action="#{UsuarioLogadoBean.cancelarTrocaSenha()}"/>  
-
-                </p:dialog>
-                     
-            </div>
-        </h:form>
-
-        <div  class="center_content">
-            <ui:insert name="corpo">
-            </ui:insert>
         </div>
-
     </h:body>
-
 </html>
