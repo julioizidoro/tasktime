@@ -26,9 +26,9 @@
                 <p:inputText value="#{AtividadeMB.atividades.nome}" style="width:73%" class="espaco2"/>
                 <br></br> <br></br>   
                 <p:outputLabel value="Data:" class="espaco10"/>
-                <p:calendar id="prazo2" size="10"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="espaco2" value="#{AtividadeMB.atividades.prazo}" >
+                <p:inputMask id="prazo2" size="10"  mask="99/99/9999"  maxlength="14" class="espaco2" value="#{AtividadeMB.atividades.prazo}" >
                     <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-                </p:calendar>
+                </p:inputMask>
                 <p:outputLabel value="Prioridade:" class="espaco4"/> 
                 <p:selectOneMenu id="prioridade2" value="#{AtividadeMB.atividades.prioridade}" class="espaco2" style="width:30%">
                     <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 

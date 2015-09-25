@@ -32,8 +32,15 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
-                            <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" />
+                         <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
+                           <p:cellEditor>
+                                <f:facet name="output"> <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" /></f:facet>
+                                <f:facet name="input"><p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" style="width:100%">
+                                        <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                                        <f:selectItems value="#"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
@@ -43,7 +50,14 @@
                         </p:column>
 
                         <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
-                            <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" />
+                           <p:cellEditor>
+                               <f:facet name="output"> <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" /></f:facet>
+                               <f:facet name="input"> <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:100%">
+                                                            <f:selectItem itemLabel="Selecione" itemValue="0"   />
+                                                            <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
+                                                         </p:selectOneMenu>
+                               </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Prazo" style="width:52px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
@@ -54,9 +68,9 @@
                                      </h:outputText>  
                                 </f:facet>
                                 <f:facet name="input">
-                                    <p:calendar id="prazo" value="#{tarefas.atividades.prazo}" pattern="dd/MM/yyyy" mask="true" style="width:100%">
+                                    <p:inputMask id="prazo" value="#{tarefas.atividades.prazo}" mask="99/99/9999" style="width:100%">
                                         <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-                                    </p:calendar>
+                                    </p:inputMask>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
