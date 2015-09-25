@@ -58,6 +58,7 @@
                                 <f:facet name="input">
                                     <p:calendar id="prazo" value="#{tarefas.atividades.prazo}" pattern="dd/MM/yyyy" mask="true" style="width:100%">
                                         <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                        <p:ajax event=""
                                     </p:calendar>
                                 </f:facet>
                             </p:cellEditor>

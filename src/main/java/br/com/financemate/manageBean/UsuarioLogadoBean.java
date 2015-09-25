@@ -11,16 +11,20 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author Kamila
  */
-@Named("UsuarioLogadoBean")
+@Named
 @SessionScoped
 public class UsuarioLogadoBean implements Serializable{
     
-    @Inject AtividadeMB atividadeMB;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Inject AtividadeMB atividadeMB;
     @Inject MenuMB menuMB;
     private Usuario usuario;
     private Cliente cliente;
@@ -29,7 +33,7 @@ public class UsuarioLogadoBean implements Serializable{
     private String nomeCliente;
     
     public UsuarioLogadoBean() {
-        this.usuario = usuario;
+        this.usuario = new Usuario();
     }
     
     public Usuario getUsuario() {
