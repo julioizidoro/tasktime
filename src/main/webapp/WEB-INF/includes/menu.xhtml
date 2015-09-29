@@ -7,18 +7,13 @@
     <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
         <img src="resources/img/ajax-loader.gif" />
     </p:dialog>
-    <div id="tudo">
+    <div id="tudo" style="background: #E0EEEE">
         <p:growl id="growl" showDetail="true" sticky="true" />
         
-        <tr><td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0"><tr><td></td></tr></table></td></tr>
-        <br></br> <br></br>  <br></br> 
-        <p:menubar class="menu" id="redefinirmenu">
-            <p:menuitem  class="submenu2"  icon="ui-icon-plus"  >
-                <p:commandLink  >
-                    <img src="resources/img/logoMenu.png" alt="" width="35" height="35"/>
-                </p:commandLink>
-            </p:menuitem>
-            <p:submenu label="Cadastros" class="submenu2" icon=" ui-icon-plus ">
+        <p:menubar class="menu" id="redefinirmenu" style="margin-left:0%;width: 135%;margin-top: -0.95%;font-size: 16px">
+            
+            
+            <p:submenu label="Cadastros" class="submenu2" icon=" ui-icon-plus " style="font-size: 16px;margin-top:1%">
                 <p:menuitem class="submenu" value="Cliente" action="#{MenuMB.cliente()}" update="growl"/>
                 <p:menuitem class="submenu" value="Departamento" action="#{MenuMB.departamento()}" update="growl"/>
                 <p:menuitem class="submenu" value="Sub-Departamento" action="#{MenuMB.subdepartamento()}" update="growl"/>
@@ -27,8 +22,20 @@
                 <p:menuitem class="submenu" value="Perfil" action="#{MenuMB.perfil()}" update="growl"/>
                 <p:menuitem class="submenu" value="Processos" action="#{MenuMB.processos()}" update="growl"/>
             </p:submenu>
-            <p:menuitem  class="submenu2"  icon=" ui-icon-plus " style="margin-left:700px">
-                <p:commandLink  action="#{AtividadeMB.novo()}" actionListener="#{AtividadeMB.gerarListaUsuarioBean()}">
+            
+            <p:menuitem  class="submenu2"  icon="ui-icon-plus" style="left:30%" >
+                <p:commandLink  style="margin-left:92%">
+                    <img src="resources/img/logoMenu.png" alt="" width="35" height="35"/>
+                </p:commandLink>
+            </p:menuitem>
+            <p:menuitem  class="submenu2"  icon="ui-icon-plus" style="">
+                <p:commandLink style="margin-top:1%;margin-left: -21%" >
+                      <p:outputLabel value="InTime" style="font-family: 'Pacifico', cursive;color: #fff;font-size: 27px"/>
+                 </p:commandLink>
+            </p:menuitem>
+            
+            <p:menuitem  class="submenu2"  icon=" ui-icon-plus " >
+                <p:commandLink style="margin-left:89%"  action="#{AtividadeMB.novo()}" actionListener="#{AtividadeMB.gerarListaUsuarioBean()}">
                     <img src="resources/img/adicionarTarefa.png" width="27" height="27"/> 
                     <p:ajax event="dialogReturn" update="@all"/>
                 </p:commandLink>
@@ -40,12 +47,12 @@
                </p:commandLink>
             </p:menuitem>
             
-            <p:menuitem    class="submenu3" icon="ui-icon-folder-open" value="#{MenuMB.quantidade}" oncomplete="PF('notificacao').show()"></p:menuitem>
+            <p:menuitem style="margin-top:14%"  class="submenu3" icon="ui-icon-folder-open" value="#{MenuMB.quantidade}" oncomplete="PF('notificacao').show()"></p:menuitem>
             
             <p:menuitem  class="submenu2"  icon="ui-icon-plus"  >
                 <p:commandLink  styleClass="fonteUsuarioLogado" action="#{usuarioLogadoBean.deslogar()}"> 
                     <img src="resources/img/deslogar.png" width="27" height="27"/> 
-                </p:commandLink>
+                </p:commandLink>            
             </p:menuitem>
         </p:menubar>
     </div>

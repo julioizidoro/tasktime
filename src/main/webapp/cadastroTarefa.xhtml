@@ -1,7 +1,3 @@
-/* global javascript */
-
-/* global javascript */
-
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -26,7 +22,7 @@
             <p:growl id="growl" showDetail="true" sticky="true" />
             <title>Adicionar Tarefa</title>
 
-            <p:inputText value="Insira o título aqui" onclick="this.value='#{AtividadeMB.atividades.nome}';" onblur="javascript:if (this.value=='') {this.value='Insira o título aqui'};" class="espaco2" style="width:38%"/>
+            <p:inputText value="Insira o título aqui" onclick="this.value='#{AtividadeMB.atividades.nome}';" onblur="javascript:if (this.value=='') {this.value='Insira o título aqui'};" style="width:47%;margin-left:21%"/>
             
             <p:calendar id="prazo" size="10"  pattern="dd/MM/yyyy" mask="true"  maxlength="14" class="espaco5dois" value="#{AtividadeMB.atividades.prazo}" >
                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
@@ -49,33 +45,20 @@
                 <f:selectItem itemLabel="Selecione" itemValue="0"   />
                 <f:selectItems value="#{AtividadeMB.listaCliente}" var="clienteSelecionado" itemLabel="#{clienteSelecionado.nomefantasia}" itemValue="#{clienteSelecionado.idcliente}"/>
             </p:selectOneMenu>
-            <p:outputLabel value="Prioridade:" class="espaco4"/> 
-            <p:selectOneMenu id="prioridade" value="#{AtividadeMB.atividades.prioridade}" class="espaco2" style="width:22.8%">
-                <f:selectItem itemLabel="Selecione" itemValue="sn" noSelectionOption="true"/> 
-                <f:selectItem itemLabel="Normal" itemValue="normal" />
-                <f:selectItem itemLabel="Alta" itemValue="alta" />
-                <f:selectItem itemLabel="Urgente" itemValue="urgente" />
-            </p:selectOneMenu>
-            <br></br> <br></br>
-            <p:outputLabel value="Usuário Executor:" /> 
-            <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}" class="espaco2" style="width:40%">
-                <f:selectItem itemLabel="Selecione" itemValue="0"   />
-                <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioselecionado" itemLabel="#{usuarioselecionado.nome}" itemValue="#{usuarioselecionado.idusuario}"/>
-                <p:ajax event="change" listener="#{AtividadeMB.gerarListaUsuarioBean()}" update="selecao" />
-            </p:selectOneMenu>
-            <br></br> <br></br>
-            <p:commandButton value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" update="@all" ajax="true"/>
-            <p:commandButton value="Fechar" icon="ui-icon-close" class="espaco2" action="#{AtividadeMB.fecharDialog()}" update="@all" ajax="true"/>
-            <p:dataTable id="selecao" var="selecaoUsuario" value="#{AtividadeMB.listaUsuarioBean}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                         paginator="true" rows="8"  rowIndexVar="rowIx">
-                <p:column  style="width:30px;" styleClass="alinhaCentro">
-                    <p:selectBooleanCheckbox value="#{selecaoUsuario.selecionado}"/>
-                </p:column>
-                <p:column headerText="Usuário" style="width:170px;" styleClass="border">
-                    <h:outputText value="#{selecaoUsuario.usuario.nome}" />
-                </p:column>
-            </p:dataTable>
+            <p:commandLink  style="margin-left:15.5%;text-decoration: none" title="Prioridade">
+                <img src="resources/img/selecionarPrioridade.png" />
+            </p:commandLink>
+            <p:commandLink   style="margin-left: 2%;text-decoration: none" title="Usuário Executor">
+                <img src="resources/img/selecionarUsuarioExecutor.png" />
+            </p:commandLink>
+            <p:commandLink  style="margin-left: 2%;text-decoration: none" title="Usúario Notificado">
+                <img src="resources/img/selecionarUsuarioInformante.png" />
+            </p:commandLink>
+            
+            <br></br><br></br>
+            <p:commandButton style="height:6%;margin-left:78%" icon="ui-icon-plusthick" class="botaoDialog" action="#{AtividadeMB.salvar()}" update="@all" ajax="true" title="Confirmar"/>
+            <p:commandButton style="height:6%" icon="ui-icon-close" class="espaco2" action="#{AtividadeMB.fecharDialog()}" update="@all" ajax="true" title="Cancelar"/>
+           
             <br></br><br></br>
         </h:form>
     </h:body>

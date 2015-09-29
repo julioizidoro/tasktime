@@ -72,7 +72,7 @@
                                     <p:selectOneMenu id="usuario" value="#{AtividadeMB.idUsuario}"  style="width:100%">
                                         <f:selectItem itemLabel="Selecione" itemValue="0"   />
                                         <f:selectItems value="#{AtividadeMB.listaUsuario}" var="usuarioselecionado" itemLabel="#{usuarioselecionado.nome}" itemValue="#{usuarioselecionado.idusuario}"/>
-                                        <p:ajax event="change" listener="#{AtividadeMB.gerarListaUsuarioBean()}" update="selecao" />
+                                        <p:ajax event="change" listener="#{AtividadeMB.gerarListaUsuarioBean()}"  />
                                     </p:selectOneMenu>
                                 </f:facet>
                             </p:cellEditor>

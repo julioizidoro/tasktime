@@ -8,19 +8,17 @@ h1 {
 }
 #tudo {
     position: relative;
-    background:#fff;
+    background:#E0EEEE;
     margin: 0px 0 20px -390px;
-    width:1156px;
-    left:6%;
+    width:1148px;
     border: 0px solid #aaa;
     margin-left:-10px;
 }
 #centro {
     background: #fff;
-    width: 1155px;
-    margin-left:72px;
-    margin-top:-50px;
-    height:470px; 
+    width: 87%;
+    margin-left:6.5%;
+    margin-top: -3%;
     //borda arredondada
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
@@ -40,9 +38,9 @@ h1 {
 }
 #centro2 {
     background: #fff;
-    width: 1155px;
-    margin-left:72px;
-    margin-top:-520px;
+    width: 87%;
+    margin-left:6.5%;
+    margin-top: -6%;
     //borda arredondada
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
@@ -95,9 +93,8 @@ h1 {
 }
 .menu{
     font-family: tahoma;
-    width:100%;
     background: #3A5795;
-    font-size: 12px;
+    font-size: 14px;
 }
 .menu2{
     font-family: tahoma;
@@ -118,7 +115,7 @@ h1 {
     color:#fff;
     font-family: tahoma;
     float:left;
-    font-size: 14px;
+    font-size: 16px;
 }
 .submenu2 li a{
     color:#fff;
@@ -130,7 +127,6 @@ h1 {
 .submenu3{
     background:#00B2EE;
     font-family: tahoma;
-    margin-left: 780px;
     font-size: 14px;
 }
 .menu li a{
