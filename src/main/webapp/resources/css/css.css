@@ -7,7 +7,6 @@ h1 {
     margin: 10px 20px 10px 20px;
 }
 #tudo {
-    top:-9px;
     position: relative;
     background:#fff;
     margin: 0px 0 20px -390px;
@@ -96,10 +95,7 @@ h1 {
 }
 .menu{
     font-family: tahoma;
-    list-style:none; 
-    width:1147px;
-    float:left;
-    margin-top:-55px;
+    width:100%;
     background: #3A5795;
     font-size: 12px;
 }
@@ -107,7 +103,7 @@ h1 {
     font-family: tahoma;
     list-style:none; 
     float:left;
-    margin-top:-20px;
+    margin-top:-30px;
     font-size: 12px;
     width:185px;
     height: 485px;
@@ -134,9 +130,8 @@ h1 {
 .submenu3{
     background:#00B2EE;
     font-family: tahoma;
-    float:right;
+    margin-left: 780px;
     font-size: 14px;
-    margin-left:700px;
 }
 .menu li a{
     color:#fff;

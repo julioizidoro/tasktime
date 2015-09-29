@@ -9,25 +9,15 @@
     </p:dialog>
     <div id="tudo">
         <p:growl id="growl" showDetail="true" sticky="true" />
-        <tr>
-            <td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td><img src="resources/img/logotasktime.png" alt="" width="140" height="100" />
-                            <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
-                                <p:outputLabel value="Usuário:"  class="fonteUsuarioLogado"/> 
-                                <p:outputLabel value="#{UsuarioLogadoBean.usuario.nome}" /> 
-                            </h:panelGrid>
-                            <br></br><br></br>
-                            <h:panelGrid columns="2" cellpadding="1" class="usuariologado">
-                                <p:commandLink  value="Logout" styleClass="fonteUsuarioLogado" action="#{usuarioLogadoBean.deslogar()}"/> 
-                                <img src="resources/img/deslogar.png" /> 
-                            </h:panelGrid><br></br><br></br></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <br></br>
+        
+        <tr><td><table aling="center" width="00" border="0" cellpadding="0" cellspacing="0"><tr><td></td></tr></table></td></tr>
+        <br></br> <br></br>  <br></br> 
         <p:menubar class="menu" id="redefinirmenu">
+            <p:menuitem  class="submenu2"  icon="ui-icon-plus"  >
+                <p:commandLink  >
+                    <img src="resources/img/logoMenu.png" alt="" width="35" height="35"/>
+                </p:commandLink>
+            </p:menuitem>
             <p:submenu label="Cadastros" class="submenu2" icon=" ui-icon-plus ">
                 <p:menuitem class="submenu" value="Cliente" action="#{MenuMB.cliente()}" update="growl"/>
                 <p:menuitem class="submenu" value="Departamento" action="#{MenuMB.departamento()}" update="growl"/>
@@ -37,21 +27,30 @@
                 <p:menuitem class="submenu" value="Perfil" action="#{MenuMB.perfil()}" update="growl"/>
                 <p:menuitem class="submenu" value="Processos" action="#{MenuMB.processos()}" update="growl"/>
             </p:submenu>
-            <p:menuitem  class="submenu2"  icon=" ui-icon-plus " >
-                <p:commandLink value="Adicionar Tarefas" action="#{AtividadeMB.novo()}" actionListener="#{AtividadeMB.gerarListaUsuarioBean()}">
+            <p:menuitem  class="submenu2"  icon=" ui-icon-plus " style="margin-left:700px">
+                <p:commandLink  action="#{AtividadeMB.novo()}" actionListener="#{AtividadeMB.gerarListaUsuarioBean()}">
+                    <img src="resources/img/adicionarTarefa.png" width="27" height="27"/> 
                     <p:ajax event="dialogReturn" update="@all"/>
                 </p:commandLink>
             </p:menuitem>
             <p:menuitem  class="submenu2"  icon="ui-icon-plus"  >
-                <p:commandLink value="Adicionar Tarefa Particular" action="#{AtividadeMB.novoParticular()}" >
+                <p:commandLink  action="#{AtividadeMB.novoParticular()}" >
+                    <img src="resources/img/adicionarTarefaParticular.png" width="27" height="27"/> 
                      <p:ajax event="dialogReturn" update="@all"/>
                </p:commandLink>
             </p:menuitem>
+            
             <p:menuitem    class="submenu3" icon="ui-icon-folder-open" value="#{MenuMB.quantidade}" oncomplete="PF('notificacao').show()"></p:menuitem>
+            
+            <p:menuitem  class="submenu2"  icon="ui-icon-plus"  >
+                <p:commandLink  styleClass="fonteUsuarioLogado" action="#{usuarioLogadoBean.deslogar()}"> 
+                    <img src="resources/img/deslogar.png" width="27" height="27"/> 
+                </p:commandLink>
+            </p:menuitem>
         </p:menubar>
     </div>
     <div id="centro">
-        
+         <br></br>  <br></br>   <br></br> 
         <p:menu toggleable="true"  class="menu2">
             <p:submenu label="Minhas Tarefas">
                 <p:menuitem value="#{AtividadeMB.ndia}" icon="ui-icon-calendar" action="#{AtividadeMB.mostarAtividadesDia()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />

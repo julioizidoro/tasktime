@@ -921,11 +921,11 @@ public class AtividadeMB implements Serializable{
     
     public String imagem(Atividades atividade) {
         if (atividade.getPrioridade().equalsIgnoreCase("urgente")) {
-            return "/resources/img/bandeira-vermelho.png";
+            return "/resources/img/prioridadeUrgente.png";
         } else if (atividade.getPrioridade().equalsIgnoreCase("alta")) {
-            return "/resources/img/bandeira_amarela.png";
+            return "/resources/img/prioridadeAlta.png";
         } else {
-            return "/resources/img/bandeira_verde.png";
+            return "/resources/img/prioridadeNormal.png";
         }
     }
     

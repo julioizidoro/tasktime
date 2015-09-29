@@ -158,15 +158,6 @@ h1 {
 .espaco22{
     margin-left:22%;
 }
-.menu{
-    font-family: tahoma;
-    list-style:none; 
-    width:1147px;
-    float:left;
-    margin-top:-55px;
-    background: #3A5795;
-    font-size: 12px;
-}
 .menu2{
     font-family: tahoma;
     list-style:none; 
@@ -201,20 +192,6 @@ h1 {
     float:right;
     font-size: 14px;
     margin-left:700px;
-}
-.menu li a{
-    color:#fff;
-    text-decoration:none; 
-    padding:5px 10px; 
-    display:block;
-    font-size: 12px;
-}
-.menu li a:hover{
-    background:#a1bbf0;
-    color:#333;
-    -moz-box-shadow:0 3px 10px 0 #CCC;
-    -webkit-box-shadow:0 3px 10px 0 #ccc;
-    text-shadow:0px 0px 5px #fff;
 }
 .logo{
     margin-top:-5px;
