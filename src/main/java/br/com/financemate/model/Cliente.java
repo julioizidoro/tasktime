@@ -33,6 +33,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")})
 public class Cliente implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Projeto> projetoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -411,6 +413,14 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "br.com.financemate.model.Cliente[ idcliente=" + idcliente + " ]";
+    }
+
+    public List<Projeto> getProjetoList() {
+        return projetoList;
+    }
+
+    public void setProjetoList(List<Projeto> projetoList) {
+        this.projetoList = projetoList;
     }
     
 }
