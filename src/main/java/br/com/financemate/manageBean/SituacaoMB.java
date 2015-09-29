@@ -111,14 +111,6 @@ public class SituacaoMB implements Serializable{
         this.idRotina = idRotina;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
     public void gerarListaDepartamento() {
         DepartamentoFacade departamentoFacade = new DepartamentoFacade();
         listaDepartamento = departamentoFacade.listar("");

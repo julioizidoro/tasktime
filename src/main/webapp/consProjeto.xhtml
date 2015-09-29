@@ -13,19 +13,19 @@
                       <legend class="titulo">Consulta de Projeto</legend>
                      <br></br>
                       <img src="resources/img/ADD.jpg" width="20" height="20" class="add3"/> 
-                    <p:commandLink  value="Adicionar Projeto" styleClass="cadastro5" action="#" />  
-                     <p:dataTable id="consProjeto" var="consProjeto" value="#" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                      <p:commandLink  value="Adicionar Projeto" styleClass="cadastro5" action="#{projetoMB.novo()}" />  
+                    <p:dataTable id="consProjeto" var="consProjeto" value="#{projetoMB.listaProjeto}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginator="true" rows="10"    rowIndexVar="rowIx">
                         <p:column headerText="Nome"  styleClass="border">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{consProjeto.nome}" />
                         </p:column>
 
                         <p:column headerText="Cliente" styleClass="border">
-                            <h:outputText value="#" />
+                            <h:outputText value="#{consProjeto.cliente.nomefantasia}" />
                         </p:column>
                          <p:column headerText="Situação" styleClass="border">
-                            <h:outputText value="#" />
+                             <h:outputText value="#{consProjeto.situacao}" />
                         </p:column>
                     </p:dataTable>
                     <br></br>
