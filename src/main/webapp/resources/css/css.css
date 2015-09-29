@@ -94,7 +94,7 @@ h1 {
 .menu{
     font-family: tahoma;
     background: #3A5795;
-    font-size: 14px;
+    font-size:20px;
 }
 .menu2{
     font-family: tahoma;
@@ -108,21 +108,19 @@ h1 {
 .submenu{
     font-family: tahoma;
     float:left;
-    font-size: 14px;
     background: #3A5795;
 }
 .submenu2{
     color:#fff;
     font-family: tahoma;
     float:left;
-    font-size: 16px;
 }
 .submenu2 li a{
     color:#fff;
     text-decoration:none; 
     padding:5px 10px; 
     display:block;
-    font-size: 12px;
+    font-size: 20px;
 }
 .submenu3{
     background:#00B2EE;

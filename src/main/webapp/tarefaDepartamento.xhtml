@@ -54,18 +54,18 @@
                         
                     <p:dataTable id="tabelaAtividades" var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
-                                                      null}"  editable="true" editMode="cell" rowIndexVar="rowIx">
+                                                        null}"  editable="true" editMode="cell" rowIndexVar="rowIx" style="width:84%">
                        
                         <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(this, tarefas.atividades)}" update=":atividades:tabelaAtividades" />
                         
-                        <p:column headerText="Atividade" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
+                        <p:column headerText=""  styleClass="border" sortBy="#{tarefas.atividades.nome}">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{tarefas.atividades.nome}" /></f:facet>
                                 <f:facet name="input"><p:inputText id="titulo" value="#{tarefas.atividades.nome}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
                         
-                        <p:column headerText="Responsavel" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
+                        <p:column headerText="" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{tarefas.usuario.nome}" /></f:facet>
                                 <f:facet name="input">
@@ -78,7 +78,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                         <p:column headerText="Sub-Departamento" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
+                         <p:column headerText="" style="width:190px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
                            <p:cellEditor>
                                 <f:facet name="output"> <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" /></f:facet>
                                 <f:facet name="input"><p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" style="width:100%">
@@ -89,13 +89,13 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Comentário" style="width:58px;" styleClass="alinhaCentro">
+                        <p:column headerText="" style="width:46px;" styleClass="alinhaCentro">
                             <p:commandButton icon="ui-icon-comment" action="#{AtividadeMB.verComentarios(rowIx)}"  update=":atividades:dialog_addComentario" oncomplete="PF('vercomentario').show()" value="#{AtividadeMB.quantidadeComentario(tarefas.atividades)}" >
 
                             </p:commandButton>
                         </p:column>
 
-                        <p:column headerText="Cliente" style="width:100px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
+                        <p:column headerText="" style="width:200px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
                            <p:cellEditor>
                                <f:facet name="output"> <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" /></f:facet>
                                <f:facet name="input"> <p:selectOneMenu value="#{AtividadeMB.idCliente}" style="width:100%">
@@ -106,7 +106,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Prazo" style="width:52px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
+                        <p:column headerText="" style="width:60px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
                            <p:cellEditor>
                                 <f:facet name="output">
                                     <h:outputText value="#{tarefas.atividades.prazo}" >
@@ -121,7 +121,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Prioridade" style="width:70px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
+                        <p:column headerText="" style="width:45px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
                             <p:cellEditor>
                                 <f:facet name="output">
                                     <p:graphicImage value="#{AtividadeMB.imagem(tarefas.atividades)}" /></f:facet>

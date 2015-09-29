@@ -22,7 +22,7 @@
              
             <title>Adicionar Tarefa Particular</title>
             <div > 
-                <p:inputText  value="Insira o título aqui" onclick="this.value='#{AtividadeMB.atividades.nome}';" onblur="javascript:if (this.value=='') {this.value='Insira o título aqui'};" style="width:73%" class="espaco2"/>
+                <p:inputText  value="Tarefa" onclick="this.value='#{AtividadeMB.atividades.nome}';" onblur="javascript:if (this.value=='') {this.value='Insira o título aqui'};" style="width:73%;margin-left:18%" class="espaco2"/>
                 <br></br> <br></br>   
                 <p:outputLabel value="Data:" class="espaco10"/>
                 <p:inputMask id="prazo2" size="10"  mask="99/99/9999"  maxlength="14" class="espaco2" value="#{AtividadeMB.atividades.prazo}" >

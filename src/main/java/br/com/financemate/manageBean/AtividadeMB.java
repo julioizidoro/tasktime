@@ -550,7 +550,7 @@ public class AtividadeMB implements Serializable{
             gerarListaUsuarioBean();
             tipo=0;
             Map<String,Object> options = new HashMap<String, Object>();
-            options.put("contentWidth", 550);
+            options.put("contentWidth", 580);
 
             RequestContext.getCurrentInstance().openDialog("cadastroTarefa", options, null);
         }else{
@@ -1715,5 +1715,17 @@ public class AtividadeMB implements Serializable{
         }else{
             return "atividades:growl";
         }
+    }
+    public String usuarioExecutor(){
+        
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("contentWidth", 600);
+        options.put("contentHeigt", 600);
+        RequestContext.getCurrentInstance().openDialog("cadastroTarefa", options, null);
+        return "";
+    }
+    public String fecharDialogAtividades(){
+        RequestContext.getCurrentInstance().closeDialog(null);
+        return "";
     }
 }

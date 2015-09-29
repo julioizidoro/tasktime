@@ -24,17 +24,17 @@
                        
                         <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(event, tarefas.atividades)}" update=":inicial:tabelaAtividades" />
                        
-                        <p:column headerText="" style="width:40px;" styleClass="alinhaCentro">
+                        <p:column headerText="" style="width:30px;" styleClass="alinhaCentro">
                             <p:commandButton disabled="#{tarefas.situacao}"   icon="#{AtividadeMB.carregarIcon(tarefas.atividades)}" actionListener="#{AtividadeMB.iniciarAtividade(rowIx)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" title="#{AtividadeMB.mostrarTempo(tarefas.atividades)}"/>
                         </p:column>
-                        <p:column headerText="" style="width:130px;" styleClass="border" sortBy="#{tarefas.atividades.nome}">
+                        <p:column headerText="" styleClass="border" sortBy="#{tarefas.atividades.nome}">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{tarefas.atividades.nome}" /></f:facet>
                                 <f:facet name="input"><p:inputText id="titulo" value="#{tarefas.atividades.nome}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="" style="width:120px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
+                        <p:column headerText="" style="width:190px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
                            <p:cellEditor>
                                 <f:facet name="output"> <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" /></f:facet>
                                 <f:facet name="input"><p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" style="width:100%">
@@ -51,7 +51,7 @@
                             </p:commandButton>
                         </p:column>
 
-                        <p:column headerText="" style="width:100px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
+                        <p:column headerText="" style="width:220px;" styleClass="alinhaCentro"  sortBy="#{tarefas.atividades.cliente.nomefantasia}">
                            <p:cellEditor>
                                <f:facet name="output"> <h:outputText value="#{tarefas.atividades.cliente.nomefantasia}" /></f:facet>
                                <f:facet name="input">
@@ -63,7 +63,7 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="" style="width:52px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
+                        <p:column headerText="" style="width:59px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prazo}" >
                            <p:cellEditor>
                                 <f:facet name="output">
                                     <h:outputText value="#{tarefas.atividades.prazo}" >
@@ -78,7 +78,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="" style="width:55px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
+                        <p:column headerText="" style="width:46px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.prioridade}">
                             <p:cellEditor>
                                 <f:facet name="output">
                                     <p:graphicImage value="#{AtividadeMB.imagem(tarefas.atividades)}" /></f:facet>
