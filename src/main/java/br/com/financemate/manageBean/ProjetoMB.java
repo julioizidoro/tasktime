@@ -27,12 +27,7 @@ public class ProjetoMB implements Serializable{
   
   @PostConstruct
     public void init(){
-       FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        projeto = (Projeto) session.getAttribute("projeto");
-        session.removeAttribute("projeto");
         gerarListaProjeto();
-        projeto = new Projeto();
     }
 
     public Projeto getProjeto() {
@@ -91,6 +86,7 @@ public class ProjetoMB implements Serializable{
         projetoFacade.salvar(projeto);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+        projeto = new Projeto();
         return "consProjeto";
     }
     
@@ -121,7 +117,10 @@ public class ProjetoMB implements Serializable{
         return "";
     }
     
-    public String modulo(){
+    public String modulo(Projeto projeto){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("projeto", projeto);
         return "consModulo";
     }
     

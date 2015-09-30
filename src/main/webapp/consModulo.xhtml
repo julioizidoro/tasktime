@@ -26,10 +26,14 @@
                         </p:column>
 
                         <p:column headerText="Data Inicial" styleClass="border">
-                            <h:outputText value="#{consModulo.datainicial}" />
+                            <h:outputText value="#{consModulo.datainicial}" >
+                                <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                            </h:outputText>
                         </p:column>
                          <p:column headerText="Data Final" styleClass="border">
-                             <h:outputText value="#{consModulo.datafinal}" />
+                             <h:outputText value="#{consModulo.datafinal}" >
+                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                             </h:outputText>
                         </p:column>
                     </p:dataTable>
                     <br></br>

@@ -1,17 +1,38 @@
 package br.com.financemate.manageBean;
 
+import br.com.financemate.facade.ModuloFacade;
 import br.com.financemate.model.Modulos;
+import br.com.financemate.model.Projeto;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 
 @Named
 @ViewScoped
 public class ModuloMB implements Serializable{
     
+    private Projeto projeto;
     private Modulos modulos;
     private List<Modulos> listaModulos;
+    
+    @PostConstruct
+    public void init(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        projeto = (Projeto) session.getAttribute("projeto");
+        session.removeAttribute("projeto");
+        if (projeto!=null){
+            gerarListaModulos();
+        }else{
+            listaModulos = new ArrayList<Modulos>();
+        }
+    }
 
     public Modulos getModulos() {
         return modulos;
@@ -30,9 +51,20 @@ public class ModuloMB implements Serializable{
     }
     
     
-    public String novo(){
-        return "cadModulo";
+    public void gerarListaModulos(){
+        String sql = "Select m from Modulos m where m.projeto.idprojeto=" + projeto.getIdprojeto();
+        ModuloFacade moduloFacade = new ModuloFacade();
+        listaModulos = moduloFacade.listar(sql);
+        if (listaModulos==null){
+            listaModulos = new ArrayList<Modulos>();
+        }
     }
     
+    public String novo(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("projeto", projeto);
+        return "cadModulo";
+    }
     
 }
