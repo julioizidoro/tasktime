@@ -16,7 +16,7 @@
                      <p:commandLink  value="Adicionar Módulo" styleClass="cadastro5" action="#{moduloMB.novo()}" />  
                      <p:contextMenu for="tabelaModulo">
                          <p:menuitem value="Alterar"  icon=" ui-icon-pencil"  action="#{moduloMB.editar()}" />
-                        <p:menuitem value="Atividades"  icon=" ui-icon-tag" action="#"  />
+                         <p:menuitem value="Atividades"  icon=" ui-icon-tag" action="#{moduloMB.atividade()}"  />
                     </p:contextMenu>
                       <p:dataTable id="tabelaModulo" var="consModulo" value="#{moduloMB.listaModulos}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"

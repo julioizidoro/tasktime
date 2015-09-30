@@ -80,8 +80,12 @@ public class ModuloMB implements Serializable{
             return "cadModulo";
     }
     
+    public String atividades(){
+        return "consAtividadesModulo";
+    }
     public String voltar(){
         return "consProjeto";
     }
-     
+    
+   
 }

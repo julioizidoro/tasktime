@@ -102,9 +102,7 @@ public class Projeto implements Serializable {
         return membrosList;
     }
 
-    public void setMembrosList(List<Membros> membrosList) {
-        this.membrosList = membrosList;
-    }
+   
 
     @Override
     public int hashCode() {

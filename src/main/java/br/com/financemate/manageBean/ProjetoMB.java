@@ -4,6 +4,7 @@ import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.ProjetoFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Cliente;
+import br.com.financemate.model.Membros;
 import br.com.financemate.model.Projeto;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class ProjetoMB implements Serializable{
   private int idCliente;
   private List<Cliente> listaCliente;
   private List<Usuario> listaUsuario;
+  private List<Membros> listaMembros;
   
   
   @PostConstruct
@@ -85,6 +87,14 @@ public class ProjetoMB implements Serializable{
         this.listaUsuario = listaUsuario;
     }
 
+    public List<Membros> getListaMembros() {
+        return listaMembros;
+    }
+
+    public void setListaMembros(List<Membros> listaMembros) {
+        this.listaMembros = listaMembros;
+    }
+    
     
     
     
@@ -138,8 +148,24 @@ public class ProjetoMB implements Serializable{
     }
     
     
-    public String vincularMembros(){
+    public String vincularMembros() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("projeto", projeto);
         RequestContext.getCurrentInstance().openDialog("vincularMembros");
+        return "";
+    }
+    
+    public String adicionarMembros() {
+        List<Usuario> lista = new ArrayList<>();
+        for (int i = 0; i < listaUsuario.size(); i++) {
+            if (listaUsuario.get(i).isSelecionado()) {
+               lista.add(listaUsuario.get(i));
+             } 
+        }
+        if (lista.size() == 0) {
+            lista = null;
+        }
         return "";
     }
 }
