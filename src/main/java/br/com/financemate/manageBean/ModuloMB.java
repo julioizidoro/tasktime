@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -69,4 +70,18 @@ public class ModuloMB implements Serializable{
         return "cadModulo";
     }
     
+    
+     public String salvar(){
+        ModuloFacade moduloFacade = new ModuloFacade();  
+        moduloFacade.salvar(modulos);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+        modulos = new Modulos();
+        return "consModulo";
+    }
+     
+      public String cancelar(){
+        return "consModulo";
+    }
+     
 }
