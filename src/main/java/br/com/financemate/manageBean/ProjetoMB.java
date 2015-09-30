@@ -7,10 +7,13 @@ import br.com.financemate.model.Projeto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 
 @Named
 @ViewScoped
@@ -20,6 +23,17 @@ public class ProjetoMB implements Serializable{
   private List<Projeto> listaProjeto;
   private int idCliente;
   private List<Cliente> listaCliente;
+  
+  
+  @PostConstruct
+    public void init(){
+       FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        projeto = (Projeto) session.getAttribute("projeto");
+        session.removeAttribute("projeto");
+        gerarListaProjeto();
+        projeto = new Projeto();
+    }
 
     public Projeto getProjeto() {
         return projeto;
@@ -94,6 +108,17 @@ public class ProjetoMB implements Serializable{
         if (listaProjeto == null) {
             listaProjeto = new ArrayList<Projeto>();
         }
+    }
+    
+    
+    public String editar(){
+        if (this.projeto!=null){
+            FacesContext fc = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+            session.setAttribute("projeto", projeto);       
+            return "cadProjeto";
+        }
+        return "";
     }
     
 }

@@ -19,6 +19,11 @@
     <class>br.com.financemate.model.Processoatividade</class>
     <class>br.com.financemate.model.Processorotina</class>
     <class>br.com.financemate.model.Processosituacao</class>
+    <class>br.com.financemate.model.Atividademodulo</class>
+    <class>br.com.financemate.model.Membros</class>
+    <class>br.com.financemate.model.Modulos</class>
+    <class>br.com.financemate.model.Projeto</class>
+    <class>br.com.financemate.model.Raci</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
