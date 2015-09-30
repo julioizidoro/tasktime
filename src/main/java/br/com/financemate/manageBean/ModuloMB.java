@@ -79,5 +79,9 @@ public class ModuloMB implements Serializable{
             session.setAttribute("projeto", projeto); 
             return "cadModulo";
     }
+    
+    public String voltar(){
+        return "consProjeto";
+    }
      
 }
