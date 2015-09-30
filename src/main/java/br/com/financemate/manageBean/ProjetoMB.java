@@ -2,8 +2,10 @@ package br.com.financemate.manageBean;
 
 import br.com.financemate.facade.ClienteFacade;
 import br.com.financemate.facade.ProjetoFacade;
+import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Cliente;
 import br.com.financemate.model.Projeto;
+import br.com.financemate.model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class ProjetoMB implements Serializable{
   private List<Projeto> listaProjeto;
   private int idCliente;
   private List<Cliente> listaCliente;
+  private List<Usuario> listaUsuario;
   
   
   @PostConstruct
@@ -32,6 +35,7 @@ public class ProjetoMB implements Serializable{
         projeto = (Projeto) session.getAttribute("projeto");
         session.removeAttribute("projeto");
         gerarListaProjeto();
+        gerarListaUsuario();
         projeto = new Projeto();
     }
 
@@ -73,6 +77,14 @@ public class ProjetoMB implements Serializable{
         this.listaCliente = listaCliente;
     }
 
+    public List<Usuario> getListaUsuario() {
+        return listaUsuario;
+    }
+
+    public void setListaUsuario(List<Usuario> listaUsuario) {
+        this.listaUsuario = listaUsuario;
+    }
+
     
     
     
@@ -82,18 +94,7 @@ public class ProjetoMB implements Serializable{
         return "cadProjeto";
     }
   
-    public String salvar() {
-        ClienteFacade clienteFacade = new ClienteFacade();
-        Cliente cliente = clienteFacade.consultar(idCliente);
-        projeto.setCliente(cliente);
-        projeto.setSituacao("Ativo");
-        ProjetoFacade projetoFacade = new ProjetoFacade();
-        projetoFacade.salvar(projeto);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
-        projeto = new Projeto();
-        return "consProjeto";
-    }
+    
     
     public void gerarListaCliente(){
         ClienteFacade clienteFacade = new ClienteFacade();
@@ -108,6 +109,13 @@ public class ProjetoMB implements Serializable{
         listaProjeto = projetoFacade.listar("");
         if (listaProjeto == null) {
             listaProjeto = new ArrayList<Projeto>();
+        }
+    }
+    public void gerarListaUsuario() {
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        listaUsuario = usuarioFacade.listarAtivos();
+        if (listaUsuario == null) {
+            listaUsuario = new ArrayList<Usuario>();
         }
     }
     

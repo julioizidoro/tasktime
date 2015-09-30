@@ -19,18 +19,17 @@ import org.primefaces.context.RequestContext;
 public class CadModuloMB implements Serializable{
     
     private Modulos modulos;
-    private List<Modulos> listaModulos;
     
      public CadModuloMB() {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         Projeto projeto = (Projeto) session.getAttribute("projeto");
         modulos = (Modulos) session.getAttribute("modulos");
-        session.removeAttribute("projeto");
         session.removeAttribute("modulos");
         if (modulos==null){
             modulos = new Modulos();
             modulos.setProjeto(projeto);
+            session.removeAttribute("projeto");
         }
     }
 
@@ -42,14 +41,6 @@ public class CadModuloMB implements Serializable{
         this.modulos = modulos;
     }
 
-    public List<Modulos> getListaModulos() {
-        return listaModulos;
-    }
-
-    public void setListaModulos(List<Modulos> listaModulos) {
-        this.listaModulos = listaModulos;
-    }
-    
     
     
     

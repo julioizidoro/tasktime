@@ -73,13 +73,11 @@ public class ModuloMB implements Serializable{
       
       
     public String editar(){
-        if (this.modulos!=null){
             FacesContext fc = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-            session.setAttribute("modulos", modulos);  
+            session.setAttribute("modulos", modulos);
+            session.setAttribute("projeto", projeto); 
             return "cadModulo";
-        }
-        return "";
     }
      
 }

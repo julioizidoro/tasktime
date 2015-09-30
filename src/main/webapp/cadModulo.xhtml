@@ -12,7 +12,7 @@
                     <legend class="titulo">Cadastro de Modulo</legend>
                      <br></br> <br></br> <br></br> 
                      <p:outputLabel value="Nome:" for="nome"  style="margin-left:12.5%" /> 
-                     <p:inputText id="nome"  style="width:19%;margin-left: 2%" maxlength="100" class="espaco1"  value="#{cadModuloMB.modulos.nome}" />
+                     <p:inputText id="nome"  style="width:20.7%;margin-left: 2%" maxlength="100" class="espaco1"  value="#{cadModuloMB.modulos.nome}" />
                      <br></br><br></br>
                      <h:outputText value="Periodo:" style="margin-left:12%"  />
                      <p:calendar id="datainicio" size="10" style="margin-left: 2%"   pattern="dd/MM/yyyy" mask="true"   value="#{cadModuloMB.modulos.datainicial}" >
@@ -24,6 +24,7 @@
                     <br></br><br></br>
                     <p:commandButton icon=" ui-icon-check" value="Confirmar" class="cadastro4" action="#{cadModuloMB.salvar()}" update="@all"/>  
                     <p:commandButton icon=" ui-icon-close " value="Cancelar" class="cancelar" action="#{cadModuloMB.cancelar()}"/> 
+               <br></br><br></br>
                 </div>
            </h:form>
         </ui:define>
