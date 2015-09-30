@@ -18,10 +18,10 @@ public class ModuloDao {
         return modulos;
     }
     
-    public List<Modulos> listar(String nome) throws SQLException{
+    public List<Modulos> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select p from Projeto p order by p.nome");
+        Query q = manager.createQuery(sql);
         List<Modulos> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;

@@ -27,7 +27,12 @@ public class ProjetoMB implements Serializable{
   
   @PostConstruct
     public void init(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        projeto = (Projeto) session.getAttribute("projeto");
+        session.removeAttribute("projeto");
         gerarListaProjeto();
+        projeto = new Projeto();
     }
 
     public Projeto getProjeto() {

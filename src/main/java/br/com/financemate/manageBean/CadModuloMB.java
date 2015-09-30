@@ -4,6 +4,9 @@ import br.com.financemate.facade.ModuloFacade;
 import br.com.financemate.model.Modulos;
 import br.com.financemate.model.Projeto;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -16,6 +19,7 @@ import org.primefaces.context.RequestContext;
 public class CadModuloMB implements Serializable{
     
     private Modulos modulos;
+    private List<Modulos> listaModulos;
     
      public CadModuloMB() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -37,19 +41,28 @@ public class CadModuloMB implements Serializable{
     public void setModulos(Modulos modulos) {
         this.modulos = modulos;
     }
+
+    public List<Modulos> getListaModulos() {
+        return listaModulos;
+    }
+
+    public void setListaModulos(List<Modulos> listaModulos) {
+        this.listaModulos = listaModulos;
+    }
+    
+    
+    
     
     public String salvar(){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        Projeto projeto = (Projeto) session.getAttribute("projeto");
-        modulos.setProjeto(projeto);
         ModuloFacade moduloFacade = new ModuloFacade();  
         moduloFacade.salvar(modulos);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
+        modulos = new Modulos();
         return "consModulo";
     }
     
     public String cancelar(){
         return "consModulo";
     }
-    
 }

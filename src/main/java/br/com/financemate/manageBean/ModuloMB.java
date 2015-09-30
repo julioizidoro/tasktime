@@ -17,9 +17,10 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class ModuloMB implements Serializable{
     
-    private Projeto projeto;
+    
     private Modulos modulos;
     private List<Modulos> listaModulos;
+    private Projeto projeto;
     
     @PostConstruct
     public void init(){
@@ -27,6 +28,7 @@ public class ModuloMB implements Serializable{
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         projeto = (Projeto) session.getAttribute("projeto");
         session.removeAttribute("projeto");
+        modulos = new Modulos();
         if (projeto!=null){
             gerarListaModulos();
         }else{
