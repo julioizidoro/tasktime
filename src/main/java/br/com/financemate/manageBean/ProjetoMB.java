@@ -72,6 +72,7 @@ public class ProjetoMB implements Serializable{
     public void setListaCliente(List<Cliente> listaCliente) {
         this.listaCliente = listaCliente;
     }
+
     
     
     
@@ -82,13 +83,12 @@ public class ProjetoMB implements Serializable{
     }
   
     public String salvar() {
-        ProjetoFacade projetoFacade = new ProjetoFacade();
         ClienteFacade clienteFacade = new ClienteFacade();
         Cliente cliente = clienteFacade.consultar(idCliente);
         projeto.setCliente(cliente);
+        projeto.setSituacao("Ativo");
+        ProjetoFacade projetoFacade = new ProjetoFacade();
         projetoFacade.salvar(projeto);
-        projeto = new Projeto();
-        gerarListaProjeto();
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
         return "consProjeto";
@@ -125,4 +125,9 @@ public class ProjetoMB implements Serializable{
         return "consModulo";
     }
     
+    
+    public String vincularMembros(){
+        RequestContext.getCurrentInstance().openDialog("vincularMembros");
+        return "";
+    }
 }
