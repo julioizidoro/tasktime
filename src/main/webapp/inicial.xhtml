@@ -20,7 +20,7 @@
 
                     <p:dataTable id="tabelaAtividades" var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid"   rowStyleClass="#{AtividadeMB.atrasadas(tarefas.atividades) eq 'normal' ? 'letraPreta' : 
                                                         AtividadeMB.atrasadas(tarefas.atividades) eq 'atrasado' ? 'letraVermelha' :
-                                                        null}"  editable="true" editMode="cell" rowIndexVar="rowIx" style="width: 84%;">
+                                                        null}"  editable="true" editMode="cell" rowIndexVar="rowIx" style="width: 80%;">
                        
                         <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(event, tarefas.atividades)}" update=":inicial:tabelaAtividades" />
                        

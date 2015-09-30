@@ -18,7 +18,7 @@
                     <legend class="titulo" ><h:outputText value="#{AtividadeMB.titulo}" /></legend>
                     <br></br>
                     <p:dataTable id="tabelaAtividades" var="tarefas" value="#{AtividadeMB.listaAtividadesGeral}" class="dataGrid" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                                 editable="true" editMode="cell" rowIndexVar="rowIx" style="width: 84%;">
+                                 editable="true" editMode="cell" rowIndexVar="rowIx" style="width: 80%;">
                        
                         <p:ajax event="cellEdit"  listener="#{AtividadeMB.editar(this, tarefas.atividades)}" update=":atividades:tabelaAtividades" />
                         

@@ -121,4 +121,8 @@ public class ProjetoMB implements Serializable{
         return "";
     }
     
+    public String modulo(){
+        return "consModulo";
+    }
+    
 }
