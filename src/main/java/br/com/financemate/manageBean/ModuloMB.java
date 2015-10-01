@@ -88,7 +88,6 @@ public class ModuloMB implements Serializable{
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         session.setAttribute("modulos", modulos);
-        session.setAttribute("projeto", projeto);
         return "consAtividadeModulo";
    }
 }

@@ -28,12 +28,11 @@ public class AtividadeModuloMB implements Serializable{
     public void init(){
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        Projeto projeto = (Projeto) session.getAttribute("projeto");
         modulos = (Modulos) session.getAttribute("modulos");
         session.removeAttribute("modulos");
-        if (modulos==null){
-            modulos = new Modulos();
-            modulos.setProjeto(projeto);
+        if (atividademodulo==null){
+            atividademodulo = new Atividademodulo();
+            atividademodulo.setModulos(modulos);
             session.removeAttribute("projeto");
         }
         if (modulos!=null){
@@ -67,13 +66,20 @@ public class AtividadeModuloMB implements Serializable{
         this.modulos = modulos;
     }
     
-    public String novo(){
+    public String novo(Modulos modulos){
         atividademodulo = new Atividademodulo();
         AtividadeModuloFacade atividadeModuloFacade = new AtividadeModuloFacade();
+        atividademodulo.setDescricao("");
+        atividademodulo.setDatafinal(new Date());
         atividademodulo.setDataInicio(new Date());
         atividademodulo.setSituacao("Ativo");
+        atividademodulo.setModulos(modulos);
         atividadeModuloFacade.salvar(atividademodulo);
-        return "consAtividade";
+        modulos = atividademodulo.getModulos();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("modulos", modulos);
+        return "consAtividadeModulo";
     }
     
     public void gerarListaAtividades(){
@@ -90,6 +96,14 @@ public class AtividadeModuloMB implements Serializable{
         RequestContext.getCurrentInstance().openDialog("RACI");
         return "";
         
+    }
+    
+    public String voltar(Projeto projeto){
+        projeto = modulos.getProjeto();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("projeto", projeto);
+        return "consModulo";
     }
     
 }

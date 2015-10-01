@@ -17,10 +17,11 @@
                      <p:contextMenu for="tabelaModulo">
                          <p:menuitem value="Alterar"  icon=" ui-icon-pencil"  action="#{moduloMB.editar()}" />
                     </p:contextMenu>
-                      <p:dataTable id="tabelaModulo" var="consModulo" value="#{moduloMB.listaModulos}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                      <p:dataTable id="tabelaModulo" var="consModulo" value="#{moduloMB.listaModulos}" class="dataGridcadastro" 
                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                              paginator="true" rows="10"  selection="#{moduloMB.modulos}" selectionMode="single" rowKey="#{consModulo.idmodulos}" >
-                        <p:column headerText="Nome"  styleClass="border">
+                              paginator="true" rows="10"  selection="#{moduloMB.modulos}" selectionMode="single" rowKey="#{consModulo.idmodulos}" 
+                              >
+                        <p:column headerText="Nome"  styleClass="border" >
                             <h:outputText value="#{consModulo.nome}" />
                         </p:column>
 
@@ -39,7 +40,7 @@
                           </p:column>
                     </p:dataTable>
                     <br></br>
-                    <p:commandButton icon="	ui-icon-arrowreturnthick-1-w" value="Voltar" class="cadastro4" action="#{moduloMB.voltar()}" update="@all"/>
+                    <p:commandButton icon="	ui-icon-arrowreturnthick-1-w" value="Voltar" class="cadastro4" action="#{moduloMB.voltar()}" />
                     <br></br><br></br>
                    
                 </div>

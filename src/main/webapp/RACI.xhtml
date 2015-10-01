@@ -23,7 +23,7 @@
             <title>RACI</title> 
             <p:dataTable id="selecao" var="selecaoUsuario" value="#" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                                         paginator="true" rows="8"  rowIndexVar="rowIx">
+                                                         paginator="true" rows="8"  rowIndexVar="rowIx" style="margin-left: 8%;width: 85%">
                 
                 <p:column headerText="Usuarios" style="width:170px;" styleClass="border">
                     <h:outputText value="#" />
@@ -41,8 +41,8 @@
                     <p:selectBooleanCheckbox value="#"/>
                 </p:column>
             </p:dataTable>
-             <h:outputText value="R = Responsável   A = Autoridade   C = Consultado   I = Informado" />
-            <br/>
+             <h:outputText value="R = Responsável   A = Autoridade   C = Consultado   I = Informado" style="margin-left: 8%" />
+            <br/><br/>
             <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#" update="@all" ajax="true" title="Confirmar"/>
             <p:commandButton style="height:6%" icon="ui-icon-close" value="Cancelar" class="espaco2" action="#" update="@all" ajax="true" title="Cancelar"/>
 

@@ -44,12 +44,15 @@ public class CadModuloMB implements Serializable{
     
     
     
-    public String salvar(){
+    public String salvar(Projeto projeto){
         ModuloFacade moduloFacade = new ModuloFacade();  
         moduloFacade.salvar(modulos);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Cadastrado com Sucesso", ""));
-        modulos = new Modulos();
+        projeto = modulos.getProjeto();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("projeto", projeto);
         return "consModulo";
     }
     

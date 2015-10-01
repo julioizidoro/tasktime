@@ -18,9 +18,9 @@
                         <p:menuitem value="Alterar"  icon=" ui-icon-pencil"  action="#{projetoMB.editar()}" />
                         <p:menuitem value="Vincular Membros"  icon=" ui-icon-tag" action="#{projetoMB.vincularMembros()}"  />
                     </p:contextMenu>
-                      <p:dataTable id="tabelaProjeto" var="consProjeto" value="#{projetoMB.listaProjeto}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
-                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                              paginator="true" rows="10"  selection="#{projetoMB.projeto}" selectionMode="single" rowKey="#{consProjeto.idprojeto}" >
+                      <p:dataTable id="tabelaProjeto" var="consProjeto" value="#{projetoMB.listaProjeto}" class="dataGridcadastro"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                              paginator="true" rows="10"  selection="#{projetoMB.projeto}" selectionMode="single" rowKey="#{consProjeto.idprojeto}" 
+                              >
                         <p:column headerText="Nome"  styleClass="border">
                             <h:outputText value="#{consProjeto.nome}" />
                         </p:column>
@@ -31,9 +31,9 @@
                          <p:column headerText="Situação" styleClass="border">
                              <h:outputText value="#{consProjeto.situacao}" />
                         </p:column>
-                          <p:column style="width:90px;text-align: center;" styleClass="border">
-                              <p:commandButton value="Módulos" action="#{projetoMB.modulo(consProjeto)}"/>
-                        </p:column>
+                            <p:column style="width:90px;text-align: center;" styleClass="border">
+                                <p:commandButton value="Módulos" action="#{projetoMB.modulo(consProjeto)}"/>
+                          </p:column>
                     </p:dataTable>
                     <br></br>
                     
