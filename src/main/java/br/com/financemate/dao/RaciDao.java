@@ -28,10 +28,10 @@ public class RaciDao {
         return raci;
     }
     
-    public List<Raci> listar(String nome) throws SQLException{
+    public List<Raci> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select c from Raci c where c.nomefantasia like '%" +nome+ "%' order by c.nomefantasia");
+        Query q = manager.createQuery(sql);
         List<Raci> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;

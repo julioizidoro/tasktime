@@ -21,29 +21,29 @@
             </p:dialog>
             <p:growl id="growl" showDetail="true" sticky="true" />
             <title>RACI</title> 
-            <p:dataTable id="selecao" var="selecaoUsuario" value="#" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+            <p:dataTable id="tabelaMembros" var="raciMembros" value="#{raciMB.listaRaci}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                                          paginator="true" rows="8"  rowIndexVar="rowIx" style="margin-left: 8%;width: 85%">
                 
                 <p:column headerText="Usuarios" style="width:170px;" styleClass="border">
-                    <h:outputText value="#" />
+                    <h:outputText value="#{raciMembros.membros.usuario.nome}" />
                 </p:column>
                 <p:column  style="width:5px;" headerText="R" styleClass="alinhaCentro">
-                    <p:selectBooleanCheckbox value="#"/>
+                    <p:selectBooleanCheckbox value="#{raciMembros.r}"/>
                 </p:column>
                 <p:column  style="width:5px;" headerText="A" styleClass="alinhaCentro">
-                    <p:selectBooleanCheckbox value="#"/>
+                    <p:selectBooleanCheckbox value="#{raciMembros.a}"/>
                 </p:column>
                 <p:column  style="width:5px;" headerText="C" styleClass="alinhaCentro">
-                    <p:selectBooleanCheckbox value="#"/>
+                    <p:selectBooleanCheckbox value="#{raciMembros.c}"/>
                 </p:column>
                 <p:column  style="width:5px;" headerText="I" styleClass="alinhaCentro">
-                    <p:selectBooleanCheckbox value="#"/>
+                    <p:selectBooleanCheckbox value="#{raciMembros.i }"/>
                 </p:column>
             </p:dataTable>
-             <h:outputText value="R = Responsável   A = Autoridade   C = Consultado   I = Informado" style="margin-left: 8%" />
+             <h:outputText value="R = Responsável         A = Autoridade         C = Consultado         I = Informado" style="margin-left: 8%" />
             <br/><br/>
-            <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#" update="@all" ajax="true" title="Confirmar"/>
+            <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{raciMB.salvar(raciMB.atividademodulo.modulos)}" update="@all" ajax="true" title="Confirmar"/>
             <p:commandButton style="height:6%" icon="ui-icon-close" value="Cancelar" class="espaco2" action="#" update="@all" ajax="true" title="Cancelar"/>
 
             <br/><br/>

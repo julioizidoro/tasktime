@@ -33,7 +33,6 @@ public class AtividadeModuloMB implements Serializable{
         if (atividademodulo==null){
             atividademodulo = new Atividademodulo();
             atividademodulo.setModulos(modulos);
-            session.removeAttribute("projeto");
         }
         if (modulos!=null){
             gerarListaAtividades();
@@ -92,7 +91,10 @@ public class AtividadeModuloMB implements Serializable{
     }
     
     
-    public String raci(){
+    public String raci(Atividademodulo atividadesmodulo){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("atividademodulo", atividadesmodulo);
         RequestContext.getCurrentInstance().openDialog("RACI");
         return "";
         

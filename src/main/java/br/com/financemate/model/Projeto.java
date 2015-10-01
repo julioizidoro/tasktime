@@ -128,5 +128,6 @@ public class Projeto implements Serializable {
     public String toString() {
         return "br.com.financemate.model.Projeto[ idprojeto=" + idprojeto + " ]";
     }
+
     
 }

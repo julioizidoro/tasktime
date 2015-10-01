@@ -134,7 +134,7 @@ public class ProjetoMB implements Serializable{
         if (this.projeto!=null){
             FacesContext fc = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-            session.setAttribute("projeto", projeto);       
+            session.setAttribute("projeto", projeto);   
             return "cadProjeto";
         }
         return "";
