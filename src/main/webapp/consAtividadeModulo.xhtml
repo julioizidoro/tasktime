@@ -29,12 +29,12 @@
 
                           <p:column headerText="Data Inicial" styleClass="border" style="width: 70px;">
                               <p:cellEditor>
-                                <f:facet name="output"><p:calendar value="#{consAtividade.dataInicio}" >
+                                <f:facet name="output"><h:outputText value="#{consAtividade.dataInicio}" >
+                                                            <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                                         </h:outputText></f:facet>
+                                <f:facet name="input"><p:calendar id="dataInicio" value="#{consAtividade.dataInicio}" style="width:100%">
                                                             <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                                          </p:calendar></f:facet>
-                                <f:facet name="input"><p:inputText id="dataInicio" value="#{consAtividade.dataInicio}" style="width:100%">
-                                                            <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-                                                         </p:inputText></f:facet>
                             </p:cellEditor>  
                         </p:column>
                          <p:column headerText="Data Final" styleClass="border" style="width: 70px;">
@@ -42,9 +42,9 @@
                                  <f:facet name="output"><h:outputText value="#{consAtividade.datafinal}" >
                                                             <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                                                          </h:outputText></f:facet>
-                                <f:facet name="input"><p:inputText id="dataFinal" value="#{consAtividade.datafinal}" style="width:100%">
+                                <f:facet name="input"><p:calendar id="dataFinal" value="#{consAtividade.datafinal}" style="width:100%">
                                                             <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-                                                         </p:inputText></f:facet>
+                                                         </p:calendar></f:facet>
                             </p:cellEditor>  
                         </p:column>
                         <p:column headerText="RACI" styleClass="border" style="width:45px;">
