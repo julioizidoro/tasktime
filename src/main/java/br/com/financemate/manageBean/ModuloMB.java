@@ -80,12 +80,15 @@ public class ModuloMB implements Serializable{
             return "cadModulo";
     }
     
-    public String atividades(){
-        return "consAtividadesModulo";
-    }
     public String voltar(){
         return "consProjeto";
     }
     
-   
+   public String atividadesModulo(Modulos modulos){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("modulos", modulos);
+        session.setAttribute("projeto", projeto);
+        return "consAtividadeModulo";
+   }
 }

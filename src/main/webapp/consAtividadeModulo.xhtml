@@ -12,31 +12,36 @@
                     <p:growl id="growl2" showDetail="true" sticky="true" />
                       <legend class="titulo">Consulta de Atividade</legend>
                      <br></br>
-                     <img src="resources/img/ADD.jpg" width="20" height="20" style="margin-left: 60%"/> 
-                     <p:commandLink  value="Adicionar Atividade" styleClass="cadastro5" action="" />  
+                     <img src="resources/img/ADD.jpg" width="20" height="20" style="margin-left: 55%"/> 
+                     <p:commandLink  value="Adicionar Atividade" styleClass="cadastro5" action="#{atividadeModuloMB.novo()}" update="@all"  oncomplete="popAprovar.hide(); #{meuBean.objetos}" />  
                      <p:contextMenu for="tabelaAtividade">
                         <p:menuitem value="Alterar"  icon=" ui-icon-pencil"  action="#" />
-                        <p:menuitem value="Atividades"  icon=" ui-icon-tag" action="#"  />
+                        <p:menuitem value="Excluir"  icon=" ui-icon-tag" action="#"  />
                     </p:contextMenu>
-                      <p:dataTable id="tabelaAtividade" var="consAtividade" value="" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                     <p:dataTable id="tabelaAtividade" var="consAtividade" value="#{atividadeModuloMB.listaAtividadesModulo}" class="dataGridcadastro" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                              paginator="true" rows="10"  selection="" selectionMode="single" rowKey="" >
-                        <p:column headerText="Nome"  styleClass="border">
-                            <h:outputText value="" />
+                              paginator="true" rows="10"   >
+                        <p:column headerText="Descrição"  styleClass="border">
+                            <h:outputText value="#{consAtividade.descricao}" />
                         </p:column>
 
-                        <p:column headerText="Data Inicial" styleClass="border">
-                            <h:outputText value="" />
+                          <p:column headerText="Data Inicial" styleClass="border" style="width: 70px;">
+                              <h:outputText value="#{consAtividade.dataInicio}" >
+                                  <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                              </h:outputText>
                         </p:column>
-                         <p:column headerText="Data Final" styleClass="border">
-                             <h:outputText value="" />
+                         <p:column headerText="Data Final" styleClass="border" style="width: 70px;">
+                             <h:outputText value="#{consAtividade.datafinal}" >
+                                 <f:convertDateTime   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                             </h:outputText>
                         </p:column>
-                        <p:column headerText="RACI" styleClass="border">
-                             <h:outputText value="" />
+                        <p:column headerText="RACI" styleClass="border" style="width:45px;">
+                            <p:commandButton action="#" icon="ui-icon-search" />
                         </p:column>
-                         <p:column headerText="Situação" styleClass="border">
-                             <h:outputText value="" />
+                         <p:column headerText="Situação" styleClass="border" style="width:80px;">
+                             <h:outputText value="#{consAtividade.situacao}" />
                         </p:column>
+                         
                     </p:dataTable>
                     <br></br>
                     
