@@ -21,12 +21,28 @@
             </p:dialog>
             <p:growl id="growl" showDetail="true" sticky="true" />
             <title>RACI</title> 
+            <p:outputLabel value="Membros:"/>
+            <p:selectOneMenu id="departamento" value="#{raciMB.membros}" style="width:190px;margin-left: 1.5%" converter="MembrosConverter">
+                <f:selectItem itemLabel="Selecione" itemValue="0"   noSelectionOption="true"/>
+                <f:selectItems id="idMembros" value="#{raciMB.listaMembros}" var="listaUsuarios" itemLabel="#{listaUsuarios.usuario.nome}" itemValue="#{listaUsuarios}"/>
+                <f:attribute name="listaMembros" value="#{raciMB.listaMembros}"/>
+            </p:selectOneMenu>
+            <p:outputLabel value="R" style="margin-left: 3%"/>
+            <p:selectBooleanCheckbox value="#{raciMB.raci.r}" style="margin-left: 1%"/>
+            <p:outputLabel value="A" style="margin-left: 3%"/>
+            <p:selectBooleanCheckbox value="#{raciMB.raci.a}" style="margin-left: 1%"/>
+            <p:outputLabel value="C" style="margin-left: 3%"/>
+            <p:selectBooleanCheckbox value="#{raciMB.raci.c}" style="margin-left: 1%"/>
+            <p:outputLabel value="I" style="margin-left: 3%"/>
+            <p:selectBooleanCheckbox value="#{raciMB.raci.i}" style="margin-left: 1%"/>
+            <p:commandButton  icon="ui-icon-plusthick" action="#{raciMB.salvarRaci(raciMB.atividademodulo.modulos)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" style="margin-left:3%"/>
+            <br></br><br></br>
             <p:dataTable id="tabelaMembros" var="raciMembros" value="#{raciMB.listaRaci}" class="dataGriddialog" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                                          paginator="true" rows="8"  rowIndexVar="rowIx" style="margin-left: 8%;width: 85%">
                 
                 <p:column headerText="Usuarios" style="width:170px;" styleClass="border">
-                    <h:outputText value="#{raciMembros.membros.projeto.membrosList}" />
+                    <h:outputText value="#{raciMembros.membros.usuario.nome}" />
                 </p:column>
                 <p:column  style="width:5px;" headerText="R" styleClass="alinhaCentro">
                     <p:selectBooleanCheckbox value="#{raciMembros.r}"/>
@@ -38,10 +54,10 @@
                     <p:selectBooleanCheckbox value="#{raciMembros.c}"/>
                 </p:column>
                 <p:column  style="width:5px;" headerText="I" styleClass="alinhaCentro">
-                    <p:selectBooleanCheckbox value="#{raciMembros.i }"/>
+                    <p:selectBooleanCheckbox value="#{raciMembros.i}"/>
                 </p:column>
             </p:dataTable>
-             <h:outputText value="R = Responsável         A = Autoridade         C = Consultado         I = Informado" style="margin-left: 8%" />
+             <h:outputText value="R=Responsável         A=Autoridade         C=Consultado         I=Informado" style="margin-left: 8%" />
             <br/><br/>
             <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{raciMB.salvar(raciMB.atividademodulo.modulos)}" update="@all" ajax="true" title="Confirmar"/>
             <p:commandButton style="height:6%" icon="ui-icon-close" value="Cancelar" class="espaco2" action="#" update="@all" ajax="true" title="Cancelar"/>
