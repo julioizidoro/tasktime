@@ -133,6 +133,10 @@ public class MembrosMB implements Serializable{
         gerarListaMembros();
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Membro Adicionado", ""));
+        if (membros==null){
+            membros = new Membros();
+            membros.setProjeto(projeto);
+        }
     }
     
     
