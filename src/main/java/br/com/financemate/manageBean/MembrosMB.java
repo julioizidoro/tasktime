@@ -139,11 +139,7 @@ public class MembrosMB implements Serializable{
     
     
     public void excluir(String linha){
-        int nlinha = Integer.parseInt(linha);
-        if (nlinha>=0){
-            listaMembros.remove(nlinha);
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Excluido com Sucesso", ""));
-        }
+        MembrosFacade membrosFacade = new MembrosFacade();
+        membrosFacade.excluir(membros.getIdmembros());
     }
 }

@@ -42,7 +42,7 @@
                     <h:outputText value="#{listaMembros.usuario.email}" />
                 </p:column>
                 <p:column style="width:30px"  styleClass="border">
-                    <p:commandButton icon="ui-icon-trash" action="#{membrosMB.excluir(linha)}" update="tabelaListaMembros"/>
+                    <p:commandButton icon="ui-icon-trash" action="#{membrosMB.excluir(listaMembros)}" update="tabelaListaMembros"/>
                 </p:column>
             </p:dataTable>
             

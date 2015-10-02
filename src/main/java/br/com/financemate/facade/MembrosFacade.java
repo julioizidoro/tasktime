@@ -33,10 +33,10 @@ public class MembrosFacade {
         }
     }
     
-    public void excluir(int idUsuario) {
+    public void excluir(int idMembro) {
         membrosDao = new MembrosDao();
         try {
-            membrosDao.excluir(idUsuario);
+            membrosDao.excluir(idMembro);
         } catch (SQLException ex) {
             Logger.getLogger(MembrosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
