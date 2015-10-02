@@ -133,16 +133,17 @@ public class MembrosMB implements Serializable{
         gerarListaMembros();
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Membro Adicionado", ""));
-        if (membros==null){
-            membros = new Membros();
-            membros.setProjeto(projeto);
-        }
+        membros = new Membros();
+        membros.setProjeto(projeto);
     }
     
     
-    public void excluir(){
-        MembrosFacade membrosFacade = new MembrosFacade();
-        membrosFacade.excluir(idUsuario);
-        gerarListaMembros();
+    public void excluir(String linha){
+        int nlinha = Integer.parseInt(linha);
+        if (nlinha>=0){
+            listaMembros.remove(nlinha);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Excluido com Sucesso", ""));
+        }
     }
 }

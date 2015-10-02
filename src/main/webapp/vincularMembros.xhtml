@@ -30,7 +30,7 @@
             <br></br><br></br><br></br>
             <p:dataTable id="tabelaListaMembros" var="listaMembros" value="#{membrosMB.listaMembros}" style="width: 100%" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                                         paginator="true" rows="8"  rowIndexVar="rowIx">
+                                                         paginator="true" rows="8"  rowIndexVar="linha">
                 
                 <p:column headerText="Nome"  styleClass="border">
                     <h:outputText value="#{listaMembros.usuario.nome}" />
@@ -42,7 +42,7 @@
                     <h:outputText value="#{listaMembros.usuario.email}" />
                 </p:column>
                 <p:column style="width:30px"  styleClass="border">
-                    <p:commandButton icon="ui-icon-trash" action="#{membrosMB.excluir()}" update="tabelaListaMembros"/>
+                    <p:commandButton icon="ui-icon-trash" action="#{membrosMB.excluir(linha)}" update="tabelaListaMembros"/>
                 </p:column>
             </p:dataTable>
             
