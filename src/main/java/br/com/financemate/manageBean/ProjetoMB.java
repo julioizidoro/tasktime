@@ -148,10 +148,10 @@ public class ProjetoMB implements Serializable{
     }
     
     
-    public String vincularMembros() {
+    public String vincularMembros(Projeto projetos) {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        session.setAttribute("projeto", projeto);
+        session.setAttribute("projeto", projetos);
         RequestContext.getCurrentInstance().openDialog("vincularMembros");
         return "";
     }

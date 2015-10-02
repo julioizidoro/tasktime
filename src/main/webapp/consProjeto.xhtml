@@ -16,7 +16,7 @@
                       <p:commandLink  value="Adicionar Projeto" styleClass="cadastro5" action="#{projetoMB.novo()}" />  
                     <p:contextMenu for="tabelaProjeto">
                         <p:menuitem value="Alterar"  icon=" ui-icon-pencil"  action="#{projetoMB.editar()}" />
-                        <p:menuitem value="Vincular Membros"  icon=" ui-icon-tag" action="#{projetoMB.vincularMembros()}"  />
+                        <p:menuitem value="Vincular Membros"  icon="ui-icon-shuffle" action="#{projetoMB.vincularMembros(projetoMB.projeto)}"  />
                     </p:contextMenu>
                       <p:dataTable id="tabelaProjeto" var="consProjeto" value="#{projetoMB.listaProjeto}" class="dataGridcadastro"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                               paginator="true" rows="10"  selection="#{projetoMB.projeto}" selectionMode="single" rowKey="#{consProjeto.idprojeto}" 

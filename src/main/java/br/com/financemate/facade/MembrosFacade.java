@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.financemate.facade;
 
 import br.com.financemate.dao.MembrosDao;
@@ -12,10 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Julio
- */
+
 public class MembrosFacade {
     MembrosDao membrosDao;
     
@@ -31,13 +23,23 @@ public class MembrosFacade {
     }
     
     
-    public List<Membros> listar(String nome) {
+    public List<Membros> listar(String sql) {
         membrosDao = new MembrosDao();
         try {
-            return membrosDao.listar(nome);
+            return membrosDao.listar(sql);
         } catch (SQLException ex) {
             Logger.getLogger(MembrosFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
+    
+    public void excluir(int idUsuario) {
+        membrosDao = new MembrosDao();
+        try {
+            membrosDao.excluir(idUsuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(MembrosFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

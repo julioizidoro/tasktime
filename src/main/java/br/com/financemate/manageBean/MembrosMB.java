@@ -3,24 +3,50 @@ package br.com.financemate.manageBean;
 import br.com.financemate.facade.MembrosFacade;
 import br.com.financemate.facade.UsuarioFacade;
 import br.com.financemate.model.Membros;
+import br.com.financemate.model.Projeto;
 import br.com.financemate.model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 @Named
 @ViewScoped
 public class MembrosMB implements Serializable{
     
+    @Inject
+    private UsuarioLogadoBean usuarioLogadoBean;
     private List<Membros> listaMembros;
     private Membros membros;
     private List<Usuario> listaUsuario;
     private int idUsuario;
+    private Projeto projeto;
+    
+    @PostConstruct
+    public void init(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        projeto = (Projeto) session.getAttribute("projeto");
+        session.removeAttribute("projeto");
+        idUsuario = usuarioLogadoBean.getUsuario().getIdusuario();
+        if (membros==null){
+            membros = new Membros();
+            membros.setProjeto(projeto);
+        }
+        if (membros!=null){
+            gerarListaMembros();
+        }else{
+            listaMembros = new ArrayList<Membros>();
+        }
+    }
+    
 
     public int getIdUsuario() {
         return idUsuario;
@@ -29,8 +55,6 @@ public class MembrosMB implements Serializable{
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
-  
     
     public List<Membros> getListaMembros() {
         if (listaMembros==null){
@@ -61,6 +85,14 @@ public class MembrosMB implements Serializable{
     public void setMembros(Membros membros) {
         this.membros = membros;
     }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
     
     
     
@@ -74,7 +106,7 @@ public class MembrosMB implements Serializable{
     }
     
     public void gerarListaMembros() {
-        String sql = "Select m from Membros m order by m.idmembros";
+        String sql = "Select m from Membros m where m.projeto.idprojeto=" + projeto.getIdprojeto();
         MembrosFacade MembrosFacade = new MembrosFacade();
         listaMembros = MembrosFacade.listar(sql);
         if (listaMembros == null) {
@@ -88,14 +120,25 @@ public class MembrosMB implements Serializable{
         return "";
     }
     
-    public void adicionarMembro(){
+    public void adicionarMembro(Projeto projetos){
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario usuario = usuarioFacade.consultar(idUsuario);
         membros.setUsuario(usuario);
         MembrosFacade membrosFacade = new MembrosFacade();
         membrosFacade.salvar(membros);
+        membros = new Membros();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.setAttribute("projeto", projetos);
+        gerarListaMembros();
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Membro Adicionado", ""));
-        membros = new Membros();
+    }
+    
+    
+    public void excluir(){
+        MembrosFacade membrosFacade = new MembrosFacade();
+        membrosFacade.excluir(idUsuario);
+        gerarListaMembros();
     }
 }

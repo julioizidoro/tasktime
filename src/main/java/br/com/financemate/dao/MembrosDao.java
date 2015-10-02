@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.financemate.dao;
 
 import br.com.financemate.connection.ConectionFactory;
@@ -12,10 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-/**
- *
- * @author Julio
- */
+
 public class MembrosDao {
     
      public Membros salvar(Membros membros) throws SQLException{
@@ -29,12 +21,23 @@ public class MembrosDao {
     }
     
     
-    public List<Membros> listar(String nome) throws SQLException{
+    public List<Membros> listar(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("select c from Membros c where c.nomefantasia like '%" +nome+ "%' order by c.nomefantasia");
+        Query q = manager.createQuery(sql);
         List<Membros> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;
+    }
+    
+    public void excluir(int idUsuario) throws SQLException {
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("Select m from Membros m where m.usuario.idusuario=" + idUsuario);
+        if (q.getResultList().size()>0){
+            Membros membros = (Membros) q.getResultList().get(0);
+            manager.remove(membros);
+        }
+        manager.getTransaction().commit();
     }
 }

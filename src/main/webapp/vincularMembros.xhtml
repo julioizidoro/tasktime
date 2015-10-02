@@ -22,11 +22,12 @@
             <p:growl id="growl" showDetail="true" sticky="true" />
             <title>Vincular Membros</title> 
             <p:outputLabel value="Usuario:"/>
-            <p:selectOneMenu id="departamento" value="#{membrosMB.idUsuario}" class="left1" style="width:224px">
+            <p:selectOneMenu id="departamento" value="#{membrosMB.idUsuario}" style="width:224px;margin-left: 1.5%">
                 <f:selectItem itemLabel="Selecione" itemValue="sn"   />
                 <f:selectItems value="#{membrosMB.listaUsuario}" var="listaUsuarios" itemLabel="#{listaUsuarios.nome}" itemValue="#{listaUsuarios.idusuario}"/>
             </p:selectOneMenu>
-            <p:commandButton value="Adicionar" icon="ui-icon-plusthick" action="#{membrosMB.adicionarMembro()}" update="tabelaListaMembros"/>
+            <p:commandButton value="Adicionar" icon="ui-icon-plusthick" action="#{membrosMB.adicionarMembro(membrosMB.membros.projeto)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}" style="margin-left: 5%"/>
+            <br></br><br></br><br></br>
             <p:dataTable id="tabelaListaMembros" var="listaMembros" value="#{membrosMB.listaMembros}" style="width: 100%" editable="true" editMode="cell" rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                                          paginator="true" rows="8"  rowIndexVar="rowIx">
@@ -40,11 +41,14 @@
                 <p:column headerText="Email"  styleClass="border">
                     <h:outputText value="#{listaMembros.usuario.email}" />
                 </p:column>
+                <p:column style="width:30px"  styleClass="border">
+                    <p:commandButton icon="ui-icon-trash" action="#{membrosMB.excluir()}" update="tabelaListaMembros"/>
+                </p:column>
             </p:dataTable>
             
             <br/>
-            <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#" update="@all" ajax="true" title="Confirmar"/>
-            <p:commandButton style="height:6%" icon="ui-icon-close" value="Cancelar" class="espaco2" action="#" update="@all" ajax="true" title="Cancelar"/>
+            <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{membrosMB.salvar()}" update="@all" ajax="true" title="Confirmar"/>
+            <p:commandButton style="height:6%" icon="ui-icon-close" value="Cancelar" class="espaco2" action="#{membrosMB.salvar()}" update="@all" ajax="true" title="Cancelar"/>
 
             <br/><br/>
         </h:form>
