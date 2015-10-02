@@ -33,7 +33,7 @@ public class MembrosDao {
     public void excluir(int idMembro) throws SQLException {
         EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
-        Query q = manager.createQuery("Select m from Membros m where m.idmembro=" + idMembro);
+        Query q = manager.createQuery("Select m from Membros m where m.idmembros=" + idMembro);
         if (q.getResultList().size()>0){
             Membros membros = (Membros) q.getResultList().get(0);
             manager.remove(membros);

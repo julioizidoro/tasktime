@@ -138,8 +138,9 @@ public class MembrosMB implements Serializable{
     }
     
     
-    public void excluir(String linha){
+    public void excluir(Membros membros){
         MembrosFacade membrosFacade = new MembrosFacade();
         membrosFacade.excluir(membros.getIdmembros());
+        gerarListaMembros();
     }
 }
