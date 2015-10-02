@@ -25,7 +25,7 @@ public class RaciFacade {
         try {
             return raciDao.salvar(raci);
         } catch (SQLException ex) {
-            Logger.getLogger(MembrosFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RaciFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -35,10 +35,17 @@ public class RaciFacade {
         try {
             return raciDao.listar(nome);
         } catch (SQLException ex) {
-            Logger.getLogger(MembrosFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RaciFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
     
-    
+    public void excluir(int idRaci) {
+        raciDao = new RaciDao();
+        try {
+            raciDao.excluir(idRaci);
+        } catch (SQLException ex) {
+            Logger.getLogger(RaciFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

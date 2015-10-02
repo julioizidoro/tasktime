@@ -56,11 +56,14 @@
                 <p:column  style="width:5px;" headerText="I" styleClass="alinhaCentro">
                     <p:selectBooleanCheckbox value="#{raciMembros.i}"/>
                 </p:column>
+                <p:column style="width:30px"  styleClass="border">
+                    <p:commandButton icon="ui-icon-trash" action="#{raciMB.excluir(raciMembros)}" update="@all" oncomplete="popAprovar.hide(); #{meuBean.objetos}"/>
+                </p:column>
             </p:dataTable>
              <h:outputText value="R=Responsável         A=Autoridade         C=Consultado         I=Informado" style="margin-left: 8%" />
             <br/><br/>
-            <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{raciMB.salvar(raciMB.atividademodulo.modulos)}" update="@all" ajax="true" title="Confirmar"/>
-            <p:commandButton style="height:6%" icon="ui-icon-close" value="Cancelar" class="espaco2" action="#" update="@all" ajax="true" title="Cancelar"/>
+            <p:commandButton style="height:6%;margin-left:37%" value="Confirmar" icon="ui-icon-plusthick" class="botaoDialog" action="#{raciMB.confirmar()}" update="@all" ajax="true" title="Confirmar"/>
+            <p:commandButton style="height:6%" icon="ui-icon-close" value="Cancelar" class="espaco2" action="#{raciMB.confirmar()}" update="@all" ajax="true" title="Cancelar"/>
 
             <br/><br/>
         </h:form>

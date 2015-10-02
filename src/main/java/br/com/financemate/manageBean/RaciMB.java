@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 
 @Named
 @ViewScoped
@@ -124,5 +125,18 @@ public class RaciMB implements Serializable{
         if (listaMembros == null) {
             listaMembros = new ArrayList<Membros>();
          }
+    }
+    
+    public void excluir(Raci raci){
+        RaciFacade raciFacade = new RaciFacade();
+        raciFacade.excluir(raci.getIdraci());
+        gerarListaRaci();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Excluido com Sucesso", ""));
+    }
+    
+    public String confirmar(){
+        RequestContext.getCurrentInstance().closeDialog(null);
+        return "";
     }
 }

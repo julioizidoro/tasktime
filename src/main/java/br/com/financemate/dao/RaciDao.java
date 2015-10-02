@@ -6,6 +6,7 @@
 package br.com.financemate.dao;
 
 import br.com.financemate.connection.ConectionFactory;
+import br.com.financemate.model.Membros;
 import br.com.financemate.model.Raci;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,5 +36,16 @@ public class RaciDao {
         List<Raci> lista = q.getResultList();
         manager.getTransaction().commit();
         return lista;
+    }
+    
+    public void excluir(int idRaci) throws SQLException {
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("Select r from Raci r where r.idraci=" + idRaci);
+        if (q.getResultList().size()>0){
+            Raci raci = (Raci) q.getResultList().get(0);
+            manager.remove(raci);
+        }
+        manager.getTransaction().commit();
     }
 }
