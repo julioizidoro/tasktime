@@ -142,5 +142,8 @@ public class MembrosMB implements Serializable{
         MembrosFacade membrosFacade = new MembrosFacade();
         membrosFacade.excluir(membros.getIdmembros());
         gerarListaMembros();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Excluido com Sucesso", ""));
+        
     }
 }
