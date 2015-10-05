@@ -284,25 +284,25 @@ public class RotinaMB  implements Serializable{
             salvarNovaRotina();
         } else
             salvarEditarRotina();
-        atividadeMB.listarAtividadesDia();
-        atividadeMB.listarAtividadesAtrasadas();
-        atividadeMB.listarAtividadesDepartamento();
-        atividadeMB.listarAtividadesSemana();
-        atividadeMB.listarAtividadesAmanha();
-        atividadeMB.listarAtividadesDois();
-        atividadeMB.listarAtividadesTres();
-        atividadeMB.listarAtividadesQuatro();
-        atividadeMB.listarAtividadesCinco();
-        atividadeMB.listarAtividadesSeis();
-        atividadeMB.listarAtividadesSete();
-        atividadeMB.listarTodasAtividades();
-        rotina = new Rotina();
-        idUsuario="0";
-        idDepartamento="0";
-        idSubdepartamento="0";
-        prioridade="sn";
-        gerarListaRotina();
-        return "consRotina";
+            atividadeMB.listarAtividadesDia();
+            atividadeMB.listarAtividadesAtrasadas();
+            atividadeMB.listarAtividadesDepartamento();
+            atividadeMB.listarAtividadesSemana();
+            atividadeMB.listarAtividadesAmanha();
+            atividadeMB.listarAtividadesDois();
+            atividadeMB.listarAtividadesTres();
+            atividadeMB.listarAtividadesQuatro();
+            atividadeMB.listarAtividadesCinco();
+            atividadeMB.listarAtividadesSeis();
+            atividadeMB.listarAtividadesSete();
+            atividadeMB.listarTodasAtividades();
+            rotina = new Rotina();
+            idUsuario="0";
+            idDepartamento="0";
+            idSubdepartamento="0";
+            prioridade="sn";
+            gerarListaRotina();
+            return "consRotina";
     }
     
     public void salvarEditarRotina()  {

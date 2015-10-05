@@ -23,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 /**
@@ -43,9 +44,6 @@ public class Atividademodulo implements Serializable {
     @Size(max = 100)
     @Column(name = "descricao")
     private String descricao;
-    @Column(name = "dataInicio")
-    @Temporal(TemporalType.DATE)
-    private Date dataInicio;
     @Column(name = "datafinal")
     @Temporal(TemporalType.DATE)
     private Date datafinal;
@@ -57,6 +55,8 @@ public class Atividademodulo implements Serializable {
     @JoinColumn(name = "modulos_idmodulos", referencedColumnName = "idmodulos")
     @ManyToOne(optional = false)
     private Modulos modulos;
+    @Transient
+    private Date dataInicio;
 
     public Atividademodulo() {
     }
