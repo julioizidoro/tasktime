@@ -167,6 +167,10 @@ public class AtividadeModuloMB implements Serializable{
                 atividadeusuario.setUsuario(atividademodulos.getRaciList().get(i).getMembros().getUsuario());
                 atividades.setSubdepartamento(atividademodulos.getRaciList().get(i).getMembros().getUsuario().getSubdepartamento());
             }
+            if(atividademodulos.getRaciList().get(i).getR()==Boolean.FALSE){
+                atividadeusuario.setUsuario(usuarioLogadoBean.getUsuario());
+                atividades.setSubdepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento());
+            }
         }
         if(atividademodulos.getRaciList().size()==0){
             atividadeusuario.setUsuario(usuarioLogadoBean.getUsuario());
