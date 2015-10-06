@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CellEditEvent;
 
 @Named
 @ViewScoped
@@ -32,6 +33,8 @@ public class AtividadeModuloMB implements Serializable{
     
     @Inject
     private UsuarioLogadoBean usuarioLogadoBean;
+    @Inject
+    private AtividadeMB atividadeMB;
     private Atividademodulo atividademodulo;
     private List<Atividademodulo> listaAtividadesModulo;
     private Modulos modulos;
@@ -86,6 +89,14 @@ public class AtividadeModuloMB implements Serializable{
     public void setUsuarioLogadoBean(UsuarioLogadoBean usuarioLogadoBean) {
         this.usuarioLogadoBean = usuarioLogadoBean;
     }
+
+    public AtividadeMB getAtividadeMB() {
+        return atividadeMB;
+    }
+
+    public void setAtividadeMB(AtividadeMB atividadeMB) {
+        this.atividadeMB = atividadeMB;
+    }
     
     
     
@@ -133,32 +144,52 @@ public class AtividadeModuloMB implements Serializable{
         return "consModulo";
     }
     
-    public void salvarAtividade(Atividademodulo atividademodulos){
-       
+    public void salvarAtividade(CellEditEvent event, Atividademodulo atividademodulos){
         AtividadeFacade atividadeFacade = new AtividadeFacade();
         Projeto projeto = new Projeto();
+        projeto = atividademodulos.getModulos().getProjeto();
         Atividades atividades = new Atividades();
         atividades.setCliente(projeto.getCliente());
-        atividades.setNome(atividademodulo.getDescricao());
+        atividades.setNome(atividademodulos.getDescricao());
         atividades.setPrioridade("normal");
         atividades.setTipo("R");
         atividades.setEstado("Play");
         atividades.setInicio(BigInteger.valueOf(0));
         atividades.setTempo(0);
         atividades.setMostratempo("00:00");
-        atividades.setPrazo(atividademodulo.getDatafinal());
-        atividades = atividadeFacade.salvar(atividades);
+        atividades.setPrazo(atividademodulos.getDatafinal());
         Atividadeusuario atividadeusuario = new Atividadeusuario();
-        Raci raci = new Raci();
         atividadeusuario.setAtividades(atividades);
         atividadeusuario.setParticipacao("Executor");
         atividadeusuario.setSituacao(false);
-        if(raci.getR()){
-            atividadeusuario.setUsuario(raci.getMembros().getUsuario());
-            atividades.setSubdepartamento(raci.getMembros().getUsuario().getSubdepartamento());
+        for(int i=0;i<atividademodulos.getRaciList().size();i++){
+            if(atividademodulos.getRaciList().get(i).getR()){
+                atividadeusuario.setUsuario(atividademodulos.getRaciList().get(i).getMembros().getUsuario());
+                atividades.setSubdepartamento(atividademodulos.getRaciList().get(i).getMembros().getUsuario().getSubdepartamento());
+            }
+        }
+        if(atividademodulos.getRaciList().size()==0){
+            atividadeusuario.setUsuario(usuarioLogadoBean.getUsuario());
+            atividades.setSubdepartamento(usuarioLogadoBean.getUsuario().getSubdepartamento());
         }
         AtividadeUsuarioFacade atiUsuarioFacade = new AtividadeUsuarioFacade();
         atiUsuarioFacade.salvar(atividadeusuario);
+        atividades = atividadeFacade.salvar(atividades);
+        AtividadeModuloFacade atividadeModuloFacade = new AtividadeModuloFacade();
+        atividadeModuloFacade.salvar(atividademodulos);
+        atividadeMB.listarAtividadesDia();
+        atividadeMB.listarAtividadesAtrasadas();
+        atividadeMB.listarAtividadesDepartamento();
+        atividadeMB.listarAtividadesSemana();
+        atividadeMB.listarAtividadesAmanha();
+        atividadeMB.listarAtividadesDois();
+        atividadeMB.listarAtividadesTres();
+        atividadeMB.listarAtividadesQuatro();
+        atividadeMB.listarAtividadesCinco();
+        atividadeMB.listarAtividadesSeis();
+        atividadeMB.listarAtividadesSete();
+        atividadeMB.listarTodasAtividades();
+        atividademodulo = new Atividademodulo();
     }
     
 }
