@@ -34,7 +34,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="" style="width:190px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.departamento.nome}">
+                        <p:column headerText="" style="width:190px;" styleClass="alinhaCentro" sortBy="#{tarefas.atividades.subdepartamento.nome}">
                            <p:cellEditor>
                                 <f:facet name="output"> <h:outputText value="#{tarefas.atividades.subdepartamento.departamento.nome}" /></f:facet>
                                 <f:facet name="input"><p:selectOneMenu id="subdepartamento" value="#{AtividadeMB.idSubdepartamento}" style="width:100%">
